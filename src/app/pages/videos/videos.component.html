@@ -1,0 +1,54 @@
+   <div class="Weather_video">
+      <div class="container">
+        <div class="mian">
+          <div class="watch_list">
+            <div class="video_heading">
+              <h5>Watch Latest Weather Video</h5>
+              <h6>View More</h6>
+            </div>
+            <div class="video">
+              <div class="video_content" *ngFor="let item of videos">
+                <div class="videoYoutube">
+                  <iframe
+                    [src]="item.safeUrl"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <h5>
+                 {{item.title}}
+                </h5>
+                <span>
+                  {{item.description}}
+                </span>
+              </div>
+              <!-- <div class="video_content">
+                <div class="videoYoutube">
+                  <iframe
+                    src="https://www.youtube.com/embed/JVh4k3BGlLQ?si=okA4CWokeF_wavEl"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <h5>Unmatched audience engagement and insights.</h5>
+                <span>
+                  Leverage our extensive reach with over 16 million monthly page
+                  views.
+                </span>
+              </div> -->
+            </div>
+          </div>
+          <div class="ads">
+            <div class="Advertisement">
+              <h5>Advertisement</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,501 @@
+/* Variables for colors and common sizes */
+$color-primary-blue: #2563eb;
+$color-light-blue: #eff6ff;
+$color-dark-gray: #1f2937;
+$color-medium-gray: #4b5563;
+$color-light-gray: #f9fafb;
+$color-lighter-gray: #e5e7eb;
+$color-white: #ffffff;
+$color-orange: #fb923c; /* For sun icon */
+$color-yellow: #fbbf24; /* For sun icon */
+$color-light-orange: #f59e0b;
+$color-blue-400: #60a5fa;
+$color-blue-500: #3b82f6;
+$color-gray-500: #6b7280;
+$color-gray-400: #9ca3af;
+$color-gray-200: #e5e7eb;
+$color-gray-100: #f3f4f6;
+$color-blue-100: #dbeafe;
+$color-blue-200: #bfdbfe;
+
+$max-width-content: 1280px;
+
+/* Mixins for responsiveness */
+@mixin for-desktop {
+    @media (min-width: 768px) { @content; }
+}
+
+@mixin for-mobile {
+    @media (max-width: 767px) { @content; }
+}
+
+/* General Body Styles */
+:host {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: $color-light-gray;
+    line-height: 1.5;
+    color: $color-medium-gray;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+    display: block; /* Ensures the host element takes up space */
+}
+
+/* Header Section */
+.header-container {
+    background-color: $color-white;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.header-content {
+    max-width: $max-width-content;
+    margin: auto;
+    padding: 0.75rem 1rem;
+}
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: $color-medium-gray;
+
+    a {
+        color: $color-primary-blue;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .breadcrumbs-separator {
+        margin: 0 0.5rem;
+        color: $color-gray-400;
+        svg {
+            width: 1em;
+            height: 1em;
+        }
+    }
+}
+
+/* Main Content Wrapper */
+.main-content-wrapper {
+    max-width: $max-width-content;
+    margin: auto;
+    padding: 1.5rem 1rem;
+}
+
+/* Title Section */
+.title-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .back-button {
+        margin-right: 1rem;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+
+        svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: $color-medium-gray;
+        }
+    }
+
+    .main-title {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        font-weight: 600;
+        color: $color-dark-gray;
+
+        @include for-desktop {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+        }
+
+        .highlight {
+            color: $color-primary-blue;
+        }
+    }
+}
+
+/* Alphabet Filter Section */
+.alphabet-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $color-lighter-gray;
+
+    .filter-button {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: $color-medium-gray;
+        background-color: transparent;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &.all-cities {
+            color: $color-primary-blue;
+            background-color: $color-light-blue;
+        }
+
+        &:not(.all-cities):hover {
+            color: $color-primary-blue;
+            background-color: $color-light-blue;
+        }
+    }
+}
+
+/* Section Title */
+.section-title {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    color: $color-dark-gray;
+    margin-bottom: 1.5rem;
+}
+
+/* Top Cities Cards Container - Unified Responsive Layout */
+.top-city-cards {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to 1 column for mobile */
+    gap: 1rem; /* gap-4 for mobile */
+    margin-bottom: 2rem;
+
+    @include for-desktop {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem; /* gap-6 for desktop */
+    }
+}
+
+/* Top City Card Styles - Unified Responsive */
+.top-city-card {
+    border-radius: 0.75rem; /* rounded-xl */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+    padding: 1.5rem; /* p-6 */
+    display: flex;
+    flex-direction: column;
+
+    background-color: $color-white; /* Default white background for desktop */
+
+    @include for-mobile {
+        background-color: $color-gray-100; /* bg-gray-100 for mobile */
+        border-radius: 0.5rem; /* rounded-lg for mobile */
+        padding: 1rem; /* p-4 for mobile */
+    }
+
+    .city-name-header {
+        font-size: 1.125rem;
+        font-weight: 500;
+        color: $color-dark-gray;
+        padding: 0.25rem;
+        text-align: center;
+        background-color: $color-gray-200;
+        margin-bottom: 1rem;
+
+        @include for-mobile {
+            margin-bottom: 0.75rem;
+        }
+    }
+
+    .weather-overview {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+
+        @include for-mobile {
+            margin-bottom: 0.75rem;
+        }
+    }
+
+    /* Custom Sun/Cloud Icon CSS */
+    .weather-icon-sun-cloud {
+        width: 4rem; /* w-16 */
+        height: 4rem; /* h-16 */
+        position: relative;
+
+        @include for-mobile {
+              width: 4rem; /* w-16 */
+              height: 4rem; 
+        }
+
+        .sun-disk {
+            position: absolute;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(to top right, $color-yellow, $color-light-orange);
+            border-radius: 50%;
+            top: 0.25rem;
+            left: 0.25rem;
+            box-shadow: 0 4px 8px rgba(251, 191, 36, 0.4);
+
+            @include for-mobile {
+                width: 2rem;
+                height: 2rem;
+                top: 0.15rem;
+                left: 0.15rem;
+            }
+        }
+
+        .cloud-shape {
+            position: absolute;
+            width: 3.75rem;
+            height: 1.875rem;
+            background-color: $color-gray-100;
+            border-radius: 0.9375rem;
+            bottom: 0.5rem;
+            right: 0.25rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            @include for-mobile {
+                width: 2.5rem;
+                height: 1.25rem;
+                bottom: 0.25rem;
+                right: 0.15rem;
+            }
+
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                background-color: $color-gray-100;
+                border-radius: 50%;
+            }
+
+            &::before {
+                width: 2.5rem;
+                height: 2.5rem;
+                top: -1.25rem;
+                left: 0.5rem;
+
+                @include for-mobile {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    top: -0.75rem;
+                    left: 0.25rem;
+                }
+            }
+
+            &::after {
+                width: 2rem;
+                height: 2rem;
+                top: -0.75rem;
+                right: 0.25rem;
+
+                @include for-mobile {
+                    width: 1.25rem;
+                    height: 1.25rem;
+                    top: -0.5rem;
+                    right: 0.15rem;
+                }
+            }
+        }
+    }
+
+    .temperature-details {
+        margin-left: 1rem;
+
+        @include for-mobile {
+            margin-left: 0.75rem;
+        }
+
+        .current-temp {
+         font-family: Raleway;
+        font-weight: 700;
+        font-size: 24.95px;
+        line-height: 120%;
+        letter-spacing: -3%;
+        text-align: center;
+        vertical-align: middle;
+
+
+            @include for-mobile {
+              font-family: Raleway;
+                font-weight: 700;
+                font-size: 24.95px;
+                line-height: 120%;
+                letter-spacing: -3%;
+                text-align: center;
+                vertical-align: middle;
+
+            }
+
+            .sub-temp {
+                font-family: Raleway;
+                font-weight: 700;
+                font-size: 24.95px;
+                line-height: 120%;
+                letter-spacing: -3%;
+                text-align: center;
+                vertical-align: middle;
+
+                @include for-mobile {
+                    font-size: 1.25rem;
+                }
+            }
+            .celsius-unit {
+                font-size: 1.125rem;
+                @include for-mobile {
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        .sky-condition {
+            font-size: 0.875rem;
+            color: $color-medium-gray;
+        }
+    }
+
+    .weather-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        text-align: center;
+        font-size: 0.75rem;
+        color: $color-medium-gray;
+        gap: 1rem; /* gap-4 for desktop */
+
+        @include for-mobile {
+            gap: 0.75rem; /* gap-3 for mobile */
+        }
+
+        .stat-item {
+           img{
+            height: 20px;
+           }
+
+            .stat-value {
+                font-weight: 500;
+            }
+
+            .raindrop-icon { color: $color-blue-400; }
+            .humidity-icon { color: $color-blue-500; }
+            .wind-icon { color: $color-gray-500; }
+        }
+    }
+}
+
+/* All Cities Cards Container - Unified Responsive Layout */
+.all-city-cards {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to 1 column for mobile */
+    gap: 0.75rem; /* gap-3 for mobile */
+
+    @include for-desktop {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem; /* gap-5 for desktop */
+    }
+}
+
+/* All City Card Styles - Unified Responsive */
+.all-city-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid $color-lighter-gray;
+    transition: box-shadow 0.2s ease-in-out;
+
+    background-color: $color-blue-100; /* Default blue background for desktop */
+    border-radius: 0.75rem; /* rounded-xl */
+    padding: 0.75rem 0.75rem; /* px-3 py-2.5 */
+
+    &:hover {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    @include for-mobile {
+        background-color: $color-white; /* bg-white for mobile */
+        border-radius: 0.5rem; /* rounded-lg for mobile */
+        padding: 1rem; /* p-4 for mobile */
+    }
+
+    .city-info {
+        display: flex;
+        align-items: center;
+
+        @include for-mobile {
+            width: 100%;
+        }
+    }
+
+    .location-icon-wrapper {
+        border-radius: 9999px;
+        background-color: $color-blue-200;
+        width: 2rem;
+        height: 2rem;
+        margin-right: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @include for-mobile {
+            width: 1.75rem;
+            height: 1.75rem;
+        }
+
+        svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: $color-blue-500;
+
+            @include for-mobile {
+                width: 1.125rem;
+                height: 1.125rem;
+            }
+        }
+    }
+
+    .city-name {
+        font-weight: 700;
+        color: $color-dark-gray;
+
+        @include for-mobile {
+            font-family: Raleway;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 20px;
+            letter-spacing: -0.5%;
+            vertical-align: middle;
+
+        }
+    }
+
+    .temp-right-align {
+        text-align: right;
+
+        .temperature {
+           font-family: Raleway;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: -3%;
+    text-align: center;
+    vertical-align: middle;
+    font-family: Raleway;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: -3%;
+    text-align: center;
+    vertical-align: middle;
+
+            @include for-mobile {
+                font-weight: 700;
+            }
+        }
+
+        .sky-condition {
+            font-size: 0.875rem;
+            color: $color-medium-gray;
+        }
+    }
+}

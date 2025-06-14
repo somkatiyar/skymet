@@ -1,0 +1,34 @@
+<!-- Forcast ................................. -->
+<div class="forecast">
+  <div class="container">
+    <div class="today">
+      <h5>Today’s Forecast</h5>
+    </div>
+    <div class="fore_boxs owl-carousel forceCastBoxesCrowsel" id="hourlyData">
+      <div class="forecast_box" *ngFor="let item of hourlyData"
+       [ngStyle]="{ 'background':item.gradient }">
+        <p>{{item.ist}}</p>
+        <img [src]="item.iconImage" alt="" />
+        <h6>{{item.temp_max}}</h6>
+      </div>
+
+
+
+    </div>
+    <div class="btn_center">
+      <div class="btn">
+        <button>View 7 days forecast</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Adds -->
+<div class="adds">
+  <div class="container">
+    <div class="Advertisement">
+      <h5>Advertisement</h5>
+    </div>
+  </div>
+</div>
+

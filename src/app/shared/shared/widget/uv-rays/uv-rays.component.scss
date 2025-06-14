@@ -1,0 +1,56 @@
+ .uv-bar-container {
+      width: 100%;
+      position: relative;
+      margin-top: 30px;
+    }
+
+    .uv-bar {
+      display: flex;
+      height: 10px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .uv-segment {
+      flex: 1;
+      height: 100%;
+    }
+
+   .tick {
+     position: absolute;
+    top: -6px;
+    width: 9px;
+    height: 20px;
+    background-color: #3A3A3A;
+    border-radius: 10px;
+    transition: left 0.3s ease;
+    z-index: 99999;
+    padding: 2px;
+    border: 2px solid white;
+}
+
+    .tick-line {
+      position: absolute;
+      width: 2px;
+      height: 5px;
+      background: #000;
+      //top: -10px;
+    }
+
+    .label {
+      position: absolute;
+      font-size: 14px;
+      color: #333;
+      transform: translateX(-50%);
+      top: 10px;
+      height: 7px;
+      text-align: center;
+
+    }
+
+    .uv-1 { background-color: #69E244; }
+    .uv-2 { background-color: #FFD153; }
+    .uv-3 { background-color: #EF8433; }
+    .uv-4 { background-color: #EA3E25; }
+    .uv-5 { background-color: #90274E; }
+    .uv-6 { background-color: #771C23; }

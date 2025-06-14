@@ -1,0 +1,124 @@
+
+  <div class="container">
+    <div class="main_content">
+
+
+
+  <article >
+          <span class="title fw-semibold" >{{ post.title }}</span>
+          <span class="pubDate">
+            <div>
+            <small class="date">{{ (post && post.DateTime ? post.DateTime : post && post.updatedAt) |date }}, </small>
+            <small class="px-2 date">{{ (post && post.DateTime ? post.DateTime : post && post.updatedAt) |date: 'shortTime' }} </small>
+            <small class="author">
+              | <span class="ps-2">Skymet Weather Team</span>
+            </small>
+            </div>
+                   <div class="icons">
+                        <img src="https://img.icons8.com/ios-filled/50/whatsapp.png" alt="WhatsApp icon" title="Share on WhatsApp" />
+                        <img src="https://img.icons8.com/material-outlined/48/share.png" alt="Share icon" title="Share" />
+                    </div>
+          </span>
+          <div class="bannerImg">
+            <img
+              (error)="dataService.onError($event)"
+              [src]="post?.thumbnail_image"
+              alt="thumbnail image"
+              class="img-fluid w-100 rounded-2"
+            />
+            <p *ngIf="post?.caption" class="credit" >{{post?.caption}}</p>
+          </div>
+          <div class="mainBodyContent">
+            <div
+              class="card border-0 bg-transparent"
+              *ngFor="let content of post.content"
+            >
+              <ng-container [ngSwitch]="content.type">
+                <h3 class="innerTitle" *ngSwitchCase="'heading'">
+                  <ng-container *ngFor="let child of content.children">
+                    <span
+                    [ngStyle]="{
+                      'font-weight': child.bold ? 'bold' : 'normal',
+                      'font-style': child.italic ? 'italic' : 'normal',
+                      'text-decoration': child.underline ? 'underline' : 'none'
+                    }"
+                  >
+                    {{ child.text }}
+                  </span>
+                    </ng-container
+                  >
+                </h3>
+  
+                <p *ngSwitchCase="'paragraph'"  class="innerTextPara mt-3 mb-0">
+                  <ng-container *ngFor="let child of content.children">
+                    <span
+                      [ngStyle]="{ 'font-weight': child.bold ? 'bold' : 'normal', 'font-style': child.italic ? 'italic' : 'normal' }"
+                      >{{ child.text }}</span
+                    >
+                    <ng-container *ngIf="child.type === 'link'; else textContent">
+                      <a [href]="child.url" target="_blank"
+                        >{{ child.children[0]?.text }}</a
+                      >
+                    </ng-container>
+                    <ng-template #textContent> </ng-template>
+                  </ng-container>
+                </p>
+  
+                <ng-container *ngIf="content.format === 'unordered'" >
+                  <ul *ngSwitchCase="'list'" >
+                    <li *ngFor="let item of content.children">
+                      <ng-container *ngFor="let child of item.children"
+                        >{{ child.text }}</ng-container
+                      >
+                    </li>
+                  </ul>
+                </ng-container>
+  
+                <ng-container *ngIf="content.format === 'ordered'" >
+                  <ol *ngSwitchCase="'list'" >
+                    <li *ngFor="let item of content.children">
+                      <ng-container *ngFor="let child of item.children"
+                        >{{ child.text }}</ng-container
+                      >
+                    </li>
+                  </ol>
+                </ng-container>
+  
+                <img
+                  (error)="dataService.onError($event)"
+                  class="newsInnerImage rounded-2 mt-4"
+                  *ngSwitchCase="'image'"
+                  [src]="content.image.url"
+                  [alt]="content.image.alternativeText"
+                />
+                <ng-container *ngIf="post?.caption">
+                  <p *ngSwitchCase="'image'"  class="credit" >{{content.image.caption}}</p>
+                </ng-container>
+              
+                <a *ngSwitchCase="'link'" [href]="content.url" target="_blank" >
+                  <ng-container *ngFor="let child of content.children"
+                    >{{ child.text }}</ng-container
+                  >
+                </a>
+                <div
+                class="iframe-container"
+                *ngSwitchCase="'code'"
+                [innerHTML]="sanitizeHtml(content.children[0]?.text)"
+              ></div>
+              </ng-container>
+            </div>
+          </div>
+        </article>
+
+    <div class="feedback">
+      <p>Was this article helpful?</p>
+      <div class="emoji-options">
+        <span title="Not helpful">😞</span>
+        <span title="Neutral">😐</span>
+        <span title="Helpful">😊</span>
+      </div>
+    </div>
+  </div>
+  </div>
+
+

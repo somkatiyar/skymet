@@ -1,0 +1,355 @@
+<!-- Header -->
+<div class="header-container">
+    <div class="header-content">
+        <div class="breadcrumbs">
+            <a href="#">Home</a>
+            <span class="breadcrumbs-separator">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 18l6-6l-6-6"/>
+                </svg>
+            </span>
+            <span>New Delhi</span>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content-wrapper">
+    <!-- Title Section -->
+    <div class="title-section">
+        <button class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-left">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="m14 16l-4-4l4-4"/>
+            </svg>
+        </button>
+        <h1 class="main-title">
+            Weather in <span class="highlight">Maharashtra, India</span>
+        </h1>
+    </div>
+
+    <!-- Alphabet Filter -->
+    <div class="alphabet-filter">
+        <button class="filter-button all-cities">All Cities</button>
+        <button class="filter-button">A</button>
+        <button class="filter-button">B</button>
+        <button class="filter-button">C</button>
+        <button class="filter-button">D</button>
+        <button class="filter-button">E</button>
+        <button class="filter-button">F</button>
+        <button class="filter-button">G</button>
+        <button class="filter-button">H</button>
+        <button class="filter-button">I</button>
+        <button class="filter-button">J</button>
+        <button class="filter-button">K</button>
+        <button class="filter-button">L</button>
+        <button class="filter-button">M</button>
+        <button class="filter-button">N</button>
+        <button class="filter-button">O</button>
+        <button class="filter-button">P</button>
+        <button class="filter-button">Q</button>
+        <button class="filter-button">R</button>
+        <button class="filter-button">S</button>
+        <button class="filter-button">T</button>
+        <button class="filter-button">U</button>
+        <button class="filter-button">V</button>
+        <button class="filter-button">W</button>
+        <button class="filter-button">X</button>
+        <button class="filter-button">Y</button>
+        <button class="filter-button">Z</button>
+    </div>
+
+    <!-- Top Cities Section -->
+    <div class="top-cities-section">
+        <h2 class="section-title">Top Cities</h2>
+        
+        <!-- Unified Layout for Top Cities - Responsive -->
+        <div class="top-city-cards">
+            <!-- Mumbai -->
+            <div class="top-city-card">
+                <h3 class="city-name-header">Mumbai</h3>
+                <div class="weather-overview">
+                    <!-- Custom Sun/Cloud Icon -->
+                    <div class="weather-icon-sun-cloud">
+                        <img src="./img/day/sunny.webp" alt="">
+                    </div>
+                    <div class="temperature-details">
+                        <div class="current-temp">42<span class="sub-temp">/22</span><span class="celsius-unit">°C</span></div>
+                        <div class="sky-condition">Clear sky</div>
+                    </div>
+                </div>
+                <div class="weather-stats">
+                    <div class="stat-item">
+                        <img src="./img/rain.svg" alt="Rain chances">
+                        <div>Rain chances</div>
+                        <div class="stat-value">20%</div>
+                    </div>
+                    <div class="stat-item">
+                        <img src="./img/huminity.svg" alt="Humidity">
+                        <div>Humidity</div>
+                        <div class="stat-value">20%</div>
+                    </div>
+                    <div class="stat-item">
+                     <img src="./img/wind.svg" alt="Wind speed">
+                        <div>Wind speed</div>
+                        <div class="stat-value">NS 12 m/s</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pune -->
+            <div class="top-city-card">
+                <h3 class="city-name-header">Pune</h3>
+                <div class="weather-overview">
+                    <div class="weather-icon-sun-cloud">
+                        <div class="sun-disk"></div>
+                        <div class="cloud-shape"></div>
+                    </div>
+                    <div class="temperature-details">
+                        <div class="current-temp">42<span class="sub-temp">/22</span><span class="celsius-unit">°C</span></div>
+                        <div class="sky-condition">Clear sky</div>
+                    </div>
+                </div>
+                <div class="weather-stats">
+                    <div class="stat-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="raindrop-icon">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2z"/>
+                        </svg>
+                        <div>Rain chances</div>
+                        <div class="stat-value">20%</div>
+                    </div>
+                    <div class="stat-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="humidity-icon">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2z"/>
+                            <path d="M12 8c-1.1 0-2 .9-2 2h4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                        <div>Humidity</div>
+                        <div class="stat-value">20%</div>
+                    </div>
+                    <div class="stat-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wind-icon">
+                            <path d="M12 22C6.48 22 2 17.52 2 12s4.48-10 10-10 10 4.48 10 10-4.48 10-10 10z"/>
+                            <path d="M12 6l-6 6h4v4h4v-4h4l-6-6z"/>
+                        </svg>
+                        <div>Wind speed</div>
+                        <div class="stat-value">NS 12 m/s</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nashik -->
+            <div class="top-city-card">
+                <h3 class="city-name-header">Nashik</h3>
+                <div class="weather-overview">
+                    <div class="weather-icon-sun-cloud">
+                        <div class="sun-disk"></div>
+                        <div class="cloud-shape"></div>
+                    </div>
+                    <div class="temperature-details">
+                        <div class="current-temp">42<span class="sub-temp">/22</span><span class="celsius-unit">°C</span></div>
+                        <div class="sky-condition">Clear sky</div>
+                    </div>
+                </div>
+                <div class="weather-stats">
+                    <div class="stat-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="raindrop-icon">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2z"/>
+                        </svg>
+                        <div>Rain chances</div>
+                        <div class="stat-value">20%</div>
+                    </div>
+                    <div class="stat-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="humidity-icon">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2z"/>
+                            <path d="M12 8c-1.1 0-2 .9-2 2h4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                        <div>Humidity</div>
+                        <div class="stat-value">20%</div>
+                    </div>
+                    <div class="stat-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wind-icon">
+                            <path d="M12 22C6.48 22 2 17.52 2 12s4.48-10 10-10 10 4.48 10 10-4.48 10-10 10z"/>
+                            <path d="M12 6l-6 6h4v4h4v-4h4l-6-6z"/>
+                        </svg>
+                        <div>Wind speed</div>
+                        <div class="stat-value">NS 12 m/s</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- All Cities Section -->
+    <div class="all-cities-section">
+        <h2 class="section-title">All Cities</h2>
+        
+        <!-- Unified Layout for All Cities - Responsive -->
+        <div class="all-city-cards">
+            <!-- Akola -->
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Akola</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+
+            <!-- Agartala -->
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Agartala</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+
+            <!-- Ahiri -->
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Ahiri</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+
+            <!-- Ahmednagar -->
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Ahmednagar</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+
+            <!-- Second row - duplicates for layout demonstration -->
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Agartala</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Ahiri</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Ahmednagar</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+
+            <!-- Third row - duplicates for layout demonstration -->
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Agartala</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Agartala</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Agartala</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+            <div class="all-city-card">
+                <div class="city-info">
+                    <div class="location-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                        </svg>
+                    </div>
+                    <span class="city-name">Ahiri</span>
+                </div>
+                <div class="temp-right-align">
+                    <div class="temperature">42°C/22°C</div>
+                    <div class="sky-condition">Clear sky</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

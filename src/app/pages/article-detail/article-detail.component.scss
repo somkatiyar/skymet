@@ -1,0 +1,161 @@
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+
+    .main_content {
+        margin-top: 110px;
+
+
+    }
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.subheader {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+
+
+
+}
+
+.date {
+    height: 24px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.5%;
+
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.icons img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.main-image {
+    width: 100%;
+    border-radius: 12px;
+    margin: 20px 0;
+    object-fit: cover;
+}
+
+.section {
+    border-top: 1px solid #333;
+    padding: 25px 0;
+}
+
+.section h2 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    opacity: 0.85;
+}
+
+.section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.feedback {
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    margin-top: 40px;
+}
+
+.feedback p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.emoji-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 24px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    .section h2 {
+        font-size: 1.2rem;
+    }
+
+    .section p {
+        font-size: 0.95rem;
+    }
+
+    .icons img {
+        width: 20px;
+        height: 20px;
+    }
+    article {
+    .title {
+       font-size: 28px !important;
+    line-height: 28px !important;
+    }}
+
+}
+
+.pubDate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .date {
+        font-size: 16px !important;
+    }
+
+}
+
+article {
+    .title {
+        font-size: 32px;
+        line-height: 38px;
+        font-weight: 900;
+        font-size: 40px;
+        line-height: 30px;
+        color: black;
+    }
+
+    .innerTextPara {
+        span {
+            font-size: 18px;
+            color: black;
+        }
+
+        a {
+            color: blue !important;
+            text-decoration: underline;
+            font-size: 24px;
+            line-height: 45px;
+            font-family: Open Sans;
+            color: #000;
+            font-weight: 400;
+        }
+    }
+}

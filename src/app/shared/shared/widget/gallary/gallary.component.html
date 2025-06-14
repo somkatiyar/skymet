@@ -1,0 +1,18 @@
+<div class="container" style="padding: 20px;">
+     <div class="wetherMapArea" style="    position: relative;
+    margin-top: 73px;
+    padding: 100px;">
+              <div class="btn_map" style="    left: 28%;">
+                <ul>
+                  <li (click)="changeSatelliteImages('himawari')" class="hover">HIMAWARI</li>
+                  <li (click)="changeSatelliteImages('insat')">INSAT</li>
+                  <li (click)="changeSatelliteImages('Rainfall')">RAINFALL</li>
+                </ul>
+              </div>
+              <div class="icons_6 owl-carousel owl-theme rainCrowsel" id="icons-4">
+                <div class="map" *ngFor="let item of rainfallImages">
+                  <img [src]="item" alt="" style="height:400px"/>
+                </div>
+              </div>
+   </div>
+</div>

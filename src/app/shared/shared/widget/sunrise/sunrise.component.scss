@@ -1,0 +1,32 @@
+.sun-container {
+  position: relative;
+  width: 200px;
+  height: 120px;
+  margin: 0 auto;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.tick-line {
+  stroke: #FF9000;
+  border: 1.69px solid #FF9000;
+}
+
+.sun-icon {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+#sunGradient{
+background: linear-gradient(180deg, #FFE475 0%, rgba(255, 228, 117, 0) 38.42%);
+background: linear-gradient(180deg, #FFE475 0%, rgba(255, 228, 117, 0) 38.42%);
+border: 0.26px solid rgba(255, 144, 0, 1)
+}
+

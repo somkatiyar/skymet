@@ -1,0 +1,41 @@
+
+      <div class="updates">
+      <div class="container">
+        <div class="update_heading">
+          <h5>{{weatherNewsHeaderConfig && weatherNewsHeaderConfig.title}}</h5>
+          <ul *ngIf="weatherNewsHeaderConfig && weatherNewsHeaderConfig.isLanguagesSelecter">
+            <li class="active" (click)="onLanguageChange('english')">English</li>
+            <li (click)="onLanguageChange('Hindi')">Hindi</li>
+          </ul>
+
+        <div *ngIf="weatherNewsHeaderConfig && weatherNewsHeaderConfig.isHeaderView">
+          <div class="btn">
+            <button>view More</button>
+          </div>
+        </div>
+        </div>
+        <div class="main_content">
+          <div class="update_content" *ngFor="let item of weatherNews">
+            <a href="">
+              <div class="image">
+                <img [src]="item.thumbnail" alt="" />
+              </div>
+         
+                 <p>{{item.title}}</p>
+            
+              <div class="date">
+            <span>{{dataService.formatDateTrending(item.DateTime)}}</span>
+                <img src="./img/whatapp.png" alt="" />
+              </div>
+            </a>
+          </div>
+
+         
+        </div>
+        <div class="btn_center" *ngIf="weatherNewsHeaderConfig && weatherNewsHeaderConfig.isFooterView">
+          <div class="btn">
+            <button>view More</button>
+          </div>
+        </div>
+      </div>
+    </div>

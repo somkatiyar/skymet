@@ -1,0 +1,196 @@
+<div class="resourcesSwiper_banner">
+  <div class="swiper resourcesSwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let item of allArticles">
+        <img class="satelliteImage" [src]="item.thumbnail" alt=""/>
+        <div class="container">
+          <div class="youtube">
+            <img src="./img/youtube_voice.svg" alt="" />
+            <h6>Youtube</h6>
+          </div>
+          <h1>{{item.title}}</h1>
+          <h6 class="banner_para">
+            {{item.description}}
+          </h6>
+          <div class="swiper-pagination"></div>
+          <div class="watch">
+            <h6>Watch Now</h6>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+<div class="top_channel">
+  <div class="container">
+    <h4>Top Channels</h4>
+    <div class="swiper channel">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" >
+          <div class="channel_card">
+            <img src="./img/channel_img.svg" alt="" />
+            <h6>Skymet location</h6>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="channel_card">
+            <img src="./img/channel_img.svg" alt="" />
+            <h6>Skymet location</h6>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="channel_card">
+            <img src="./img/channel_img.svg" alt="" />
+            <h6>Skymet location</h6>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="channel_card">
+            <img src="./img/channel_img.svg" alt="" />
+            <h6>Skymet location</h6>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="channel_card">
+            <img src="./img/channel_img.svg" alt="" />
+            <h6>Skymet location</h6>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="channel_card">
+            <img src="./img/channel_img.svg" alt="" />
+            <h6>Skymet location</h6>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="channel_card">
+            <img src="./img/channel_img.svg" alt="" />
+            <h6>Skymet location</h6>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="channel_card">
+            <img src="./img/channel_img.svg" alt="" />
+            <h6>Skymet location</h6>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="channel_card">
+            <img src="./img/channel_img.svg" alt="" />
+            <h6>Skymet location</h6>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="channel_card">
+            <img src="./img/channel_img.svg" alt="" />
+            <h6>Skymet location</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="Articles">
+  <div class="container">
+    <div class="tittle">
+      <h4>Latest News and Articles Just for You</h4>
+      <div class="days">
+        <p>News</p>
+        <p>Articles</p>
+      </div>
+    </div>
+
+    <div class="main_content">
+   <div class="swiper weatherNewsSwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide Articles_card" *ngFor="let item of weatherNewsList">
+          <img [src]="item.thumbnail" alt="" />
+        <p class="catch">Weather News</p>
+
+        <span class="dates">{{dataService.formatDateArticleList(item.DateTime)}}</span>
+        <h6 class="heading two-line-ellipsis">
+          {{item.title}}
+        </h6>
+        <p class="two-line-ellipsis">
+       {{item.description}}
+        </p>
+       <div class="bottom" style="display: flex;flex-flow: row;">
+         <h6 class="Read_More_btn">Read More &#x2794;</h6>
+        <img class="WhatsApp" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+        
+       </div>
+      </div>
+      </div>
+   </div>
+    </div>
+    <div class="main_content">
+   <div class="swiper climateChange">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide Articles_card" *ngFor="let item of climateChangeList">
+          <img [src]="item.thumbnail" alt="" />
+        <p class="catch">Climate Change</p>
+
+        <span class="dates">{{dataService.formatDateArticleList(item.DateTime)}}</span>
+        <h6 class="heading two-line-ellipsis">
+          {{item.title}}
+        </h6>
+        <p class="two-line-ellipsis">
+       {{item.description}}
+        </p>
+        <h6 class="Read_More_btn">Read More &#x2794;</h6>
+        </div>
+      </div>
+   </div>
+    </div>
+    <div class="btn_center">
+      <div class="btn">
+        <button>Learn More</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="videos">
+  <div class="container">
+    <h4>Videos for you</h4>
+    <div class="main_content">
+
+   <div class="swiper videos" #videosSwiperContainer>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide video_card" *ngFor="let item of videos">
+             <iframe
+                    [src]="item.safeUrl"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="compute-pressure accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                  ></iframe>
+        </div>
+      </div>
+   </div>
+
+      <!-- <div class="video_card" *ngFor="let item of videos">
+          <iframe
+                    [src]="item.safeUrl"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                  ></iframe>
+
+
+      </div> -->
+    
+    </div>
+<div class="btn_center">
+      <div class="btn">
+        <button>Learn More</button>
+      </div>
+    </div>
+  </div>
+</div>

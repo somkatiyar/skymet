@@ -1,0 +1,20 @@
+
+    .outer {
+      width: 38px;
+      height: 134px;
+      border-radius: 78.43px;
+      background: #F5F5F5;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .inner {
+      width: 38px;
+      height: 54px; /* default height */
+      border-radius: 78.43px 78.43px 0 0; /* rounded top corners only */
+      background: #DEC042;
+      position: absolute;
+      bottom: 0; /* stick to bottom */
+      left: 0;
+      transition: height 0.5s ease;
+    }

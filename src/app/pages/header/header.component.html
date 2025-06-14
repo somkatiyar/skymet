@@ -1,0 +1,69 @@
+
+
+   <div class="Header" id="Header">
+      <div class="container_2">
+        <div class="header_content">
+          <div class="tog_log">
+            <div class="toggle_icon">
+              <div class="toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+            </div>
+            <div class="logo">
+              <img src="./img/logo.png" alt="" />
+            </div>
+          </div>
+          <div class="search_Nav">
+            <form [formGroup]="searchForm"> 
+            <div class="search" id="searchBox">
+              <div class="lanc">
+                <img src="./img/Vector.svg" alt="" />
+              </div>
+              <input type="text" placeholder="Search city..."
+               (input)="onSearch($event)"
+               formControlName="searchCtrl" />
+              <div class="mic">
+                <img src="./img/mic.png" alt="" (click)="startListening()"/>
+              </div>
+
+              <div class="listing" *ngIf="locations" #locationList>
+                <div class="list">
+                  <p *ngFor="let item of locations">
+                  {{ item["loc"]["names"]["en"].split(",")[0] =='' ? item["loc"]["names"]["en"].split(",").slice(1,4).join(",") : item["loc"]["names"]["en"]}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            </form>
+            <div class="navmenu" id="menulink">
+              <ul> 
+                <li><a href="">{{ "Home" | translate }}</a></li>
+                <li><a [routerLink]="['/forecast-map']">Forecast Map</a></li>
+                <li><a [routerLink]="['/resources']">Resources</a></li>
+                <li><a [routerLink]="['/himawari-latest-satellite-images-of-india']">Satellite</a></li>                <li><a href="">Advertise with us</a></li>
+                <li><a href="">Contact Us</a></li>
+                <li>
+                  <select (change)="onLanguagesChange($event)">
+                    <option name="English" value="en">English</option>
+                    <option name="Hindi" value="hi">Hindi</option>
+                    <option name="Marathi" value="mr">Marathi</option>
+                  </select>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="lanc_only" (click)="toggleSearch()">
+            <div id="search_icon">
+              <img src="./img/Vector.svg" alt="" />
+            </div>
+            <div id="close">
+              X
+              <!-- <img src="./img/close.png" alt=""> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

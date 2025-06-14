@@ -1,0 +1,59 @@
+ <!-- <div class="news_con">
+            <div class="news_card" *ngFor="let item of trendingNews">
+              <img [src]="item.thumbnail" alt="" />
+              <div class="news-content">
+                <div class="source">
+                  <span>JioNews</span>
+                  <p class="badge">News</p>
+                </div>
+                <div class="title">
+                  <p>
+                    {{item.title}}
+                  </p>
+                </div>
+                <div class="date_share">
+                  <span> {{dataService.formatDateTrending(item.DateTime)}}</span>
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="16" />
+                </div>
+              </div>
+            </div>
+         
+            <div class="btn">
+              <button>View More</button>
+            </div>
+          </div> -->
+
+
+
+
+            <div class="news_con">
+              <a href="" *ngFor="let item of trendingNews">
+                <div class="news_card">
+                   <img [src]="item.thumbnail" alt="" />
+                 <!-- <img src="./img/new1.jpg" alt="" /> -->
+                   <div class="news-content">
+                    <div class="source">
+                      <span>JioNews</span>
+                      <p class="badge">News</p>
+                    </div>
+                    <div class="title">
+                      <p>
+                      {{item.title}}
+                      </p>
+                    </div>
+                    <div class="date_share">
+                      <span> {{dataService.formatDateTrending(item.DateTime)}}</span>
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                        width="16"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+              <div class="btn">
+                <button>View More</button>
+              </div>
+            </div>
+       

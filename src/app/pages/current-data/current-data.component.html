@@ -1,0 +1,85 @@
+<div class="hero_section">
+  <div class="container">
+    <div class="location">
+      <img src="./img/location.png" alt="" />
+      <h3>{{forecastData?.metainfo?.TEHSIL_ALIAS_NAME}}</h3>
+    </div>
+    <div class="weather">
+      <div class="weat_icon">
+        <img [src]="forecastData?.actual?.iconImage" alt="" />
+        <h6>{{forecastData?.actual?.description}}</h6>
+      </div>
+      <div class="weather_tem">
+        <h1>{{forecastData?.actual?.tmp}}°C</h1>
+        <p>Current temperature</p>
+        <span>{{dataService.formatDateTime(forecastData?.actual?.displaytime)}}</span>
+      </div>
+    </div>
+   
+    <div class="Weather_info">
+      <div class="boxs">
+        <h6> <img src="./img/temp.svg" alt=""> Temp (Min/Max)</h6>
+        <div class="sky">
+          <img [src]="forecastData?.actual?.iconImage" alt="" />
+          <span>Clear sky</span>
+        </div>
+        <div class="max_min">
+          <div class="max">
+            <span>Max</span>
+            <span>{{forecastData?.actual?.maxt}}°C</span>
+          </div>
+          <div class="min">
+            <span>Min</span>
+            <p>{{forecastData?.actual?.mint}}°C</p>
+          </div>
+        </div>
+      </div>
+      <div class="boxs">
+        <!-- <h6> <img src="./img/huminity.svg" alt=""> Humidity</h6> -->
+         <h6> <img src="./img/huminity.svg" alt=""> Humidity</h6>
+        <div class="Humidity">
+          <!-- <img src="./img/meter-5.png" alt="" /> -->
+           <app-speedometer [humidity]="forecastData?.actual?.hr"></app-speedometer>
+          <h5>{{forecastData?.actual?.hr}}%</h5>
+        </div>
+      </div>
+      <div class="boxs">
+        <h6> <img src="./img/rain_fall.svg" alt=""> Rainfall probabilty</h6>
+        <div class="Rainfall_probabilty">
+          <!-- <img src="./img/rainfall.png" alt="" /> -->
+           <app-rainfall [rainPercent]="forecastData?.actual?.rain"></app-rainfall>
+          <div class="probabilty">
+            <h5>{{forecastData?.actual?.rain}}%</h5>
+            <p>Medium probabilty</p>
+          </div>
+        </div>
+      </div>
+      <div class="boxs">
+        <h6><img src="./img/windFast.svg" alt=""> Wind speed</h6>
+        <div class="Rainfall_probabilty wind">
+          <div class="probabilty">
+            <h5>{{forecastData?.actual?.wind}}m/s</h5>
+            <span>Wind Speed</span>
+          </div>
+          <img src="./img/wind_direction/{{forecastData?.actual?.wind_dir}}.webp" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="Weather_buddy">
+  <div class="container">
+    <div class="weather_box">
+      <div class="header">
+        <div class="tittle">
+          <img src="./img/clean.svg" alt="">
+          <h6>Weather buddy</h6>
+        </div>
+        <img src="./img/voice.svg" alt="" (click)="textToSpeech(weatherText)">
+      </div>
+      <p>Planning for tomorrow in Green park? *Skymet’s weather forecast* expects intensely hot and dry weather tomorrow under predominantly sunny skies. The maximum temperature in.. <span>Read more</span></p>
+
+    </div>
+  </div>
+</div>
