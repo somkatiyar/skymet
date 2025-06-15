@@ -4,27 +4,40 @@
       <h5>Skysense by Skymet</h5>
       <div class="flex_box">
         <div class="cards">
-          <h6> <img src="./img/Dew.svg" alt=""> Dew point</h6>
+          <h6><img src="./img/Dew.svg" alt="" /> Dew point</h6>
           <div class="Dew_point">
-            <!-- <img src="./img/Dew_point.svg" alt=""> -->
-            <app-dewpoint [dewPointPercent]="70"></app-dewpoint>
-            <h2>24 °C</h2>
+            <!-- <app-dewpoint [dewPointPercent]="70"></app-dewpoint> -->
+            <div class="content">
+              <h2>24 °C</h2>
+              <p>Highly humid</p>
+            </div>
+            <img src="./img/man.svg" alt="" />
           </div>
         </div>
         <div class="cards">
-          <h6> <img src="./img/uv.svg" alt=""> UV Index</h6>
+          <h6><img src="./img/uv.svg" alt="" /> UV Index</h6>
           <div class="Index">
-            <h2>8</h2>
-            <span>Very High</span>
-            <!-- <img src="./img/Index.png" alt=""> -->
-              <app-uv-rays [uvIndex]="8" [maxUV]="11" [range]="uvRange"></app-uv-rays>
+            <div class="content">
+              <div class="side">
+                <h2>8</h2>
+                <span>Very High</span>
+              </div>
+              <div class="image">
+                <img src="./img/uv sun.svg" alt="" />
+              </div>
+            </div>
+            <app-uv-rays
+              [uvIndex]="8"
+              [maxUV]="11"
+              [range]="uvRange"
+            ></app-uv-rays>
           </div>
         </div>
         <div class="cards">
-          <h6> <img src="./img/sunset_icon.svg" alt=""> Sunrise/sunset</h6>
+          <h6><img src="./img/sunset_icon.svg" alt="" /> Sunrise/sunset</h6>
           <div class="sunset">
             <!-- <img src="./img/sunset.svg" alt=""> -->
-             <app-sunrise [angle]="calculateAngle()"></app-sunrise>
+            <app-sunrise [angle]="calculateAngle()"></app-sunrise>
             <div class="sunset_time">
               <div>
                 <p>Sunrise</p>
@@ -32,7 +45,7 @@
               </div>
               <div>
                 <p>Now</p>
-                <span>{{getCurrentTime()}} pm</span>
+                <span>{{ getCurrentTime() }} pm</span>
               </div>
               <div>
                 <p>Sunset</p>
@@ -41,22 +54,43 @@
             </div>
           </div>
         </div>
-        <div class="cards">
-          <h6> <img src="./img/air_icon.svg" alt=""> Air quality index</h6>
-          <div class="Air_quality ">
-            
-            <app-uv-rays [uvIndex]="160" [maxUV]="500" [range]="aqiRange"></app-uv-rays>
 
+        <div class="cards">
+          <h6><img src="./img/air_icon.svg" alt="" /> AQI</h6>
+          <div class="Index">
+            <div class="content">
+              <div class="side">
+                <h2>8</h2>
+                <span>Very High</span>
+              </div>
+              <div class="image">
+                <img src="./img/manpurple.svg" alt="" />
+              </div>
+            </div>
+            <app-uv-rays
+              [uvIndex]="8"
+              [maxUV]="11"
+              [range]="uvRange"
+            ></app-uv-rays>
           </div>
         </div>
+
+        <!-- <div class="cards">
+          <h6><img src="./img/air_icon.svg" alt="" /> Air quality index</h6>
+          <div class="Air_quality">
+            <app-uv-rays
+              [uvIndex]="160"
+              [maxUV]="500"
+              [range]="aqiRange"
+            ></app-uv-rays>
+          </div>
+        </div> -->
       </div>
 
       <div class="moonads">
-
-
         <div class="moon_info">
           <div class="content">
-            <h6> <img src="./img/moon_icon.svg" alt=""> Moon</h6>
+            <h6><img src="./img/moon_icon.svg" alt="" /> Moon</h6>
             <div class="moon_states_time">
               <p>Moonrise</p>
               <span>6:34 PM</span>
@@ -74,16 +108,13 @@
               <span>21 days</span>
             </div>
           </div>
-          <img src="./img/moon.svg" alt="">
-
+          <img src="./img/moon.svg" alt="" />
         </div>
 
         <div class="Advertisement">
           <h5>Advertisement</h5>
         </div>
-
       </div>
-
     </div>
   </div>
 </div>

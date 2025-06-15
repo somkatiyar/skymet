@@ -1,27 +1,95 @@
-    .uv-header {
-          display: flex;
-          // justify-content: space-evenly;
-          justify-content: space-between;
+.uv-header {
+  display: flex;
+  // justify-content: space-evenly;
+  justify-content: space-between;
 
-          .uvvalue {
-            text-align: start;
+  .uvvalue {
+    text-align: start;
 
-            h6 {
-              font-weight: 900;
-              color: #771c23;
-            }
-          }
+    h6 {
+      font-weight: 900;
+      color: #771c23;
+    }
+  }
 
-          .uvtext {
-            // width: 41px;
-            // height: 13px;
-            width: 100%;
-            font-size: 10px;
-            line-height: 130%;
-            letter-spacing: 0%;
-          }
+  .uvtext {
+    // width: 41px;
+    // height: 13px;
+    width: 100%;
+    font-size: 10px;
+    line-height: 130%;
+    letter-spacing: 0%;
+  }
 
-          .right img {
-            height: 32px;
+  .right img {
+    height: 32px;
+  }
+}
+
+.Skysense {
+  .content .flex_box .cards .Dew_point img {
+    width: 100px;
+
+    @media (max-width: 550px) {
+      width: 55px;
+    }
+  }
+  .content .flex_box .cards .Dew_point .content h2 {
+    color: #771c23;
+
+    @media (max-width: 550px) {
+      font-size: 20px;
+    }
+  }
+  .content .flex_box .cards .Dew_point .content p {
+    font-size: 12px;
+
+    @media (max-width: 550px) {
+      font-size: 11px;
+    }
+  }
+
+  .content .flex_box .cards {
+    &:nth-child(2) {
+      .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .image {
+        img {
+          width: 100px;
+        }
+        @media (max-width: 550px) {
+          img {
+            width: 70px;
           }
         }
+      }
+
+      @media (max-width: 550px) {
+        padding-bottom: 35px;
+      }
+    }
+    &:nth-child(4) {
+      .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .image {
+        img {
+          width: 100px;
+        }
+        @media (max-width: 550px) {
+          img {
+            width: 70px;
+          }
+        }
+      }
+        @media (max-width: 550px) {
+        padding-bottom: 35px;
+      }
+    }
+  }
+}

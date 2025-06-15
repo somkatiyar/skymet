@@ -47,10 +47,12 @@
         <h6> <img src="./img/rain_fall.svg" alt=""> Rainfall probabilty</h6>
         <div class="Rainfall_probabilty">
           <!-- <img src="./img/rainfall.png" alt="" /> -->
-           <app-rainfall [rainPercent]="forecastData?.actual?.rain"></app-rainfall>
+           <!-- <app-rainfall [rainPercent]="forecastData?.actual?.rain"></app-rainfall> -->
+           <app-rainfall class="app-rainFall-item" [rainPercent]="90"></app-rainfall>
+
           <div class="probabilty">
             <h5>{{forecastData?.actual?.rain}}%</h5>
-            <p>Medium probabilty</p>
+            <p>(2.0 mm)</p>
           </div>
         </div>
       </div>
@@ -59,9 +61,10 @@
         <div class="Rainfall_probabilty wind">
           <div class="probabilty">
             <h5>{{forecastData?.actual?.wind}}m/s</h5>
-            <span>Wind Speed</span>
+            <span>(NE)</span>
           </div>
-          <img src="./img/wind_direction/{{forecastData?.actual?.wind_dir}}.webp" alt="" />
+          <!-- <img src="./img/wind_direction/{{forecastData?.actual?.wind_dir}}.webp" alt="" /> -->
+          <img src="./img/wind.svg" alt="" />
         </div>
       </div>
     </div>

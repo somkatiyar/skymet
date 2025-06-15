@@ -53,7 +53,7 @@ export class SatelliteImageComponent implements AfterViewInit {
 
 
  changeSatelliteImages(tab:any) {
-   this.getSatelliteImage(tab);
+  //  this.getSatelliteImage(tab);
  }
 
     getSatelliteImage(tab:any) {

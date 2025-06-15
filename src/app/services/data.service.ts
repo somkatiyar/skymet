@@ -15,7 +15,7 @@ export class DataService {
       })
     }
   
-  baseURL = "https://ngswims.skymetweather.com/api/";
+  baseURL = "https://api.skymetweather.com/api/";
   utilityUrl = "https://skymetglobalweather.com/skymet_utility/";
   postURL  = `https://skymetglobalweather.com/strapi_skymet`;
   localBaseUrl = `http://localhost:3011/`;
