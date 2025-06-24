@@ -19,7 +19,12 @@ import { DataService } from '../../services/data.service';
 
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 declare var window: any;
@@ -32,7 +37,7 @@ declare var window: any;
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    TranslateModule  
+    TranslateModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -62,15 +67,13 @@ export class HeaderComponent {
     @Inject(PLATFORM_ID) private platformId: Object,
     private windowService: WindowService,
     private dataService: DataService,
-    private route:ActivatedRoute,
-    private router:Router,
+    private route: ActivatedRoute,
+    private router: Router,
     private translate: TranslateService,
     private fb: FormBuilder
   ) {
-
     if (isPlatformBrowser(this.platformId)) {
       this.onscrollHeaderFix();
-      
     }
     this.seturlConfig();
     this.configListning();
@@ -78,28 +81,30 @@ export class HeaderComponent {
     this.initSearchCtrl();
   }
 
-    volatileUrl = [
+  volatileUrl = [
     'himawari-latest-satellite-images-of-india',
     'weather-satellite-images-of-india',
     '15-days-rainfall-forecast-for-india',
     'content/stories',
     'content/weather-news-and-analysis/',
     'legal/term-and-condiation',
-    'legal/privacy-and-policy'
-  ]
+    'legal/privacy-and-policy',
+  ];
   isUrlChangable() {
-    if(this.windowService.isBrowser()) {
+    if (this.windowService.isBrowser()) {
       const currentUrl = window.location.pathname;
       var status;
-      const isVolatileUrl = this.volatileUrl.some(url => currentUrl.includes(url));
-    if (isVolatileUrl) {
-      status = false
-    } else {
-      status = true
+      const isVolatileUrl = this.volatileUrl.some((url) =>
+        currentUrl.includes(url)
+      );
+      if (isVolatileUrl) {
+        status = false;
+      } else {
+        status = true;
+      }
     }
-    }
- 
-    return status
+
+    return status;
   }
 
   onSearch(ev: any) {
@@ -113,7 +118,6 @@ export class HeaderComponent {
     this.scrollFunction();
   }
 
-
   scrollFunction() {
     const scrollTop =
       window.document.documentElement.scrollTop ||
@@ -123,9 +127,25 @@ export class HeaderComponent {
     if (!header) return;
 
     if (scrollTop > 50) {
+
       header.style.background = 'rgb(241 247 249)';
+
+
+      header.classList.add('navActive');
+      // (
+      //   window.document.querySelector('.navmenu ul a') as HTMLElement
+      // ).style.color = '#000';
     } else {
-      header.style.background = 'transparent';
+      header.classList.remove('navActive');
+
+    // header.style.background = "transparent"
+      // if(window.inner)
+      header.style.background = `linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.6) 52.29%,
+    rgba(255, 255, 255, 0) 100%
+  )`;
+
     }
   }
 
@@ -139,8 +159,7 @@ export class HeaderComponent {
         this.recognition.interimResults = false;
         this.recognition.maxAlternatives = 1;
 
-        this.recognition.onstart = (event: any) => {
-        };
+        this.recognition.onstart = (event: any) => {};
         this.recognition.onresult = (event: any) => {
           this.searchForm
             .get('searchCtrl')
@@ -189,34 +208,34 @@ export class HeaderComponent {
       });
   }
 
-   toggleSearch() {
-        console.log("clicked");
-        const search = document.querySelector(".search") as HTMLElement;
-        const logo = document.querySelector(".logo") as HTMLElement;
-        const search_icon = document.querySelector("#search_icon") as HTMLElement;
-        const close = document.querySelector("#close") as HTMLElement;
-        if (search.style.display === "block") {
-          search.style.display = "none";
-          logo.style.display = "block";
-          search_icon.style.display = "block";
-          close.style.display = "none";
-        } else {
-          search.style.display = "block";
-          logo.style.display = "none";
-          search_icon.style.display = "none";
-          close.style.display = "block";
-        }
-   }
+  toggleSearch() {
+    console.log('clicked');
+    const search = document.querySelector('.search') as HTMLElement;
+    const logo = document.querySelector('.logo') as HTMLElement;
+    const search_icon = document.querySelector('#search_icon') as HTMLElement;
+    const close = document.querySelector('#close') as HTMLElement;
+    if (search.style.display === 'block') {
+      search.style.display = 'none';
+      logo.style.display = 'block';
+      search_icon.style.display = 'block';
+      close.style.display = 'none';
+    } else {
+      search.style.display = 'block';
+      logo.style.display = 'none';
+      search_icon.style.display = 'none';
+      close.style.display = 'block';
+    }
+  }
 
-   selectedLng:any;
-     lngCode = ['hi', 'mr', 'gu', 'en', 'ta', 'te', 'kn', 'ml','bn','pa'];
+  selectedLng: any;
+  lngCode = ['hi', 'mr', 'gu', 'en', 'ta', 'te', 'kn', 'ml', 'bn', 'pa'];
 
-     seturlConfig() {
-      this.router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd) {
-          var len = this.router.url.length;
-          if(this.isUrlChangable()) {
-            var lng = this.lngCode.includes(this.router.url.slice(1, 3))
+  seturlConfig() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        var len = this.router.url.length;
+        if (this.isUrlChangable()) {
+          var lng = this.lngCode.includes(this.router.url.slice(1, 3))
             ? this.router.url.slice(1, 3)
             : 'en';
 
@@ -229,19 +248,19 @@ export class HeaderComponent {
             this.translate.use(lng);
             this.selectedLng = lng;
           }
-          } else {
-            this.dataService.selectedLanguages.subscribe((lng: any) => {
-              this.selectedLng = lng;
-              this.translate.use(lng);
-            });
-          }
+        } else {
+          this.dataService.selectedLanguages.subscribe((lng: any) => {
+            this.selectedLng = lng;
+            this.translate.use(lng);
+          });
         }
-      });
-     }
+      }
+    });
+  }
 
   onLanguagesChange(event: any) {
     var code = event.target.value;
-    if(this.isUrlChangable()) {
+    if (this.isUrlChangable()) {
       this.dataService.selectedLanguages.next(code);
       var len = this.router.url.split('/').length;
       if (this.router.url == '/' || len == 2) {
@@ -249,7 +268,7 @@ export class HeaderComponent {
           replaceUrl: true,
         });
       } else {
-        var x = this.router.url.slice(3, this.router.url.length);      
+        var x = this.router.url.slice(3, this.router.url.length);
         this.router.navigate([`${code}${decodeURIComponent(x)}`], {
           replaceUrl: false,
         });
@@ -257,12 +276,6 @@ export class HeaderComponent {
     } else {
       this.dataService.selectedLanguages.next(code);
       this.translate.use(code);
-
-      
     }
-  
   }
-
-  
-
 }

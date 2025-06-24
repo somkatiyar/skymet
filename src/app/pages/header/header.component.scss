@@ -1,0 +1,13 @@
+.navmenu ul a {
+  color: #fff;
+}
+
+
+.Header {
+  &.navActive {
+    .navmenu ul a {
+      color: #000;
+    }
+  }
+}
+

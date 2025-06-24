@@ -22,7 +22,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-resources',
   standalone: true,
-  imports: [CommonModule,RouterLink,RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './resources.component.html',
   styleUrl: './resources.component.scss',
 })
@@ -149,7 +149,8 @@ export class ResourcesComponent implements AfterViewInit {
           },
 
           1024: {
-            slidesPerView: 4,
+            slidesPerView: 3,
+            spaceBetween: 25
           },
           // 1025: {
           //   slidesPerView: 3,
@@ -178,10 +179,10 @@ export class ResourcesComponent implements AfterViewInit {
           },
 
           1024: {
-            slidesPerView: 4,
+            slidesPerView: 3,
+            spaceBetween: 25
+
           },
-    
-          
         },
       });
     }
@@ -218,20 +219,19 @@ export class ResourcesComponent implements AfterViewInit {
     }
   }
 
-   getPreviewText(str:any, maxWords:any, maxChars:any) {
-  const words = str.split(' ');
-  let result = '';
-  
-  for (let i = 0; i < words.length && i < maxWords; i++) {
-    const nextWord = result ? result + ' ' + words[i] : words[i];
-    if (nextWord.length <= maxChars) {
-      result = nextWord;
-    } else {
-      break;
+  getPreviewText(str: any, maxWords: any, maxChars: any) {
+    const words = str.split(' ');
+    let result = '';
+
+    for (let i = 0; i < words.length && i < maxWords; i++) {
+      const nextWord = result ? result + ' ' + words[i] : words[i];
+      if (nextWord.length <= maxChars) {
+        result = nextWord;
+      } else {
+        break;
+      }
     }
+
+    return result;
   }
-
-  return result;
-}
-
 }
