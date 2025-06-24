@@ -69,7 +69,7 @@
     .swiper-slider-item {
       img {
         height: 666px;
-        object-fit: cover;
+        object-fit: contain;
       }
 
       @media (max-width: 550px) {

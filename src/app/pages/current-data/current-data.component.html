@@ -4,7 +4,7 @@
       <img src="./img/location.png" alt="" />
       <h3>{{forecastData?.metainfo?.TEHSIL_ALIAS_NAME}}</h3>
     </div>
-    <div class="weather">
+    <div class="weather" (click)="gotoForecastPage()">
       <div class="weat_icon">
         <img [src]="forecastData?.actual?.iconImage" alt="" />
         <h6>{{forecastData?.actual?.description}}</h6>
@@ -47,8 +47,8 @@
         <h6> <img src="./img/rain_fall.svg" alt=""> Rainfall probabilty</h6>
         <div class="Rainfall_probabilty">
           <!-- <img src="./img/rainfall.png" alt="" /> -->
-           <!-- <app-rainfall [rainPercent]="forecastData?.actual?.rain"></app-rainfall> -->
-           <app-rainfall class="app-rainFall-item" [rainPercent]="90"></app-rainfall>
+           <app-rainfall class="app-rainFall-item" [rainPercent]="forecastData?.actual?.rain"></app-rainfall>
+           <!-- <app-rainfall class="app-rainFall-item" [rainPercent]="90"></app-rainfall> -->
 
           <div class="probabilty">
             <h5>{{forecastData?.actual?.rain}}%</h5>
@@ -61,10 +61,9 @@
         <div class="Rainfall_probabilty wind">
           <div class="probabilty">
             <h5>{{forecastData?.actual?.wind}}m/s</h5>
-            <span>(NE)</span>
+            <span>({{forecastData?.actual?.wind_dir}})</span>
           </div>
-          <!-- <img src="./img/wind_direction/{{forecastData?.actual?.wind_dir}}.webp" alt="" /> -->
-          <img src="./img/wind.svg" alt="" />
+          <img src="./img/wind_direction/{{forecastData?.actual?.wind_dir}}.webp" alt="" />
         </div>
       </div>
     </div>

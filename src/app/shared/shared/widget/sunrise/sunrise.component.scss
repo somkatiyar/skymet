@@ -1,20 +1,51 @@
+// .sun-container {
+//   position: relative;
+//   width: 100%;
+//   margin: 0 auto;
+// }
+
+// svg {
+//   width: 100%;
+//   height: 100%;
+//   overflow: visible;
+// }
+
+// .tick-line {
+//   stroke: #FF9000;
+//   border: 1.69px solid #FF9000;
+// }
+
+// .sun-icon {
+//   width: 30px;
+//   height: 30px;
+//   position: absolute;
+//   transform: translate(-50%, -50%);
+//   pointer-events: none;
+// }
+
+// #sunGradient{
+// background: linear-gradient(180deg, #FFE475 0%, rgba(255, 228, 117, 0) 38.42%);
+// background: linear-gradient(180deg, #FFE475 0%, rgba(255, 228, 117, 0) 38.42%);
+// border: 0.26px solid rgba(255, 144, 0, 1)
+// }
+
 .sun-container {
   position: relative;
-  // width: 200px;
-  width: 100%;
-  // height: 120px;
+  width: 100%; /* or fixed width like 200px if needed */
+  height: 120px; /* Set this explicitly to match SVG viewBox height */
   margin: 0 auto;
 }
 
 svg {
   width: 100%;
   height: 100%;
+  display: block;
   overflow: visible;
 }
 
 .tick-line {
   stroke: #FF9000;
-  border: 1.69px solid #FF9000;
+  stroke-width: 1.69; /* use stroke-width instead of border */
 }
 
 .sun-icon {
@@ -23,11 +54,10 @@ svg {
   position: absolute;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  transition: left 0.3s ease, top 0.3s ease; /* optional smooth movement */
 }
 
-#sunGradient{
-background: linear-gradient(180deg, #FFE475 0%, rgba(255, 228, 117, 0) 38.42%);
-background: linear-gradient(180deg, #FFE475 0%, rgba(255, 228, 117, 0) 38.42%);
-border: 0.26px solid rgba(255, 144, 0, 1)
+/* Optional fix: Ensure the container has no padding */
+.sun-container > * {
+  box-sizing: border-box;
 }
-

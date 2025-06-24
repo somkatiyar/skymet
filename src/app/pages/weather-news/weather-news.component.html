@@ -15,8 +15,8 @@
         </div>
         </div>
         <div class="main_content">
-          <div class="update_content" *ngFor="let item of weatherNews">
-            <a href="">
+          <div class="update_content" *ngFor="let item of weatherNews"  [routerLink]="['/content', item.categorySlug[0], item.titleSlug]">
+            <a  [routerLink]="['/content', item.categorySlug[0], item.titleSlug]">
               <div class="image">
                 <img [src]="item.thumbnail" alt="" />
               </div>

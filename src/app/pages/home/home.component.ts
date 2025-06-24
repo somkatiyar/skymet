@@ -59,9 +59,7 @@ export class HomeComponent implements OnInit {
       this.dataService.selectedLanguages
         .pipe(take(1)) 
         .subscribe((lng) => {
-          this.selectedLng = lng;   
-          console.log(this.selectedLng,);
-                 
+          this.selectedLng = lng;                    
           this.seoConfig(event); 
         });
     }
@@ -77,7 +75,7 @@ export class HomeComponent implements OnInit {
                let latlng = await this.getPosition();
               this.nearestMeta = await this.nearByLocation(latlng);
               let forecast:any = await this.getForecastData(this.formatPath(this.nearestMeta));         
-              this.CurrentDataComponent?.setForecast(forecast);
+              this.CurrentDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
               this.HourlyDataComponent?.setForecast(forecast);
     }
   }

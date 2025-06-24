@@ -47,7 +47,7 @@ export class SatelliteImageComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initSwiper();
-     this.getSatelliteImage('insat');
+     this.getSatelliteImage('Rainfall');
   }
 
 

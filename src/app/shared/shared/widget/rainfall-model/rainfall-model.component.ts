@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import {
   Autoplay,
   Manipulation,
@@ -8,22 +8,76 @@ import {
 } from 'swiper/modules';
 import Swiper from 'swiper';
 import { WindowService } from '../../../../services/window.service';
+import { CommonModule } from '@angular/common';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-rainfall-model',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './rainfall-model.component.html',
   styleUrl: './rainfall-model.component.scss',
 })
-export class RainfallModelComponent {
+export class RainfallModelComponent implements AfterViewInit{
   rainfallMainSwiper?: Swiper;
   rainfallthumbSwiper?: Swiper;
-
+  modelData: any = [
+    {
+      id: 1,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+      {
+      id: 2,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 3,
+      title: 'temperature',
+      imageUrl: './model_forecast/15_temp.png',
+    },
+        {
+      id: 4,
+      title: 'temperature',
+      imageUrl: './model_forecast/15_temp.png',
+    },
+    {
+      id: 5,
+      title: 'winds',
+      imageUrl: './model_forecast/15_winds.png',
+    },
+     {
+      id: 6,
+      title: 'winds',
+      imageUrl: './model_forecast/15_winds.png',
+    },
+  ];
+  filteredModelData: any = [];
+  selectedTab: string = 'rainfall';
   constructor(private windowService: WindowService) {
+    this.filteredModelData = this.getMoodelData('rainfall');
+    
+  }
+
+  getMoodelData(modelType: string) {
+    return this.modelData.filter((model:any) => {
+      if (model.title.toLowerCase() === modelType.toLowerCase()) {
+        return model;
+      }
+  })
+}
+
+onTabChange(tab: any) {
+    this.filteredModelData = this.getMoodelData(tab.toLowerCase());  
+    this.selectedTab= tab.toLowerCase();
+}
+
+  ngAfterViewInit(): void {
     this.initRainfallSwiper();
   }
+
+
 
  async initRainfallSwiper() {
   if (this.windowService.isBrowser()) {
@@ -52,7 +106,7 @@ export class RainfallModelComponent {
     // Main swiper
     this.rainfallMainSwiper = new Swiper('.mySwiper2', {
       spaceBetween: 10,
-      autoplay: true,
+      autoplay: false,
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',

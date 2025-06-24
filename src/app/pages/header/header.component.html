@@ -40,10 +40,11 @@
             </form>
             <div class="navmenu" id="menulink">
               <ul> 
-                <li><a href="">{{ "Home" | translate }}</a></li>
+                <li><a [routerLink]="['/']">{{ "Home" | translate }}</a></li>
                 <li><a [routerLink]="['/forecast-map']">Forecast Map</a></li>
                 <li><a [routerLink]="['/resources']">Resources</a></li>
-                <li><a [routerLink]="['/himawari-latest-satellite-images-of-india']">Satellite</a></li>                <li><a href="">Advertise with us</a></li>
+                <li><a [routerLink]="['/himawari-latest-satellite-images-of-india']">Satellite</a></li>      
+                <li><a [routerLink]="['/advertise-with-us']">Advertise with us</a></li>
                 <li><a href="">Contact Us</a></li>
                 <li>
                   <select (change)="onLanguagesChange($event)">

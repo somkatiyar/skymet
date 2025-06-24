@@ -18,13 +18,15 @@ import { DewpointComponent } from '../../shared/shared/widget/dewpoint/dewpoint.
 import { RainfallComponent } from '../../shared/shared/widget/rainfall/rainfall.component';
 import { SpeedometerComponent } from '../../shared/shared/widget/speedometer/speedometer.component';
 import { SunriseComponent } from '../../shared/shared/widget/sunrise/sunrise.component';
+import { MoonriseComponent } from '../../shared/shared/widget/moonrise/moonrise.component';
 @Component({
   selector: 'app-forecast-club',
   standalone: true,
   imports: [CurrentDataComponent,
-    DewpointComponent, CommonModule, SkysenseComponent,SpeedometerComponent,
+    DewpointComponent, CommonModule, 
+    SkysenseComponent,SpeedometerComponent,
     HourlyDataComponent,ForecastDataComponent,RainfallComponent,
-    UvRaysComponent,WeatherNewsComponent,SunriseComponent],
+    UvRaysComponent,WeatherNewsComponent,SunriseComponent,MoonriseComponent],
   templateUrl: './forecast-club.component.html',
   styleUrl: './forecast-club.component.scss',
 
@@ -37,6 +39,8 @@ export class ForecastClubComponent implements AfterViewInit {
   addressList:any = [];
   sunriseTime = '6:28 AM';
   sunsetTime = '6:10 PM';
+  moonriseTime = '6:28 PM';
+  moonsetTime = '6:10 AM';
   date = 'May 12';
   uvRange=[1,3,5,9,10,11];
   aqiRange=[50,100,250,320,400,500];
@@ -89,9 +93,8 @@ export class ForecastClubComponent implements AfterViewInit {
   }
 
     setForecast(newData:any) {
-
-   
     this.forecastData = this.dataService.bindIcon(newData?.forecast);
+    this.hourlyData = this.dataService.bindIcon(newData?.hourly);    
     this.currentData = this.dataService.bindIcon([newData?.actual]);
     let grediant = this.dataService.getGradient();
 
@@ -407,6 +410,10 @@ getSunAngle(sunrise: string, sunset: string, current: string): number {
 }
 public calculateAngle(): number {
   return this.getSunAngle(this.sunrise, this.sunset, this.getCurrentTime());
+}
+
+public calculateAngleMoon(): number {
+  return this.getSunAngle(this.moonriseTime, this.moonsetTime, this.getCurrentTime());
 }
 
 getCurrentTime() {

@@ -21,7 +21,6 @@ export class ArticleDetailComponent {
     
      var category = this.route.snapshot.paramMap.get('category');
      var title = this.route.snapshot.paramMap.get('title');
-     console.log(category,title);
      this.getPostBySlug(category,title);
   }
 
@@ -29,7 +28,6 @@ export class ArticleDetailComponent {
     this.dataService.bySlug(category,title).subscribe(res => {
       this.post = res;
       // this.post && this.seoService.weatherNewsDynamic( await this.formatPostForSEO(this.post));
-      console.log(this.post,'this.post');
       this.post && this.seoConfig(this.post)
     })
   }

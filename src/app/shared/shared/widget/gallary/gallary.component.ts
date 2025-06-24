@@ -1,11 +1,15 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
-import { Autoplay, Navigation, Thumbs } from 'swiper/modules';
+import {
+  Autoplay,
+  Manipulation,
+  Navigation,
+  Pagination,
+  Thumbs,
+} from 'swiper/modules';
 import Swiper from 'swiper';
-import { DataService } from '../../../../services/data.service';
 import { WindowService } from '../../../../services/window.service';
-import { NavigationEnd, Router } from '@angular/router';
-import { SeoService } from '../../../../services/seo.service';
+import { CommonModule } from '@angular/common';
+import { DataService } from '../../../../services/data.service';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
@@ -16,202 +20,246 @@ Swiper.use([Autoplay, Navigation, Thumbs]);
   styleUrl: './gallary.component.scss',
 })
 export class GallaryComponent implements AfterViewInit {
-  patterns: WeatherPattern[] = [
-    { title: 'HIMAWARI', isActive: true },
-    { title: 'INSAT', isActive: false },
-    { title: 'RAINFALL', isActive: false },
-  ];
+  satelliteMainSwiper?: Swiper;
+  satelliteThumbSwiper?: Swiper;
+  satelliteImages: any[] = [];
+  activeIndex: number = 0;
+  viewType:any = 'swiper';
+  selectedTab: string = 'himawari';
+  constructor(private windowService: WindowService,
+    private cdRef:ChangeDetectorRef,
+    public dataService: DataService) {
 
-  rainfallImages: any = [];
-  satelliteImages: any = [];
-  rainfallMainSwiper: any;
-  selectedLng: any;
-  constructor(
-    public dataService: DataService,
-    private cdr: ChangeDetectorRef,
-    private router: Router,
-    private seoService: SeoService,
-    private windowService: WindowService
-  ) {
-    this.dataService.selectedLanguages.subscribe((lng) => {
-      this.selectedLng = lng;
-    });
-    this.routerConfig();
   }
 
   ngAfterViewInit(): void {
-    this.corousalconfig();
+    
+    this.getsatelliteImage('himawari')
   }
 
-  routerConfig() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        if (event.url.includes('weather-satellite-images-of-india')) {
-          // this.getSatelliteImage('insat');
-          this.seoService.setMetaTags('satellite', 'insat');
-          this.seoService.setCanonicalLink(event.urlAfterRedirects);
-          setTimeout(() => {
-            this.corousalconfig();
-          }, 200);
-        } else if (
-          event.url.includes('himawari-latest-satellite-images-of-india')
-        ) {
-          // this.getSatelliteImage('himawari');
-          this.seoService.setMetaTags('satellite', 'himawari');
-          this.seoService.setCanonicalLink(event.urlAfterRedirects);
-          setTimeout(() => {
-            this.corousalconfig();
-          }, 200);
-        } else {
-          this.getRainfallImages('Rainfall');
-          this.seoService.setMetaTags('satellite', 'Rainfall');
-          this.seoService.setCanonicalLink(event.urlAfterRedirects);
-          setTimeout(() => {
-            this.corousalconfig();
-          }, 200);
-        }
+  getsatelliteImage(tab: any) {
+    this.satelliteImages = [];
+    this.selectedTab = tab;
+    this.dataService.getSatelliteImage(tab).then((res) => {
+      if (res && res.length > 0 && tab == 'insat') {
+        this.satelliteImages = this.extractInsatTimeDate(res);
+        this.initRainfallSwiper();
+        setTimeout(() => this.cdRef.detectChanges());
+
+      } else if (res && res.images && res.images.length > 0 && tab == 'himawari') {
+        this.satelliteImages = this.extractHimawariTimeDate(res['images'], res.url);
+        this.initRainfallSwiper();
+        setTimeout(() => this.cdRef.detectChanges());
+      }
+     
+    })
+
+  }
+
+
+  extractHimawariTimeDate(imagesArray: any, url: string) {
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return imagesArray.map((image: any) => {
+      const timeMatch = image.match(/_(\d{4})\.jpg/);
+      const rawTime = timeMatch ? timeMatch[1] : null;
+      const dateStr = image.split('v=')[1];
+      const year = dateStr.slice(0, 4);
+      const month = dateStr.slice(4, 6);
+      const day = dateStr.slice(6, 8);
+
+
+      const formattedDate = `${parseInt(day)} ${months[parseInt(month) - 1]} ${year}`;
+
+      let formattedTime = '';
+      if (rawTime) {
+        const hour = rawTime.slice(0, 2);
+        const minute = rawTime.slice(2, 4);
+        formattedTime = `${hour}:${minute}`;
+      }
+
+      return {
+        image: url + image,
+        date: formattedDate,
+        time: formattedTime
+      };
+    });
+
+
+  }
+
+  extractInsatTimeDate(imagesArray: any) {
+    const regex = /(\d{4})\/(\d{2})\/(\d{2})\/.*-(\d{2})[:.](\d{2})\.jpg$/;
+
+    return imagesArray.map((image: any) => {
+      const match = image.match(regex);
+      if (match) {
+        const [_, year, month, day, hour, minute] = match;
+        const formattedDate = `${parseInt(day)} ${new Date(`${year}-${month}-01`).toLocaleString('default', { month: 'long' })} ${year}`;
+        const formattedTime = `${hour}:${minute}`;
+        return {
+          image: image,
+          date: formattedDate,
+          time: formattedTime
+        };
+      } else {
+        console.log("Could not extract date/time from the URL.");
+        return { image: image, date: '', time: '' };
       }
     });
-  }
+  }  
 
-  corousalconfig() {
-    if (this.windowService.isBrowser()) {
-      const owl = $('.owl-carousel');
-      owl.trigger('destroy.owl.carousel');
-      owl.find('.owl-stage-outer').children().unwrap();
-      $('.rainCrowsel').owlCarousel({
-        loop: true,
-        margin: 10,
-        nav: false,
-        dots: false,
-        center: true,
-        autoplay: false,
-        autoplayTimeout: 2000,
-        smartSpeed: 3000,
-        autoplayHoverPause: false,
-        responsive: {
-          0: {
-            items: 1,
-          },
-          600: {
-            items: 1,
-          },
-          1000: {
-            items: 1,
-          },
-        },
-      });
-    }
-  }
-
-  changeSatelliteImages(tab: any) {
-    if (tab == 'himawari' || tab == 'insat') {
-      if (tab == 'insat') {
-        this.router.navigate(['/insat/weather-satellite-images-of-india']);
-      } else {
-        this.router.navigate(['/himawari-latest-satellite-images-of-india']);
-      }
-    } else {
-      this.router.navigate(['/15-days-rainfall-forecast-for-india']);
-    }
-  }
-
-  getSatelliteImage(tab: any) {
-    this.dataService
-      .getSatelliteImage(tab)
-      .then((res) => {
-        var data: any = res;
-        res &&
-          this.configImage(
-            tab == 'himawari' ? data['images'] : data,
-            tab,
-            data['url']
-          );
-      })
-      .catch((err) => [console.log('error on fetching satellite data')]);
-  }
-  async configImage(data: any, tab: any, ImageUrl?: any) {
-    this.satelliteImages = [];
-    if (tab == 'himawari') {
-      data.forEach(async (el: any, index: any) => {
-        var result = el.split('_')[2].split('.')[0];
-        var firstPart = result.substring(0, 2);
-        var secondPart = result.substring(2);
-        var time = `${firstPart}:${secondPart}`;
-        var imagePrefix = el.split('_')[0] + '_' + el.split('_')[1] + '_';
-        var date = el.split('=')[1];
-        var imageName = el;
-        this.rainfallImages.push(
-          //   {
-          //   time: time,
-          //   date: date,
-          //   imagePrefix: imagePrefix,
-          //   imageName:
-          //     'https://www.data.jma.go.jp/mscweb/data/himawari/img/se4/' +
-          //     imageName,
-          //   index: index,
-          // }
-          'https://www.data.jma.go.jp/mscweb/data/himawari/img/se4/' + imageName
-        );
-      });
-    }
-    if (tab == 'insat') {
-      data.forEach((el: any, index: any) => {
-        var result = el.split('-India-')[1].split('-');
-        var last = result[result.length - 1];
-        this.rainfallImages.push(
-          el
-          //   {
-          //   time: last.split('.jpg')[0],
-          //   imagePrefix: '',
-          //   imageName: el,
-          //   index: index,
-          // }
-        );
-      });
-    }
-  }
-  getRainfallImages(tab: any) {
-    if (tab == 'Rainfall') {
-      this.rainfallImages = this.getImageUrls();
-      this.cdr.detectChanges();
-      this.corousalconfig();
-    }
-  }
-  getImageUrls(days = 15) {
-    const urls = [];
-    const now = new Date();
-    for (let i = 0; i < days; i++) {
-      const folderDate = new Date(now);
-      folderDate.setDate(folderDate.getDate() - 1);
-      const folderDateString = folderDate
-        .toISOString()
-        .split('T')[0]
-        .replace(/-/g, ''); // Format YYYYMMDD
-      const imageDate = new Date(now);
-      imageDate.setDate(imageDate.getDate() + i);
-      const imageDateString = imageDate
-        .toISOString()
-        .split('T')[0]
-        .replace(/-/g, ''); // Format YYYYMMDD
-      const imageUrl = `https://www.skymetweather.com/themes/skymet/images/gfs/${folderDateString}/Rainfall_${imageDateString}.png`;
-      urls.push(imageUrl);
-    }
-    return urls;
-  }
 
   async initRainfallSwiper() {
     if (this.windowService.isBrowser()) {
-      this.rainfallMainSwiper?.destroy(true, true);
-      this.rainfallMainSwiper = new Swiper('.rainfallMain', {
-        // modules: [Autoplay, Navigation, Pagination, Manipulation],
-        //spaceBetween: 30,
-        autoplay: false,
+      this.satelliteMainSwiper?.destroy(true, true);
+      this.satelliteThumbSwiper?.destroy(true, true);
+
+      this.satelliteThumbSwiper = new Swiper('.mySwiper', {
+        slidesPerView: 13,
+        spaceBetween: 0,
+        freeMode: true,
+        watchSlidesProgress: true,
+        autoplay: true,
+        loop: true,
+
+        breakpoints: {
+          // When window width is <= 550px
+          0: {
+            slidesPerView: 4,
+          },
+          551: {
+            slidesPerView: 13,
+          }
+        }
+      });
+
+      // Main swiper
+      this.satelliteMainSwiper = new Swiper('.mySwiper2', {
+        spaceBetween: 10,
+        autoplay: true,
+        loop: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        thumbs: {
+          swiper: this.satelliteThumbSwiper,
+        },
+        on: {
+          slideChange: () => {
+            this.activeIndex = this.satelliteMainSwiper?.activeIndex ?? 0;
+
+          }
+        }
       });
     }
   }
+
+  openFullscreen() {
+    if (this.windowService.isBrowser()) {
+      var elem: any = this.viewType == 'swiper' ?
+       document.getElementById('img' + this.activeIndex):
+       document.getElementById('gridContainer');
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      }
+    }
+  }
+
+  scale = 1;
+  zoomIn() {
+    if (this.windowService.isBrowser()) {
+
+      this.satelliteMainSwiper?.autoplay.stop();
+      this.satelliteThumbSwiper?.autoplay.stop();
+      const img = document.getElementById('img' + this.activeIndex) as HTMLElement;
+      this.scale += 0.1;
+      img.style.transform = `scale(${this.scale})`;
+    }
+
+  }
+
+  zoomOut() {
+    if (this.windowService.isBrowser()) {
+      const img = document.getElementById('img' + this.activeIndex) as HTMLElement;
+      this.satelliteMainSwiper?.autoplay.stop();
+      this.satelliteThumbSwiper?.autoplay.stop();
+      this.scale = Math.max(0.1, this.scale - 0.1);
+      img.style.transform = `scale(${this.scale})`;
+    }
+  }
+
+async whatsappImageShare() {
+  if (!this.windowService.isBrowser()) return;
+
+  const imageUrl = this.satelliteImages?.[this.activeIndex]?.image;
+  if (!imageUrl) {
+    alert('No image found to share.');
+    return;
+  }
+
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    const file = new File([blob], 'image.jpg', { type: blob.type });
+
+    // Try Web Share API
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        title: 'Satellite Image',
+        text: 'Check out this satellite image',
+        files: [file],
+      });
+    } else {
+      // Fallback to WhatsApp text link
+      const message = encodeURIComponent(`Check this image: ${imageUrl}`);
+      const whatsappUrl = `https://wa.me/?text=${message}`;
+      window.open(whatsappUrl, '_blank');
+    }
+  } catch (error) {
+    console.error('Error sharing image:', error);
+    alert('Failed to share the image.');
+  }
 }
-export interface WeatherPattern {
-  title: string;
-  isActive: boolean;
+
+
+   selectedImages: string[] = [];
+
+  toggleImageSelection(url: string) {
+    const index = this.selectedImages.indexOf(url);
+    if (index > -1) {
+      this.selectedImages.splice(index, 1);
+    } else {
+      this.selectedImages.push(url);
+    }
+  }
+
+    isSelected(url: string): boolean {
+    return this.selectedImages.includes(url);
+  }
+
+  async shareFiles() {
+
+  const blobs = await Promise.all(this.selectedImages.map(url => fetch(url).then(r => r.blob())));
+  const files = blobs.map((blob, i) => new File([blob], `image${i + 1}.jpg`, { type: blob.type }));
+
+  if (navigator.canShare && navigator.canShare({ files })) {
+    await navigator.share({
+      title: 'Check these out!',
+      text: 'Multiple images shared from the app.',
+      files
+    });
+    this.selectedImages = []; 
+  } else {
+    alert('Your device does not support sharing files.');
+  }
+}
+
 }

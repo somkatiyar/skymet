@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-weather-news',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink,RouterLinkActive],
   templateUrl: './weather-news.component.html',
   styleUrl: './weather-news.component.scss'
 })
@@ -13,7 +14,7 @@ export class WeatherNewsComponent {
   weatherNews:any;
   @Input()weatherNewsHeaderConfig:any;
  
-  constructor(public dataService:DataService) {
+  constructor(public dataService:DataService,private router:Router) {
     this.getWeatherNews();
   }
 
@@ -33,6 +34,10 @@ export class WeatherNewsComponent {
   return 'https://wa.me/?text=' + encodeURIComponent(url);
 }
 
+goToDetail(item:any) {
+  const url = `/content/${item.categorySlug[0]}/${item.titleSlug}`;
+  this.router.navigate([url]);
+}
 }
 
 

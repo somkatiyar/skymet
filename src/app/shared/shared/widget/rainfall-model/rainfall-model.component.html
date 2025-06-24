@@ -1,9 +1,9 @@
 <div class="forCastMap">
   <div class="container">
     <div class="tabs">
-      <button class="tab active">Rainfall</button>
-      <button class="tab">Temperature</button>
-      <button class="tab">Wind speed</button>
+      <button class="tab" [ngClass]="selectedTab=='rainfall'?'active':''" (click)="onTabChange('rainfall')">Rainfall</button>
+      <button class="tab" [ngClass]="selectedTab=='temperature'?'active':''" (click)="onTabChange('temperature')">Temperature</button>
+      <button class="tab" [ngClass]="selectedTab=='winds'?'active':''" (click)="onTabChange('winds')">Wind speed</button>
     </div>
 
     <div class="textContent">
@@ -84,35 +84,8 @@
         class="swiper mySwiper2"
       >
         <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slider-item">
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-item">
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-item">
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-item">
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-item">
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-item">
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-item">
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-item">
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-item">
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-item">
-            <img src="/img/map.png" />
+          <div class="swiper-slide swiper-slider-item" *ngFor="let item of filteredModelData; let i = index">
+            <img [src]="item.imageUrl" />
           </div>
         </div>
         <div class="swiper-button-next">
@@ -124,74 +97,11 @@
       </div>
       <div thumbsSlider="" class="swiper mySwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slider-thumb active">
+          <div class="swiper-slide swiper-slider-thumb active" *ngFor="let item of filteredModelData">
             <h5>12 Aug</h5>
-            <img src="/img/map.png" />
+            <img [src]="item.imageUrl" />
           </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
-          <div class="swiper-slide swiper-slider-thumb">
-            <h5>12 Aug</h5>
-            <img src="/img/map.png" />
-          </div>
+  
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, catchError, delay, Observable, of, retryWhen, switchMap, take, timeout } from 'rxjs';
+import { WindowService } from './window.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { BehaviorSubject, catchError, delay, Observable, of, retryWhen, switchMa
 export class DataService {
 
   constructor(private http:HttpClient, 
-    private translationService:TranslateService) { 
+    private translationService:TranslateService,private windowService:WindowService) { 
       this.selectedLanguages.subscribe(lng => {
         this.translationService.use(lng)
       })
@@ -109,6 +110,15 @@ export class DataService {
   const month = String(date.getMonth() + 1).padStart(2, '0'); 
   const year = date.getFullYear();  
   return `${day}/${month}/${year}`;
+}
+
+getToOrderDate(inputDate:any) {
+
+    const date = new Date(inputDate.replace(" ", "T"));
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'short' });
+    const formattedDate = `${day} ${month}`;
+    return formattedDate;
 }
 
   onError(event: Event) {
@@ -223,6 +233,11 @@ export class DataService {
 }
 
 
-
-
+shareOnWhatsApp() {
+  if(this.windowService.isBrowser()) {
+  const message = encodeURIComponent(window.location.href);
+  const whatsappUrl = `https://wa.me/?text=${message}`;
+  window.open(whatsappUrl, '_blank');
+  }
+}
 }

@@ -2,15 +2,15 @@
 <div class="forecast">
   <div class="container">
     <div class="today">
-      <h5>Today’s Forecast</h5>
+      <h5>Hourly Forecast</h5>
     </div>
     <div class="fore_boxs owl-carousel forceCastBoxesCrowsel" id="hourlyData">
       <div
         class="forecast_box"
         *ngFor="let item of hourlyData"
         [ngStyle]="{ background: item.gradient }"
-      > 
-        <p>20 May</p>
+      >
+        <p>{{dataService.getToOrderDate(item.toorder)}}</p>
         <p>{{ item.ist }}</p>
         <img [src]="item.iconImage" alt="" />
         <h5>{{ item.temp_max }}°</h5>

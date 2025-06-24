@@ -27,7 +27,7 @@
 
 
             <div class="news_con">
-              <a href="" *ngFor="let item of trendingNews">
+              <a  [routerLink]="['/content', item.categorySlug[0], item.titleSlug]" *ngFor="let item of trendingNews">
                 <div class="news_card">
                    <img [src]="item.thumbnail" alt="" />
                  <!-- <img src="./img/new1.jpg" alt="" /> -->

@@ -6,6 +6,7 @@ import { WindowService } from '../../services/window.service';
 import { ChartComponent } from '../../shared/shared/widget/chart/chart.component';
 import { RainfallComponent } from '../../shared/shared/widget/rainfall/rainfall.component';
 import { SpeedometerComponent } from '../../shared/shared/widget/speedometer/speedometer.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-current-data',
@@ -17,24 +18,34 @@ import { SpeedometerComponent } from '../../shared/shared/widget/speedometer/spe
 })
 export class CurrentDataComponent implements AfterViewInit {
   forecastData:any;
-  weatherText:any = `स्काइमेट वेदर में आपका स्वागत है`
-  constructor(private translateService:TranslateService,
-    public dataService:DataService,private windoService:WindowService,
-
+  weatherText:any = `स्काइमेट वेदर में आपका स्वागत है`;
+  locationPath:any;
+  selectedLanguage:any;
+  constructor(
+    private translateService: TranslateService,
+    public dataService: DataService,
+    private windoService: WindowService,
+   private router: Router,
   ) {
     this.dataService.selectedLanguages.subscribe(lng => {
       this.translateService.use(lng);
+      this.selectedLanguage = lng;
     })
   }
 
   ngAfterViewInit(): void {
   
   }
-    setForecast(newData:any) {
+    setForecast(newData:any,path:any) {
       this.forecastData = newData;
+      this.locationPath = path;      
        let actual = this.dataService.bindIcon([newData?.actual]);
       this.forecastData['actual'] = actual[0];
       
+    }
+
+    gotoForecastPage() {
+      this.router.navigate([`${this.selectedLanguage}/forecast/weather/${this.locationPath}`]);
     }
 
     textToSpeech(text:any) {

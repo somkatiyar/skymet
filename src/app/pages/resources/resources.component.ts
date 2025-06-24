@@ -1,17 +1,30 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
-import { Autoplay, Manipulation, Navigation, Pagination, Thumbs, } from 'swiper/modules';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
+import {
+  Autoplay,
+  Manipulation,
+  Navigation,
+  Pagination,
+  Thumbs,
+} from 'swiper/modules';
 import Swiper from 'swiper';
 import { WindowService } from '../../services/window.service';
 import { DataService } from '../../services/data.service';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-resources',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink,RouterLinkActive],
   templateUrl: './resources.component.html',
-  styleUrl: './resources.component.scss'
+  styleUrl: './resources.component.scss',
 })
 export class ResourcesComponent implements AfterViewInit {
   @ViewChild('videosSwiperContainer') videosSwiperContainer!: ElementRef;
@@ -22,16 +35,16 @@ export class ResourcesComponent implements AfterViewInit {
   climateNewsSwiper!: any;
   ytSwiper!: any;
   allArticles: any;
-  weatherNewsList:any;
-  climateChangeList:any;
+  weatherNewsList: any;
+  climateChangeList: any;
   videos: any;
   url!: SafeResourceUrl;
-  constructor(private windowService: WindowService,
+  constructor(
+    private windowService: WindowService,
     private sanitizer: DomSanitizer,
     private cdRef: ChangeDetectorRef,
-    public dataService: DataService) {
-
-  }
+    public dataService: DataService
+  ) {}
 
   ngAfterViewInit(): void {
     this.initSwiper();
@@ -42,22 +55,20 @@ export class ResourcesComponent implements AfterViewInit {
     this.climateNewsSwiperInit();
     this.videosSwiper();
     this.cdRef.detectChanges();
-
   }
 
   getVideos() {
-    this.dataService.getYoutubeVideo(9).subscribe(res => {
+    this.dataService.getYoutubeVideo(9).subscribe((res) => {
       if (res && res['data']) {
         this.videos = res['data'].map((item: any) => {
           const attrs = item.attributes;
           return {
             ...attrs,
             id: item.id,
-            safeUrl: this.sanitizer.bypassSecurityTrustResourceUrl(attrs.link)
+            safeUrl: this.sanitizer.bypassSecurityTrustResourceUrl(attrs.link),
           };
         });
         console.log(this.videos);
-
       }
     });
   }
@@ -65,7 +76,7 @@ export class ResourcesComponent implements AfterViewInit {
   getArticles() {
     forkJoin({
       trending: this.dataService.getTrendingNews('Climate-Change', 1, 5),
-      weather: this.dataService.weatherNews('weather-news-and-analysis', 1, 4)
+      weather: this.dataService.weatherNews('weather-news-and-analysis', 1, 4),
     }).subscribe(({ trending, weather }) => {
       this.allArticles = [...trending, ...weather];
       this.weatherNewsList = weather;
@@ -74,22 +85,25 @@ export class ResourcesComponent implements AfterViewInit {
     });
   }
 
-
   initSwiper() {
     if (this.windowService.isBrowser()) {
       if (this.resourcesSwiper) {
         this.resourcesSwiper.destroy(true, true);
       }
-      this.resourcesSwiper = new Swiper(".resourcesSwiper", {
+      this.resourcesSwiper = new Swiper('.resourcesSwiper', {
         autoplay: false,
-        effect: "fade",
+        effect: 'fade',
         slidesPerView: 1,
-          pagination: {
-         el: ".swiper-pagination",
-      },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
       });
     }
-
   }
   top_channelInit() {
     if (this.windowService.isBrowser()) {
@@ -109,16 +123,13 @@ export class ResourcesComponent implements AfterViewInit {
 
           1024: {
             slidesPerView: 7,
-
           },
           1025: {
             slidesPerView: 8,
-
-          }
-        }
+          },
+        },
       });
     }
-
   }
   weatherNewsSwiperInit() {
     if (this.windowService.isBrowser()) {
@@ -134,24 +145,22 @@ export class ResourcesComponent implements AfterViewInit {
             spaceBetween: 5,
           },
           768: {
-            slidesPerView: 5,
+            slidesPerView: 2,
           },
 
           1024: {
-            slidesPerView: 7,
-
+            slidesPerView: 4,
           },
-          1025: {
-            slidesPerView: 3,
-            spaceBetween: 5,
-
-          }
-        }
+          // 1025: {
+          //   slidesPerView: 3,
+          //   spaceBetween: 5,
+          // },
+        },
       });
     }
   }
 
-    climateNewsSwiperInit() {
+  climateNewsSwiperInit() {
     if (this.windowService.isBrowser()) {
       if (this.climateNewsSwiper) {
         this.climateNewsSwiper.destroy(true, true);
@@ -165,25 +174,23 @@ export class ResourcesComponent implements AfterViewInit {
             spaceBetween: 5,
           },
           768: {
-            slidesPerView: 5,
+            slidesPerView: 2,
           },
 
           1024: {
-            slidesPerView: 7,
-
+            slidesPerView: 4,
           },
-          1025: {
-            slidesPerView: 3,
-            spaceBetween: 5,
-
-          }
-        }
+    
+          
+        },
       });
     }
   }
   videosSwiper() {
-      if (this.windowService.isBrowser() && this.videosSwiperContainer?.nativeElement) {
-
+    if (
+      this.windowService.isBrowser() &&
+      this.videosSwiperContainer?.nativeElement
+    ) {
       if (this.ytSwiper) {
         this.ytSwiper.destroy(true, true);
       }
@@ -196,21 +203,35 @@ export class ResourcesComponent implements AfterViewInit {
             spaceBetween: 5,
           },
           768: {
-            slidesPerView: 5,
+            slidesPerView: 2,
           },
 
           1024: {
-            slidesPerView: 7,
-
-          },
-          1025: {
             slidesPerView: 3,
-            spaceBetween: 5,
-
-          }
-        }
+          },
+          // 1025: {
+          //   slidesPerView: 3,
+          //   spaceBetween: 5,
+          // },
+        },
       });
     }
   }
+
+   getPreviewText(str:any, maxWords:any, maxChars:any) {
+  const words = str.split(' ');
+  let result = '';
+  
+  for (let i = 0; i < words.length && i < maxWords; i++) {
+    const nextWord = result ? result + ' ' + words[i] : words[i];
+    if (nextWord.length <= maxChars) {
+      result = nextWord;
+    } else {
+      break;
+    }
+  }
+
+  return result;
 }
 
+}

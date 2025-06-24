@@ -19,7 +19,7 @@ export class HourlyDataComponent implements AfterViewInit {
  hourlySwiper!: Swiper;
  constructor(
   private windowService:WindowService,
-  private dataService:DataService,private cdr: ChangeDetectorRef) {
+  public dataService:DataService,private cdr: ChangeDetectorRef) {
 
  }
 
@@ -130,6 +130,7 @@ export class HourlyDataComponent implements AfterViewInit {
     }));
 
     this.hourlyData = mergedData;
+
     this.cdr.detectChanges();
 
       // Then init/reinit carousel
