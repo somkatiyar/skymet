@@ -33,6 +33,8 @@ export class HomeComponent implements OnInit {
   latitude:any = 28.11;
   longitude:any = 78.22;
   selectedLng:any;
+  isLoading = true;
+
   weatherNewsHeaderConfig:any = {
     title:"Weather Updates",
     isLanguagesSelecter:true,

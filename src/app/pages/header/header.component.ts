@@ -23,6 +23,7 @@ import {
   ActivatedRoute,
   NavigationEnd,
   Router,
+  RouterLinkActive,
   RouterModule,
 } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -37,6 +38,7 @@ declare var window: any;
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    RouterLinkActive,
     TranslateModule,
   ],
   templateUrl: './header.component.html',
@@ -47,12 +49,15 @@ export class HeaderComponent {
   searchForm: any = FormGroup;
   recognition: any;
   locations: any = [];
+  isResourcesPage: boolean = false;
+  selectedLanguage: any;
   @ViewChild('locationList') locationList!: ElementRef;
   @HostListener('document:click', ['$event'])
   @HostListener('window:scroll', [])
   onScroll(): void {
     this.scrollFunction();
   }
+
 
   onDocumentClick(event: MouseEvent): void {
     const clickedInside = this.locationList?.nativeElement.contains(
@@ -68,12 +73,22 @@ export class HeaderComponent {
     private windowService: WindowService,
     private dataService: DataService,
     private route: ActivatedRoute,
+    private translateService: TranslateService,
     private router: Router,
     private translate: TranslateService,
     private fb: FormBuilder
   ) {
     if (isPlatformBrowser(this.platformId)) {
       this.onscrollHeaderFix();
+         this.dataService.selectedLanguages.subscribe(lng => {
+      this.translateService.use(lng);
+      this.selectedLanguage = lng;
+    })
+      if (window.innerWidth > 768) {
+        window.location.href.includes('resources') &&
+          (this.isResourcesPage = true);
+      }
+        console.log('Component name:', this.constructor.name);
     }
     this.seturlConfig();
     this.configListning();
@@ -118,34 +133,77 @@ export class HeaderComponent {
     this.scrollFunction();
   }
 
+
+
   scrollFunction() {
-    const scrollTop =
-      window.document.documentElement.scrollTop ||
-      window.document.body.scrollTop;
 
-    const header = window.document.getElementById('Header');
-    if (!header) return;
+    if (this.windowService.isBrowser()) {
+      const scrollTop =
+        window.document.documentElement.scrollTop ||
+        window.document.body.scrollTop;
+      const url = window.location.pathname;
+      const nav: any = document.getElementById('menulink');
+      const links = nav.querySelectorAll('ul a');
 
-    if (scrollTop > 50) {
+      const header = window.document.getElementById('Header');
+      if (!header) return;
+      const route = this.router.routerState.root;
+      const isHome = this.getComponentFromRoute() === 'home';
+      if (scrollTop > (isHome ? 400 : 50)) {
+        header.style.background = '#FFFFFF';
+        links.forEach((link: any) => {
+          link.classList.remove('white');
+        });
+        links.forEach((link: any) => {
+          link.classList.add('black');
+        });
+      } else {
+        if (this.deviceType() == 'desktop') {
 
-      header.style.background = 'rgb(241 247 249)';
+          if(!url.includes('resources')){
+            header.style.background = "transparent";
+          links.forEach((link: any) => {
+            link.classList.remove('white');
+          });
+          links.forEach((link: any) => {
+            link.classList.add('black');
+          });
+          } else {
+               header.style.background = `linear-gradient(180deg,
+              rgba(0, 0, 0, 0.6) 52.29%,
+              rgba(255, 255, 255, 0) 100%
+              )`;
+          links.forEach((link: any) => {
+            link.classList.add('white');
+          });
+          links.forEach((link: any) => {
+            link.classList.remove('black');
+          });
+          }
+       
+        } else {
+              links.forEach((link: any) => {
+            link.classList.remove('white');
+          });
+          links.forEach((link: any) => {
+            link.classList.add('black');
+          });
+          header.style.background = "transparent";
+        }
 
+      }
+    }
+  }
 
-      header.classList.add('navActive');
-      // (
-      //   window.document.querySelector('.navmenu ul a') as HTMLElement
-      // ).style.color = '#000';
+  deviceType() {
+    const width = window.innerWidth;
+    var device!: any;
+    if (width <= 768) {
+      device = 'mobile';
+      return device;
     } else {
-      header.classList.remove('navActive');
-
-    // header.style.background = "transparent"
-      // if(window.inner)
-      header.style.background = `linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.6) 52.29%,
-    rgba(255, 255, 255, 0) 100%
-  )`;
-
+      device = 'desktop';
+      return device;
     }
   }
 
@@ -159,7 +217,7 @@ export class HeaderComponent {
         this.recognition.interimResults = false;
         this.recognition.maxAlternatives = 1;
 
-        this.recognition.onstart = (event: any) => {};
+        this.recognition.onstart = (event: any) => { };
         this.recognition.onresult = (event: any) => {
           this.searchForm
             .get('searchCtrl')
@@ -207,6 +265,20 @@ export class HeaderComponent {
         this.locations = res['data'];
       });
   }
+  async getLocation(ev: any) {
+    
+    var obj = ev?.name_en; 
+ 
+    this.searchForm.get('searchCtrl')?.setValue('');
+
+      this.router
+      .navigate([`${this.selectedLanguage}/forecast/weather/${obj.toLowerCase().split(",").reverse().join("/").replace(/\/\s+/g, '/').trim()}`
+      ])
+      .then(() => {
+        this.locations = []
+      });
+  }
+
 
   toggleSearch() {
     console.log('clicked');
@@ -230,9 +302,26 @@ export class HeaderComponent {
   selectedLng: any;
   lngCode = ['hi', 'mr', 'gu', 'en', 'ta', 'te', 'kn', 'ml', 'bn', 'pa'];
 
+    isLanguageRoute(): boolean {
+      const currentPath = this.router.url.split('/')[1]; // Gets the first path segment
+      return this.lngCode.some(code => code === currentPath);
+    }
+
+  getComponentFromRoute() {
+    var cmp="";
+    if(this.router.url == '/' || this.isLanguageRoute()) {
+      cmp = 'home'
+    } else {
+      cmp ='other'
+    }
+    return cmp;
+  }
+
+
   seturlConfig() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+           const route = this.router.routerState.root;
         var len = this.router.url.length;
         if (this.isUrlChangable()) {
           var lng = this.lngCode.includes(this.router.url.slice(1, 3))
@@ -278,4 +367,18 @@ export class HeaderComponent {
       this.translate.use(code);
     }
   }
+pathName: string = 'home';
+isActiveLink(link: string):any {
+
+
+}
+}
+
+export interface Location {
+  country: string;
+  tid: number;
+  isearched: boolean;
+  state: string;
+  district: string;
+  tehsil: string;
 }

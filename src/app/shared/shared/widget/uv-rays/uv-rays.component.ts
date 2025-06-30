@@ -24,7 +24,6 @@ export class UvRaysComponent implements AfterViewInit {
     if (this.windoService.isBrowser()) {
       // Delay the tick positioning to ensure layout is complete
       setTimeout(() => {
-        console.log('DOM loaded. UV Index:', this.uvIndex, 'Props:', this.props);
         if (this.uvIndex && this.uvBar && this.tick) {
           this.setTickPosition();
         }
@@ -35,9 +34,7 @@ export class UvRaysComponent implements AfterViewInit {
   setTickPosition(): void {
     const uv = this.uvIndex;
     const barWidth = this.uvBar.nativeElement.clientWidth;
-    console.log('UV bar width:', barWidth);
     const position = ((uv - this.minUV) / (this.maxUV - this.minUV)) * barWidth;
-    console.log('Calculated tick position (px):', position);
     this.tick.nativeElement.style.left = `${position}px`;
   }
 }

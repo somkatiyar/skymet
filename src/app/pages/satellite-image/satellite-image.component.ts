@@ -24,6 +24,7 @@ export class SatelliteImageComponent implements AfterViewInit {
   rainfallImages:any = [];
   satelliteImages:any = [];
   rainfallMainSwiper:any;
+  selectedTab: string = 'himawari';
   constructor(public dataService: DataService,
     private cdr: ChangeDetectorRef,
     private windowService:WindowService) {
@@ -47,13 +48,13 @@ export class SatelliteImageComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initSwiper();
-     this.getSatelliteImage('Rainfall');
+     this.getSatelliteImage('himawari');
   }
 
 
 
  changeSatelliteImages(tab:any) {
-  //  this.getSatelliteImage(tab);
+    this.getSatelliteImage(tab);
  }
 
     getSatelliteImage(tab:any) {
@@ -72,11 +73,12 @@ export class SatelliteImageComponent implements AfterViewInit {
     
     }
  configImage(data: any, tab: any) {
+  
   this.rainfallImages = [];
 
   if (tab === 'himawari') {
-    data.forEach((el: any) => {
-      this.rainfallImages.push(el);
+    data['images'].forEach((el: any) => {
+      this.rainfallImages.push(data.url+el);
     });
   } else if (tab === 'insat') {
     data.forEach((el: any) => {

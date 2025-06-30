@@ -3,3 +3,17 @@
     border-radius: 30px;
     object-fit: cover;
 }
+
+.active {
+    border-radius: 50px;
+    background: #0065a7;
+    color: #fff;
+    font-weight: 600;
+    color: #fff !important;
+}
+
+.haeding .news-title{
+    font-size: 24px;
+    font-weight: 800;
+  color: black;
+}

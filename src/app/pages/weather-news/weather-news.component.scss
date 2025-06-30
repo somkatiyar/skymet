@@ -1,0 +1,27 @@
+.image img{
+    display: flex;
+    width: 100%;
+    height: auto;
+    width: 278;
+    height: 160;
+    border-radius: 12px;
+}
+
+.btn_center{
+    margin-top: 16px;
+}
+
+.updates .main_content {
+    width: 100%;
+    padding: 6px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+@media only screen and (max-width: 768px) {
+     .updates .main_content {
+        flex-wrap: wrap;
+    }
+}
+

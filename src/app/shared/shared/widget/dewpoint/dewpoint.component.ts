@@ -25,7 +25,6 @@ export class DewpointComponent implements OnChanges {
         const percent = Math.max(0, Math.min(100, this.dewPointPercent)); 
         const fillRatio = percent / 100;
         const newHeight = outerHeight * fillRatio;
-  console.log(newHeight,'innerDiv');
         innerDiv.style.height = `${newHeight}px`;
       }
       }, 2000);

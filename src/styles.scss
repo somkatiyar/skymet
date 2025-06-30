@@ -345,7 +345,7 @@ select {
 .btn button {
   border: none;
   background: none;
-  color: var(--primary);
+  color: #0075C2;
   font-size: 16px;
   font-weight: 700;
 }
@@ -354,6 +354,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
+      
 }
 
 .Header .header_content .lanc_only {
@@ -543,8 +544,8 @@ select {
 }
 
 .search input {
-  background: #d2f4ff;
-  border: none;
+  background: white;
+  border: 1px solid gray;
   width: 370px;
   /* width: 100%; */
   /* max-width: 370px; */
@@ -669,10 +670,11 @@ select {
 
 /* Hero Section .................................. */
 .hero_section {
-  background: url("/img/hero_banner.jpg") no-repeat center center/cover;
+  //background: url("/img/hero_banner.jpg") no-repeat center center/cover;
   width: 100%;
   padding: 150px 0 0 0;
   display: flex;
+
 }
 
 .hero_section .location {
@@ -684,6 +686,9 @@ select {
 
 .hero_section .location img {
   max-width: 30px;
+}
+.hero_section .location .refresh_icon {
+  cursor: pointer;
 }
 
 .hero_section .location h3 {
@@ -742,7 +747,7 @@ select {
   text-align: center;
   display: flex;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 20px;
+  gap: 16px;
   padding: 30px 0 0 0;
   flex-wrap: wrap;
 }
@@ -943,11 +948,11 @@ select {
 
 /* forecast .................................................... */
 .forecast {
-  padding: 70px 0;
+padding: 48px 0;
 }
 
 .forecast .fore_boxs {
-  padding: 30px 0;
+padding: 24px 0;
   /* gap: 15px;
   display: flex;
   overflow: hidden; */
@@ -971,6 +976,7 @@ select {
   background: #f5f5f5;
   padding: 20px;
   border-radius: 12px;
+  box-shadow: 0 0 0 0.5px gray;
 
 
   p{
@@ -981,9 +987,34 @@ select {
     }
   }
 }
+.forecast_box .date{
+  width: 39px;
+  height: 12px;
+  font-family: Raleway;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  text-align: center;
+color: #00000099;
+;
 
+
+}
 .forecast_box img {
   width: 40px;
+}
+.forecast_box .temp {
+  width: 39px;
+height: 14px;
+font-family: Raleway;
+font-weight: 700;
+font-size: 20px;
+line-height: 120%;
+letter-spacing: 0%;
+text-align: center;
+
+
 }
 
 @media only screen and (max-width: 769px) {
@@ -1081,7 +1112,7 @@ select {
 
 .Weather_patten .maping .haeding h6 {
   font-weight: 700;
-  color: #0065a7;
+    color: #0084DA;
   /* Replaced $primary with actual value */
 }
 
@@ -1150,7 +1181,7 @@ select {
   z-index: 9999;
   background: rgba(245, 245, 245, 0.8);
   /* Replaced $primary_light with actual value */
-  left: 15px;
+  left: 100px;
   top: 15px;
 }
 
@@ -1158,37 +1189,34 @@ select {
   .wetherMapArea .btn_map {
     /* padding: 5px 0; */
     /* width: 92%; */
+    left:13%
   }
 }
 
 .wetherMapArea .btn_map ul {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* height: 48px; */
-  gap: 10px;
-  padding: 10px 0;
-  margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    margin-bottom: 0;
 }
 
 .wetherMapArea .btn_map ul li {
   font-weight: 800;
   color: #0065a7;
-  /* Replaced $primary with actual value */
   padding: 8px 50px;
   cursor: pointer;
-  transition: 0.5s;
+ // transition: 0.5s;
 }
 
 .wetherMapArea .btn_map ul li:hover {
-  /* padding: 8px 50px; */
-  border-radius: 50px;
-  background: #0065a7;
-  /* Replaced $primary with actual value */
-  color: #fff;
-  /* Replaced $white with actual value */
-  font-weight: 600;
+  // border-radius: 50px;
+  // background: #0065a7;
+  // color: #fff;
+  // font-weight: 600;
 }
+
 
 .wetherMapArea .map {
   width: 100%;
@@ -1250,7 +1278,6 @@ select {
 .news_card .source .badge {
   background-color: red;
   color: #fff;
-  /* Replaced $white with actual value */
   padding: 2px 5px;
   border-radius: 5px;
 }
@@ -1292,7 +1319,7 @@ select {
 
 /* updates ................................................................. */
 .updates {
-  padding: 70px 0;
+  padding: 48px 0;
 }
 
 .updates .update_heading {
@@ -1352,7 +1379,7 @@ select {
 
 .updates .main_content {
   width: 100%;
-  padding: 30px 0;
+  padding: 6px 0;
   display: flex;
   justify-content: space-between;
   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
@@ -1431,7 +1458,7 @@ select {
 
 .Weather_video .mian {
   display: flex;
-  gap: 25px;
+  gap: 16px;
   /* flex-direction: column; */
 }
 

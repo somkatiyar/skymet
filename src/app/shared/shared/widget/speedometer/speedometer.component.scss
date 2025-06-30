@@ -1,6 +1,6 @@
 svg {
   // width: 190px;
-  width: 100%;
+  width: 80%;
   height: auto;
 }
 
@@ -20,6 +20,13 @@ input[type="range"] {
   margin-top: 10px;
   font-size: 18px;
 }
+
+ svg {
+    shape-rendering: geometricPrecision;
+    image-rendering: auto;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
 
 @media (max-width: 550px) {
   svg {

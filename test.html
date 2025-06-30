@@ -1,98 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Custom Speedometer</title>
+  <meta charset="UTF-8">
+  <title>Rain Animation</title>
   <style>
-
-
-    svg {
-      width: 500px;
-      height: auto;
+    body {
+      margin: 0;
+      background: #0a0a0a;
     }
 
-    #needle {
-      transform-origin: 85px 85px;
-      transform: rotate(-90deg);
-      transition: transform 0.3s ease-out;
-      fill: black;
+    .rain-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(#1e1e1e, #2a2a2a);
     }
 
-    input[type="range"] {
-      width: 300px;
-      margin-top: 20px;
+    .raindrop {
+      position: absolute;
+      width: 2px;
+      height: 15px;
+      background: rgba(173, 216, 230, 0.6);
+      animation: fall linear infinite;
     }
 
-    .label {
-      margin-top: 10px;
-      font-size: 18px;
-    }
-    svg{
-      width: 190px;
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
     }
   </style>
 </head>
 <body>
 
-  <h2>Dynamic Speedometer</h2>
+<div class="rain-container" id="rain"></div>
 
-  <div style="position: relative; display: inline-block;">
-    <svg viewBox="0 0 170 99" xmlns="http://www.w3.org/2000/svg">
+<script>
+  const rainContainer = document.getElementById('rain');
 
-      <!-- Your arcs -->
-      <path d="M169 84.5C169 73.3505 166.794 62.3113 162.508 52.0185C158.222 41.7257 151.941 32.3828 144.028 24.5282C136.115 16.6736 126.726 10.4627 116.402 6.25342C106.077 2.0441 95.0221 -0.080407 83.873 0.00232641C72.7238 0.0850598 61.7013 2.3734 51.4405 6.73548C41.1798 11.0975 31.8837 17.4471 24.0881 25.4182C16.2925 33.3894 10.1514 42.8244 6.01885 53.1797C1.88626 63.535 -0.156157 74.6058 0.00930553 85.754L39.2806 85.1711C39.1921 79.2046 40.2852 73.2796 42.4969 67.7374C44.7087 62.1953 47.9954 57.1456 52.1676 52.8795C56.3398 48.6133 61.315 45.215 66.8066 42.8805C72.2981 40.5459 78.1974 39.3212 84.1644 39.2769C90.1314 39.2326 96.0482 40.3696 101.574 42.6225C107.099 44.8753 112.125 48.1994 116.36 52.4031C120.595 56.6069 123.956 61.6072 126.25 67.1159C128.543 72.6246 129.724 78.5328 129.724 84.5H169Z" fill="#D8D8D9"/>
-      <path d="M169 84.5C169 64.939 162.214 45.9839 149.798 30.868C137.383 15.7521 120.108 5.41169 100.92 1.61067C81.7317 -2.19035 61.8192 0.783452 44.5788 10.0248C27.3385 19.2662 13.8384 34.2027 6.38127 52.2864L42.6909 67.2593C46.682 57.5809 53.9072 49.5869 63.1342 44.6409C72.3612 39.6949 83.0184 38.1034 93.2879 40.1377C103.557 42.172 112.803 47.7062 119.448 55.7962C126.092 63.8862 129.724 74.031 129.724 84.5L169 84.5Z" fill="#A9CFFE"/>
-      <path d="M169 84.5C169 68.2935 164.339 52.4289 155.574 38.7974C146.809 25.1659 134.308 14.3426 119.563 7.61786C104.817 0.893106 88.4489 -1.44944 72.4092 0.869488C56.3695 3.18842 41.3349 10.071 29.0979 20.6967L54.8488 50.3525C61.3981 44.6656 69.4446 40.9821 78.029 39.741C86.6135 38.4999 95.3737 39.7536 103.265 43.3527C111.157 46.9518 117.848 52.7444 122.539 60.04C127.23 67.3355 129.724 75.8263 129.724 84.5H169Z" fill="#58A2FE"/>
-      <path d="M169 84.5C169 71.4627 165.983 58.6022 160.186 46.9247C154.388 35.2473 145.968 25.0698 135.582 17.1884C125.197 9.30701 113.129 3.93561 100.322 1.49448C87.5152 -0.946654 74.3173 -0.391306 61.7609 3.11707L72.33 40.9439C79.0502 39.0662 86.1137 38.769 92.9679 40.0755C99.8221 41.382 106.281 44.2568 111.839 48.4749C117.397 52.693 121.904 58.14 125.007 64.3897C128.11 70.6395 129.724 77.5224 129.724 84.5H169Z" fill="#177FFE"/>
-      <path d="M169 84.5C169 64.8533 162.154 45.8205 149.639 30.6753C137.125 15.53 119.724 5.21876 100.43 1.51506L93.0255 40.0865C103.352 42.0687 112.665 47.5873 119.363 55.693C126.06 63.7988 129.724 73.9851 129.724 84.5H169Z" fill="#0069E9"/>
-      <path d="M169 84.5C169 71.2892 165.902 58.2624 159.956 46.4655C154.01 34.6686 145.38 24.4303 134.76 16.5726L111.399 48.1453C117.083 52.3507 121.702 57.8303 124.884 64.144C128.067 70.4577 129.724 77.4296 129.724 84.5H169Z" fill="#0555B6"/>
-      <path d="M169 84.5C169 71.0566 165.793 57.8073 159.644 45.8524L124.717 63.8158C128.008 70.2141 129.724 77.3051 129.724 84.5H169Z" fill="#00459B"/>
-
-      <!-- Needle as polygon -->
-      <polygon points="85,20 80,85 90,85" fill="black" id="needle"/>
-
-      <!-- Outer circle at center -->
-      <circle cx="85" cy="85" r="6" fill="black" />
-      <!-- Inner gray circle -->
-      <circle cx="85" cy="85" r="3.5" fill="gray" />
-    </svg>
-  </div>
-
-  <input type="range" id="speedSlider" min="0" max="180" value="0" />
-  <div class="label">Speed: <span id="speedValue">0</span> km/h</div>
-
-  <script>
-    const needle = document.getElementById('needle');
-    const speedSlider = document.getElementById('speedSlider');
-    const speedValue = document.getElementById('speedValue');
-
-    // Speed range is 0 to 180, needle angle -90deg (0) to +90deg (180)
-    function updateNeedle(speed) {
-      const angle = (speed / 180) * 180 - 90; // Map 0-180 speed to -90 to 90 degrees
-      needle.style.transform = `rotate(${angle}deg)`;
-      speedValue.textContent = Math.round(speed);
-      speedSlider.value = speed;
-    }
-
-    // Animate needle from 0 to defaultSpeed on load
-    const defaultSpeed = 60;
-    let currentSpeed = 0;
-    function animateNeedle() {
-      if(currentSpeed < defaultSpeed) {
-        currentSpeed += 1; // increment speed
-        updateNeedle(currentSpeed);
-        requestAnimationFrame(animateNeedle);
-      } else {
-        updateNeedle(defaultSpeed);
-      }
-    }
-
-    speedSlider.addEventListener('input', e => {
-      updateNeedle(e.target.value);
-    });
-
-    animateNeedle();
-  </script>
+  for (let i = 0; i < 150; i++) {
+    const drop = document.createElement('div');
+    drop.classList.add('raindrop');
+    drop.style.left = `${Math.random() * 100}%`;
+    drop.style.animationDuration = `${0.5 + Math.random()}s`;
+    drop.style.animationDelay = `${Math.random() * 2}s`;
+    rainContainer.appendChild(drop);
+  }
+</script>
 
 </body>
 </html>

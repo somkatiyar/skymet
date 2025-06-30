@@ -1,0 +1,33 @@
+
+.sun-container {
+  position: relative;
+  width: 100%; /* or fixed width like 200px if needed */
+  height: 120px; /* Set this explicitly to match SVG viewBox height */
+  margin: 0 auto;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.tick-line {
+ stroke: #4D33EF;
+  stroke-width: 1.69; /* use stroke-width instead of border */
+}
+
+.sun-icon {
+width: 20px;
+height: 20px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: left 0.3s ease, top 0.3s ease; /* optional smooth movement */
+}
+
+/* Optional fix: Ensure the container has no padding */
+.sun-container > * {
+  box-sizing: border-box;
+}

@@ -9,7 +9,6 @@ import { Meta, Title } from '@angular/platform-browser';
 import * as des_meta from '../model/forecast-meta-tags'
 import { DataService } from './data.service';
 import { TranslateService } from '@ngx-translate/core';
-import { log } from 'console';
 @Injectable({
   providedIn: 'root'
 })
@@ -64,7 +63,6 @@ export class SeoService {
   }
 
   generateSchema(schema:any) {
-    console.log(typeof schema);
     
     if(this.windowService.isServer()) {
       const script = this.doc.createElement('script');

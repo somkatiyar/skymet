@@ -17,7 +17,7 @@
             </div>
           </div>
           <div class="search_Nav">
-            <form [formGroup]="searchForm"> 
+            <form [formGroup]="searchForm" *ngIf="!isResourcesPage"> 
             <div class="search" id="searchBox">
               <div class="lanc">
                 <img src="./img/Vector.svg" alt="" />
@@ -31,19 +31,20 @@
 
               <div class="listing" *ngIf="locations" #locationList>
                 <div class="list">
-                  <p *ngFor="let item of locations">
-                  {{ item["loc"]["names"]["en"].split(",")[0] =='' ? item["loc"]["names"]["en"].split(",").slice(1,4).join(",") : item["loc"]["names"]["en"]}}
-                  </p>
+                  <p *ngFor="let item of locations" (click)="getLocation(item)">
+                  <!-- {{ item["loc"]["names"]["en"].split(",")[0] =='' ? item["loc"]["names"]["en"].split(",").slice(1,4).join(",") : item["loc"]["names"]["en"]}} -->
+                    {{ item["name_en"].split(",")[0] =='' ? item["name_en"].split(",").slice(1,4).join(",") : item["name_en"]}}
+                </p>
                 </div>
               </div>
             </div>
             </form>
             <div class="navmenu" id="menulink">
               <ul> 
-                <li><a [routerLink]="['/']">{{ "Home" | translate }}</a></li>
-                <li><a [routerLink]="['/forecast-map']">Forecast Map</a></li>
-                <li><a [routerLink]="['/resources']">Resources</a></li>
-                <li><a [routerLink]="['/himawari-latest-satellite-images-of-india']">Satellite</a></li>      
+                <li><a (click)="pathName='home'" [ngClass]="pathName=='home'? 'active':''" [routerLink]="['/']">{{ "Home" | translate }}</a></li>
+                <li><a (click)="pathName='forecastmap'" [ngClass]="pathName=='forecastmap'? 'active':''" [routerLink]="['/forecast-map']">Forecast Map</a></li>
+                <li><a (click)="pathName='resources'" [ngClass]="pathName=='resources'? 'active':''" [routerLink]="['/resources']">Resources</a></li>
+                <li><a (click)="pathName='satellite'" [ngClass]="pathName=='satellite'? 'active':''" [routerLink]="['/himawari-latest-satellite-images-of-india']">Satellite</a></li>      
                 <li><a [routerLink]="['/advertise-with-us']">Advertise with us</a></li>
                 <li><a href="">Contact Us</a></li>
                 <li>

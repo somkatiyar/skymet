@@ -8,7 +8,7 @@ import {
 } from 'swiper/modules';
 import Swiper from 'swiper';
 import { WindowService } from '../../../../services/window.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { DataService } from '../../../../services/data.service';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
@@ -28,13 +28,25 @@ export class GallaryComponent implements AfterViewInit {
   selectedTab: string = 'himawari';
   constructor(private windowService: WindowService,
     private cdRef:ChangeDetectorRef,
+    private location:Location,
     public dataService: DataService) {
 
   }
 
   ngAfterViewInit(): void {
-    
-    this.getsatelliteImage('himawari')
+    this.getsatelliteImage('himawari');
+  }
+  
+  refreshUrl(tab:any) { 
+    if(tab == 'insat') {
+      this.location.replaceState(
+        `insat/weather-satellite-images-of-india`
+      );
+    }else if(tab == 'himawari') { 
+    this.location.replaceState(
+       `himawari-latest-satellite-images-of-india`
+   )
+   }
   }
 
   getsatelliteImage(tab: any) {
@@ -43,12 +55,14 @@ export class GallaryComponent implements AfterViewInit {
     this.dataService.getSatelliteImage(tab).then((res) => {
       if (res && res.length > 0 && tab == 'insat') {
         this.satelliteImages = this.extractInsatTimeDate(res);
-        this.initRainfallSwiper();
+        this.initSatelliteSwiper();
+        this.refreshUrl(tab);
         setTimeout(() => this.cdRef.detectChanges());
 
       } else if (res && res.images && res.images.length > 0 && tab == 'himawari') {
         this.satelliteImages = this.extractHimawariTimeDate(res['images'], res.url);
-        this.initRainfallSwiper();
+        this.initSatelliteSwiper();
+        this.refreshUrl(tab);
         setTimeout(() => this.cdRef.detectChanges());
       }
      
@@ -62,7 +76,7 @@ export class GallaryComponent implements AfterViewInit {
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
     ];
-    return imagesArray.map((image: any) => {
+    return imagesArray.slice(0,24).map((image: any) => {
       const timeMatch = image.match(/_(\d{4})\.jpg/);
       const rawTime = timeMatch ? timeMatch[1] : null;
       const dateStr = image.split('v=')[1];
@@ -112,7 +126,7 @@ export class GallaryComponent implements AfterViewInit {
   }  
 
 
-  async initRainfallSwiper() {
+  async initSatelliteSwiper() {
     if (this.windowService.isBrowser()) {
       this.satelliteMainSwiper?.destroy(true, true);
       this.satelliteThumbSwiper?.destroy(true, true);
@@ -196,7 +210,7 @@ export class GallaryComponent implements AfterViewInit {
     }
   }
 
-async whatsappImageShare() {
+ whatsappImageShare() {
   if (!this.windowService.isBrowser()) return;
 
   const imageUrl = this.satelliteImages?.[this.activeIndex]?.image;
@@ -205,29 +219,12 @@ async whatsappImageShare() {
     return;
   }
 
-  try {
-    const response = await fetch(imageUrl);
-    const blob = await response.blob();
-    const file = new File([blob], 'image.jpg', { type: blob.type });
-
-    // Try Web Share API
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({
-        title: 'Satellite Image',
-        text: 'Check out this satellite image',
-        files: [file],
-      });
-    } else {
-      // Fallback to WhatsApp text link
-      const message = encodeURIComponent(`Check this image: ${imageUrl}`);
-      const whatsappUrl = `https://wa.me/?text=${message}`;
-      window.open(whatsappUrl, '_blank');
-    }
-  } catch (error) {
-    console.error('Error sharing image:', error);
-    alert('Failed to share the image.');
-  }
+  // Just open WhatsApp link with image URL
+  const message = encodeURIComponent(`Check this satellite image: ${imageUrl}`);
+  const whatsappUrl = `https://wa.me/?text=${message}`;
+  window.open(whatsappUrl, '_blank');
 }
+
 
 
    selectedImages: string[] = [];
@@ -245,21 +242,17 @@ async whatsappImageShare() {
     return this.selectedImages.includes(url);
   }
 
-  async shareFiles() {
-
-  const blobs = await Promise.all(this.selectedImages.map(url => fetch(url).then(r => r.blob())));
-  const files = blobs.map((blob, i) => new File([blob], `image${i + 1}.jpg`, { type: blob.type }));
-
-  if (navigator.canShare && navigator.canShare({ files })) {
-    await navigator.share({
-      title: 'Check these out!',
-      text: 'Multiple images shared from the app.',
-      files
-    });
-    this.selectedImages = []; 
-  } else {
-    alert('Your device does not support sharing files.');
+async shareFiles() {
+ const urls = this.selectedImages;
+  if (!urls.length) {
+    alert('No images selected.');
+    return;
   }
+
+  const message = encodeURIComponent(`Check these satellite images:\n${urls.join('\n')}`);
+  const whatsappUrl = `https://wa.me/?text=${message}`;
+  window.open(whatsappUrl, '_blank');
 }
+
 
 }

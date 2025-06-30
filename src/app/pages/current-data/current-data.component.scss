@@ -3,3 +3,18 @@
     width: 45%;
   }
 }
+
+.location-wrap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+
+@media (max-width: 768px) {
+ .location{
+  display: flex;
+  justify-content: space-between;
+ }
+}

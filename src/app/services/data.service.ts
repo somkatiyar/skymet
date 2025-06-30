@@ -54,7 +54,8 @@ export class DataService {
 
   searchLocation(key: string): Observable<any> {
     return this.http.get(
-      this.baseURL+ `getlocationlist/${key}`
+      // this.baseURL+ `getlocationlist/${key}`
+      this.utilityUrl + `search?search=${key}`
     );
   }
 

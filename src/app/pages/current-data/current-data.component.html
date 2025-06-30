@@ -1,8 +1,13 @@
-<div class="hero_section">
+<div class="hero_section" id="heroSection" [ngStyle]="backgroundStyle">
   <div class="container">
     <div class="location">
-      <img src="./img/location.png" alt="" />
-      <h3>{{forecastData?.metainfo?.TEHSIL_ALIAS_NAME}}</h3>
+
+     <div class="location-wrap">
+  <img src="./img/location.png" alt="" />
+  <h3>{{ forecastData?.metainfo?.TEHSIL_ALIAS_NAME }}</h3>
+</div>
+  
+      <img src="./img/refresh.png" alt="" class="refresh_icon" />
     </div>
     <div class="weather" (click)="gotoForecastPage()">
       <div class="weat_icon">
@@ -24,14 +29,19 @@
           <span>Clear sky</span>
         </div>
         <div class="max_min">
-          <div class="max">
+          <!-- <div class="max">
             <span>Max</span>
             <span>{{forecastData?.actual?.maxt}}°C</span>
+          </div> -->
+            <div class="min">
+            <span>Max</span>
+            <p>{{forecastData?.actual?.maxt}}°C</p>
           </div>
           <div class="min">
             <span>Min</span>
             <p>{{forecastData?.actual?.mint}}°C</p>
           </div>
+
         </div>
       </div>
       <div class="boxs">
@@ -47,12 +57,12 @@
         <h6> <img src="./img/rain_fall.svg" alt=""> Rainfall probabilty</h6>
         <div class="Rainfall_probabilty">
           <!-- <img src="./img/rainfall.png" alt="" /> -->
-           <app-rainfall class="app-rainFall-item" [rainPercent]="forecastData?.actual?.rain"></app-rainfall>
+           <app-rainfall class="app-rainFall-item" [rainPercent]="forecastData?.actual?.precip"></app-rainfall>
            <!-- <app-rainfall class="app-rainFall-item" [rainPercent]="90"></app-rainfall> -->
 
           <div class="probabilty">
-            <h5>{{forecastData?.actual?.rain}}%</h5>
-            <p>(2.0 mm)</p>
+            <h5>{{forecastData?.actual?.precip}}%</h5>
+            <p>({{forecastData?.actual?.rain}} mm)</p>
           </div>
         </div>
       </div>
@@ -70,7 +80,7 @@
   </div>
 </div>
 
-<div class="Weather_buddy">
+<!-- <div class="Weather_buddy">
   <div class="container">
     <div class="weather_box">
       <div class="header">
@@ -84,4 +94,4 @@
 
     </div>
   </div>
-</div>
+</div> -->

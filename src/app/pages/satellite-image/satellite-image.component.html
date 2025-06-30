@@ -1,72 +1,3 @@
-<!-- <div class="Weather_patten">
-  <div class="container">
-    <div class="main_content">
-      <div class="maping">
-        <div class="haeding">
-          <h5>Real-time weather patterns</h5>
-          <h6>View detailed patterns</h6>
-        </div>
-        <div class="wetherMapArea">
-          <div class="btn_map">
-            <ul>
-              <li>HIMAWARI</li>
-              <li>INSAT</li>
-              <li>RAINFALL</li>
-            </ul>
-          </div>
-
- <div class="icons_6 owl-carousel owl-theme" id="icons-4">
-    <div class="map ">
-  <img src="./img/map.jpg" alt="" />
-
-  </div>
-    <div class="map ">
-  <img src="./img/map.jpg" alt="" />
-
-  </div>
-    <div class="map ">
-  <img src="./img/map.jpg" alt="" />
-    </div>
-
- </div>
-
-
-        </div>
-      </div>
-
-      <div class="blogs">
-        <div class="haeding">
-          <h5>Explore trending climate news</h5>
-        </div>
-        <app-trending-news></app-trending-news>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-  $("#icons-4").owlCarousel({
-  loop: true,
-  // margin: 10,
-  nav: false,
-  // dots: true,
-  center: true,
-  autoplay: true,
-  autoplayTimeout: 5000,
-  smartSpeed: 2000,
-  autoplayHoverPause: false,
-  responsive: {
-    0: {
-      items: 1,
-    },
-    600: {
-      items: 1,
-    },
-    1000: {
-      items: 1,
-    },
-  },
-});
-</script> -->
 
 <div class="Weather_patten">
       <div class="container">
@@ -79,16 +10,12 @@
             <div class="wetherMapArea">
               <div class="btn_map">
                 <ul>
-                  <li (click)="changeSatelliteImages('himawari')">HIMAWARI</li>
-                  <li (click)="changeSatelliteImages('insat')">INSAT</li>
-                  <li (click)="changeSatelliteImages('Rainfall')">RAINFALL</li>
+                  <li [class.active]="selectedTab === 'himawari'" (click)="changeSatelliteImages('himawari');selectedTab='himawari'">HIMAWARI</li>
+                  <li [class.active]="selectedTab === 'insat'" (click)="changeSatelliteImages('insat');selectedTab='insat'">INSAT</li>
+                  <li [class.active]="selectedTab === 'Rainfall'" (click)="changeSatelliteImages('Rainfall');selectedTab='Rainfall'">RAINFALL</li>
                 </ul>
               </div>
-              <!-- <div class="icons_6 owl-carousel owl-theme rainCrowsel" id="icons-4">
-                <div class="map" *ngFor="let item of rainfallImages">
-                  <img [src]="item" alt=""/>
-                </div>
-              </div> -->
+      
                <div class="swiper satelliteSwiper">
                   <div class="swiper-wrapper" >
                     <div class="swiper-slide" *ngFor="let item of rainfallImages">
@@ -108,7 +35,7 @@
          
           <div class="blogs">
             <div class="haeding">
-              <h5>Explore trending climate news</h5>
+              <div class="news-title">Explore trending climate news</div>
             </div>
                  <app-trending-news></app-trending-news>
           </div>

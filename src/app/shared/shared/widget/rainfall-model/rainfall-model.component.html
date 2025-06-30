@@ -95,15 +95,17 @@
           <img src="/img/leftArrow.svg" alt="" />
         </div>
       </div>
-      <div thumbsSlider="" class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slider-thumb active" *ngFor="let item of filteredModelData">
-            <h5>12 Aug</h5>
-            <img [src]="item.imageUrl" />
-          </div>
-  
-        </div>
-      </div>
+   <div thumbsSlider class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide swiper-slider-thumb" 
+         *ngFor="let item of filteredModelData; let index = index"
+         [ngClass]="activeIndex === index ? 'active' : ''">
+      <h5>12 Aug</h5>
+      <img [src]="item.imageUrl" />
+    </div>
+  </div>
+</div>
+
     </div>
   </div>
 </div>

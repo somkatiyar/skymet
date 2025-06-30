@@ -7,7 +7,7 @@
         </span>
         <span class="breadcrumb-separator"> &#10095;</span>
         <span>
-          <a href="#">Green Park</a>
+          <a href="#">{{metaInfo?.TEHSIL_ALIAS_NAME}}</a>
         </span>
         <span class="breadcrumb-separator">&#10095;</span>
         <span>Hourly forecast</span>
@@ -18,17 +18,20 @@
           <div class="heading_flex">
             <div class="locat">
               <img src="./img/location.png" alt="" />
-              <h5 class="mainTitleSection">Green Park, India</h5>
+              <h5 class="mainTitleSection">{{metaInfo?.TEHSIL_ALIAS_NAME}},India</h5>
               <img class="refressButton" src="./img/refrash.svg" alt="" />
             </div>
             <div class="days">
-              <p [ngClass]="selectedTab == 'hourly' ? 'active' : ''" (click)="selectedTab = 'hourly'">
+              <p [ngClass]="selectedTab == 'hourly' ? 'active' : ''" 
+              (click)="selectedTab = 'hourly'">
                 Hourly
               </p>
-              <p [ngClass]="selectedTab == '7 days' ? 'active' : ''" (click)="selectedTab = '7 days'">
+              <p [ngClass]="selectedTab == '7 days' ? 'active' : ''" 
+              (click)="selectedTab = '7 days'">
                 7 Days
               </p>
-              <p [ngClass]="selectedTab == '15 days' ? 'active' : ''" (click)="selectedTab = '15 days'">
+              <p [ngClass]="selectedTab == '15 days' ? 'active' : ''" 
+              (click)="selectedTab = '15 days'">
                 15 Days
               </p>
             </div>
@@ -157,7 +160,7 @@
         <!--Humidity end -->
 
         <!-- uv rays -->
-        <div class="UV_rays_swiper">
+        <!-- <div class="UV_rays_swiper">
           <div class="tittle">
             <img src="./img/uv.svg" alt="" />
             <h5 class="mainTitleSection">UV Rays</h5>
@@ -174,10 +177,7 @@
                       <div class="uvtext">High risk</div>
                     </div>
                     <div class="right">
-                      <!-- <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAUjYcqiRyGO4S4lajfJ88-lMy9Lsf93ik1w&s"
-              alt=""
-            /> -->
+       
                       <img src="./img/uv sun.svg" alt="" />
                     </div>
                   </div>
@@ -192,23 +192,22 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- uv rays en end-->
 
         <!-- dew points swiper -->
-        <div class="dew_points_swiper">
+        <!-- <div class="dew_points_swiper">
           <div class="tittle">
             <img src="./img/Dew.svg" alt="" />
             <h5 class="mainTitleSection">Due point</h5>
           </div>
 
-          <div class="swiper swiper_humidity">
+          <div class="swiper swiper_dewPoint">
             <div class="swiper-wrapper">
               <div class="swiper-slide" *ngFor="let item of forecastData">
                 <div class="rain-card">
                   <div class="rain-bar">
                     <span class="rain-value">{{ item.dewPoint }} %</span>
-                    <!-- <p class="pogition">Moderate</p> -->
                     <div class="pers" [ngStyle]="{ height: item.dewPoint + '%' }"></div>
                   </div>
                   <div class="rain-date">
@@ -220,17 +219,17 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!--dew points swiper end -->
         <!-- air quality index rays -->
 
-        <div class="Airquality_index_swiper">
+        <!-- <div class="Airquality_index_swiper">
           <div class="tittle">
             <img src="./img/air_icon.svg" alt="" />
             <h5 class="mainTitleSection">Airquality index</h5>
           </div>
-          <div class="swiper swiper_uv">
+          <div class="swiper swiper_aqi">
             <div class="swiper-wrapper">
               <div class="swiper-slide" *ngFor="let item of forecastData">
                 <div class="uv-card">
@@ -256,7 +255,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- air quality index rays end -->
 
         <!-- sunRise  -->
@@ -303,9 +302,9 @@
             <img src="./img/moon_icon.svg" alt="" />
             <h5 class="mainTitleSection">Moonrise/Moonset</h5>
           </div>
-          <div class="swiper swiper_sunrise">
+          <div class="swiper swiper_moonrise">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+              <div class="swiper-slide" *ngFor="let item of forecastData">
                 <div class="sunRise_container">
                   <div class="time-label top">
                     <span class="sunset">6:10</span><span class="pm">PM</span>
@@ -337,15 +336,17 @@
        
 
           <div class="Temperature_swipee">
-          <div class="swiper swiper_temp">
+          <div class="swiper swiper_temp_hourly">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" *ngFor="let item of hourlyData">
-                <div class="weather-card" >
+              <div class="swiper-slide" *ngFor="let item of hourlyData;let index= index" >
+                <div class="weather-card" [ngStyle]="{ background: item.gradient }" [id]="'hourly' + index">
                   <div class="temperature-high">{{item.temp_max}}°</div>
-            
-                  <div class="dot">
+                 <div class="feels-like">
+                  Feels like 35°
+                 </div>
+                  <!-- <div class="dot" *ngIf="hourlyActiveIndex==index">
 
-                  </div>
+                  </div> -->
                   <div class="weather-icon">
                     <img [src]="item.iconImage" alt="Cloudy Icon" />
                   </div>
@@ -357,11 +358,14 @@
               </div>
              
             </div>
+               <div class="swiper-button-next swiper_temp_hourly"></div>
+               <div class="swiper-button-prev swiper_temp_hourly"></div>
             <div class="sun_mon">
-              <div class="sun_green">24 May, Sunday</div>
-              <div class="mon_yellow">24 May, Monday</div>
+              <div class="sun_green">{{hourlyDate}}</div>
+              <!-- <div class="mon_yellow">24 May, Monday</div> -->
             </div>
           </div>
+         
            </div>
         </div>
         <!-- <div class="graph"></div> -->
@@ -443,7 +447,7 @@
               <h6><img src="./img/temp.svg" alt="" /> Temp (Min/Max)</h6>
             </div>
           </div> -->
-          <div class="card-wrapper Weather_info" style="display: flex; gap: 20px">
+          <!-- <div class="card-wrapper Weather_info" style="display: flex; gap: 20px">
             <div class="boxs">
               <h6 class=" UV_Index"><img src="./img/wind.svg" alt="" /> UV Index</h6>
               <div class="Rainfall_probabilty wind">
@@ -469,49 +473,47 @@
 
             </div>
 
-            <div class="card">
+            <div class="boxs">
               <h6 class="Sunrise"><img src="./img/sunset_icon.svg" alt="" />Sunrise</h6>
               <div class="sunset">
-                <!-- <img src="./img/sunset.svg" alt=""> -->
                 <app-sunrise [angle]="calculateAngle()"></app-sunrise>
                 <div class="sunset_time" style="display: flex">
                   <div>
-                    <p>Sunrise</p>
+                    <div class="box-subheader">Sunrise</div>
                     <span>{{sunrise}} am</span>
                   </div>
-                  <!-- <div>
+                  <div>
                     <p>Now</p>
                     <span>{{ getCurrentTime() }} pm</span>
-                  </div> -->
+                  </div>
                   <div>
-                    <p>Sunset</p>
+                    <div class="box-subheader">Sunset</div>
                     <span>{{sunset}} pm</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card">
+            <div class="boxs">
               <h6><img src="./img/Moonrise.svg" alt="" /> Moonrise</h6>
               <div class="sunset">
-                <!-- <img src="./img/sunset.svg" alt=""> -->
-                <app-sunrise [angle]="calculateAngle()"></app-sunrise>
+                <app-moonrise [angle]="calculateAngle()"></app-moonrise>
                 <div class="sunset_time" style="display: flex">
                   <div>
-                    <p>Moonrise</p>
+                    <div class="box-subheader">Moonrise</div>
                     <span>{{moonriseTime}}</span>
                   </div>
-                  <!-- <div>
+                  <div>
                     <p>Now</p>
                     <span>{{ getCurrentTime() }} pm</span>
-                  </div> -->
+                  </div>
                   <div>
-                    <p>Moonset</p>
+                    <div class="box-subheader">Moonset</div>
                     <span>{{moonsetTime}}</span>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>

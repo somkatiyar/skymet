@@ -1,13 +1,23 @@
-.navmenu ul a {
-  color: #fff;
+// .navmenu ul a {
+//   color: #fff;
+// }
+
+
+// .Header {
+//   &.navActive {
+//     .navmenu ul a {
+//       color: #000;
+//     }
+//   }
+// }
+
+.black{
+  color: black;
+}
+.white{
+  color: white;
 }
 
-
-.Header {
-  &.navActive {
-    .navmenu ul a {
-      color: #000;
-    }
-  }
+.active {
+  color:#64C2FF !important
 }
-

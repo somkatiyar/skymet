@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -8,7 +8,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   standalone: true,
   imports: [CommonModule,RouterLink,RouterLinkActive],
   templateUrl: './trending-news.component.html',
-  styleUrl: './trending-news.component.scss'
+  styleUrl: './trending-news.component.scss',
 })
 export class TrendingNewsComponent {
   trendingNews:any;

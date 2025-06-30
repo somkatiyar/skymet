@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { Autoplay, Manipulation, Navigation, Pagination, Thumbs, } from 'swiper/modules';
 import Swiper from 'swiper';
 import { WindowService } from '../../services/window.service';
@@ -12,7 +12,8 @@ Swiper.use([Autoplay, Navigation, Thumbs]);
   standalone: true,
   imports: [CommonModule],
   templateUrl: './hourly-data.component.html',
-  styleUrl: './hourly-data.component.scss'
+  styleUrl: './hourly-data.component.scss',
+  encapsulation:ViewEncapsulation.None,
 })
 export class HourlyDataComponent implements AfterViewInit {
  hourlyData:any;
