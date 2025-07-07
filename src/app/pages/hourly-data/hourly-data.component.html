@@ -5,9 +5,10 @@
       <h5>Hourly Forecast</h5>
     </div>
     <div class="hourly-wrapper">
-       <div class="fore_boxs owl-carousel forceCastBoxesCrowsel" id="hourlyData">
-      <div
-        class="forecast_box"
+       <div class="fore_boxs owl-carousel forceCastBoxesCrowsel swiper" id="hourlyData">
+    <div class="swiper-wrapper">
+        <div
+        class="forecast_box swiper-slide"
         *ngFor="let item of hourlyData;let index=index"
         [ngStyle]="{ background: item.gradient }"
       >
@@ -15,6 +16,7 @@
         <p>{{ index==0?'Now': item.ist }}</p>
         <img [src]="item.iconImage" alt="" />
         <div class="temp">{{ item.temp_max }}°</div>
+      </div>
       </div>
     </div>
     <div class="hours">

@@ -135,13 +135,14 @@ export class HourlyDataComponent implements AfterViewInit {
     this.cdr.detectChanges();
 
       // Then init/reinit carousel
-     this.corousalconfig();;
+    // this.corousalconfig();;
+    this.initSwiper()
   }
 
    initSwiper() {
     if (this.windowService.isBrowser()) {
       this.hourlySwiper && this.hourlySwiper?.destroy(true, true);
-      this.hourlySwiper = new Swiper('.hourlySwiper', {
+      this.hourlySwiper = new Swiper('.forceCastBoxesCrowsel', {
           slidesPerView: 4.5,
         spaceBetween: 8,
         loop: true,
