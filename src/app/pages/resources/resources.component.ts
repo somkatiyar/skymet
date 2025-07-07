@@ -241,7 +241,6 @@ export class ResourcesComponent implements AfterViewInit {
     const absoluteUrl = `${window.location.origin}${relativePath}`;
     const encodedText = encodeURIComponent(`Check this out: ${absoluteUrl}`);
     const whatsappUrl = `https://wa.me/?text=${encodedText}`;
-
     window.open(whatsappUrl, '_blank');
   }
 }

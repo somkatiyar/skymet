@@ -234,11 +234,28 @@ getToOrderDate(inputDate:any) {
 }
 
 
-shareOnWhatsApp() {
-  if(this.windowService.isBrowser()) {
-  const message = encodeURIComponent(window.location.href);
-  const whatsappUrl = `https://wa.me/?text=${message}`;
-  window.open(whatsappUrl, '_blank');
+   shareOnWhatsApp(item: any): void {
+      if(this.windowService.isBrowser()) {
+      const relativePath = `/content/${item.categorySlug[0]}/${item.titleSlug}`;
+      const absoluteUrl = `${window.location.origin}${relativePath}`;
+      const encodedText = encodeURIComponent(`Check this out: ${absoluteUrl}`);
+      const whatsappUrl = `https://wa.me/?text=${encodedText}`;
+      window.open(whatsappUrl, '_blank');
+    }
+  }
+
+  nativeShare() {
+    if(this.windowService.isBrowser()) {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Check this out',
+      url: window.location.pathname
+    }).then(() => console.log('✅ Shared!'))
+      .catch(err => console.error('❌ Error sharing', err));
+  } else {
+    alert('Sharing not supported on this browser.');
   }
 }
+  }
+
 }

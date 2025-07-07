@@ -34,6 +34,7 @@ import { MoonriseComponent } from '../../shared/shared/widget/moonrise/moonrise.
 export class ForecastClubComponent implements AfterViewInit {
   hourlyData: any;
   forecastData: any;
+
   currentData: any;
   metaInfo: any;
   forecast: any = [];
@@ -48,10 +49,10 @@ export class ForecastClubComponent implements AfterViewInit {
 
   forecastLimit: any = 7;
   weatherNewsHeaderConfig: any = {
-    title: "News and Article",
+    title: "Suggested Resources",
     isLanguagesSelecter: false,
-    isFooterView: false,
-    isHeaderView: true
+    isFooterView: true,
+    isHeaderView: false
   }
   selectedTab: any = "hourly"
   constructor(private windowService: WindowService, private dataService: DataService,
@@ -173,7 +174,6 @@ export class ForecastClubComponent implements AfterViewInit {
 
   }
 
-
   getColorHumid(humidity: number): { background: string; text: string } {
     if (humidity >= 1 && humidity <= 30) {
       return { background: '#F5C5B1', text: "Low" };
@@ -279,6 +279,10 @@ export class ForecastClubComponent implements AfterViewInit {
             slidesPerView: 7,
 
           }
+        },
+          navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
         },
         on: {
           slideChange: (event) => {

@@ -14,6 +14,10 @@ import { SeoService } from '../../services/seo.service';
 })
 export class ArticleDetailComponent {
   post:any;
+  item:any = {
+    categorySlug:[],
+    titleSlug:''
+  }
   constructor(private route:ActivatedRoute,
     private seoService:SeoService,
     private sanitizer: DomSanitizer,
@@ -21,6 +25,8 @@ export class ArticleDetailComponent {
     
      var category = this.route.snapshot.paramMap.get('category');
      var title = this.route.snapshot.paramMap.get('title');
+     this.item.categorySlug[0]= category;
+     this.item.titleSlug = title;
      this.getPostBySlug(category,title);
   }
 
