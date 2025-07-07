@@ -1,38 +1,43 @@
 <div class="farecast_page">
   <div class="container">
     <div class="main_content">
-      <div class="breadcrumb">
-        <span>
-          <a href="#">Home</a>
-        </span>
-        <span class="breadcrumb-separator"> &#10095;</span>
-        <span>
-          <a href="#">{{metaInfo?.TEHSIL_ALIAS_NAME}}</a>
-        </span>
-        <span class="breadcrumb-separator">&#10095;</span>
-        <span>Hourly forecast</span>
-      </div>
-      <div class="Temperature_swipee">
-        <div class="tittle">
-          <div class="heading_flex">
-            <div class="locat">
-              <img src="./img/location.png" alt="" />
-              <h5 class="mainTitleSection">{{metaInfo?.TEHSIL_ALIAS_NAME}},India</h5>
-              <img class="refressButton" src="./img/refrash.svg" alt="" />
-            </div>
-            <div class="days">
-              <p [ngClass]="selectedTab == 'hourly' ? 'active' : ''" (click)="selectedTab = 'hourly'">
-                Hourly
-              </p>
-              <p [ngClass]="selectedTab == '7 days' ? 'active' : ''" (click)="selectedTab = '7 days'">
-                7 Days
-              </p>
-              <p [ngClass]="selectedTab == '15 days' ? 'active' : ''" (click)="selectedTab = '15 days'">
-                15 Days
-              </p>
+      <div class="cover_area">
+
+
+        <div class="breadcrumb">
+          <span>
+            <a href="#">Home</a>
+          </span>
+          <span class="breadcrumb-separator"> &#10095;</span>
+          <span>
+            <a href="#">{{metaInfo?.TEHSIL_ALIAS_NAME}}</a>
+          </span>
+          <span class="breadcrumb-separator">&#10095;</span>
+          <span>Hourly forecast</span>
+        </div>
+        <div class="Temperature_swipee fixedTabArea">
+          <div class="tittle">
+            <div class="heading_flex">
+              <div class="locat">
+                <img src="./img/location.png" alt="" />
+                <h5 class="mainTitleSection">{{metaInfo?.TEHSIL_ALIAS_NAME}},India</h5>
+                <img class="refressButton" src="./img/refrash.svg" alt="" />
+              </div>
+              <div class="days">
+                <p [ngClass]="selectedTab == 'hourly' ? 'active' : ''" (click)="selectedTab = 'hourly'">
+                  Hourly
+                </p>
+                <p [ngClass]="selectedTab == '7 days' ? 'active' : ''" (click)="selectedTab = '7 days'">
+                  7 Days
+                </p>
+                <p [ngClass]="selectedTab == '15 days' ? 'active' : ''" (click)="selectedTab = '15 days'">
+                  15 Days
+                </p>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
       <!-- temp swiper -->
       <div [hidden]="selectedTab == 'hourly'">

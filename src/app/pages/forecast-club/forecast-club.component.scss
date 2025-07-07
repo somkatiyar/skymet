@@ -48,9 +48,46 @@ p {
     font-weight: 700;
   }
 
+  padding-top: 120px;
 
+  .main_content {
+    height: 90vh; /* or remove */
+    overflow-y: scroll; /* or remove */
+    scroll-margin-top: 300px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    position: relative;
 
-  .Weather_buddy .weather_box .header .tittle h6{
+    .cover_area {
+      position: sticky;
+      top: 0px; // must set this!
+      width: 100%;
+      z-index: 99;
+      background: white; // helpful to avoid content overlap
+      // top: 200px; // adjust according to height of .breadcrumb
+    }
+
+    // .breadcrumb {
+    //   position: sticky;
+    //   top: 10px; // must set this!
+    //   width: 100%;
+    //   z-index: 99;
+    //   background: white; // helpful to avoid content overlap
+    //   // top: 200px; // adjust according to height of .breadcrumb
+    // }
+
+    // .fixedTabArea {
+    //   position: sticky;
+    //   top: 35px; // must set this!
+    //   width: 100%;
+    //   z-index: 99;
+    //   background: white; // helpful to avoid content overlap
+    //   // top: 200px; // adjust according to height of .breadcrumb
+    // }
+  }
+
+  .Weather_buddy .weather_box .header .tittle h6 {
     margin-right: 10px;
   }
   .container {
@@ -58,7 +95,7 @@ p {
     gap: 20px;
 
     .main_content {
-      margin-top: 110px;
+      // margin-top: 110px;
       width: 75%;
 
       .breadcrumb {
@@ -199,13 +236,13 @@ p {
 
     @media (max-width: 769px) {
       .main_content {
-        margin-top: 85px;
+        margin-top: 0px;
       }
     }
 
     @media (max-width: 426px) {
       .main_content {
-        margin-top: 90px;
+        margin-top: 0px;
       }
     }
 
@@ -617,7 +654,7 @@ p {
     }
 
     .ads {
-      margin-top: 110px;
+      // margin-top: 110px;
 
       width: 25%;
       height: 780px;
@@ -641,7 +678,14 @@ p {
   // margin-bottom: 20px;
 }
 
-@media (max-width: 426px) {
+@media (max-width: 550px) {
+  .farecast_page{
+    padding-top: 70px;
+
+    .main_content{
+      margin-top: 0;
+    }
+  }
   .swiper {
     margin-top: 15px;
     // margin-bottom: 20px;
@@ -790,14 +834,13 @@ p {
   // color: #0044aa;
   font-weight: 700;
   width: 100%;
-  .box-subheader{
-        font-weight: 500;
-        font-size: 11.21px;
-        line-height: 10.95px;
-        letter-spacing: -0.5%;
-        color: #000000A6;
-
-    }
+  .box-subheader {
+    font-weight: 500;
+    font-size: 11.21px;
+    line-height: 10.95px;
+    letter-spacing: -0.5%;
+    color: #000000a6;
+  }
   .sun-container {
     width: 100% !important;
   }
@@ -875,7 +918,7 @@ h6 img {
       font-size: 12px;
       color: rgba(0, 0, 0, 0.65);
     }
-  
+
     span {
       font-size: 12px;
       font-weight: 800;
@@ -1087,7 +1130,7 @@ h6 img {
       h6 {
         width: 100%;
 
-        img{
+        img {
           width: 20px;
         }
       }
@@ -1117,7 +1160,7 @@ h6 img {
         background: white;
         // margin-bottom: 20px;
       }
-      .feels-like{
+      .feels-like {
         font-weight: 500;
         font-size: 10px;
         line-height: 20px;
@@ -1125,7 +1168,6 @@ h6 img {
         text-align: center;
         vertical-align: middle;
         color: #00000099;
-
       }
       .weather-icon {
         img {
@@ -1191,32 +1233,32 @@ h6 img {
 }
 
 .sunset_time {
-    gap: 10px;
-    justify-content: space-between;
-    display: flex;
-    p {
-      font-size: 12px;
-      color: rgba(0, 0, 0, 0.65);
-    }
-  
-    span {
-      font-size: 12px;
-      font-weight: 800;
-    }
+  gap: 10px;
+  justify-content: space-between;
+  display: flex;
+  p {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.65);
   }
 
-   .circle-icon {
-      width: 60px;
-      height: 60px;
-      background-color: white;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #007bff; /* Icon color */
-      font-size: 24px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
+  span {
+    font-size: 12px;
+    font-weight: 800;
+  }
+}
+
+.circle-icon {
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #007bff; /* Icon color */
+  font-size: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
 .swiper-button-prev.custom_nav,
 .swiper-button-next.custom_nav {
   width: 40px;
@@ -1235,5 +1277,3 @@ h6 img {
   font-weight: 700;
   color: #333;
 }
-
-
