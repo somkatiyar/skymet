@@ -36,6 +36,11 @@ export class DataService {
     );
    }
 
+    allPost(currentPage:any,limit:any): Observable<any> {
+        const randomNumber = Math.floor(Math.random() * 100000);
+        return this.http.get(this.postURL + '/api/allPost' + `?start=${currentPage}&limit=${limit}&language=&random=${randomNumber}`);
+      }
+
     getTrendingNews(category: any,currentPage:any,limit:any): Observable<any> {
       const randomNumber = Math.floor(Math.random() * 100000);
       return this.http.get(this.postURL + '/api/posts/' + category + `?start=${currentPage}&limit=${limit}`);
@@ -257,5 +262,16 @@ getToOrderDate(inputDate:any) {
   }
 }
   }
+
+getDeviceType(target: 'mobile' | 'desktop'): boolean {
+  if (this.windowService.isBrowser()) {
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isSmallScreen = window.innerWidth <= 768;
+    const currentDevice = (isMobileUA || isSmallScreen) ? 'mobile' : 'desktop';
+    return currentDevice === target;
+  }
+  return target === 'desktop'; // Default if not browser
+}
+
 
 }

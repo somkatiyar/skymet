@@ -138,6 +138,7 @@ h4 {
       align-items: center;
 
       .container {
+       
         .mainContent {
           max-width: 800px;
         }
@@ -385,11 +386,24 @@ h4 {
     }
   }
   .main_content {
-    // display: flex;
-    // flex-wrap: wrap;
-    // gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
     padding-bottom: 15px;
     justify-content: space-between;
+     .custom{
+          display: flex;
+           flex-wrap: wrap;
+            gap: 25px;
+            .card_custom {
+              width: 379.3333435058594px;
+             // height: 427px;
+              gap: 10px;
+              opacity: 1;
+
+
+            }
+        }
     .Articles_card {
       position: relative;
       // width: 33% !important;
@@ -584,3 +598,12 @@ iframe {
   line-height: 1.3em; /* Needed for consistent line spacing */
   max-height: 3em;
 }
+
+// @media (max-width: 768px) {
+//   .main_content {
+//     .custom{
+//       display: none !important;
+//     }
+    
+//   }
+// }

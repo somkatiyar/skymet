@@ -27,13 +27,29 @@ export class ResourcesComponent implements AfterViewInit {
   topchannel!: Swiper;
   weatherNewsSwiper!: any;
   climateNewsSwiper!: any;
+  monsoonNewsSwiper!: any;
   ytSwiper!: any;
   allArticles: any;
   weatherNewsList: any;
   climateChangeList: any;
+  monsoonUpdateList:any;
   videos: any;
   url!: SafeResourceUrl;
-   activeIndex: any = 0;
+  activeIndex: any = 0;
+  allNews:any;
+  postLimit:any = 9;
+  filters = [
+  { filterkey: "Weather news", role: null },
+  { filterkey: "Climate change", role: null },
+  { filterkey: "La nina", role: null },
+  { filterkey: "Monsoon Update", role: null },
+  { filterkey: "Astronomy", role: null },
+  { filterkey: "Mumbai", role: null },
+  { filterkey: "Delhi", role: null },
+  { filterkey: "Rainfall", role: null },
+  
+  { filterkey: "Eastern India", role: null }
+];
   constructor(
     private windowService: WindowService,
     private sanitizer: DomSanitizer,
@@ -42,14 +58,22 @@ export class ResourcesComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this.initSwiper();
+    this.initBannerSwiper();
     this.top_channelInit();
     this.getArticles();
+    this.allPost(1,this.postLimit);
     this.getVideos();
     this.weatherNewsSwiperInit();
     this.climateNewsSwiperInit();
+    this.monsoonUpdateSwiperInit();
     this.videosSwiper();
     this.cdRef.detectChanges();
+  }
+
+  allPost(currentPage:any,limit:any) {
+    this.dataService.allPost(currentPage,limit).subscribe(res => {
+      this.allNews = res;
+    })
   }
 
   getVideos() {
@@ -71,14 +95,16 @@ export class ResourcesComponent implements AfterViewInit {
     forkJoin({
       trending: this.dataService.getTrendingNews('Climate-Change', 1, 5),
       weather: this.dataService.weatherNews('weather-news-and-analysis', 1, 5),
-    }).subscribe(({ trending, weather }) => {
-      this.allArticles = [...trending, ...weather];
+      monsoon: this.dataService.weatherNews('monsoon-update', 1, 5),
+    }).subscribe(({ trending, weather,monsoon }) => {
+      this.allArticles = [...trending, ...weather];      
       this.weatherNewsList = weather;
       this.climateChangeList = trending;
+      this.monsoonUpdateList = monsoon;
     });
   }
 
-  initSwiper() {
+  initBannerSwiper() {
     if (this.windowService.isBrowser()) {
       if (this.resourcesSwiper) {
         this.resourcesSwiper.destroy(true, true);
@@ -167,6 +193,33 @@ export class ResourcesComponent implements AfterViewInit {
         this.climateNewsSwiper.destroy(true, true);
       }
       this.climateNewsSwiper = new Swiper('.climateChange', {
+        slidesPerView: 7,
+        spaceBetween: 0,
+        breakpoints: {
+          0: {
+            slidesPerView: 1.3,
+            spaceBetween: 5,
+          },
+          768: {
+            slidesPerView: 2,
+          },
+
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 25
+
+          },
+        },
+      });
+    }
+  }
+
+  monsoonUpdateSwiperInit() {
+    if (this.windowService.isBrowser()) {
+      if (this.monsoonNewsSwiper) {
+        this.monsoonNewsSwiper.destroy(true, true);
+      }
+      this.monsoonNewsSwiper = new Swiper('.monsoonUpdate', {
         slidesPerView: 7,
         spaceBetween: 0,
         breakpoints: {

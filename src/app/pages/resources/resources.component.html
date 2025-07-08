@@ -59,66 +59,14 @@
     <h4>Top Channels</h4>
     <div class="swiper channel">
       <div class="swiper-wrapper">
-        <div class="swiper-slide">
+  
+        <div class="swiper-slide" *ngFor="let item of filters">
           <div class="channel_card">
             <img src="./img/channel_img.svg" alt="" />
-            <h6>Skymet location</h6>
+            <h6>{{item.filterkey}}</h6>
           </div>
         </div>
-        <div class="swiper-slide">
-          <div class="channel_card">
-            <img src="./img/channel_img.svg" alt="" />
-            <h6>Skymet location</h6>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="channel_card">
-            <img src="./img/channel_img.svg" alt="" />
-            <h6>Skymet location</h6>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="channel_card">
-            <img src="./img/channel_img.svg" alt="" />
-            <h6>Skymet location</h6>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="channel_card">
-            <img src="./img/channel_img.svg" alt="" />
-            <h6>Skymet location</h6>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="channel_card">
-            <img src="./img/channel_img.svg" alt="" />
-            <h6>Skymet location</h6>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="channel_card">
-            <img src="./img/channel_img.svg" alt="" />
-            <h6>Skymet location</h6>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="channel_card">
-            <img src="./img/channel_img.svg" alt="" />
-            <h6>Skymet location</h6>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="channel_card">
-            <img src="./img/channel_img.svg" alt="" />
-            <h6>Skymet location</h6>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="channel_card">
-            <img src="./img/channel_img.svg" alt="" />
-            <h6>Skymet location</h6>
-          </div>
-        </div>
+    
       </div>
     </div>
   </div>
@@ -133,11 +81,38 @@
         <p>Articles</p>
       </div> -->
     </div>
+   <div class="main_content" *ngIf="dataService.getDeviceType('desktop')">
+        <div class="custom">
+           <div class="Articles_card card_custom" *ngFor="let item of allNews">
+            <a  [routerLink]="['/content', item.categorySlug[0], item.titleSlug]" >
+            <img [src]="item.thumbnail" alt="" class="card_thumb"/>
+            <p class="catch">{{item.categorySlug[0]}}</p>
 
-    <div class="main_content">
+            <span class="dates">{{
+              dataService.formatDateArticleList(item.DateTime)
+            }}</span>
+            <h6 class="heading two-line-ellipsis">
+              {{ item.title }}
+            </h6>
+            <p class="two-line-ellipsis">
+              {{ item.description }}
+            </p>
+            <div class="bottom">
+              <h6 class="Read_More_btn">Read More &#x2794;</h6>
+              <img (click)="shareOnWhatsApp(item)"
+                class="WhatsApp"
+                src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+              />
+            </div>
+            </a>
+           </div> 
+        </div>
+      
+    </div>
+    <div class="main_content" *ngIf="dataService.getDeviceType('mobile')">
       <div class="swiper weatherNewsSwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide Articles_card" *ngFor="let item of weatherNewsList">
+          <div class="swiper-slide Articles_card" *ngFor="let item of allNews">
             <a  [routerLink]="['/content', item.categorySlug[0], item.titleSlug]" >
             <img [src]="item.thumbnail" alt="" />
             <p class="catch">Weather News</p>
@@ -163,7 +138,7 @@
         </div>
       </div>
     </div>
-    <div class="main_content">
+    <!-- <div class="main_content">
       <div class="swiper climateChange">
         <div class="swiper-wrapper">
           <div
@@ -194,8 +169,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="btn_center">
+    </div> -->
+    <div class="btn_center" (click)="allPost(1,postLimit + 3);postLimit=postLimit+3">
       <div class="btn">
         <button>View More</button>
       </div>
