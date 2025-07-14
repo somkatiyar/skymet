@@ -317,6 +317,7 @@ h4 {
     width: 100px;
     img {
       width: 100%;
+      border-radius: 50%;
     }
     h6 {
       padding: 10px 0;
@@ -599,6 +600,12 @@ iframe {
   max-height: 3em;
 }
 
+.active {
+  border: 2px solid blue;
+}
+.capitalize-each {
+  text-transform: capitalize;
+}
 // @media (max-width: 768px) {
 //   .main_content {
 //     .custom{
@@ -607,3 +614,5 @@ iframe {
     
 //   }
 // }
+
+

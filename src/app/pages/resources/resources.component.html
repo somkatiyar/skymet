@@ -60,9 +60,9 @@
     <div class="swiper channel">
       <div class="swiper-wrapper">
   
-        <div class="swiper-slide" *ngFor="let item of filters">
-          <div class="channel_card">
-            <img src="./img/channel_img.svg" alt="" />
+        <div class="swiper-slide" *ngFor="let item of filters;let index = index">
+          <div class="channel_card" (click)="selectedFilter = item.sr_no;filterNews(item.slug)">
+            <img src="./img/channel_img.svg" alt="" [ngClass]="{ 'active': selectedFilter === index +1   }"/>
             <h6>{{item.filterkey}}</h6>
           </div>
         </div>
@@ -81,12 +81,12 @@
         <p>Articles</p>
       </div> -->
     </div>
-   <div class="main_content" *ngIf="dataService.getDeviceType('desktop')">
+   <div class="main_content" *ngIf="dataService.getDeviceType()=='desktop'">
         <div class="custom">
            <div class="Articles_card card_custom" *ngFor="let item of allNews">
             <a  [routerLink]="['/content', item.categorySlug[0], item.titleSlug]" >
             <img [src]="item.thumbnail" alt="" class="card_thumb"/>
-            <p class="catch">{{item.categorySlug[0]}}</p>
+            <p class="catch capitalize-each">{{selectedFilter == 1 ? item.categorySlug[0].replace('-',' ')  : newsText()}}</p>
 
             <span class="dates">{{
               dataService.formatDateArticleList(item.DateTime)
@@ -109,7 +109,7 @@
         </div>
       
     </div>
-    <div class="main_content" *ngIf="dataService.getDeviceType('mobile')">
+    <div class="main_content" *ngIf="dataService.getDeviceType()=='mobile'">
       <div class="swiper weatherNewsSwiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide Articles_card" *ngFor="let item of allNews">
@@ -170,7 +170,8 @@
         </div>
       </div>
     </div> -->
-    <div class="btn_center" (click)="allPost(1,postLimit + 3);postLimit=postLimit+3">
+    <div class="btn_center" 
+       (click)="handlePostClick()">
       <div class="btn">
         <button>View More</button>
       </div>
@@ -210,7 +211,7 @@
 
       </div> -->
     </div>
-    <div class="btn_center">
+    <div class="btn_center" routerLink="/video-list">
       <div class="btn">
         <button>Learn More</button>
       </div>

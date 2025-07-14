@@ -1,0 +1,406 @@
+<main class="mainSection aboutMain pt-lg-4">
+  <div class="container">
+    <div class="titleHeader lgScreen">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a
+              [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+              [routerLink]="['/', selectedLng]"
+              class="breadcrumb-item-link"
+              >{{ "Skymet Global" | translate }}</a
+            >
+          </li>
+          <li
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+            class="breadcrumb-item text-capitalize"
+            aria-current="page"
+          >
+            {{ "about us" | translate }}
+          </li>
+        </ol>
+      </nav>
+    </div>
+ 
+    <section class="aboutUsBanner mb-40">
+      <div class="card text-bg-dark border-0 mb-3">
+        <img
+          src="assets/img/banner.png"
+          class="card-img rounded-4"
+          alt="banner image"
+        />
+        <div
+          class="card-img-overlay d-flex justify-content-end flex-column px-2 px-md-5"
+        >
+          <h1
+            class="card-title"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            {{ "About Us" | translate }}
+          </h1>
+          <!-- <span class="button pb-4">
+            <button class="btn btn-secondary px-5 rounded-pill">
+              {{ 'Skymet Global' | translate }}
+            </button>
+          </span> -->
+        </div>
+      </div>
+    </section>
+    <section class="aboutUsContent mb-40">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-3 d-none d-md-block"></div>
+        <div class="col-12 col-lg-9">
+          <div
+            class="inner-content"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <p class="paraText">{{ "dsc1" | translate }}</p>
+            <p class="paraText">{{ "dsc2" | translate }}</p>
+            <p class="paraText">{{ "dsc3" | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ourMission mb-40">
+      <div class="header mb-4 smallScreen">
+        <h2
+          class="textTitle"
+          [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+        >
+          {{ "Our Mission" | translate }}
+        </h2>
+      </div>
+      <div class="row align-items-end g-3">
+        <div class="col-12 col-lg-6">
+          <img
+            src="assets/img/mission.png"
+            alt="thumnail image"
+            class="img-fluid w-100"
+          />
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="inner-content">
+            <div class="header mb-4 lgScreen">
+              <h2
+                class="textTitle"
+                [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+              >
+                {{ "Our Mission" | translate }}
+              </h2>
+            </div>
+            <p
+              class="paraText"
+              [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+            >
+              {{ "dsc4" | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ourStatus mb-40 pt-40">
+      <div class="skymetInNumber">
+        <div class="statusItem">
+          <h2 class="serviceNumber">500+</h2>
+          <h4
+            class="serviceTitle"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            {{ "Projects" | translate }}
+          </h4>
+        </div>
+        <div class="statusItem">
+          <h2 class="serviceNumber">100+</h2>
+          <h4
+            class="serviceTitle"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            {{ "Clients" | translate }}
+          </h4>
+        </div>
+        <div class="statusItem">
+          <h2 class="serviceNumber">50+</h2>
+          <h4
+            class="serviceTitle"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            {{ "award" | translate }}
+          </h4>
+        </div>
+        <div class="statusItem">
+          <h2 class="serviceNumber">20+</h2>
+          <h4
+            class="serviceTitle"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            {{ "service" | translate }}
+          </h4>
+        </div>
+        <div class="statusItem">
+          <h2 class="serviceNumber">5500+</h2>
+          <h4
+            class="serviceTitle"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            {{ "instrument" | translate }}
+          </h4>
+        </div>
+
+        <!-- <div class="row align-items-start">
+          <div class="col-3 col-md-3 col-lg-3 px-1">
+            <div class="item py-2">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h2 class="serviceNumber">500+</h2>
+                  <h4 class="serviceTitle">{{ 'Projects' | translate }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 col-md-3 col-lg-3 px-1">
+            <div class="item py-2">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h2 class="serviceNumber">100+</h2>
+                  <h4 class="serviceTitle">{{ 'Clients' | translate }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 col-md-3 col-lg-3 px-1">
+            <div class="item py-2">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h2 class="serviceNumber">20+</h2>
+                  <h4 class="serviceTitle">{{ 'service' | translate }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 col-md-3 col-lg-3 px-1">
+            <div class="item py-2">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h2 class="serviceNumber">50+</h2>
+                  <h4 class="serviceTitle">{{ 'award' | translate }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </section>
+    <section class="ourServices mb-40 pt-40">
+      <div class="header mb-4 pb-2">
+        <h2 class="textTitle">{{ "Our Services" | translate }}</h2>
+      </div>
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-md-6 col-lg-6 pe-lg-4">
+          <div
+            class="serviceItem border-bottom"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <h3 class="serviceTitle">{{ "service1" | translate }}</h3>
+            <p class="serviceText">{{ "dsc5" | translate }}</p>
+          </div>
+          <div
+            class="serviceItem border-bottom"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <h3 class="serviceTitle">{{ "service3" | translate }}</h3>
+            <p class="serviceText">{{ "dsc7" | translate }}</p>
+          </div>
+          <div
+            class="serviceItem border-bottom"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <h3 class="serviceTitle">{{ "service5" | translate }}</h3>
+            <p class="serviceText">{{ "dsc9" | translate }}</p>
+          </div>
+          <div
+            class="serviceItem border-bottom"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <h3 class="serviceTitle">{{ "service7" | translate }}</h3>
+            <p class="serviceText">{{ "dsc11" | translate }}</p>
+          </div>
+          <div
+            class="serviceItem bmb-0"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <h3 class="serviceTitle">{{ "service6" | translate }}</h3>
+            <p class="serviceText">{{ "dsc10" | translate }}</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 ps-lg-4">
+          <div
+            class="serviceItem border-bottom"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <h3 class="serviceTitle">{{ "service2" | translate }}</h3>
+            <p class="serviceText">{{ "dsc6" | translate }}</p>
+          </div>
+          <div
+            class="serviceItem border-bottom"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <h3 class="serviceTitle">{{ "service4" | translate }}</h3>
+            <p class="serviceText">{{ "dsc8" | translate }}</p>
+          </div>
+          <div
+            class="serviceItem border-bottom"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <h3 class="serviceTitle">{{ "service9" | translate }}</h3>
+            <p class="serviceText">{{ "dsc13" | translate }}</p>
+          </div>
+          <div
+            class="serviceItem border-bottom"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <h3 class="serviceTitle">{{ "service8" | translate }}</h3>
+            <p class="serviceText">{{ "dsc12" | translate }}</p>
+          </div>
+          <div
+            class="serviceItem mb-0"
+            [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+          >
+            <h3 class="serviceTitle">{{ "service10" | translate }}</h3>
+            <p class="serviceText">{{ "dsc14" | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ourLeader mb-40 pt-40">
+      <div class="header mb-4 pb-2">
+        <h2
+          class="textTitle"
+          [ngClass]="selectedLng == 'hi' ? 'hindi-text' : 'english-text'"
+        >
+          {{ "Our Leaders" | translate }}
+        </h2>
+      </div>
+      <div class="slider">
+        <div class="row align-items-center g-3">
+          <div class="col-6 col-lg-3 text-center" (click)="onImageClick('jatin', 0)">
+            <div class="img" for="jatin">
+              <img
+                id="chairmanImage"
+                [src]="data?.[0].checked ? 'assets/img/mj.png' : 'assets/img/j.png'"
+                alt="Chairman image"
+                class="img-fluid sg-pointer w-100"
+                width="200"
+                height="200"
+              />
+              <div class="mt-2">
+                <div class="fw-bold fs-5">Jatin Singh</div>
+                <div class="text-muted small">Chairman</div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-6 col-lg-3 text-center" (click)="onImageClick('jatin', 1)">
+            <div class="img" for="yogesh">
+              <img
+                id="ceoImage"
+                [src]="data?.[1].checked ? 'assets/img/yg.png' : 'assets/img/m.png'"
+                alt="CEO image"
+                class="img-fluid sg-pointer w-100"
+                width="200"
+                height="200"
+              />
+              <div class="mt-2">
+                <div class="fw-bold fs-5">Yogesh Patil</div>
+                <div class="text-muted small">CEO</div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-6 col-lg-3 text-center" (click)="onImageClick('jatin', 2)">
+            <div class="img" for="vivek">
+              <img
+                id="ctoImage"
+                [src]="data?.[2].checked ? 'assets/img/vk.png' : 'assets/img/v.png'"
+                alt="CTO image"
+                class="img-fluid sg-pointer w-100"
+                width="200"
+                height="200"
+              />
+              <div class="mt-2">
+                <div class="fw-bold fs-5">Vivek Singh</div>
+                <div class="text-muted small">CEO & CTO</div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-6 col-lg-3 text-center" (click)="onImageClick('jatin', 3)">
+            <div class="img" for="mukesh">
+              <img
+                id="cfoImage"
+                [src]="data?.[3].checked ? 'assets/img/cf.png' : 'assets/img/s.png'"
+                alt="CFO image"
+                class="img-fluid sg-pointer w-100"
+                width="200"
+                height="200"
+              />
+              <div class="mt-2">
+                <div class="fw-bold fs-5">Mukesh Mangal</div>
+                <div class="text-muted small">CFO</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div
+          class="aboutContent sg-pointer"
+          (click)="restLeader()"
+          [ngClass]="data[slectedFrame]?.checked ? 'show' : 'hide'"
+          id="model"
+        >
+          <div class="row g-0">
+            <div class="col-12 px-0">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h3 class="card-title leaderName">
+                      {{ data[slectedFrame]?.name }}
+                    </h3>
+                  </div>
+                  <div class="col-auto">
+                    <a
+                      class="socialicon pe-2"
+                      [href]="data[slectedFrame]?.linkedin"
+                      target="_blank"
+                    >
+                      <i class="bi bi-linkedin"></i>
+                    </a>
+                    <a
+                      class="socialicon ps-3 pe-2"
+                      [href]="data[slectedFrame]?.twitter"
+                      target="_blank"
+                    >
+                      <i class="bi bi-twitter-x"></i>
+                    </a>
+                  </div>
+                  <div class="col-12">
+                    <h5 class="card-title leaderPost">
+                      {{ data[slectedFrame]?.designation }}
+                    </h5>
+                    <p class="card-text pb-4">
+                      <small class="text-white company">{{
+                        data[slectedFrame]?.company
+                      }}</small>
+                    </p>
+                  </div>
+                </div>
+
+                <p class="card-text">{{ data[slectedFrame]?.content }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

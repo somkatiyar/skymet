@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
               this.nearestMeta = await this.nearByLocation(latlng);
               let forecast:any = await this.getForecastData(this.formatPath(this.nearestMeta));         
               this.CurrentDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
-              this.HourlyDataComponent?.setForecast(forecast);
+              this.HourlyDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
     }
   }
 

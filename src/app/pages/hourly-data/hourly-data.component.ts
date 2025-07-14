@@ -4,6 +4,8 @@ import { Autoplay, Manipulation, Navigation, Pagination, Thumbs, } from 'swiper/
 import Swiper from 'swiper';
 import { WindowService } from '../../services/window.service';
 import { DataService } from '../../services/data.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 declare var $:any;
 
 Swiper.use([Autoplay, Navigation, Thumbs]);
@@ -18,15 +20,25 @@ Swiper.use([Autoplay, Navigation, Thumbs]);
 export class HourlyDataComponent implements AfterViewInit {
  hourlyData:any;
  hourlySwiper!: Swiper;
+ locationPath:any;
+ selectedLanguage:any;
  constructor(
   private windowService:WindowService,
+  private router:Router,
+  private translateService: TranslateService,
   public dataService:DataService,private cdr: ChangeDetectorRef) {
-
+   this.dataService.selectedLanguages.subscribe(lng => {
+      this.translateService.use(lng);
+      this.selectedLanguage = lng;
+    })
  }
 
  ngAfterViewInit(): void {
    
  }
+  gotoForecastPage() {
+      this.router.navigate([`${this.selectedLanguage}/forecast/weather/${this.locationPath}`]);
+    }
 
  corousalconfig() {
   if(this.windowService.isBrowser()) {
@@ -93,13 +105,7 @@ export class HourlyDataComponent implements AfterViewInit {
       }
     }
 
-    (document.querySelector('.toggle') as HTMLElement).addEventListener(
-      'click',
-      () => {
-        const menulink: any = document.querySelector('#menulink');
-        menulink.classList.toggle('active');
-      }
-    );
+
 
     //     const menutoggle = document.querySelector(".toggle");
     // const menulink = document.querySelector("#menulink");
@@ -115,8 +121,8 @@ export class HourlyDataComponent implements AfterViewInit {
 
 
 
-  setForecast(newData:any) {
-   
+  setForecast(newData:any,path:any) {
+   this.locationPath = path; 
     this.hourlyData = this.dataService.bindIcon(newData?.hourly);
     let grediant = this.dataService.getGradient();
 

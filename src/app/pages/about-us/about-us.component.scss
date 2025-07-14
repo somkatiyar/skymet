@@ -1,0 +1,540 @@
+main {
+  .header {
+    .textTitle {
+      font-family: "Raleway";
+      font-size: 38.91px;
+      font-weight: 600;
+      line-height: 45.68px;
+    }
+  }
+  .locationSearch {
+    padding: 15px 0 25px;
+  }
+  .aboutUsBanner {
+    .card {
+      .card-img {
+        height: 350px;
+      }
+      .card-title {
+        font-size: 50px;
+        line-height: 64px;
+        font-weight: 500;
+        padding-left: 16px;
+        padding-bottom: 16px;
+      }
+      .btn-secondary {
+        background-color: rgba(157, 157, 157, 1);
+        font-family: "Raleway";
+        font-size: 24.44px;
+        font-weight: 500;
+        line-height: 28.69px;
+        text-align: center;
+      }
+    }
+  }
+  .aboutUsContent {
+    .inner-content {
+      .paraText {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 25.83px;
+        text-align: left;
+      }
+    }
+  }
+  .ourMission {
+    img {
+      height: 300px;
+    }
+    .inner-content {
+      padding-left: 15px;
+      .paraText {
+        font-family: "Raleway";
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 28.18px;
+        text-align: left;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        width: 100%;
+      }
+    }
+  }
+  .ourStatus {
+    .skymetInNumber {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .statusItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .serviceTitle {
+          font-family: Raleway;
+          font-size: 20.6px;
+          font-weight: 500;
+          line-height: 30.92px;
+          color: #000;
+          max-width: 116px;
+          text-align: center;
+          align-items: start;
+          display: flex;
+          height: 55px;
+        }
+        .serviceNumber {
+          font-family: Raleway;
+          font-size: 80px;
+          font-weight: 100;
+          line-height: 110px;
+          color: #000;
+        }
+      }
+    }
+  }
+  .ourServices {
+    .serviceItem {
+      margin-bottom: 19px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .serviceTitle {
+        font-family: "Raleway";
+        font-size: 26px;
+        font-weight: 500;
+        line-height: 28.18px;
+        color: #000;
+      }
+      .serviceText {
+        font-family: "Raleway";
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 21.13px;
+        color: #000000b8;
+        margin-bottom: 19px;
+      }
+    }
+  }
+  .ourLeader {
+    padding-bottom: 30px;
+    .slider {
+      .img {
+        position: relative;
+
+        .leaderCheck {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+      .aboutContent {
+        background-color: #000;
+        margin-top: 10px;
+        color: #fff;
+        padding: 32px;
+        border-radius: 10px;
+        width: 100%;
+        transition: all 1s ease-in-out;
+        .card {
+          background-color: #000;
+          color: #fff;
+        }
+        .card-body {
+          padding-left: 10px;
+          .socialicon {
+            color: #fff;
+            font-size: 22px;
+          }
+          .leaderName {
+            font-size: 32px;
+            line-height: 40px;
+            font-weight: 500;
+            margin-bottom: 6px;
+          }
+          .leaderPost {
+            font-size: 24px;
+            line-height: 30px;
+          }
+          .company {
+            font-size: 12px;
+            line-height: 18px;
+            font-style: italic;
+          }
+          .card-text {
+            font-size: 16px;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal {
+  .modal-dialog {
+    .modal-content {
+      .leaderDetails {
+        background-color: #000;
+        color: #fff;
+
+        .card {
+          background-color: #000;
+          color: #fff;
+
+          .card-body {
+            .socialicon {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// .custom-modal {
+//   position: absolute; /* Use absolute positioning */
+//   top: 100px; /* Set your desired top position */
+//   left: 30%; /* Center horizontally */
+//   transform: translateX(-30%); /* Adjust for exact centering */
+//   height: 269px;
+// }
+.show {
+  display: block;
+  transition: all 1s ease-in-out;
+}
+
+.hide {
+  display: none;
+  transition: all 1s ease-in-out;
+}
+@media (max-width: 768px) {
+  .aboutMain {
+    padding: 0 10px;
+    margin-top: 23px !important;
+    .header {
+      .textTitle {
+        font-family: "Raleway";
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 23.48px;
+      }
+    }
+    .aboutUsBanner {
+      .card {
+        .card-img {
+          height: auto;
+        }
+        .card-title {
+          font-size: 22px;
+          line-height: 26px;
+          font-weight: 500;
+          text-align: left;
+          padding-left: 10px;
+          padding-bottom: 0px;
+          margin-bottom: 0;
+        }
+        .btn-secondary {
+          background-color: rgba(157, 157, 157, 1);
+          font-family: "Raleway";
+          font-size: 24.44px;
+          font-weight: 500;
+          line-height: 28.69px;
+          text-align: center;
+        }
+      }
+    }
+    .aboutUsContent {
+      .inner-content {
+        .paraText {
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 24.51px;
+          text-align: left;
+        }
+      }
+    }
+    .ourMission {
+      img {
+        height: auto;
+      }
+      .inner-content {
+        padding-left: 0;
+        .paraText {
+          font-family: "Raleway";
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 21.13px;
+          text-align: left;
+          padding-bottom: 0;
+          width: 100%;
+        }
+      }
+    }
+    .ourServices {
+      .serviceItem {
+        .serviceTitle {
+          font-family: "Raleway";
+          font-size: 17px;
+          font-weight: 500;
+          line-height: 19.96px;
+          color: #000;
+        }
+        .serviceText {
+          font-family: "Raleway";
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 15.26px;
+          color: #000;
+        }
+      }
+      .skymetInNumber {
+        .serviceTitle {
+          font-family: "Raleway";
+          font-size: 11.83px;
+          font-weight: 500;
+          line-height: 13.88px;
+          color: #000;
+          text-align: center;
+        }
+        .serviceNumber {
+          font-family: "Raleway";
+          font-size: 30px;
+          font-weight: 100;
+          line-height: 46.44px;
+          text-align: center;
+        }
+      }
+    }
+    .ourLeader {
+      .slider {
+        .img {
+          position: relative;
+
+          .leaderCheck {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+        .aboutContent {
+          background-color: #000;
+          margin-top: 10px;
+          color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          width: 100%;
+          transition: all 1s ease-in-out;
+          .card {
+            background-color: #000;
+            color: #fff;
+          }
+          .card-body {
+            padding-left: 10px;
+            .socialicon {
+              color: #fff;
+              font-size: 17px;
+            }
+            .leaderName {
+              font-size: 22px;
+              line-height: 40px;
+              font-weight: 500;
+            }
+            .leaderPost {
+              font-size: 19px;
+              line-height: 18px;
+            }
+            .company {
+              font-size: 12px;
+              line-height: 18px;
+            }
+            .card-text {
+              font-size: 15px;
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 576px) {
+  main {
+    .header {
+      .textTitle {
+        font-family: "Raleway";
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 23.48px;
+      }
+    }
+    .locationSearch {
+      padding: 0 0 25px;
+    }
+    .aboutUsBanner {
+      .card {
+        .card-img {
+          height: auto;
+        }
+        .card-title {
+          font-size: 22px;
+          line-height: 26px;
+          font-weight: 500;
+          text-align: left;
+          padding-left: 10px;
+          padding-bottom: 0px;
+          margin-bottom: 0;
+        }
+        .btn-secondary {
+          background-color: rgba(157, 157, 157, 1);
+          font-family: "Raleway";
+          font-size: 24.44px;
+          font-weight: 500;
+          line-height: 28.69px;
+          text-align: center;
+        }
+      }
+    }
+    .aboutUsContent {
+      .inner-content {
+        .paraText {
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 24.51px;
+          text-align: left;
+        }
+      }
+    }
+    .ourMission {
+      img {
+        height: auto;
+      }
+      .inner-content {
+        padding-left: 0;
+        .paraText {
+          font-family: "Raleway";
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 21.13px;
+          text-align: left;
+          padding-bottom: 0;
+          width: 100%;
+        }
+      }
+    }
+    .ourStatus {
+      .skymetInNumber {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: start;
+        width: 100%;
+        flex-wrap: wrap;
+
+        .statusItem {
+          width: 33%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .serviceTitle {
+            font-family: Raleway;
+            font-size: 15.6px;
+            font-weight: 500;
+            line-height: 19.92px;
+            color: #000;
+            width: auto;
+            text-align: center;
+            display: block;
+            padding-right: 0;
+            height: 55px;
+          }
+          .serviceNumber {
+            font-family: Raleway;
+            font-size: 38px;
+            font-weight: 100;
+            line-height: 50px;
+            color: #000;
+          }
+        }
+        .statusItem:nth-of-type(4) {
+          width: 50%;
+          padding-right: 1px;
+        }
+        .statusItem:nth-of-type(5) {
+          width: 50%;
+          padding-right: 30px;
+        }
+      }
+    }
+    .ourServices {
+      .serviceItem {
+        .serviceTitle {
+          font-family: "Raleway";
+          font-size: 17px;
+          font-weight: 500;
+          line-height: 19.96px;
+          color: #000;
+        }
+        .serviceText {
+          font-family: "Raleway";
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 15.26px;
+          color: #000;
+        }
+      }
+    }
+    .ourLeader {
+      .slider {
+        .img {
+          position: relative;
+
+          .leaderCheck {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+        .aboutContent {
+          background-color: #000;
+          margin-top: 10px;
+          color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          width: 100%;
+          transition: all 1s ease-in-out;
+          .card {
+            background-color: #000;
+            color: #fff;
+          }
+          .card-body {
+            padding-left: 10px;
+            .socialicon {
+              color: #fff;
+              font-size: 22px;
+            }
+            .leaderName {
+              font-size: 32px;
+              line-height: 40px;
+              font-weight: 500;
+            }
+            .leaderPost {
+              font-size: 24px;
+              line-height: 30px;
+            }
+            .company {
+              font-size: 12px;
+              line-height: 18px;
+            }
+            .card-text {
+              font-size: 16px;
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+  }
+}

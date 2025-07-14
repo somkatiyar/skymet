@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="main_content">
+        <div class="breadcumb">
+            <div class="breadcumb-list"><div class="item1" routerLink="/">Home</div> </div>
+            <div class="breadcumb-list">.</div>
+            <div class="breadcumb-list"><div class="item3" routerLink="/resources">Resources</div></div>
+            <div class="breadcumb-list">.</div>
+            <div class="breadcumb-list capitalize-each" ><div class="item5">{{newsSlug()}}</div></div>
+        </div>
+        <div class="article-title">
+            Weather Updates
+        </div>
+        <div class="tab">
+            <div class="tab-list" (click)="articleLanguage='hi';onlngChange()" [ngClass]="{ 'active': articleLanguage === 'hi' }">Hindi</div>
+            <div class="tab-list"  (click)="articleLanguage='en';onlngChange()" [ngClass]="{ 'active': articleLanguage === 'en' }">English</div>
+        </div>
+         <a *ngFor="let item of articles | paginate: { itemsPerPage: 10, currentPage: currentPage,totalItems: articleTotal }" 
+         [routerLink]="['/content', item.categorySlug[0], item.titleSlug]">
+            <div class="item">
+                <img [src]="item.thumbnail" alt="">
+                <div class="title">
+                    {{ item.title }}
+                </div>
+                <div class="article-footer">
+                    <div class="date">
+                        <div class="date-text">
+                            {{dataService.formatDateArticleList(item.DateTime)}}
+                        </div>
+                    </div>
+                    <div class="whtsapp-icon" (click)="shareOnWhatsApp(item)">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="">
+                    </div>
+                </div>
+            </div>
+        </a>
+         <div class="pagination">
+             <pagination-controls (pageChange)="onPageChange($event)" [maxSize]="4" [autoHide]="true"
+                      [responsive]="true"></pagination-controls>
+         </div>
+    </div>
+</div>

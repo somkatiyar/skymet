@@ -54,7 +54,8 @@ export class ForecastClubComponent implements AfterViewInit {
     isFooterView: true,
     isHeaderView: false
   }
-  selectedTab: any = "hourly"
+  selectedTab: any = "hourly";
+
   constructor(private windowService: WindowService, private dataService: DataService,
     private router: Router, private seoService: SeoService) {
 
@@ -256,12 +257,14 @@ export class ForecastClubComponent implements AfterViewInit {
           slideChange: (event) => {
             this.hourlyDate = this.dataService.getToOrderDate(this.hourlyData[event.activeIndex].toorder)
             this.hourlyActiveIndex = event.activeIndex;
+     
           }
         },
       });
     }
-
   }
+
+
   tempSwiperInit() {
     if (this.windowService.isBrowser()) {
       this.tempSwiper = new Swiper('.swiper_temp', {

@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { WindowService } from './services/window.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,15 @@ import { WindowService } from './services/window.service';
 })
 export class AppComponent implements AfterViewInit {
   title = 'skymetweather';
-  constructor(private windowService:WindowService,private router:Router) {
-
+  constructor(private windowService:WindowService,
+    private router:Router) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        if(this.windowService.isBrowser()) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
    }
 
    ngAfterViewInit(): void {

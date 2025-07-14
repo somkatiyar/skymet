@@ -26,7 +26,7 @@
         <h6> <img src="./img/temp.svg" alt=""> Temp (Min/Max)</h6>
         <div class="sky">
           <img [src]="forecastData?.actual?.iconImage" alt="" />
-          <span>Clear sky</span>
+          <span>{{forecastData?.actual?.description}}</span>
         </div>
         <div class="max_min">
           <!-- <div class="max">

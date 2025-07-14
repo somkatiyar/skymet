@@ -21,3 +21,38 @@
 .active {
   color:#64C2FF !important
 }
+
+.cross-button {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+  display: none;
+}
+
+.cross-button span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: black;
+  transform-origin: center;
+  transition: all 0.3s ease;
+}
+
+.cross-button span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.cross-button span:nth-child(2) {
+  transform: rotate(-45deg);
+}
+.hide{
+  display: none;
+
+}
+
+.show{
+  display: block;
+}

@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="main_content">
+        <div class="video-title">Weather Video</div>
+        <div class="video-wrapper">
+             <div class="video_list" *ngFor="let item of videos">
+                <div class="videoYoutube">
+                  <iframe
+                    [src]="item.safeUrl"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                  ></iframe>
+                    <div class="title">
+                 {{item.title}}
+                </div>
+                <span class="desc">
+                  {{item.description}}
+                </span>
+                </div>
+              
+              </div>
+            <div class="btn_center">
+      <div class="btn">
+        <button>View More</button>
+      </div>
+    </div>
+        </div>
+    </div>
+</div>

@@ -51,6 +51,7 @@ export class HeaderComponent {
   locations: any = [];
   isResourcesPage: boolean = false;
   selectedLanguage: any;
+  isSidebarOpen: boolean = false;
   @ViewChild('locationList') locationList!: ElementRef;
   @HostListener('document:click', ['$event'])
   @HostListener('window:scroll', [])
@@ -80,15 +81,16 @@ export class HeaderComponent {
   ) {
     if (isPlatformBrowser(this.platformId)) {
       this.onscrollHeaderFix();
-         this.dataService.selectedLanguages.subscribe(lng => {
-      this.translateService.use(lng);
-      this.selectedLanguage = lng;
-    })
+      this.dataService.selectedLanguages.subscribe(lng => {
+        this.translateService.use(lng);
+        this.selectedLanguage = lng;
+      })
       if (window.innerWidth > 768) {
         window.location.href.includes('resources') &&
           (this.isResourcesPage = true);
       }
-        console.log('Component name:', this.constructor.name);
+      console.log('Component name:', this.constructor.name);
+      this.onEndTransationEnd()
     }
     this.seturlConfig();
     this.configListning();
@@ -133,6 +135,40 @@ export class HeaderComponent {
     this.scrollFunction();
   }
 
+  getToggalClass() {
+    if (this.windowService.isBrowser()) {
+      var status;
+      const menulink: any = document.querySelector('#menulink');
+      if (menulink.classList.contains('active')) {
+        status = true
+      } else {
+        status = false;
+      }
+  
+    }
+        return status
+
+  }
+
+  onEndTransationEnd() {
+      const menulink: any = document.querySelector('#menulink');
+      menulink.addEventListener('transitionend',()=>{
+        console.log('mai to mar gya');
+        
+      })
+  }
+
+  toggleSidebar() {
+    if (this.windowService.isBrowser()) {
+      this.isSidebarOpen != this.isSidebarOpen;
+      const menulink: any = document.querySelector('#menulink');
+    
+      if (!this.isSidebarOpen) {
+        menulink.classList.toggle('active');
+      }
+    }
+  }
+
 
 
   scrollFunction() {
@@ -147,8 +183,8 @@ export class HeaderComponent {
 
       const header = window.document.getElementById('Header');
       if (!header) return;
-      const route = this.router.routerState.root;
       const isHome = this.getComponentFromRoute() === 'home';
+      const isForecast = this.getComponentFromRoute() === 'forecast';
       if (scrollTop > (isHome ? 400 : 50)) {
         header.style.background = '#FFFFFF';
         links.forEach((link: any) => {
@@ -157,32 +193,34 @@ export class HeaderComponent {
         links.forEach((link: any) => {
           link.classList.add('black');
         });
+      } if (scrollTop > isForecast) {
+        header.style.background = '#FFFFFF';
       } else {
         if (this.deviceType() == 'desktop') {
 
-          if(!url.includes('resources')){
+          if (!url.includes('resources')) {
             header.style.background = "transparent";
-          links.forEach((link: any) => {
-            link.classList.remove('white');
-          });
-          links.forEach((link: any) => {
-            link.classList.add('black');
-          });
+            links.forEach((link: any) => {
+              link.classList.remove('white');
+            });
+            links.forEach((link: any) => {
+              link.classList.add('black');
+            });
           } else {
-               header.style.background = `linear-gradient(180deg,
+            header.style.background = `linear-gradient(180deg,
               rgba(0, 0, 0, 0.6) 52.29%,
               rgba(255, 255, 255, 0) 100%
               )`;
-          links.forEach((link: any) => {
-            link.classList.add('white');
-          });
-          links.forEach((link: any) => {
-            link.classList.remove('black');
-          });
+            links.forEach((link: any) => {
+              link.classList.add('white');
+            });
+            links.forEach((link: any) => {
+              link.classList.remove('black');
+            });
           }
-       
+
         } else {
-              links.forEach((link: any) => {
+          links.forEach((link: any) => {
             link.classList.remove('white');
           });
           links.forEach((link: any) => {
@@ -196,6 +234,7 @@ export class HeaderComponent {
   }
 
   deviceType() {
+    if(this.windowService.isBrowser()) {
     const width = window.innerWidth;
     var device!: any;
     if (width <= 768) {
@@ -205,6 +244,7 @@ export class HeaderComponent {
       device = 'desktop';
       return device;
     }
+  }
   }
 
   configListning() {
@@ -266,12 +306,12 @@ export class HeaderComponent {
       });
   }
   async getLocation(ev: any) {
-    
-    var obj = ev?.name_en; 
- 
+
+    var obj = ev?.name_en;
+
     this.searchForm.get('searchCtrl')?.setValue('');
 
-      this.router
+    this.router
       .navigate([`${this.selectedLanguage}/forecast/weather/${obj.toLowerCase().split(",").reverse().join("/").replace(/\/\s+/g, '/').trim()}`
       ])
       .then(() => {
@@ -302,17 +342,19 @@ export class HeaderComponent {
   selectedLng: any;
   lngCode = ['hi', 'mr', 'gu', 'en', 'ta', 'te', 'kn', 'ml', 'bn', 'pa'];
 
-    isLanguageRoute(): boolean {
-      const currentPath = this.router.url.split('/')[1]; // Gets the first path segment
-      return this.lngCode.some(code => code === currentPath);
-    }
+  isLanguageRoute(): boolean {
+    const currentPath = this.router.url.split('/')[1]; // Gets the first path segment
+    return this.lngCode.some(code => code === currentPath);
+  }
 
   getComponentFromRoute() {
-    var cmp="";
-    if(this.router.url == '/' || this.isLanguageRoute()) {
+    var cmp = "";
+    if (this.router.url == '/' || this.isLanguageRoute()) {
       cmp = 'home'
+    } else if (this.router.url.includes('forecast')) {
+      cmp = 'forecast'
     } else {
-      cmp ='other'
+      cmp = 'other'
     }
     return cmp;
   }
@@ -321,7 +363,7 @@ export class HeaderComponent {
   seturlConfig() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-           const route = this.router.routerState.root;
+        const route = this.router.routerState.root;
         var len = this.router.url.length;
         if (this.isUrlChangable()) {
           var lng = this.lngCode.includes(this.router.url.slice(1, 3))
@@ -367,11 +409,11 @@ export class HeaderComponent {
       this.translate.use(code);
     }
   }
-pathName: string = 'home';
-isActiveLink(link: string):any {
+  pathName: string = 'home';
+  isActiveLink(link: string): any {
 
 
-}
+  }
 }
 
 export interface Location {

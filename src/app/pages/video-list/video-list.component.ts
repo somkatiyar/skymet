@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { DataService } from '../../services/data.service';
 import { WindowService } from '../../services/window.service';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-videos',
+  selector: 'app-video-list',
   standalone: true,
-  imports: [CommonModule,RouterLink],
-  templateUrl: './videos.component.html',
-  styleUrl: './videos.component.scss'
+  imports: [CommonModule],
+  templateUrl: './video-list.component.html',
+  styleUrl: './video-list.component.scss'
 })
-export class VideosComponent {
-  videos:any;
+export class VideoListComponent {
+ videos:any;
   url!: SafeResourceUrl;
   constructor(private dataService:DataService,
     private windowService:WindowService,
@@ -36,7 +35,5 @@ getVideos() {
     }
   });
 }
-
-
 
 }

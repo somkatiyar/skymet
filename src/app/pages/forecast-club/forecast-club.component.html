@@ -13,7 +13,7 @@
             <a href="#">{{metaInfo?.TEHSIL_ALIAS_NAME}}</a>
           </span>
           <span class="breadcrumb-separator">&#10095;</span>
-          <span>Hourly forecast</span>
+          <span>{{selectedTab}} forecast</span>
         </div>
         <div class="Temperature_swipee fixedTabArea">
           <div class="tittle">
@@ -356,7 +356,9 @@
           <div class="skysense-title">Skysense by skymet</div>
           <div class="Weather_buddy">
             <div class="view_date">
-              Viewing data for 24 May
+              Viewing data for  {{ forecastData && forecastData[0].date.split(",")[2] }} &nbsp;{{
+                    forecastData && forecastData[0].date.split(",")[1]
+                    }}
             </div>
             <div class="container">
               <div class="weather_box">

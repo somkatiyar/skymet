@@ -9,6 +9,9 @@ import { StateWeatherComponent } from './pages/state-weather/state-weather.compo
 import { ArticleDetailComponent } from './pages/article-detail/article-detail.component';
 import { RainfallModelComponent } from './shared/shared/widget/rainfall-model/rainfall-model.component';
 import { AdvertiseComponent } from './pages/advertise/advertise.component';
+import { NewsListComponent } from './pages/news-list/news-list.component';
+import { VideoListComponent } from './pages/video-list/video-list.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 
 
 export const routes: Routes = [
@@ -17,7 +20,10 @@ export const routes: Routes = [
     { path:'hi', component: HomeComponent},
     { path:'mr', component: HomeComponent},
     { path:'resources', component: ResourcesComponent},
-     { path:'state-weather', component: StateWeatherComponent},
+      { path:'about-us', component: AboutUsComponent},
+     { path:'state-weather/:state', component: StateWeatherComponent},
+     { path:'news-list/:weather-type', component: NewsListComponent},
+     { path:'video-list', component: VideoListComponent},
      { path:'forecast-map', component: RainfallModelComponent},
     { path:'advertise-with-us', component: AdvertiseComponent},
     { path:'content/:category/:title', component: ArticleDetailComponent},

@@ -12,7 +12,7 @@ import { DataService } from '../../services/data.service';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-resources',
   standalone: true,
@@ -39,22 +39,24 @@ export class ResourcesComponent implements AfterViewInit {
   allNews:any;
   postLimit:any = 9;
   filters = [
-  { filterkey: "Weather news", role: null },
-  { filterkey: "Climate change", role: null },
-  { filterkey: "La nina", role: null },
-  { filterkey: "Monsoon Update", role: null },
-  { filterkey: "Astronomy", role: null },
-  { filterkey: "Mumbai", role: null },
-  { filterkey: "Delhi", role: null },
-  { filterkey: "Rainfall", role: null },
-  
-  { filterkey: "Eastern India", role: null }
+  { filterkey: "All News", role: null ,sr_no:1,slug:'all'},
+  { filterkey: "Weather News", role: null,sr_no:2,slug:'weather-news-and-analysis' },
+  { filterkey: "Climate change", role: null,sr_no:3,slug:'climate-change' },
+  { filterkey: "La nina", role: null ,sr_no:4,slug:'la-nina'},
+  { filterkey: "Monsoon Update", role: null,sr_no:5,slug:'monsoon-update' },
+  { filterkey: "Astronomy", role: null ,sr_no:6,slug:'weather-news-and-analysis'},
+  { filterkey: "Mumbai", role: null,sr_no:7,slug:'weather-news-and-analysis' },
+  { filterkey: "Delhi", role: null,sr_no:8,slug:'weather-news-and-analysis' },
+  { filterkey: "Rainfall", role: null,sr_no:9 ,slug:'weather-news-and-analysis'},
+  { filterkey: "Eastern India", role: null,sr_no:10,slug:'weather-news-and-analysis' }
 ];
+selectedFilter:any = 1;
   constructor(
     private windowService: WindowService,
     private sanitizer: DomSanitizer,
     private cdRef: ChangeDetectorRef,
-    public dataService: DataService
+    public dataService: DataService,
+    private router:Router
   ) {}
 
   ngAfterViewInit(): void {
@@ -74,6 +76,30 @@ export class ResourcesComponent implements AfterViewInit {
     this.dataService.allPost(currentPage,limit).subscribe(res => {
       this.allNews = res;
     })
+  }
+
+  filterNews(category:any) {
+    this.dataService.getTrendingNews(category, 1,this.postLimit).subscribe(res => {
+      this.allNews = res;
+    })
+  }
+
+newsText() {
+  const selected = this.filters.find(e => e.sr_no === this.selectedFilter);
+  return selected ? selected?.filterkey : '';
+}
+
+  handlePostClick() {
+  if (this.dataService.getDeviceType() === 'desktop') {
+    this.allPost(1, this.postLimit + 3);
+    this.postLimit += 3;
+  } else {
+    this.goToViewPage();
+  }
+}
+
+  goToViewPage() {
+    this.router.navigate(['news-list',this.filters.find(e => e.sr_no === this.selectedFilter)?.slug]);
   }
 
   getVideos() {
