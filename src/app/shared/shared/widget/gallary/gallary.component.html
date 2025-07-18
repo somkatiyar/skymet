@@ -3,13 +3,13 @@
     <div class="tabs">
       <button class="tab" [ngClass]="{'active': selectedTab === 'himawari'}" (click)="getsatelliteImage('himawari')">Himawari</button>
       <button class="tab" [ngClass]="{'active': selectedTab === 'insat'}" (click)="getsatelliteImage('insat')">Insat</button>
-    <button class="tab" [ngClass]="{'active': selectedTab === 'insat'}" (click)="getsatelliteImage('insat')">Insat</button>
+      <!-- <button class="tab" [ngClass]="{'active': selectedTab === 'rainfall'}" (click)="getsatelliteImage('rainfall')">Rainfall</button> -->
     </div>
 
     <div class="textContent">
       <h4 class="textMain">
-        Showing result from <span>{{satelliteImages[activeIndex]?.date}}</span> -
-        <span>{{satelliteImages[activeIndex]?.time}}</span>
+        Showing result from <span>{{satelliteImages && satelliteImages[activeIndex]?.date}}</span> -
+        <span>{{satelliteImages && satelliteImages[activeIndex]?.time}}</span>
       </h4>
     </div>
 
@@ -26,9 +26,9 @@
           </div>
         </div>
 
-        <div class="contentCenter" *ngIf="viewType === 'swiper'">
+        <!-- <div class="contentCenter" *ngIf="viewType === 'swiper'">
           <p>{{satelliteImages[activeIndex]?.date}}</p>
-        </div>
+        </div> -->
 
         <div class="cards thirdButtonGroup">
           <div class="buttons singleButton">
@@ -54,14 +54,17 @@
 
     
 
-     <div *ngIf="viewType=='swiper'">
+     <div>
        <div
         style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
         class="swiper mySwiper2"
       >
         <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slider-item" *ngFor="let item of satelliteImages.reverse();let i = index">
-            <img [src]="item.image" id="img{{i}}"/>
+          <div class="swiper-slide swiper-slider-item" *ngFor="let item of satelliteImages;let i = index">
+            <img [src]="item.image" id="img{{i}}" [ngStyle]="{
+              'object-fit': (selectedTab === 'insat' || selectedTab === 'himawari') ?  'cover' : 'contain',
+              
+            }"/>
           </div>
         </div>
         <div class="swiper-button-next">
@@ -73,7 +76,7 @@
       </div>
       <div thumbsSlider="" class="swiper mySwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slider-thumb" *ngFor="let item of satelliteImages.reverse()">
+          <div class="swiper-slide swiper-slider-thumb" *ngFor="let item of satelliteImages">
             <h5>{{item.time}}</h5>
             <img [src]="item.image" />
           </div>
@@ -81,7 +84,7 @@
         </div>
       </div>
      </div>
-     <div *ngIf="viewType=='grid'">
+     <!-- <div *ngIf="viewType=='grid'">
       <div class="gridContainer" id="gridContainer">
         <div *ngFor="let item of satelliteImages"  
         (click)="toggleImageSelection(item.image)">
@@ -90,7 +93,7 @@
           
         </div>  
       </div>
-     </div>
+     </div> -->
     </div>
   </div>
 </div>

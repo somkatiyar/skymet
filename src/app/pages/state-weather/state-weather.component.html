@@ -18,12 +18,7 @@
 <div class="main-content-wrapper">
     <!-- Title Section -->
     <div class="title-section">
-        <button class="back-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-chevron-left">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="m14 16l-4-4l4-4"/>
-            </svg>
-        </button>
+  
         <h1 class="main-title">
             Weather in <span class="highlight">{{stateName}}, India</span>
         </h1>
@@ -65,9 +60,10 @@
         <h2 class="section-title">Top Cities</h2>
         
         <!-- Unified Layout for Top Cities - Responsive -->
-        <div class="top-city-cards">
+        <div class="top-city-cards" >
             <!-- Mumbai -->
-            <div class="top-city-card" *ngFor="let item of topCitiesList && topCitiesList['TopCities']">
+            <div class="top-city-card" routerLink="/weather/forecast/india/{{stateName}}/{{item.CITY}}"
+            *ngFor="let item of topCitiesList && topCitiesList['TopCities']">
                 <h3 class="city-name-header">{{item.CITY}}</h3>
                 <div class="weather-overview">
                     <!-- Custom Sun/Cloud Icon -->
@@ -109,7 +105,7 @@
         <!-- Unified Layout for All Cities - Responsive -->
         <div class="all-city-cards">
   
-            <div class="all-city-card" *ngFor="let item of topCitiesList && topCitiesList['Districts']">
+            <div class="all-city-card" routerLink="/weather/forecast/india/{{stateName}}/{{item.DISTRICT}}" *ngFor="let item of topCitiesList && topCitiesList['Districts']">
                 <div class="city-info">
                     <div class="location-icon-wrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">

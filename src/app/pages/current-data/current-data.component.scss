@@ -11,10 +11,27 @@
   white-space: nowrap;
 }
 
+.container {
+  p {
+    text-align: center;
+    font-size: 16px;
+    margin: 5px;
+  }
+}
+
+
+
 
 @media (max-width: 768px) {
  .location{
   display: flex;
   justify-content: space-between;
  }
+
+ .container {
+  p {
+      text-align: left;
+      margin-left: 33px;
+  }
+}
 }

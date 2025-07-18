@@ -28,6 +28,7 @@
         background: #2a6297;
         color: #fff;
       }
+
       &:hover {
         background: #2a6297;
         color: #fff;
@@ -37,6 +38,7 @@
 
   .textContent {
     margin-top: 25px;
+
     .textMain {
       color: #222;
       font-size: 24px;
@@ -98,6 +100,7 @@
       @media (max-width: 550px) {
         width: 40px;
         height: 40px;
+
         img {
           width: 18px;
         }
@@ -109,12 +112,44 @@
       display: none;
     }
 
-    .mySwiper {
-      position: absolute;
+    .swiper-ad-container {
+      display: flex;
       width: 100%;
-      bottom: 0;
-      backdrop-filter: blur(44px);
+      gap: 10px;
+    }
 
+
+
+    .mySwiper2 {
+      flex: 1 1 75%;
+      /* or 80% */
+      position: relative;
+    }
+
+    .ad-section {
+      flex: 1 1 25%;
+      /* or 20% */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid blue;
+    }
+
+    .ad-section img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+
+    .mySwiper {
+     // position: absolute;
+    //   width: 100%;
+    //   bottom: 0;
+    //   backdrop-filter: blur(44px);
+    // padding-left: 28px;
+    // padding-right: 28px;
       .swiper-wrapper {
         .swiper-slider-thumb {
           padding: 10px 0;
@@ -122,6 +157,7 @@
           width: 91px !important;
           height: 108px;
           padding: 5px;
+
           h5 {
             font-family: Raleway;
             font-weight: 700;
@@ -132,6 +168,7 @@
             margin-bottom: 0;
             color: #fff;
           }
+
           img {
             display: flex;
             border-radius: 20px;
@@ -140,6 +177,7 @@
           &:hover {
             background: #3174bf;
           }
+
           &.active {
             background: #3174bf;
           }
@@ -170,6 +208,7 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
+
         p {
           margin-bottom: 0;
         }
@@ -185,6 +224,7 @@
         margin-top: 5px;
         display: flex;
         margin-bottom: 10px;
+
         .co {
           flex: 1;
           height: 20px;
@@ -192,21 +232,27 @@
           &:nth-child(1) {
             background: #dfdfdf;
           }
+
           &:nth-child(2) {
             background: #d2ecfd;
           }
+
           &:nth-child(3) {
             background: #a3cbfa;
           }
+
           &:nth-child(4) {
             background: #68a9f8;
           }
+
           &:nth-child(5) {
             background: #3f88f7;
           }
+
           &:nth-child(6) {
             background: #001ef5;
           }
+
           &:nth-child(7) {
             background: #000e70;
           }
@@ -227,6 +273,7 @@
         p {
           position: relative;
           margin-bottom: 0;
+
           &::after {
             content: "";
             width: 2px;
@@ -291,6 +338,7 @@
       .buttons {
         .singleButton {
           padding: 0;
+
           .button {
             padding: 0;
           }
@@ -314,6 +362,7 @@
         background: #14141480;
         backdrop-filter: blur(24px);
         gap: 3px;
+
         .button {
           padding: 0;
           background: transparent;
@@ -336,6 +385,7 @@
           &:hover {
             background: #3174bf;
           }
+
           &.active {
             background: #3174bf;
           }
@@ -347,11 +397,12 @@
       padding: 10px;
       align-items: start;
 
-      .contentCenter{
-       padding: 5px 14px;
-       p{
-        font-size: 12px;
-       }
+      .contentCenter {
+        padding: 5px 14px;
+
+        p {
+          font-size: 12px;
+        }
       }
 
       .cards {
@@ -369,8 +420,10 @@
 
         .buttons {
           flex-direction: column;
+
           .singleButton {
             padding: 0;
+
             .button {
               padding: 0;
             }
@@ -378,5 +431,30 @@
         }
       }
     }
+  }
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white; /* or any other color */
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  z-index: 999999;
+  //pointer-events: none; /* Optional: prevent interaction */
+  //display: none;
+  .fullmap{
+     height: 47px;
+    background: white;
+     padding: 12px;
+    margin: 12px;
+    color: #003E86;
+    border-radius: 24px;
+    width: 100%;
+    cursor: pointer;
+    z-index: 99999;
   }
 }

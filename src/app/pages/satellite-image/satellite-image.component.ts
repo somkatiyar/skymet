@@ -47,7 +47,7 @@ export class SatelliteImageComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initSwiper();
+     this.initSwiper();
      this.getSatelliteImage('himawari');
   }
 
@@ -114,7 +114,7 @@ export class SatelliteImageComponent implements AfterViewInit {
         urls.push(imageUrl);
     }
     return urls;
-}
+ }
 
 
 }

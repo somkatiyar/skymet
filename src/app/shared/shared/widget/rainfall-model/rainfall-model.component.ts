@@ -9,6 +9,7 @@ import {
 import Swiper from 'swiper';
 import { WindowService } from '../../../../services/window.service';
 import { CommonModule } from '@angular/common';
+import { DataService } from '../../../../services/data.service';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
@@ -33,30 +34,130 @@ export class RainfallModelComponent implements AfterViewInit {
       title: 'Rainfall',
       imageUrl: './model_forecast/15_rainfall.png',
     },
-    {
+     {
       id: 3,
-      title: 'temperature',
-      imageUrl: './model_forecast/15_temp.png',
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
     },
     {
       id: 4,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+     {
+      id: 5,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 6,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+     {
+      id: 7,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 8,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+      {
+      id: 7,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 8,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+      {
+      id: 7,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 8,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+      {
+      id: 7,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 8,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+      {
+      id: 7,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 8,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+      {
+      id: 7,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 8,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+      {
+      id: 7,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 8,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+      {
+      id: 7,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 8,
+      title: 'Rainfall',
+      imageUrl: './model_forecast/15_rainfall.png',
+    },
+    {
+      id: 9,
       title: 'temperature',
       imageUrl: './model_forecast/15_temp.png',
     },
     {
-      id: 5,
+      id: 10,
+      title: 'temperature',
+      imageUrl: './model_forecast/15_temp.png',
+    },
+    {
+      id: 11,
       title: 'winds',
       imageUrl: './model_forecast/15_winds.png',
     },
     {
-      id: 6,
+      id: 12,
       title: 'winds',
       imageUrl: './model_forecast/15_winds.png',
     },
   ];
   filteredModelData: any = [];
   selectedTab: string = 'rainfall';
-  constructor(private windowService: WindowService) {
+  constructor(private windowService: WindowService,public dataService:DataService) {
     this.filteredModelData = this.getMoodelData('rainfall');
 
   }
@@ -97,33 +198,45 @@ export class RainfallModelComponent implements AfterViewInit {
         breakpoints: {
           // When window width is <= 550px
           0: {
-            slidesPerView: 4,
+          slidesPerGroup: 1,
+          slidesPerView: 13,
           },
           551: {
             slidesPerView: 13,
           },
           1024: {
-            slidesPerView: 3,
+
+          slidesPerGroup: 2,
+          slidesPerView: 13,
           }
         },
+        on:{
+          slideChange: (event) => {
+            this.activeIndex = event.activeIndex;
+           
+          }
+        }
 
       });
 
       // Main swiper
       this.rainfallMainSwiper = new Swiper('.mySwiper2', {
         spaceBetween: 10,
-        slidesPerView:2,
+        slidesPerView:1,
         autoplay: false,
           breakpoints: {
           // When window width is <= 550px
           0: {
-            slidesPerView: 4,
+            slidesPerView: 1,
+            slidesPerGroup: 1,
           },
           551: {
             slidesPerView: 13,
           },
           1024: {
-            slidesPerView: 3,
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+    
           }
         },
         navigation: {
@@ -143,5 +256,49 @@ export class RainfallModelComponent implements AfterViewInit {
       });
     }
   }
+
+hoveredIndex: number | null = 1;
+
+showOverlay(index: number): void {
+  this.hoveredIndex = index;
+}
+
+hideOverlay(): void {
+  this.hoveredIndex = null;
+}
+
+fullScreenImage(index: number, ImageUrl: string): void {
+  if (this.windowService.isBrowser()) {
+    const elem = document.getElementById('main' + index) as HTMLElement;
+
+    if (elem) {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if ((elem as any).webkitRequestFullscreen) {
+        (elem as any).webkitRequestFullscreen(); // Safari
+      } else if ((elem as any).msRequestFullscreen) {
+        (elem as any).msRequestFullscreen(); // IE11
+      }
+    } else {
+      console.warn('Element not found for fullscreen:', 'main' + index);
+    }
+  }
+}
+
+  whatsappImageShare(imageUrl: string): void {
+    if (!this.windowService.isBrowser()) return;
+
+    if (!imageUrl) {
+      alert('No image found to share.');
+      return;
+    }
+
+    // Just open WhatsApp link with image URL
+    const message = encodeURIComponent(`Check this satellite image: ${imageUrl}`);
+    const whatsappUrl = `https://wa.me/?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  }
+
+
 
 }

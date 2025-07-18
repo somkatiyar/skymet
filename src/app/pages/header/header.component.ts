@@ -72,7 +72,7 @@ export class HeaderComponent {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private windowService: WindowService,
-    private dataService: DataService,
+    public dataService: DataService,
     private route: ActivatedRoute,
     private translateService: TranslateService,
     private router: Router,
@@ -89,8 +89,8 @@ export class HeaderComponent {
         window.location.href.includes('resources') &&
           (this.isResourcesPage = true);
       }
-      console.log('Component name:', this.constructor.name);
-      this.onEndTransationEnd()
+     
+   
     }
     this.seturlConfig();
     this.configListning();
@@ -150,13 +150,7 @@ export class HeaderComponent {
 
   }
 
-  onEndTransationEnd() {
-      const menulink: any = document.querySelector('#menulink');
-      menulink.addEventListener('transitionend',()=>{
-        console.log('mai to mar gya');
-        
-      })
-  }
+
 
   toggleSidebar() {
     if (this.windowService.isBrowser()) {

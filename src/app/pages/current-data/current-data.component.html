@@ -5,10 +5,13 @@
      <div class="location-wrap">
   <img src="./img/location.png" alt="" />
   <h3>{{ forecastData?.metainfo?.TEHSIL_ALIAS_NAME }}</h3>
+  
 </div>
   
       <img src="./img/refresh.png" alt="" class="refresh_icon" />
+     
     </div>
+     <p class="dist_state">{{ forecastData?.metainfo?.DISTRICT_NAME }}</p>
     <div class="weather" (click)="gotoForecastPage()">
       <div class="weat_icon">
         <img [src]="forecastData?.actual?.iconImage" alt="" />
@@ -73,7 +76,7 @@
             <h5>{{forecastData?.actual?.wind}}m/s</h5>
             <span>({{forecastData?.actual?.wind_dir}})</span>
           </div>
-          <img src="./img/wind_direction/{{forecastData?.actual?.wind_dir}}.webp" alt="" />
+          <img src="./img/wind_direction/DIRECTIONS_{{forecastData?.actual?.wind_dir}}.webp" alt="" />
         </div>
       </div>
     </div>

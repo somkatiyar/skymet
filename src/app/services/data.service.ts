@@ -18,7 +18,8 @@ export class DataService {
   
   baseURL = "https://api.skymetweather.com/api/";
   utilityUrl = "https://skymetglobalweather.com/skymet_utility/";
-  postURL  = `https://skymetglobalweather.com/strapi_skymet`;
+   postURL  = `https://skymetglobalweather.com/strapi_skymet`;
+    //postURL  = `http://192.168.105.3:1337`;
   localBaseUrl = `http://localhost:3011/`;
   selectedLanguages = new BehaviorSubject('en');
   nearestMeta = new BehaviorSubject('');
@@ -28,6 +29,14 @@ export class DataService {
     return this.http.get(
       this.baseURL+`getlocation/${locations}`
     ).toPromise();
+  }
+
+  districtwiseList(state: string, district: string): Observable<any> {
+    console.log(this.baseURL + `getlocation/india/${state}/${district}`);
+    
+    return this.http.get(
+      this.baseURL + `getlocation/india/${state}/${district}`
+    );
   }
 
     getNearest(lat: any, lng: any): Observable<any> {

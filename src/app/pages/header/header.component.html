@@ -9,12 +9,12 @@
             <span></span>
           </div>
         </div>
-        <div class="div" [ngClass]="deviceType() =='desktop'?'hide':'show'">
+        <!-- <div class="div" [ngClass]="deviceType() =='desktop'?'hide':'show'">
           <div class="cross-button"  id="crossBtn" (click)="toggleSidebar()" [ngClass]="getToggalClass() ? 'show':'hide'">
             <span></span>
             <span></span>
           </div>
-          </div>
+        </div> -->
         <div class="logo">
           <img src="./img/logo.png" alt="" />
         </div>
@@ -33,7 +33,6 @@
             <div class="listing" *ngIf="locations" #locationList>
               <div class="list">
                 <p *ngFor="let item of locations" (click)="getLocation(item)">
-                  <!-- {{ item["loc"]["names"]["en"].split(",")[0] =='' ? item["loc"]["names"]["en"].split(",").slice(1,4).join(",") : item["loc"]["names"]["en"]}} -->
                   {{ item["name_en"].split(",")[0] =='' ? item["name_en"].split(",").slice(1,4).join(",") :
                   item["name_en"]}}
                 </p>
@@ -42,9 +41,101 @@
           </div>
         </form>
         <div class="navmenu" id="menulink">
+          <div class="side-header" [hidden]="dataService.getDeviceType() == 'desktop'">
+            <div class="menu">
+              Menu
+            </div>
+            <div class="cross-btn">
+              <div class="div" [ngClass]="deviceType() =='desktop'?'hide':'show'">
+                <div class="cross-button" id="crossBtn" (click)="toggleSidebar()"
+                  [ngClass]="getToggalClass() ? 'show':'hide'">
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <ul>
-            
-            <li><a (click)="pathName='home';toggleSidebar()" [ngClass]="pathName=='home'? 'active':''"
+
+
+            <div class="menu-item">
+              <div class="left">
+                <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <li><a (click)="pathName='home';toggleSidebar()" [ngClass]="pathName=='home'? 'active':''"
+                  [routerLink]="['/']">{{ "Home" | translate }}</a></li>
+              </div>
+              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+            </div>
+
+
+            <div class="menu-item">
+                <div class="left">
+                     <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <li><a (click)="pathName='forecastmap';toggleSidebar()" [ngClass]="pathName=='forecastmap'? 'active':''"
+                  [routerLink]="['/forecast-map']">Forecast Map</a></li>
+                </div>
+           
+              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+            </div>
+
+            <div class="menu-item">
+              <div class="left">  
+              <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <li><a (click)="pathName='resources';toggleSidebar()" [ngClass]="pathName=='resources'? 'active':''"
+                  [routerLink]="['/resources']">Resources</a></li></div>
+              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+            </div>
+
+
+            <div class="menu-item">
+              <div class="left">
+              <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <li><a (click)="pathName='satellite';toggleSidebar()" [ngClass]="pathName=='satellite'? 'active':''"
+                  [routerLink]="['/himawari-latest-satellite-images-of-india']">Satellite</a></li>
+              </div>
+              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+            </div>
+
+            <div class="menu-item">
+              <div class="left">
+              <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <li><a [routerLink]="['/advertise-with-us']">Advertise</a></li>
+              </div>
+              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+            </div>
+
+            <div class="menu-item">
+              <div class="left">
+              <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <li><a [routerLink]="['/about-us']">Contact Us</a></li>
+              </div>
+              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+            </div>
+
+              <li>
+              <select (change)="onLanguagesChange($event)">
+                <option name="English" value="en">English</option>
+                <option name="Hindi" value="hi">Hindi</option>
+                <option name="Marathi" value="mr">Marathi</option>
+              </select>
+            </li>
+
+             <div class="connect-section"  [ngClass]="deviceType() =='desktop'?'hide':'show'">
+                <p>Connect with us</p>
+                <div class="social-icons">
+                  <i class="fab fa-itunes apple"></i>
+                  <i class="fab fa-spotify spotify"></i>
+                  <i class="fas fa-leaf plant"></i>
+                  <i class="fab fa-amazon amazon"></i>
+                  <i class="fab fa-youtube youtube"></i>
+                  <i class="fab fa-linkedin linkedin"></i>
+                  <i class="fab fa-facebook facebook"></i>
+                </div>
+    </div>
+
+
+            <!-- <li><a (click)="pathName='home';toggleSidebar()" [ngClass]="pathName=='home'? 'active':''"
                 [routerLink]="['/']">{{ "Home" | translate }}</a></li>
             <li><a (click)="pathName='forecastmap';toggleSidebar()" [ngClass]="pathName=='forecastmap'? 'active':''"
                 [routerLink]="['/forecast-map']">Forecast Map</a></li>
@@ -53,16 +144,18 @@
             <li><a (click)="pathName='satellite';toggleSidebar()" [ngClass]="pathName=='satellite'? 'active':''"
                 [routerLink]="['/himawari-latest-satellite-images-of-india']">Satellite</a></li>
             <li><a [routerLink]="['/advertise-with-us']">Advertise with us</a></li>
-            <li><a href="">Contact Us</a></li>
-            <li>
+            <li><a href="">Contact Us</a></li> -->
+            <!-- <li>
               <select (change)="onLanguagesChange($event)">
                 <option name="English" value="en">English</option>
                 <option name="Hindi" value="hi">Hindi</option>
                 <option name="Marathi" value="mr">Marathi</option>
               </select>
-            </li>
+            </li> -->
           </ul>
         </div>
+
+
       </div>
       <div class="lanc_only" (click)="toggleSearch()">
         <div id="search_icon">
@@ -70,7 +163,6 @@
         </div>
         <div id="close">
           X
-          <!-- <img src="./img/close.png" alt=""> -->
         </div>
       </div>
     </div>

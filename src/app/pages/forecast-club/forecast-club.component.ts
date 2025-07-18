@@ -55,6 +55,7 @@ export class ForecastClubComponent implements AfterViewInit {
     isHeaderView: false
   }
   selectedTab: any = "hourly";
+  todayDay = new Date().getDate()
 
   constructor(private windowService: WindowService, private dataService: DataService,
     private router: Router, private seoService: SeoService) {
@@ -104,7 +105,8 @@ export class ForecastClubComponent implements AfterViewInit {
 
     const mergedData = this.hourlyData.map((item: any) => ({
       ...item,
-      gradient: gradientMap[item.ist] ?? null
+      gradient: gradientMap[item.ist] ?? null,
+      selectedClass:this.todayDay === new Date(item.toorder).getDate() ? 'today' : 'otherday'
     }));
 
     this.hourlyData = mergedData;
@@ -257,7 +259,9 @@ export class ForecastClubComponent implements AfterViewInit {
           slideChange: (event) => {
             this.hourlyDate = this.dataService.getToOrderDate(this.hourlyData[event.activeIndex].toorder)
             this.hourlyActiveIndex = event.activeIndex;
-     
+            this.todayDay = new Date(this.hourlyData[event.activeIndex].toorder).getDate();
+            console.log(this.todayDay, 'todayDay' );
+            
           }
         },
       });

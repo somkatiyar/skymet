@@ -24,49 +24,62 @@ export class GallaryComponent implements AfterViewInit {
   satelliteThumbSwiper?: Swiper;
   satelliteImages: any[] = [];
   activeIndex: number = 0;
-  viewType:any = 'swiper';
-  selectedTab: string = 'himawari';
+  viewType: any = 'swiper';
+  selectedTab: string = 'rainfall';
   constructor(private windowService: WindowService,
-    private cdRef:ChangeDetectorRef,
-    private location:Location,
+    private cdRef: ChangeDetectorRef,
+    private location: Location,
     public dataService: DataService) {
 
   }
 
   ngAfterViewInit(): void {
     this.getsatelliteImage('himawari');
+    
   }
-  
-  refreshUrl(tab:any) { 
-    if(tab == 'insat') {
+
+  refreshUrl(tab: any) {
+    if (tab == 'insat') {
       this.location.replaceState(
         `insat/weather-satellite-images-of-india`
       );
-    }else if(tab == 'himawari') { 
-    this.location.replaceState(
-       `himawari-latest-satellite-images-of-india`
-   )
-   }
+    } else if (tab == 'himawari') {
+      this.location.replaceState(
+        `himawari-latest-satellite-images-of-india`
+      )
+    } else if (tab == 'rainfall') {
+      this.location.replaceState(
+        `15-days-rainfall-forecast-for-india`
+      )
+    }
   }
 
   getsatelliteImage(tab: any) {
     this.satelliteImages = [];
     this.selectedTab = tab;
-    this.dataService.getSatelliteImage(tab).then((res) => {
-      if (res && res.length > 0 && tab == 'insat') {
-        this.satelliteImages = this.extractInsatTimeDate(res);
-        this.initSatelliteSwiper();
-        this.refreshUrl(tab);
-        setTimeout(() => this.cdRef.detectChanges());
+    if (tab == 'rainfall') {
+      var rainFallImages = this.getImageUrls(15);
+      this.satelliteImages = this.extractDateTimeRainFall(rainFallImages);
+      this.satelliteImages &&  this.initSatelliteSwiper();
+      this.satelliteImages && this.refreshUrl(tab);
+      setTimeout(() => this.cdRef.detectChanges());
+    } else {
+      this.dataService.getSatelliteImage(tab).then((res) => {
+        if (res && res.length > 0 && tab == 'insat') {
+          this.satelliteImages = this.extractInsatTimeDate(res);
+          this.initSatelliteSwiper();
+          this.refreshUrl(tab);
+          setTimeout(() => this.cdRef.detectChanges());
+        } else if (res && res.images && res.images.length > 0 && tab == 'himawari') {
+          this.satelliteImages = this.extractHimawariTimeDate(res['images'], res.url);
+          this.initSatelliteSwiper();
+          this.refreshUrl(tab);
+          setTimeout(() => this.cdRef.detectChanges());
+        }
 
-      } else if (res && res.images && res.images.length > 0 && tab == 'himawari') {
-        this.satelliteImages = this.extractHimawariTimeDate(res['images'], res.url);
-        this.initSatelliteSwiper();
-        this.refreshUrl(tab);
-        setTimeout(() => this.cdRef.detectChanges());
-      }
-     
-    })
+      })
+    }
+
 
   }
 
@@ -76,7 +89,7 @@ export class GallaryComponent implements AfterViewInit {
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
     ];
-    return imagesArray.slice(0,24).map((image: any) => {
+    return imagesArray.slice(0, 24).map((image: any) => {
       const timeMatch = image.match(/_(\d{4})\.jpg/);
       const rawTime = timeMatch ? timeMatch[1] : null;
       const dateStr = image.split('v=')[1];
@@ -100,10 +113,27 @@ export class GallaryComponent implements AfterViewInit {
         time: formattedTime
       };
     });
-
-
   }
 
+  extractDateTimeRainFall(imagesArray: any) {
+    return imagesArray.map((image: any) => {
+      const input = image.split('Rainfall_')[1];
+      const year = input.slice(0, 4);
+      const month = input.slice(4, 6);
+      const day = input.slice(6, 8);
+      const date = new Date(`${year}-${month}-${day}`);
+      const options: any = { day: '2-digit', month: 'short' };
+      const formatted = date.toLocaleDateString('en-US', options);
+
+      return {
+        image: image,
+        date: "",
+        time: formatted
+      };
+
+
+    })
+  }
   extractInsatTimeDate(imagesArray: any) {
     const regex = /(\d{4})\/(\d{2})\/(\d{2})\/.*-(\d{2})[:.](\d{2})\.jpg$/;
 
@@ -123,7 +153,23 @@ export class GallaryComponent implements AfterViewInit {
         return { image: image, date: '', time: '' };
       }
     });
-  }  
+  }
+
+  getImageUrls(days = 15) {
+    const urls = [];
+    const now = new Date();
+    for (let i = 0; i < days; i++) {
+      const folderDate = new Date(now);
+      folderDate.setDate(folderDate.getDate() - 1);
+      const folderDateString = folderDate.toISOString().split('T')[0].replace(/-/g, ''); // Format YYYYMMDD
+      const imageDate = new Date(now);
+      imageDate.setDate(imageDate.getDate() + i);
+      const imageDateString = imageDate.toISOString().split('T')[0].replace(/-/g, ''); // Format YYYYMMDD
+      const imageUrl = `https://www.skymetweather.com/themes/skymet/images/gfs/${folderDateString}/Rainfall_${imageDateString}.png`;
+      urls.push(imageUrl);
+    }
+    return urls;
+  }
 
 
   async initSatelliteSwiper() {
@@ -140,7 +186,6 @@ export class GallaryComponent implements AfterViewInit {
         loop: true,
 
         breakpoints: {
-          // When window width is <= 550px
           0: {
             slidesPerView: 4,
           },
@@ -150,7 +195,6 @@ export class GallaryComponent implements AfterViewInit {
         }
       });
 
-      // Main swiper
       this.satelliteMainSwiper = new Swiper('.mySwiper2', {
         spaceBetween: 10,
         autoplay: true,
@@ -165,7 +209,7 @@ export class GallaryComponent implements AfterViewInit {
         on: {
           slideChange: () => {
             this.activeIndex = this.satelliteMainSwiper?.activeIndex ?? 0;
-
+            this.cdRef.detectChanges()
           }
         }
       });
@@ -175,8 +219,8 @@ export class GallaryComponent implements AfterViewInit {
   openFullscreen() {
     if (this.windowService.isBrowser()) {
       var elem: any = this.viewType == 'swiper' ?
-       document.getElementById('img' + this.activeIndex):
-       document.getElementById('gridContainer');
+        document.getElementById('img' + this.activeIndex) :
+        document.getElementById('gridContainer');
       if (elem.requestFullscreen) {
         elem.requestFullscreen();
       } else if (elem.webkitRequestFullscreen) {
@@ -210,24 +254,24 @@ export class GallaryComponent implements AfterViewInit {
     }
   }
 
- whatsappImageShare() {
-  if (!this.windowService.isBrowser()) return;
+  whatsappImageShare() {
+    if (!this.windowService.isBrowser()) return;
 
-  const imageUrl = this.satelliteImages?.[this.activeIndex]?.image;
-  if (!imageUrl) {
-    alert('No image found to share.');
-    return;
+    const imageUrl = this.satelliteImages?.[this.activeIndex]?.image;
+    if (!imageUrl) {
+      alert('No image found to share.');
+      return;
+    }
+
+    // Just open WhatsApp link with image URL
+    const message = encodeURIComponent(`Check this satellite image: ${imageUrl}`);
+    const whatsappUrl = `https://wa.me/?text=${message}`;
+    window.open(whatsappUrl, '_blank');
   }
 
-  // Just open WhatsApp link with image URL
-  const message = encodeURIComponent(`Check this satellite image: ${imageUrl}`);
-  const whatsappUrl = `https://wa.me/?text=${message}`;
-  window.open(whatsappUrl, '_blank');
-}
 
 
-
-   selectedImages: string[] = [];
+  selectedImages: string[] = [];
 
   toggleImageSelection(url: string) {
     const index = this.selectedImages.indexOf(url);
@@ -238,21 +282,21 @@ export class GallaryComponent implements AfterViewInit {
     }
   }
 
-    isSelected(url: string): boolean {
+  isSelected(url: string): boolean {
     return this.selectedImages.includes(url);
   }
 
-async shareFiles() {
- const urls = this.selectedImages;
-  if (!urls.length) {
-    alert('No images selected.');
-    return;
-  }
+  async shareFiles() {
+    const urls = this.selectedImages;
+    if (!urls.length) {
+      alert('No images selected.');
+      return;
+    }
 
-  const message = encodeURIComponent(`Check these satellite images:\n${urls.join('\n')}`);
-  const whatsappUrl = `https://wa.me/?text=${message}`;
-  window.open(whatsappUrl, '_blank');
-}
+    const message = encodeURIComponent(`Check these satellite images:\n${urls.join('\n')}`);
+    const whatsappUrl = `https://wa.me/?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  }
 
 
 }

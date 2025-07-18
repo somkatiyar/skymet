@@ -20,7 +20,7 @@
             <div class="heading_flex">
               <div class="locat">
                 <img src="./img/location.png" alt="" />
-                <h5 class="mainTitleSection">{{metaInfo?.TEHSIL_ALIAS_NAME}},India</h5>
+                <h5 class="mainTitleSection">{{metaInfo?.TEHSIL_ALIAS_NAME}},{{metaInfo?.DISTRICT_NAME }}</h5>
                 <img class="refressButton" src="./img/refrash.svg" alt="" />
               </div>
               <div class="days">
@@ -109,7 +109,7 @@
                 <div class="wind-card">
                   <div class="wind-speed">{{ item.wind_spd }} m/s</div>
                   <div class="wind-circle">
-                    <img src="./img/wind_direction/{{ item.wind_shrt }}.webp" alt="" />
+                    <img src="./img/wind_direction/DIRECTIONS_{{ item.wind_shrt }}.webp" alt="" />
                   </div>
                 </div>
                 <div class="wind-date">
@@ -345,7 +345,7 @@
               <div class="swiper-button-next custom_nav"></div>
               <div class="swiper-button-prev custom_nav"></div>
               <div class="sun_mon">
-                <div class="sun_green">{{hourlyDate}}</div>
+                <div [ngClass]="hourlyData && hourlyData[hourlyActiveIndex].selectedClass =='today'  ? 'sun_green' :'mon_yellow'">{{hourlyDate}}</div>
                 <!-- <div class="mon_yellow">24 May, Monday</div> -->
               </div>
             </div>
@@ -356,8 +356,9 @@
           <div class="skysense-title">Skysense by skymet</div>
           <div class="Weather_buddy">
             <div class="view_date">
-              Viewing data for  {{ forecastData && forecastData[0].date.split(",")[2] }} &nbsp;{{
-                    forecastData && forecastData[0].date.split(",")[1]
+              Viewing data for  {{ forecastData && forecastData[0] && forecastData[0].date.split(",")[2] }} &nbsp;
+              {{
+                    forecastData &&  forecastData[0] && forecastData[0].date.split(",")[1]
                     }}
             </div>
             <div class="container">
@@ -420,7 +421,7 @@
                   <h5>{{currentData?.[0]?.wind}}m/s</h5>
                   <span>Wind Speed</span>
                 </div>
-                <img src="./img/wind_direction/E.webp" alt="" />
+                <img src="./img/wind_direction/DIRECTIONS_E.webp" alt="" />
               </div>
             </div>
           </div>

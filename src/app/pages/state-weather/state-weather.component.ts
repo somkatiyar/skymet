@@ -3,14 +3,14 @@ import { Autoplay, Manipulation, Navigation, Pagination, Thumbs, } from 'swiper/
 import Swiper from 'swiper';
 import { WindowService } from '../../services/window.service';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-state-weather',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './state-weather.component.html',
   styleUrl: './state-weather.component.scss',
   encapsulation: ViewEncapsulation.None

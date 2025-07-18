@@ -1,12 +1,16 @@
 <div class="forCastMap">
   <div class="container">
     <div class="tabs">
-      <button class="tab" [ngClass]="selectedTab=='rainfall'?'active':''" (click)="onTabChange('rainfall')">Rainfall</button>
-      <button class="tab" [ngClass]="selectedTab=='temperature'?'active':''" (click)="onTabChange('temperature')">Temperature</button>
-      <button class="tab" [ngClass]="selectedTab=='winds'?'active':''" (click)="onTabChange('winds')">Wind speed</button>
+      <button class="tab" [ngClass]="selectedTab=='rainfall'?'active':''"
+        (click)="onTabChange('rainfall')">Rainfall</button>
+      <button class="tab" [ngClass]="selectedTab=='temperature'?'active':''"
+        (click)="onTabChange('temperature')">Temperature</button>
+      <button class="tab" [ngClass]="selectedTab=='winds'?'active':''" (click)="onTabChange('winds')">Wind
+        speed</button>
     </div>
 
     <div class="textContent">
+ 
       <h4 class="textMain">
         Showing result from <span>12 August 2024</span> -
         <span>27 August 2024</span>
@@ -26,11 +30,11 @@
           </div>
         </div>
 
-        <div class="contentCenter">
+        <!-- <div class="contentCenter">
           <p>12 August 2024</p>
-        </div>
+        </div> -->
 
-        <div class="cards thirdButtonGroup">
+        <!-- <div class="cards thirdButtonGroup">
           <div class="buttons singleButton">
             <button class="button">
               <img src="/img/expend.svg" alt="" />
@@ -49,10 +53,10 @@
               <img src="/img/plus.svg" alt="" />
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
 
-      <div class="bottomIndector">
+      <!-- <div class="bottomIndector">
         <div class="text">
           <p>No rain</p>
           <p>Light</p>
@@ -77,34 +81,49 @@
           <p>45</p>
           <p>50</p>
         </div>
+      </div> -->
+
+      <div class="swiper-ad-container">
+
+        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide swiper-slider-item" (mouseenter)="showOverlay(i)" (mouseleave)="hideOverlay()"
+              *ngFor="let item of filteredModelData; let i = index">
+              <img [src]="item.imageUrl" [id]="'main' + i"/>
+              <div class="overlay-text" [ngStyle]="{ display: hoveredIndex === i ? 'block' : 'none' }">
+              
+                  
+                  <div class="fullmap" (click)="fullScreenImage(i,item.imageUrl)">View in full screen</div>
+                
+                <div class="fullmap" (click)="whatsappImageShare(item.imageUrl)">Share on whatsapp</div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-button-next">
+            <img src="/img/rightArrow.svg" alt="" />
+          </div>
+          <div class="swiper-button-prev">
+            <img src="/img/leftArrow.svg" alt="" />
+          </div>
+        </div>
+        <div class="ad-section" *ngIf="dataService.getDeviceType() == 'desktop'">
+          <img
+            src="https://static.semrush.com/blog/uploads/media/8b/06/8b063f735e2192a61c6861f4755ffc5d/what-is-digital-advertising.svg"
+            alt="Ad Banner" />
+        </div>
       </div>
 
-      <div
-        style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-        class="swiper mySwiper2"
-      >
+      <div thumbsSlider class="swiper mySwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slider-item" *ngFor="let item of filteredModelData; let i = index">
+          <div class="swiper-slide swiper-slider-thumb" [id]="'thumb' + index"
+            *ngFor="let item of filteredModelData; let index = index"
+            [ngClass]="(index === activeIndex ) ? 'active' : ''"
+            >
+            <h5>12 Aug</h5>
             <img [src]="item.imageUrl" />
           </div>
         </div>
-        <div class="swiper-button-next">
-          <img src="/img/rightArrow.svg" alt="" />
-        </div>
-        <div class="swiper-button-prev">
-          <img src="/img/leftArrow.svg" alt="" />
-        </div>
       </div>
-   <div thumbsSlider class="swiper mySwiper">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide swiper-slider-thumb" 
-         *ngFor="let item of filteredModelData; let index = index"
-         [ngClass]="activeIndex === index ? 'active' : ''">
-      <h5>12 Aug</h5>
-      <img [src]="item.imageUrl" />
-    </div>
-  </div>
-</div>
 
     </div>
   </div>

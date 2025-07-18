@@ -12,6 +12,7 @@ import { AdvertiseComponent } from './pages/advertise/advertise.component';
 import { NewsListComponent } from './pages/news-list/news-list.component';
 import { VideoListComponent } from './pages/video-list/video-list.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { DistrictLocationComponent } from './pages/district-location/district-location.component';
 
 
 export const routes: Routes = [
@@ -20,8 +21,14 @@ export const routes: Routes = [
     { path:'hi', component: HomeComponent},
     { path:'mr', component: HomeComponent},
     { path:'resources', component: ResourcesComponent},
-      { path:'about-us', component: AboutUsComponent},
+    { path:'about-us', component: AboutUsComponent},
      { path:'state-weather/:state', component: StateWeatherComponent},
+
+// district location
+
+     { path:'weather/forecast/india/:state/:district', component: DistrictLocationComponent},
+
+
      { path:'news-list/:weather-type', component: NewsListComponent},
      { path:'video-list', component: VideoListComponent},
      { path:'forecast-map', component: RainfallModelComponent},
