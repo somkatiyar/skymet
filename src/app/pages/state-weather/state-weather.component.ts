@@ -61,7 +61,6 @@ export class StateWeatherComponent implements AfterViewInit {
       arr.forEach((el:any,index:any) => {
         this.topCitiesList.TopCities[index].data = el[0];
       })
-      console.log(this.topCitiesList,'this.topCitiesList');
       
       })
   }

@@ -315,6 +315,7 @@ h4 {
     align-items: center;
     text-align: center;
     width: 100px;
+    padding: 8px;
     img {
       width: 100%;
       border-radius: 50%;
@@ -353,7 +354,9 @@ h4 {
     .channel_card {
       // width: 130px;
       img {
-        width: 70%;
+        width: 56%;
+        padding: 8px;
+        margin-top: 5px;
       }
     }
   }
@@ -601,7 +604,10 @@ iframe {
 }
 
 .active {
-  border: 2px solid blue;
+    border: 2px solid blue;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(33, 150, 243, 0.6);
+    transition: all 0.3s ease;
 }
 .capitalize-each {
   text-transform: capitalize;

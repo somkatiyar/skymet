@@ -5,7 +5,7 @@
       <h5>Hourly Forecast</h5>
     </div>
     <div class="hourly-wrapper">
-       <div class="fore_boxs forceCastBoxesCrowsel swiper" id="hourlyData">
+       <div class="fore_boxs hourly_swiper swiper" id="hourlyData">
     <div class="swiper-wrapper">
         <div
         class="forecast_box swiper-slide"
@@ -19,14 +19,14 @@
       </div>
       </div>
     </div>
-    <div class="hours">
+    <div class="hours" (click)="gotoForecastPage(24)">
       <img src="./img/view_24.png" alt="">
       <div class="txt">
         View 24 hour forecast.
       </div>
     </div>
     </div>
-    <div class="btn_center" (click)="gotoForecastPage()">
+    <div class="btn_center" (click)="gotoForecastPage(7)">
       <div class="btn">
         <button>View 7 days forecast</button>
       </div>

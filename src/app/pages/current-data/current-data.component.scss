@@ -9,13 +9,25 @@
   align-items: center;
   gap: 5px;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .container {
-  p {
-    text-align: center;
+  // p {
+  //   text-align: center;
+  //   font-size: 16px;
+  //   margin: 5px;
+  // }
+  .current_temp{
+     font-size: 16px;
+      margin: 5px;
+      margin-left: 0px;
+  }
+    .dist_state{
+       text-align: center;
     font-size: 16px;
     margin: 5px;
+    cursor: pointer;
   }
 }
 
@@ -31,7 +43,15 @@
  .container {
   p {
       text-align: left;
-      margin-left: 33px;
+     // margin-left: 33px;
+  }
+  .dist_state{
+    margin-left: 33px !important;
+            text-align: left;
+
   }
 }
+}
+.weather{
+  cursor:pointer
 }

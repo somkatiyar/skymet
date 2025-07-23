@@ -1,4 +1,5 @@
 {
+  "Search City": "Search City",
   "Home": "Home",
   "Forecast Map": "Forecast Map",
   "Resources": "Resources",
@@ -16,13 +17,27 @@
   "Advertisement": "Advertisement",
   "Real-time weather patterns": "Real-time weather patterns",
   "View detailed patterns": "View detailed patterns",
-  "Explore trending climate news": "Explore trending climate news",
+  "Explore trending news": "Explore trending climate news",
   "Weather Updates": "Weather Updates",
   "View More": "View More",
   "Watch Latest Weather Videos": "Watch Latest Weather Videos",
   "Browse by State": "Browse by State",
   "Popular Locations": "Popular Locations",
   "Reach your Audience": "Reach your Audience",
-  "Business Queries": "Business Queries"
+  "Business Queries": "Business Queries",
+  "hourly": "hourly",
+  "Feels Like": "Feels Like",
+  "Skysense by skymet": "Skysense by Skymet",
+  "Viewing data for": "Viewing data for",
+  "Dew Point": "Dew Point",
+  "Suggested Resources": "Suggested Resources",
+  "Sunrise": "Sunrise",
+  "Sunset": "Sunset",
+  "Wind Speed": "Wind Speed",
+  "Showing result from": "Showing result from",
+  "Viw in full screen": "View in full screen",
+  "Share on Whatsapp": "Share on Whatsapp",
+  "Himawari": "Himawari",
+  "Insat": "Insat"
   
 }

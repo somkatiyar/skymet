@@ -34,7 +34,7 @@ import { MoonriseComponent } from '../../shared/shared/widget/moonrise/moonrise.
 export class ForecastClubComponent implements AfterViewInit {
   hourlyData: any;
   forecastData: any;
-
+  filteredData: any;
   currentData: any;
   metaInfo: any;
   forecast: any = [];
@@ -57,7 +57,7 @@ export class ForecastClubComponent implements AfterViewInit {
   selectedTab: any = "hourly";
   todayDay = new Date().getDate()
 
-  constructor(private windowService: WindowService, private dataService: DataService,
+  constructor(private windowService: WindowService, public dataService: DataService,
     private router: Router, private seoService: SeoService) {
 
     this.router.events.subscribe((event: any) => {
@@ -68,7 +68,9 @@ export class ForecastClubComponent implements AfterViewInit {
     });
 
   }
-
+    refreshData() {
+        this.dataService.currentPositionObservable.next(true);
+    }
 
   getForecastData() {
     const decodedURL = decodeURIComponent(this.router.url);
@@ -88,10 +90,31 @@ export class ForecastClubComponent implements AfterViewInit {
 
 
   setForecastMeta() {
-    if (this.router.url.includes('extended-forecast') || this.router.url.includes('fifteen-days-forecast') || this.router.url.includes('weekly-forecast')) {
-      var urlArr = this.router.url.split('/');
+    const url = this.router.url;
+    if (url.includes('extended-forecast')
+      || url.includes('fifteen-days-forecast')
+      || url.includes('weekly-forecast')
+      || url.includes('hourly-forecast')) {
+      var urlArr = url.split('/');
       var weatherDuration = urlArr[urlArr.length - 1];
       this.seoService.setForecastTags(this.forecast?.metainfo, weatherDuration);
+
+      if (this.windowService.isBrowser()) {
+        if (url.includes('weekly-forecast')) {
+          // this.selectedTab = '7 days'
+          setTimeout(() => {
+            (document.getElementById('7_days') as HTMLElement).click();
+            //this.onTabChange(7)
+          }, 100);
+        } else if (url.includes('hourly-forecast')) {
+          // this.selectedTab = 'hourly'
+          (document.getElementById('hourly') as HTMLElement).click();
+        }
+      }
+
+
+
+
     } else {
       this.seoService.setForecastTags(this.forecast?.metainfo, 'current');
     }
@@ -106,7 +129,7 @@ export class ForecastClubComponent implements AfterViewInit {
     const mergedData = this.hourlyData.map((item: any) => ({
       ...item,
       gradient: gradientMap[item.ist] ?? null,
-      selectedClass:this.todayDay === new Date(item.toorder).getDate() ? 'today' : 'otherday'
+      selectedClass: this.todayDay === new Date(item.toorder).getDate() ? 'today' : 'otherday'
     }));
 
     this.hourlyData = mergedData;
@@ -150,7 +173,7 @@ export class ForecastClubComponent implements AfterViewInit {
     }));
 
     this.forecastData = mergedData;
-
+    this.filteredData = this.forecastData;
     const getAQIStatus = (aqi: number): string => {
       if (aqi <= 50) return 'Good';
       if (aqi <= 100) return 'Moderate';
@@ -169,8 +192,8 @@ export class ForecastClubComponent implements AfterViewInit {
         aqi: aqi,
         status: getAQIStatus(aqi),
         dewPoint: +(Math.random() * 20 + 5).toFixed(1),
-        sunrise: `${6 + Math.floor(Math.random() * 2)}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
-        sunset: `${18 + Math.floor(Math.random() * 2)}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`
+        // sunrise: `${6 + Math.floor(Math.random() * 2)}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
+        // sunset: `${18 + Math.floor(Math.random() * 2)}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`
       };
     });
 
@@ -230,12 +253,12 @@ export class ForecastClubComponent implements AfterViewInit {
   hourlyActiveIndex: any = 0;
   tempSwiperInitHourly() {
     if (this.windowService.isBrowser()) {
-          const element = document.querySelector('.swiper_temp_hourly') as HTMLElement;
+      const element = document.querySelector('.swiper_temp_hourly') as HTMLElement;
 
-    if (!element) {
-      console.warn('Swiper element not found');
-      return;
-    }
+      if (!element) {
+        console.warn('Swiper element not found');
+        return;
+      }
       this.tempSwiperHourly = new Swiper(element, {
         slidesPerView: 7,
         spaceBetween: 0,
@@ -260,8 +283,8 @@ export class ForecastClubComponent implements AfterViewInit {
             this.hourlyDate = this.dataService.getToOrderDate(this.hourlyData[event.activeIndex].toorder)
             this.hourlyActiveIndex = event.activeIndex;
             this.todayDay = new Date(this.hourlyData[event.activeIndex].toorder).getDate();
-            console.log(this.todayDay, 'todayDay' );
-            
+            console.log(this.todayDay, 'todayDay');
+
           }
         },
       });
@@ -287,7 +310,7 @@ export class ForecastClubComponent implements AfterViewInit {
 
           }
         },
-          navigation: {
+        navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         },
@@ -528,9 +551,7 @@ export class ForecastClubComponent implements AfterViewInit {
 
   }
 
-
-  ngAfterViewInit(): void {
-    this.tempSwiperInitHourly()
+  initForecastSwiper() {
     this.tempSwiperInit();
     this.rainSwiperInit();
     this.windSwiperInit();
@@ -552,6 +573,46 @@ export class ForecastClubComponent implements AfterViewInit {
       this.moonrisesSwiper,
     ];
   }
+
+  ngAfterViewInit(): void {
+    this.tempSwiperInitHourly()
+    if (this.windowService.isBrowser()) {
+      setTimeout(() => {
+        this.initForecastSwiper();
+      }, 100);
+    }
+  }
+
+
+
+
+  onTabChange(tab: any) {
+    if (this.windowService.isBrowser()) {
+      if (tab == 7) {
+        this.forecastData = this.filteredData.slice(0, 7);
+      } else {
+        this.forecastData = this.filteredData.slice(0, 15);
+      }
+
+
+      setTimeout(() => {
+        this.allSwiper?.forEach((swiper) => {
+          if (swiper && swiper.destroy) {
+            swiper.destroy(true, true);
+          }
+        });
+
+        this.initForecastSwiper();
+
+        this.allSwiper?.forEach((swiper) => {
+          if (swiper && swiper.slideTo) {
+            swiper && swiper.el.style && swiper.slideTo(0);
+          }
+        });
+      }, 100);
+    }
+  }
+
 
   sunrise: any = "06:00";
   sunset: any = "18:00"

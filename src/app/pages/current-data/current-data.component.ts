@@ -22,6 +22,7 @@ export class CurrentDataComponent implements AfterViewInit {
   weatherText:any = `स्काइमेट वेदर में आपका स्वागत है`;
   locationPath:any;
   selectedLanguage:any;
+  @Input() parentRef: any;
   constructor(
     private translateService: TranslateService,
     public dataService: DataService,
@@ -36,6 +37,12 @@ export class CurrentDataComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.setBackground();
+  }
+
+   triggerParentLocation() {
+    if (this.parentRef) {
+      this.parentRef.getPosition(true);
+    }
   }
     setForecast(newData:any,path:any) {
       this.forecastData = newData;

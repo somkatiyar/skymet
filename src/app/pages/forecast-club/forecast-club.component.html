@@ -2,8 +2,6 @@
   <div class="container">
     <div class="main_content">
       <div class="cover_area">
-
-
         <div class="breadcrumb">
           <span>
             <a href="#">Home</a>
@@ -21,16 +19,17 @@
               <div class="locat">
                 <img src="./img/location.png" alt="" />
                 <h5 class="mainTitleSection">{{metaInfo?.TEHSIL_ALIAS_NAME}},{{metaInfo?.DISTRICT_NAME }}</h5>
-                <img class="refressButton" src="./img/refrash.svg" alt="" />
+                <img class="refressButton" src="./img/refrash.svg" alt=""/>
               </div>
               <div class="days">
-                <p [ngClass]="selectedTab == 'hourly' ? 'active' : ''" (click)="selectedTab = 'hourly'">
-                  Hourly
+                <p [ngClass]="selectedTab == 'hourly' ? 'active' : ''" (click)="selectedTab = 'hourly'" id="hourly">
+                 Hourly
                 </p>
-                <p [ngClass]="selectedTab == '7 days' ? 'active' : ''" (click)="selectedTab = '7 days'">
+                <p [ngClass]="selectedTab == '7 days' ? 'active' : ''" (click)="selectedTab = '7 days';onTabChange(7)"
+                  id="7_days">
                   7 Days
                 </p>
-                <p [ngClass]="selectedTab == '15 days' ? 'active' : ''" (click)="selectedTab = '15 days'">
+                <p [ngClass]="selectedTab == '15 days' ? 'active' : ''" (click)="selectedTab = '15 days';onTabChange(15)">
                   15 Days
                 </p>
               </div>
@@ -66,7 +65,7 @@
               </div>
             </div>
             <div class="swiper-button-next custom_nav"></div>
-              <div class="swiper-button-prev custom_nav"></div>
+            <div class="swiper-button-prev custom_nav"></div>
           </div>
         </div>
         <!-- temp swiper end -->
@@ -259,7 +258,7 @@
               <div class="swiper-slide" *ngFor="let item of forecastData">
                 <div class="sunRise_container">
                   <div class="time-label top">
-                    <span class="sunrise">{{ item.sunrise }}</span><span class="am">AM</span>
+                    <span class="sunrise">{{ item.sunrise }}</span><span class="am">{{dataService.convertToAmPm(item.sunrise)}}</span>
                   </div>
                   <img class="curve" src="./img/sunrise_graph.svg" alt="" />
                   <!-- <svg class="curve" viewBox="0 0 100 50" preserveAspectRatio="none">
@@ -267,7 +266,7 @@
                               </svg> -->
                   <div class="middle-line"></div>
                   <div class="time-label bottom">
-                    <span class="sunset">{{ item.sunset }}</span><span class="pm">PM</span>
+                    <span class="sunset">{{ item.sunset }}</span><span class="pm">{{dataService.convertToAmPm(item.sunset)}}</span>
                   </div>
                 </div>
                 <div class="date-section">
@@ -293,7 +292,7 @@
               <div class="swiper-slide" *ngFor="let item of forecastData">
                 <div class="sunRise_container">
                   <div class="time-label top">
-                    <span class="sunset">6:10</span><span class="pm">PM</span>
+                    <span class="sunset">{{item.moonrise}}</span><span class="pm">{{dataService.convertToAmPm(item.moonrise)}}</span>
                   </div>
                   <!-- <img class="curve" src="./img/Moonrise.svg" alt="" /> -->
                   <svg class="curve" width="121" height="28" viewBox="0 0 121 28" fill="none"
@@ -304,13 +303,13 @@
                   </svg>
                   <div class="middle-line"></div>
                   <div class="time-label bottom">
-                    <span class="sunrise">6:28</span><span class="am">AM</span>
+                    <span class="sunrise">{{item.moonset}}</span><span class="am">{{dataService.convertToAmPm(item.moonset)}}</span>
                   </div>
                 </div>
                 <div class="date-section">
                   <div class="tick"></div>
-                  <div class="date">  
-                     {{ item.date.split(",")[1] }} &nbsp;{{
+                  <div class="date">
+                    {{ item.date.split(",")[1] }} &nbsp;{{
                     item.date.split(",")[2]
                     }}</div>
                 </div>
@@ -319,7 +318,7 @@
           </div>
         </div>
       </div>
-      <div [hidden]="selectedTab == '7 days'">
+      <div class="abc"[hidden]="selectedTab == '7 days' || selectedTab == '15 days'">
         <div class="hourly_tab">
           <div class="Temperature_swipee">
             <div class="swiper swiper_temp_hourly">
@@ -328,7 +327,7 @@
                   <div class="weather-card" [ngStyle]="{ background: item.gradient }" [id]="'hourly' + index">
                     <div class="temperature-high">{{item.temp_max}}°</div>
                     <div class="feels-like">
-                      Feels like 35°
+                      Feels like {{item.feelslike_temp}}°
                     </div>
                     <!-- <div class="dot" *ngIf="hourlyActiveIndex==index">
                               </div> -->
@@ -345,7 +344,9 @@
               <div class="swiper-button-next custom_nav"></div>
               <div class="swiper-button-prev custom_nav"></div>
               <div class="sun_mon">
-                <div [ngClass]="hourlyData && hourlyData[hourlyActiveIndex].selectedClass =='today'  ? 'sun_green' :'mon_yellow'">{{hourlyDate}}</div>
+                <div
+                  [ngClass]="hourlyData && hourlyData[hourlyActiveIndex].selectedClass =='today'  ? 'sun_green' :'mon_yellow'">
+                  {{hourlyDate}}</div>
                 <!-- <div class="mon_yellow">24 May, Monday</div> -->
               </div>
             </div>
@@ -353,15 +354,15 @@
         </div>
         <!-- <div class="graph"></div> -->
         <div class="Temperature_swipee">
-          <div class="skysense-title">Skysense by skymet</div>
+          <!-- <div class="skysense-title">Skysense by skymet</div> -->
           <div class="Weather_buddy">
             <div class="view_date">
-              Viewing data for  {{ forecastData && forecastData[0] && forecastData[0].date.split(",")[2] }} &nbsp;
+              Viewing data for {{ forecastData && forecastData[0] && forecastData[0].date.split(",")[2] }} &nbsp;
               {{
-                    forecastData &&  forecastData[0] && forecastData[0].date.split(",")[1]
-                    }}
+              forecastData && forecastData[0] && forecastData[0].date.split(",")[1]
+              }}
             </div>
-            <div class="container">
+            <!-- <div class="container">
               <div class="weather_box">
                 <div class="header">
                   <div class="tittle">
@@ -377,14 +378,17 @@
                   <span>Read more</span>
                 </p>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="Weather_info">
             <div class="boxs">
               <h6><img src="./img/temp.svg" alt="" /> Temp (Min/Max)</h6>
               <div class="sky">
                 <img [src]="currentData?.[0]?.iconImage" alt="" />
-                <span>Clear sky</span>
+                <span>
+                  <!-- {{currentData?.[0]?.description}} -->
+                  {{currentData?.[0]?.description == 'THUNDERSTORM'? 'THUNDER STORM':currentData?.[0]?.description}}
+                </span>
               </div>
               <div class="max_min">
                 <div class="max">
@@ -408,7 +412,7 @@
               <h6><img src="./img/dropIcon.svg" alt="" /> Dew Point</h6>
               <div class="Rainfall_probabilty wind">
                 <div class="probabilty">
-                  <h5>20°C</h5>
+                  <h5>{{currentData?.[0]?.dew_point}}°C</h5>
                   <span>Highly Humid</span>
                 </div>
                 <img src="./img/man.svg" alt="" />

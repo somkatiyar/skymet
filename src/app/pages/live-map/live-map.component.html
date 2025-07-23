@@ -1,0 +1,22 @@
+ <div class="container">
+    <div class="main_content">
+<div id="map">
+
+    <div class="layerControls">
+      <span class="controlIcon sg-pointer" (click)="addCurrentLocation(this.windowService.L)">
+        <img src="https://www.skymetweather.com/assets/img/location.svg" alt="tiles" class="img-fluid" />
+      </span>
+      <span class="controlIcon sg-pointer">
+        <img src="https://www.skymetweather.com/assets/img/expand-light.svg" alt="expand" class="img-fluid" (click)="openFullscreen()"/>
+      </span>
+      <span (click)="shareThis()"
+        class="controlIcon sg-pointer sharethis-inline-share-buttons"
+        data-network="sharethis"
+      >
+        <img src="https://www.skymetweather.com/assets/img/share-light.svg" alt="share" class="img-fluid" />
+      </span>
+    </div>
+</div>
+</div>
+</div>
+

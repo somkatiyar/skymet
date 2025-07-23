@@ -4,12 +4,15 @@ import { SunriseComponent } from '../../shared/shared/widget/sunrise/sunrise.com
 import { DewpointComponent } from '../../shared/shared/widget/dewpoint/dewpoint.component';
 import { AirQualityComponent } from '../../shared/shared/widget/air-quality/air-quality.component';
 import { UvRaysComponent } from '../../shared/shared/widget/uv-rays/uv-rays.component';
+import { MoonriseComponent } from '../../shared/shared/widget/moonrise/moonrise.component';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-skysense',
   standalone: true,
   imports: [UvRaysComponent,
     SunriseComponent,
+    MoonriseComponent,
     DewpointComponent,
     AirQualityComponent
   ],
@@ -22,8 +25,16 @@ export class SkysenseComponent {
   currentTime:any="11:23"
   uvRange=[1,3,5,9,10,11];
   aqiRange=[50,100,250,320,400,500];
+  curretData: any;
+  constructor(public dataService:DataService){
 
+  }
 
+setCurrentData(currentData:any) {
+console.log(currentData,'asdfsa');
+this.curretData = currentData;
+
+}
 getSunAngle(sunrise: string, sunset: string, current: string): number {
   const timeToMinutes = (time: string): number => {
     const [h, m] = time.split(':').map(Number);

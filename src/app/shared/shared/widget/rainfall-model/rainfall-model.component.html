@@ -9,51 +9,57 @@
         speed</button>
     </div>
 
-    <div class="textContent">
- 
-      <h4 class="textMain">
+    <div class="textContent" *ngIf="dataService.getDeviceType() == 'mobile'">
+
+      <div class="textMain">
         Showing result from <span>12 August 2024</span> -
         <span>27 August 2024</span>
-      </h4>
+      </div>
     </div>
 
     <div class="mainMap">
       <div class="topbuttons">
         <div class="cards">
           <div class="buttons">
-            <button class="button active">
+            <button class="button" [ngClass]="viewType === 'swiper' ? 'active' : ''" (click)="viewType='swiper';refreshTab()">
               <img src="/img/map.svg" alt="" />
             </button>
-            <button class="button">
+            <button class="button" [ngClass]="viewType === 'list' ? 'active' : ''" (click)="viewType='list';refreshTab()">
               <img src="/img/menu4.svg" alt="" />
             </button>
           </div>
         </div>
+        <div class="textContent" *ngIf="dataService.getDeviceType() == 'desktop'">
 
+          <div class="textMain">
+            Showing result from <span>12 August 2024</span> -
+            <span>27 August 2024</span>
+          </div>
+        </div>
         <!-- <div class="contentCenter">
           <p>12 August 2024</p>
         </div> -->
 
-        <!-- <div class="cards thirdButtonGroup">
-          <div class="buttons singleButton">
-            <button class="button">
+        <div class="cards thirdButtonGroup">
+          <div class="buttons singleButton" *ngIf="dataService.getDeviceType() == 'mobile' || viewType === 'list'">
+            <button class="button" (click)="openFullscreen()">
               <img src="/img/expend.svg" alt="" />
             </button>
           </div>
-          <div class="buttons singleButton">
-            <button class="button">
+          <div class="buttons singleButton" *ngIf="dataService.getDeviceType() == 'mobile' || viewType === 'list'">
+            <button class="button" (click)="viewType=='swiper'? whatsappImageShare() : shareFiles()">
               <img src="/img/whatsapp.svg" alt="" />
             </button>
           </div>
-          <div class="buttons multiButton">
-            <button class="button">
+          <div class="buttons multiButton" *ngIf="dataService.getDeviceType() == 'mobile' && viewType=='swiper'">
+            <button class="button" (click)="zoomOut()">
               <img src="/img/minus.svg" alt="" />
             </button>
-            <button class="button">
+            <button class="button" (click)="zoomIn()">
               <img src="/img/plus.svg" alt="" />
             </button>
           </div>
-        </div> -->
+        </div>
       </div>
 
       <!-- <div class="bottomIndector">
@@ -83,19 +89,20 @@
         </div>
       </div> -->
 
-      <div class="swiper-ad-container">
+      <div class="swiper-ad-container" *ngIf="viewType=='swiper'">
 
         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
           <div class="swiper-wrapper">
             <div class="swiper-slide swiper-slider-item" (mouseenter)="showOverlay(i)" (mouseleave)="hideOverlay()"
               *ngFor="let item of filteredModelData; let i = index">
-              <img [src]="item.imageUrl" [id]="'main' + i"/>
-              <div class="overlay-text" [ngStyle]="{ display: hoveredIndex === i ? 'block' : 'none' }">
-              
-                  
-                  <div class="fullmap" (click)="fullScreenImage(i,item.imageUrl)">View in full screen</div>
-                
-                <div class="fullmap" (click)="whatsappImageShare(item.imageUrl)">Share on whatsapp</div>
+              <img [src]="item.imageUrl" [id]="'main' + i" />
+              <div class="overlay-text" *ngIf="dataService.getDeviceType() == 'desktop'"
+                [ngStyle]="{ display: hoveredIndex === i ? 'block' : 'none' }">
+
+
+                <div class="fullmap" (click)="fullScreenImage(i)">View in full screen</div>
+
+                <div class="fullmap" (click)="whatsappImageShare()">Share on whatsapp</div>
               </div>
             </div>
           </div>
@@ -113,18 +120,27 @@
         </div>
       </div>
 
-      <div thumbsSlider class="swiper mySwiper">
+      <div thumbsSlider class="swiper mySwiper" *ngIf="viewType=='swiper'">
         <div class="swiper-wrapper">
           <div class="swiper-slide swiper-slider-thumb" [id]="'thumb' + index"
-            *ngFor="let item of filteredModelData; let index = index"
-            [ngClass]="(index === activeIndex ) ? 'active' : ''"
-            >
-            <h5>12 Aug</h5>
+            *ngFor="let item of filteredModelData; let index = index">
+            <h5>{{item.id}}</h5>
             <img [src]="item.imageUrl" />
           </div>
         </div>
       </div>
 
+      <div *ngIf="viewType=='list'">
+        <div class="image-grid">
+          <div class="image-item" *ngFor="let item of filteredModelData" (click)="toggleImageSelection(item.imageUrl)">
+            <img [src]="item.imageUrl" [class.selected]="isSelected(item.imageUrl)" />
+          </div>
+        </div>
+      </div>
+
     </div>
+
+          <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
+
   </div>
 </div>

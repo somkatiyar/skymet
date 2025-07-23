@@ -1,540 +1,993 @@
-main {
-  .header {
-    .textTitle {
-      font-family: "Raleway";
-      font-size: 38.91px;
-      font-weight: 600;
-      line-height: 45.68px;
-    }
-  }
-  .locationSearch {
-    padding: 15px 0 25px;
-  }
-  .aboutUsBanner {
-    .card {
-      .card-img {
-        height: 350px;
-      }
-      .card-title {
-        font-size: 50px;
-        line-height: 64px;
-        font-weight: 500;
-        padding-left: 16px;
-        padding-bottom: 16px;
-      }
-      .btn-secondary {
-        background-color: rgba(157, 157, 157, 1);
-        font-family: "Raleway";
-        font-size: 24.44px;
-        font-weight: 500;
-        line-height: 28.69px;
-        text-align: center;
-      }
-    }
-  }
-  .aboutUsContent {
-    .inner-content {
-      .paraText {
-        font-size: 22px;
-        font-weight: 400;
-        line-height: 25.83px;
-        text-align: left;
-      }
-    }
-  }
-  .ourMission {
-    img {
-      height: 300px;
-    }
-    .inner-content {
-      padding-left: 15px;
-      .paraText {
-        font-family: "Raleway";
-        font-size: 22px;
-        font-weight: 400;
-        line-height: 28.18px;
-        text-align: left;
-        padding-bottom: 0;
-        margin-bottom: 0;
-        width: 100%;
-      }
-    }
-  }
-  .ourStatus {
-    .skymetInNumber {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      .statusItem {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        .serviceTitle {
-          font-family: Raleway;
-          font-size: 20.6px;
-          font-weight: 500;
-          line-height: 30.92px;
-          color: #000;
-          max-width: 116px;
-          text-align: center;
-          align-items: start;
-          display: flex;
-          height: 55px;
-        }
-        .serviceNumber {
-          font-family: Raleway;
-          font-size: 80px;
-          font-weight: 100;
-          line-height: 110px;
-          color: #000;
-        }
-      }
-    }
-  }
-  .ourServices {
-    .serviceItem {
-      margin-bottom: 19px;
-      &:last-child {
-        margin-bottom: 0;
-      }
-      .serviceTitle {
-        font-family: "Raleway";
-        font-size: 26px;
-        font-weight: 500;
-        line-height: 28.18px;
-        color: #000;
-      }
-      .serviceText {
-        font-family: "Raleway";
-        font-size: 18px;
-        font-weight: 400;
-        line-height: 21.13px;
-        color: #000000b8;
-        margin-bottom: 19px;
-      }
-    }
-  }
-  .ourLeader {
-    padding-bottom: 30px;
-    .slider {
-      .img {
-        position: relative;
 
-        .leaderCheck {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-      }
-      .aboutContent {
-        background-color: #000;
-        margin-top: 10px;
-        color: #fff;
-        padding: 32px;
-        border-radius: 10px;
-        width: 100%;
-        transition: all 1s ease-in-out;
-        .card {
-          background-color: #000;
-          color: #fff;
-        }
-        .card-body {
-          padding-left: 10px;
-          .socialicon {
-            color: #fff;
-            font-size: 22px;
-          }
-          .leaderName {
-            font-size: 32px;
-            line-height: 40px;
-            font-weight: 500;
-            margin-bottom: 6px;
-          }
-          .leaderPost {
-            font-size: 24px;
-            line-height: 30px;
-          }
-          .company {
-            font-size: 12px;
-            line-height: 18px;
-            font-style: italic;
-          }
-          .card-text {
-            font-size: 16px;
-            text-align: left;
-          }
-        }
-      }
-    }
-  }
+.footer {
+  margin-top: 0;
 }
+.contact-hero-section {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(201, 234, 255, 1) 34%,
+    rgba(245, 251, 255, 1) 61%,
+    rgba(255, 255, 255, 0) 90%
+  );
+  background-size: cover;
+  padding: 150px 0 0px;
+  position: relative;
+  // min-height: 100vh;
 
-.modal {
-  .modal-dialog {
-    .modal-content {
-      .leaderDetails {
-        background-color: #000;
-        color: #fff;
+  .main-contact-hero-section {
+    text-align: center;
+    background: url("/img/contact_page/cloud-img.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 
-        .card {
-          background-color: #000;
-          color: #fff;
+    .hero-content {
+      max-width: 48%;
+      margin: 0 auto;
 
-          .card-body {
-            .socialicon {
-              color: #fff;
-            }
-          }
-        }
+      h1 {
+        font-size: 40px;
+        font-weight: 700;
+        color: #0d1b2a;
+        line-height: 1.3;
+        margin-bottom: 20px;
       }
-    }
-  }
-}
-// .custom-modal {
-//   position: absolute; /* Use absolute positioning */
-//   top: 100px; /* Set your desired top position */
-//   left: 30%; /* Center horizontally */
-//   transform: translateX(-30%); /* Adjust for exact centering */
-//   height: 269px;
-// }
-.show {
-  display: block;
-  transition: all 1s ease-in-out;
-}
 
-.hide {
-  display: none;
-  transition: all 1s ease-in-out;
-}
-@media (max-width: 768px) {
-  .aboutMain {
-    padding: 0 10px;
-    margin-top: 23px !important;
-    .header {
-      .textTitle {
-        font-family: "Raleway";
-        font-size: 24px;
-        font-weight: 600;
-        line-height: 23.48px;
-      }
-    }
-    .aboutUsBanner {
-      .card {
-        .card-img {
-          height: auto;
-        }
-        .card-title {
-          font-size: 22px;
-          line-height: 26px;
-          font-weight: 500;
-          text-align: left;
-          padding-left: 10px;
-          padding-bottom: 0px;
-          margin-bottom: 0;
-        }
-        .btn-secondary {
-          background-color: rgba(157, 157, 157, 1);
-          font-family: "Raleway";
-          font-size: 24.44px;
-          font-weight: 500;
-          line-height: 28.69px;
-          text-align: center;
-        }
-      }
-    }
-    .aboutUsContent {
-      .inner-content {
-        .paraText {
-          font-size: 18px;
-          font-weight: 400;
-          line-height: 24.51px;
-          text-align: left;
-        }
-      }
-    }
-    .ourMission {
-      img {
-        height: auto;
-      }
-      .inner-content {
-        padding-left: 0;
-        .paraText {
-          font-family: "Raleway";
-          font-size: 18px;
-          font-weight: 400;
-          line-height: 21.13px;
-          text-align: left;
-          padding-bottom: 0;
-          width: 100%;
-        }
-      }
-    }
-    .ourServices {
-      .serviceItem {
-        .serviceTitle {
-          font-family: "Raleway";
-          font-size: 17px;
-          font-weight: 500;
-          line-height: 19.96px;
-          color: #000;
-        }
-        .serviceText {
-          font-family: "Raleway";
-          font-size: 13px;
-          font-weight: 400;
-          line-height: 15.26px;
-          color: #000;
-        }
-      }
-      .skymetInNumber {
-        .serviceTitle {
-          font-family: "Raleway";
-          font-size: 11.83px;
-          font-weight: 500;
-          line-height: 13.88px;
-          color: #000;
-          text-align: center;
-        }
-        .serviceNumber {
-          font-family: "Raleway";
-          font-size: 30px;
-          font-weight: 100;
-          line-height: 46.44px;
-          text-align: center;
-        }
-      }
-    }
-    .ourLeader {
-      .slider {
-        .img {
-          position: relative;
-
-          .leaderCheck {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
-        }
-        .aboutContent {
-          background-color: #000;
-          margin-top: 10px;
-          color: #fff;
-          padding: 20px;
-          border-radius: 10px;
-          width: 100%;
-          transition: all 1s ease-in-out;
-          .card {
-            background-color: #000;
-            color: #fff;
-          }
-          .card-body {
-            padding-left: 10px;
-            .socialicon {
-              color: #fff;
-              font-size: 17px;
-            }
-            .leaderName {
-              font-size: 22px;
-              line-height: 40px;
-              font-weight: 500;
-            }
-            .leaderPost {
-              font-size: 19px;
-              line-height: 18px;
-            }
-            .company {
-              font-size: 12px;
-              line-height: 18px;
-            }
-            .card-text {
-              font-size: 15px;
-              text-align: left;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-@media (max-width: 576px) {
-  main {
-    .header {
-      .textTitle {
-        font-family: "Raleway";
+      p {
         font-size: 20px;
-        font-weight: 600;
-        line-height: 23.48px;
+        color: var(--primary);
+        margin-bottom: 30px;
       }
-    }
-    .locationSearch {
-      padding: 0 0 25px;
-    }
-    .aboutUsBanner {
-      .card {
-        .card-img {
-          height: auto;
-        }
-        .card-title {
-          font-size: 22px;
-          line-height: 26px;
-          font-weight: 500;
-          text-align: left;
-          padding-left: 10px;
-          padding-bottom: 0px;
-          margin-bottom: 0;
-        }
-        .btn-secondary {
-          background-color: rgba(157, 157, 157, 1);
-          font-family: "Raleway";
-          font-size: 24.44px;
-          font-weight: 500;
-          line-height: 28.69px;
-          text-align: center;
-        }
-      }
-    }
-    .aboutUsContent {
-      .inner-content {
-        .paraText {
-          font-size: 18px;
-          font-weight: 400;
-          line-height: 24.51px;
-          text-align: left;
-        }
-      }
-    }
-    .ourMission {
-      img {
-        height: auto;
-      }
-      .inner-content {
-        padding-left: 0;
-        .paraText {
-          font-family: "Raleway";
-          font-size: 18px;
-          font-weight: 400;
-          line-height: 21.13px;
-          text-align: left;
-          padding-bottom: 0;
-          width: 100%;
-        }
-      }
-    }
-    .ourStatus {
-      .skymetInNumber {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: start;
-        width: 100%;
-        flex-wrap: wrap;
 
-        .statusItem {
-          width: 33%;
+      .buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+
+        a {
+          width: auto;
+          padding: 12px 24px;
+          border-radius: 30px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: 0.3s ease-in-out;
+
+          &.primary-btn {
+            background: var(--primary);
+            color: #fff;
+
+            &:hover {
+              background: #1456c5;
+            }
+          }
+
+          &.secondary-btn {
+            border: 1px solid #9e9e9e;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: 10px;
+
+            &:hover {
+              background: #f3f3f3;
+            }
+          }
+        }
+      }
+
+      @media (max-width: 1250px) {
+        max-width: 60%;
+      }
+      @media (max-width: 768px) {
+        max-width: 100%;
+        h1 {
+          font-size: 28px;
+        }
+        p {
+          font-size: 18px;
+          line-height: 1.5;
+        }
+      }
+    }
+    @media (max-width: 768px) {
+      background: transparent;
+    }
+  }
+
+  .contact-hero-footer {
+    position: relative;
+    margin-top: -130px;
+    @media (max-width: 1025px) {
+      margin-top: 0;
+    }
+    .today-weather {
+      position: absolute;
+      bottom: 40%;
+      right: 33%;
+      background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+      border: 1px solid #e0e0e0;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+      border-top-left-radius: 23px;
+      border-bottom-left-radius: 23px;
+      border-bottom-right-radius: 23px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: self-start;
+      flex-direction: column;
+      gap: 15px;
+      min-width: 160px;
+      z-index: 2;
+
+      .temp-weather {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .icon img {
+          width: 28px;
+          height: 28px;
+        }
+        strong {
+          font-size: 20px;
+          font-weight: 700;
+          color: #1b1b1b;
+          display: block;
+        }
+      }
+      .temp-info {
+        p {
+          font-size: 14px;
+          color: #555;
+          margin: 0;
+          line-height: 1.2;
+        }
+      }
+
+      @media (max-width: 768px) {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 12px;
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+        padding: 8px 10px;
+        gap: 10px;
+        min-width: 135px;
+        bottom: auto;
+        top: 9%;
+        right: 37%;
+      }
+    }
+
+    .phone-view {
+      display: none;
+    }
+    .spray-alert {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #f9fdff;
+      border: 1px solid #d5dee8;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #111;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: absolute;
+      top: 12%;
+      left: 10%;
+
+      .alert-icon {
+        img {
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.4;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .desktop-view {
+        display: none;
+      }
+      .phone-view {
+        display: block;
+      }
+      .spray-alert {
+        display: none;
+      }
+    }
+  }
+}
+
+.trusted-industry {
+  padding: 80px 0;
+  text-align: center;
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    line-height: 1.4;
+  }
+
+  .trusted-logos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+
+    img {
+      max-width: 100px;
+      height: auto;
+      filter: contrast(0.5);
+      opacity: 0.8;
+      transition: all 0.3s ease;
+
+      &:hover {
+        filter: grayscale(0%);
+        opacity: 1;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 24px;
+    }
+
+    .trusted-logos {
+      justify-content: center;
+      gap: 30px;
+
+      img {
+        max-width: 80px;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 20px;
+    }
+
+    .trusted-logos {
+      gap: 20px;
+
+      img {
+        max-width: 70px;
+      }
+    }
+  }
+}
+
+.solution-section {
+  padding: 0px 0 80px;
+  text-align: center;
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 50px;
+  }
+
+  .card-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+
+    .overlay {
+      display: flex;
+      flex-direction: column;
+      align-items: self-start;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(to top, rgb(0 0 0 / 80%), transparent);
+
+      h3 {
+        color: #fff;
+        font-size: 18px;
+        margin-bottom: 10px;
+        text-align: left;
+        font-weight: 700;
+      }
+
+      .btn {
+        width: auto;
+        display: inline-flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 15px;
+        padding: 6px 16px;
+        font-size: 14px;
+        font-weight: 700;
+        background-color: #e0f0ff;
+        color: var(--primary);
+        border-radius: 999px;
+        text-decoration: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #d4eaff;
+        }
+      }
+    }
+  }
+
+  // Responsive
+
+  @media (max-width: 992px) {
+    .card-grid {
+      flex-wrap: wrap;
+    }
+    .card {
+      width: 250px;
+    }
+  }
+  @media (max-width: 768px) {
+    padding: 0px;
+    h2 {
+      font-size: 20px;
+    }
+    .card {
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .card-grid {
+      gap: 20px;
+    }
+  }
+}
+
+.weather-api-section {
+  padding: 0px 0px 80px;
+  color: #fff;
+
+  .weather-content {
+    background-color: #247ed7;
+    border-radius: 30px;
+    // margin: 40px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 40px;
+    flex-wrap: wrap;
+
+    .text-content {
+      flex: 1;
+      max-width: 600px;
+      padding: 40px 20px;
+
+      h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #fff;
+      }
+
+      p {
+        font-size: 16px;
+        margin-bottom: 30px;
+      }
+
+      .api-features {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+
+        .api-box {
+          background: rgba(255, 255, 255, 0.1);
+          padding: 12px 18px;
+          border-radius: 12px;
+          font-size: 15px;
+          font-weight: 500;
+          backdrop-filter: blur(4px);
           display: flex;
           flex-direction: column;
-          align-items: center;
-          .serviceTitle {
-            font-family: Raleway;
-            font-size: 15.6px;
-            font-weight: 500;
-            line-height: 19.92px;
-            color: #000;
-            width: auto;
-            text-align: center;
-            display: block;
-            padding-right: 0;
-            height: 55px;
-          }
-          .serviceNumber {
-            font-family: Raleway;
-            font-size: 38px;
-            font-weight: 100;
-            line-height: 50px;
-            color: #000;
-          }
+          align-items: self-start;
+          gap: 10px;
         }
-        .statusItem:nth-of-type(4) {
-          width: 50%;
-          padding-right: 1px;
-        }
-        .statusItem:nth-of-type(5) {
-          width: 50%;
-          padding-right: 30px;
+        @media (max-width: 768px) {
+          display: none;
         }
       }
-    }
-    .ourServices {
-      .serviceItem {
-        .serviceTitle {
-          font-family: "Raleway";
-          font-size: 17px;
-          font-weight: 500;
-          line-height: 19.96px;
-          color: #000;
-        }
-        .serviceText {
-          font-family: "Raleway";
-          font-size: 13px;
-          font-weight: 400;
-          line-height: 15.26px;
-          color: #000;
-        }
-      }
-    }
-    .ourLeader {
-      .slider {
-        .img {
-          position: relative;
 
-          .leaderCheck {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+      .cta-btn {
+        display: inline;
+        background: #e0f0ff;
+        color: var(--primary);
+        padding: 10px 24px;
+        border-radius: 999px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.3s;
+
+        &:hover {
+          background: #cfe6ff;
+        }
+      }
+    }
+
+    .image-wrapper {
+      flex: 1;
+      max-width: 400px;
+      padding: 10px 10px 0;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 40px 0;
+    .weather-content {
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      gap: 0;
+
+      .text-content {
+        align-items: center;
+        text-align: start;
+      }
+    }
+  }
+}
+
+.impact-numbers {
+  background-color: #f9f9f9;
+  padding: 80px 0px;
+  text-align: center;
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 50px;
+  }
+
+  .stats-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0; // spacing handled via padding + border
+    flex-wrap: wrap;
+
+    .stat {
+      flex: 1;
+      padding: 0 20px;
+      min-width: 140px;
+
+      h3 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #247ed7;
+        margin-bottom: 8px;
+      }
+
+      p {
+        font-size: 14px;
+        color: #555;
+      }
+
+      // Add border-left except for the first stat
+      &:not(:first-child) {
+        border-left: 2px dotted #ccc;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 40px 0;
+    .stats-grid {
+      flex-direction: column;
+
+      .stat {
+        border-left: none !important;
+        border-top: 1px dotted #ccc;
+        padding: 20px 0;
+        width: 100%;
+      }
+
+      .stat:first-child {
+        border-top: none;
+      }
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .stat h3 {
+      font-size: 24px;
+    }
+  }
+}
+
+.offer-section {
+  padding: 80px 0px;
+  background: #fff;
+
+  .section-title {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+
+    .offer-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: 0.3s ease;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: self-start;
+
+      .icon-box {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        margin-bottom: 20px;
+
+        img {
+          width: 72px;
+          // height: 24px;
+        }
+      }
+
+      h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #000;
+      }
+
+      p {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.5;
+      }
+
+      .explore-btn {
+        width: auto;
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a55c0;
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 10px 18px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 6px;
+        transition: all 0.3s;
+
+        &:hover {
+          background: #f0f4ff;
+        }
+
+        &.big {
+          font-size: 16px;
+          font-weight: 700;
+          color: #fff;
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.5);
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.1);
           }
         }
-        .aboutContent {
-          background-color: #000;
-          margin-top: 10px;
+      }
+
+      &.full-card {
+        background: #2b70e4;
+        color: #fff;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+
+        h3 {
           color: #fff;
-          padding: 20px;
-          border-radius: 10px;
-          width: 100%;
-          transition: all 1s ease-in-out;
-          .card {
-            background-color: #000;
-            color: #fff;
+          font-size: 20px;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 40px 0px;
+    .section-title {
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+    .offer-grid {
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    }
+  }
+}
+
+.leadership {
+  padding: 0px 0px 80px;
+  background: #fff;
+  text-align: center;
+
+  h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 50px;
+
+    span {
+      color: #2f6cd1;
+      font-size: 36px;
+      font-weight: 700;
+    }
+  }
+
+  .leaders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .leader-card {
+    position: relative;
+    background: #f2f4f7;
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.3s ease;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+    }
+
+    .leader-info {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      text-align: center;
+
+      h4 {
+        color: #2f6cd1;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      p {
+        font-size: 13px;
+        color: #333;
+        margin: 0;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    padding: 0px 0 40px;
+    h2 {
+      font-size: 26px;
+      span {
+        font-size: 26px;
+      }
+    }
+  }
+}
+
+.testimonial {
+  background: #f7f7f7;
+  padding: 80px 0px;
+
+  .testimonial-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  .testimonial-left {
+    max-width: 400px;
+
+    h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+
+      span {
+        color: #2f6cd1;
+      }
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .testimonial-buttons {
+      display: flex;
+      gap: 12px;
+
+      button {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #2f6cd1;
+        background: transparent;
+        color: #2f6cd1;
+        border-radius: 50%;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+          background: #2f6cd1;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .testimonial-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    flex: 1;
+    max-width: 500px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+
+    .company-logo {
+      width: 80px;
+      margin-bottom: 20px;
+    }
+
+    .quote {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .testimonial-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .user-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      h4 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: #555;
+      }
+    }
+  }
+
+  .testimonial-dots {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #ccc;
+      border-radius: 50%;
+      transition: 0.3s;
+
+      &.active {
+        background: #2f6cd1;
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 40px 0;
+    .testimonial-left {
+      h2 {
+        font-size: 26px;
+      }
+    }
+  }
+}
+
+.get-in-touch {
+  display: flex;
+  flex-wrap: wrap;
+  background: linear-gradient(
+      90deg,
+      rgba(38, 38, 38, 0.44) 2%,
+      rgba(0, 0, 0, 1) 58%
+    ),
+    url("/img/contact_page/form-background.jpg");
+
+  .main-get-in-touch {
+    display: flex;
+    .touch-left {
+      flex: 1;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: relative;
+      min-height: 400px;
+
+      .overlay {
+        position: absolute;
+        inset: 0;
+        // background: rgba(0, 0, 0, 0.5);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 50px;
+
+        h2 {
+          font-size: 40px;
+          font-weight: 700;
+          margin-bottom: 20px;
+          color: #fff;
+        }
+
+        p {
+          font-size: 16px;
+          max-width: 400px;
+          color: #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+          padding: 0px 20px;
+          h2 {
+            font-size: 26px;
           }
-          .card-body {
-            padding-left: 10px;
-            .socialicon {
-              color: #fff;
-              font-size: 22px;
+        }
+      }
+      @media (max-width: 768px) {
+        min-height: 220px;
+      }
+    }
+
+    .touch-right {
+      flex: 1;
+      // background: #000;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .touch-form {
+        width: 100%;
+        max-width: 600px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+
+          label {
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #ccc;
+          }
+
+          input {
+            padding: 10px 14px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background: transparent;
+            color: white;
+            height: 50px;
+
+            &::placeholder {
+              color: #888;
             }
-            .leaderName {
-              font-size: 32px;
-              line-height: 40px;
-              font-weight: 500;
+            @media (max-width: 768px) {
+              height: auto;
             }
-            .leaderPost {
-              font-size: 24px;
-              line-height: 30px;
-            }
-            .company {
-              font-size: 12px;
-              line-height: 18px;
-            }
-            .card-text {
-              font-size: 16px;
-              text-align: left;
-            }
+          }
+        }
+
+        .submit-btn {
+          grid-column: span 2;
+          padding: 14px;
+          border: none;
+          border-radius: 6px;
+          background: white;
+          color: #002060;
+          font-weight: 600;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          cursor: pointer;
+          transition: 0.3s ease;
+
+          &:hover {
+            background: #f0f0f0;
+          }
+
+          i {
+            font-size: 14px;
           }
         }
       }
     }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+
+      .touch-form {
+        grid-template-columns: 1fr !important;
+      }
+
+      .submit-btn {
+        grid-column: span 1 !important;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    background-position: right;
+    padding: 40px 0;
   }
 }

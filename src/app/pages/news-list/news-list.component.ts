@@ -51,7 +51,7 @@ export class NewsListComponent {
   }
 
     allPost() {
-    this.dataService.allPost(this.currentPage, 6,this.articleLanguage=='en' ?'english':'Hindi').subscribe(res => {
+    this.dataService.allPost(this.currentPage, 8,this.articleLanguage=='en' ?'english':'Hindi').subscribe(res => {
       this.articles = res;
       this.articleTotal = res && res[0].total;
     })
@@ -68,7 +68,7 @@ export class NewsListComponent {
   }
 
   getArticleByCategory(type:any,lng:any) {
-    this.dataService.weatherNews(type, this.currentPage, 6,lng=='en' ? 'english':'Hindi').subscribe(res =>{
+    this.dataService.weatherNews(type, this.currentPage, 8,lng=='en' ? 'english':'Hindi').subscribe(res =>{
       this.articles = res;
       this.articleTotal = res && res[0].total;
     })

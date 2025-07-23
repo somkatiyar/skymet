@@ -361,7 +361,7 @@ select {
   display: none;
 }
 
-@media (max-width: 426px) {
+@media (max-width: 450px) {
   .Header .header_content .lanc_only {
     display: block;
     /* border: 2px solid red; */
@@ -570,7 +570,7 @@ select {
   }
 }
 
-@media only screen and (max-width: 426px) {
+@media only screen and (max-width: 450px) {
   .Header .header_content .search_Nav .search {
     display: none;
   }
@@ -857,6 +857,7 @@ select {
   .Weather_info .boxs .max_min {
     display: flex;
     justify-content: space-between;
+    gap:13px
   }
 
   .Weather_info .boxs .max_min span {
@@ -1200,7 +1201,7 @@ text-align: center;
   top: 15px;
 }
 
-@media only screen and (max-width: 426px) {
+@media only screen and (max-width: 450px) {
   .wetherMapArea .btn_map {
     /* padding: 5px 0; */
     /* width: 92%; */
@@ -1253,7 +1254,7 @@ text-align: center;
   }
 }
 
-@media only screen and (max-width: 426px) {
+@media only screen and (max-width: 450px) {
   .wetherMapArea .btn_map ul li {
     padding: 8px 5px;
     font-size: 14px;
@@ -2114,6 +2115,13 @@ text-align: center;
       width: 100%;
       padding: 20px;
     }
+  }
+}
+
+button{
+  cursor: pointer;
+  .btn {
+    cursor: pointer;
   }
 }
 // Skysense end.........................................................

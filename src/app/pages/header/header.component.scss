@@ -64,6 +64,10 @@
   display: block !important;
 }
 
+.logo{
+  cursor: pointer;
+}
+
 .menu-container {
   width: 320px;
   border-radius: 24px;
@@ -123,19 +127,22 @@
 
     width: 100%;
 
-
+    .menu-item:active{
+      background: #e0ecff;
+      transform: scale(0.98);
+    }
   }
 }
 
-.menu-item i {
+.menu-item img {
   //background: #e0ecff;
   color: #2f80ed;
   padding: 10px;
   border-radius: 50%;
   font-size: 16px;
   margin-right: 16px;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;

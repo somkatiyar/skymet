@@ -39,7 +39,7 @@
     margin-top: 25px;
     .textMain {
       color: #222;
-      font-size: 24px;
+      font-size: 25px;
       text-align: center;
 
       font-family: Raleway;
@@ -49,7 +49,7 @@
 
       span {
         font-weight: 600;
-        font-size: 24px;
+        font-size: 25px;
         color: #4285f4;
 
         font-family: Raleway;
@@ -422,7 +422,23 @@
 
         }
 
+@media screen and (max-width: 767px) {
+    .textContent {
 
+    .textMain {
+  
+      font-size: 15px !important;
+
+
+
+      span {
+  
+        font-size: 15px !important;
+     
+      }
+    }
+  }
+}
 
 
 

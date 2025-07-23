@@ -13,6 +13,7 @@ import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { SeoService } from '../../services/seo.service';
 @Component({
   selector: 'app-resources',
   standalone: true,
@@ -39,16 +40,16 @@ export class ResourcesComponent implements AfterViewInit {
   allNews:any;
   postLimit:any = 9;
   filters = [
-  { filterkey: "All News", role: null ,sr_no:1,slug:'all'},
-  { filterkey: "Weather News", role: null,sr_no:2,slug:'weather-news-and-analysis' },
-  { filterkey: "Climate change", role: null,sr_no:3,slug:'climate-change' },
-  { filterkey: "La nina", role: null ,sr_no:4,slug:'la-nina'},
-  { filterkey: "Monsoon Update", role: null,sr_no:5,slug:'monsoon-update' },
-  { filterkey: "Astronomy", role: null ,sr_no:6,slug:'weather-news-and-analysis'},
-  { filterkey: "Mumbai", role: null,sr_no:7,slug:'weather-news-and-analysis' },
-  { filterkey: "Delhi", role: null,sr_no:8,slug:'weather-news-and-analysis' },
-  { filterkey: "Rainfall", role: null,sr_no:9 ,slug:'weather-news-and-analysis'},
-  { filterkey: "Eastern India", role: null,sr_no:10,slug:'weather-news-and-analysis' }
+  { filterkey: "All News", role: null ,sr_no:1,slug:'all',icon:'./img/article_filter/weather.webp'},
+  { filterkey: "Weather News", role: null,sr_no:2,slug:'weather-news-and-analysis', icon:'./img/article_filter/weather.webp'},
+  { filterkey: "Climate change", role: null,sr_no:3,slug:'climate-change', icon:'./img/article_filter/climate.webp'},
+  { filterkey: "La nina", role: null ,sr_no:4,slug:'la-nina', icon:'./img/article_filter/lanina.webp'},
+  { filterkey: "Monsoon Update", role: null,sr_no:5,slug:'monsoon-update', icon:'./img/article_filter/monsoon.webp'},
+  // { filterkey: "Astronomy", role: null ,sr_no:6,slug:'weather-news-and-analysis', icon:'./img/article_filter/astronomy.webp'},
+  // { filterkey: "Mumbai", role: null,sr_no:7,slug:'weather-news-and-analysis', icon:'./img/article_filter/mumbai.webp'},
+  // { filterkey: "Delhi", role: null,sr_no:8,slug:'weather-news-and-analysis', icon:'./img/article_filter/delhi.webp'},
+  // { filterkey: "Rainfall", role: null,sr_no:9 ,slug:'weather-news-and-analysis', icon:'./img/article_filter/rainfall.webp'},
+  // { filterkey: "Eastern India", role: null,sr_no:10,slug:'weather-news-and-analysis', icon:'./img/article_filter/eastern-india.webp'}
 ];
 selectedFilter:any = 1;
   constructor(
@@ -56,7 +57,8 @@ selectedFilter:any = 1;
     private sanitizer: DomSanitizer,
     private cdRef: ChangeDetectorRef,
     public dataService: DataService,
-    private router:Router
+    private router:Router,
+    private seoService:SeoService
   ) {}
 
   ngAfterViewInit(): void {
@@ -71,16 +73,91 @@ selectedFilter:any = 1;
     this.videosSwiper();
     this.cdRef.detectChanges();
   }
+  getPostBySlug(category:any,title:any) {
+    this.dataService.bySlug(category,title).subscribe(res => {
+       res && this.seoConfig(res)
+    })
+  }
+   async seoConfig(post:any) {
+     this.seoService.setArticleMetaTags(await this.formatPostForSEO(post));
+    let schema = this.createDynamicSchema(post);
+    
+    this.seoService.generateSchema(schema);
+  }
+
+   async formatPostForSEO(post:any) {    
+    return new Promise((resolve,reject) => {
+      var x:any = {}
+      this.seoService.removedMetaItem.forEach((element:any) => {
+        if(post[element.replace(':','_')]) {
+          x[element] = post[element.replace(':','_')]
+        }
+      });
+      
+      resolve({
+        ...x,
+        "og:locale": "en_us",
+        "og:type": "article",
+        "og:site_name": "https://skymetweather.com/",
+        "og:image:width":	"1200",
+         "og:image:height":	"630",
+        "twitter:card": "summary_large_image",
+        "twitter:site": "@SkymetWeather",
+      })
+    })
+
+    
+  }
+
+  createDynamicSchema(post:any) {
+  return `
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "${post.og_url}"
+  },
+  "headline": "${post.title}",
+  "description": "${post.description}",
+  "image": [
+    "${post.thumbnail_image}"
+  ],
+  "author": {
+    "@type": "Organization",
+    "name": "Skymet Weather",
+    "url": "https://www.skymetweather.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Skymet Weather",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.skymetweather.com/logo.png",
+      "width": 200,
+      "height": 60
+    }
+  },
+  "datePublished": "${post.DateTime}",
+  "dateModified": "${post.updatedAt}"
+}`
+
+
+  }
 
   allPost(currentPage:any,limit:any) {
     this.dataService.allPost(currentPage,limit).subscribe(res => {
       this.allNews = res;
+ 
+  
     })
   }
 
   filterNews(category:any) {
     this.dataService.getTrendingNews(category, 1,this.postLimit).subscribe(res => {
       this.allNews = res;
+     
+      
     })
   }
 
@@ -127,6 +204,9 @@ newsText() {
       this.weatherNewsList = weather;
       this.climateChangeList = trending;
       this.monsoonUpdateList = monsoon;
+      console.log(this.weatherNewsList,'this.weatherNewsList');
+      this.getPostBySlug(this.weatherNewsList[0]?.categorySlug?.[0],this.weatherNewsList[0]?.titleSlug)
+      
     });
   }
 

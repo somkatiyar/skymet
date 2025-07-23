@@ -3,24 +3,23 @@
     <div class="tabs">
       <button class="tab" [ngClass]="{'active': selectedTab === 'himawari'}" (click)="getsatelliteImage('himawari')">Himawari</button>
       <button class="tab" [ngClass]="{'active': selectedTab === 'insat'}" (click)="getsatelliteImage('insat')">Insat</button>
-      <!-- <button class="tab" [ngClass]="{'active': selectedTab === 'rainfall'}" (click)="getsatelliteImage('rainfall')">Rainfall</button> -->
     </div>
 
     <div class="textContent">
-      <h4 class="textMain">
+      <div class="textMain">
         Showing result from <span>{{satelliteImages && satelliteImages[activeIndex]?.date}}</span> -
         <span>{{satelliteImages && satelliteImages[activeIndex]?.time}}</span>
-      </h4>
+      </div>
     </div>
 
     <div class="mainMap">
       <div class="topbuttons">
         <div class="cards">
           <div class="buttons">
-            <button class="button" (click)="viewType='swiper'" [ngClass]="{'active': viewType === 'swiper'}">
+            <button class="button" (click)="viewType='swiper';refreshTab()" [ngClass]="{'active': viewType === 'swiper'}">
               <img src="/img/map.svg" alt="" />
             </button>
-            <button class="button"  (click)="viewType='grid'" [ngClass]="{'active': viewType === 'grid'}">
+            <button class="button"  (click)="viewType='grid';refreshTab()" [ngClass]="{'active': viewType === 'grid'}">
               <img src="/img/menu4.svg" alt="" />
             </button>
           </div>
@@ -54,7 +53,7 @@
 
     
 
-     <div>
+     <div *ngIf="viewType=='swiper'">
        <div
         style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
         class="swiper mySwiper2"
@@ -84,7 +83,7 @@
         </div>
       </div>
      </div>
-     <!-- <div *ngIf="viewType=='grid'">
+     <div *ngIf="viewType=='grid'">
       <div class="gridContainer" id="gridContainer">
         <div *ngFor="let item of satelliteImages"  
         (click)="toggleImageSelection(item.image)">
@@ -93,7 +92,10 @@
           
         </div>  
       </div>
-     </div> -->
+     </div>
     </div>
+
+              <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
+
   </div>
 </div>

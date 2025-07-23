@@ -13,6 +13,7 @@ import { NewsListComponent } from './pages/news-list/news-list.component';
 import { VideoListComponent } from './pages/video-list/video-list.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { DistrictLocationComponent } from './pages/district-location/district-location.component';
+import { LiveMapComponent } from './pages/live-map/live-map.component';
 
 
 export const routes: Routes = [
@@ -21,8 +22,9 @@ export const routes: Routes = [
     { path:'hi', component: HomeComponent},
     { path:'mr', component: HomeComponent},
     { path:'resources', component: ResourcesComponent},
-    { path:'about-us', component: AboutUsComponent},
-     { path:'state-weather/:state', component: StateWeatherComponent},
+    { path:'contact-us', component: AboutUsComponent},
+     { path:'map', component: LiveMapComponent},
+    { path:'state-weather/:state', component: StateWeatherComponent},
 
 // district location
 
@@ -31,7 +33,7 @@ export const routes: Routes = [
 
      { path:'news-list/:weather-type', component: NewsListComponent},
      { path:'video-list', component: VideoListComponent},
-     { path:'forecast-map', component: RainfallModelComponent},
+     { path:'15-days-rainfall-forecast-for-india', component: RainfallModelComponent},
     { path:'advertise-with-us', component: AdvertiseComponent},
     { path:'content/:category/:title', component: ArticleDetailComponent},
     { path: ':himawari-latest-satellite-images-of-india', component: GallaryComponent },
@@ -116,23 +118,23 @@ export const routes: Routes = [
 
 
             {
-                path:'weather/forecast/:country/:state/:district/:tehsil',
+                path:'forecast/weather/:country/:state/:district/:tehsil',
                 component:ForecastClubComponent
             },
             {
-                path:'weather/forecast/:country/:state/:district/:tehsil/hourly-forecast',
+                path:'forecast/weather/:country/:state/:district/:tehsil/hourly-forecast',
                 component:ForecastClubComponent
             },
             {
-                path:'weather/forecast/:country/:state/:district/:tehsil/weekly-forecast',
+                path:'forecast/weather/:country/:state/:district/:tehsil/weekly-forecast',
                 component:ForecastClubComponent
             },
             {
-                path:'weather/forecast/:country/:state/:district/:tehsil/extended-forecast',
+                path:'forecast/weather/:country/:state/:district/:tehsil/extended-forecast',
                 component:ForecastClubComponent
             },
             {
-                path:'weather/forecast/:country/:state/:district/:tehsil/fifteen-days-forecast',
+                path:'forecast/weather/:country/:state/:district/:tehsil/fifteen-days-forecast',
                 component:ForecastClubComponent
             },
             

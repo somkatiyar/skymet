@@ -2,16 +2,16 @@
   <div class="container">
     <div class="location">
 
-     <div class="location-wrap">
-  <img src="./img/location.png" alt="" />
-  <h3>{{ forecastData?.metainfo?.TEHSIL_ALIAS_NAME }}</h3>
-  
-</div>
-  
-      <img src="./img/refresh.png" alt="" class="refresh_icon" />
-     
+      <div class="location-wrap" (click)="gotoForecastPage()">
+        <img src="./img/location.png" alt="" />
+        <h3>{{ forecastData?.metainfo?.TEHSIL_ALIAS_NAME }}</h3>
+
+      </div>
+
+      <img src="./img/refresh.png" alt="" class="refresh_icon" (click)="triggerParentLocation()" />
+
     </div>
-     <p class="dist_state">{{ forecastData?.metainfo?.DISTRICT_NAME }}</p>
+    <p class="dist_state">{{ forecastData?.metainfo?.DISTRICT_NAME }}</p>
     <div class="weather" (click)="gotoForecastPage()">
       <div class="weat_icon">
         <img [src]="forecastData?.actual?.iconImage" alt="" />
@@ -19,24 +19,25 @@
       </div>
       <div class="weather_tem">
         <h1>{{forecastData?.actual?.tmp}}°C</h1>
-        <p>Current temperature</p>
+        <p class="current_temp">Current temperature</p>
         <span>{{dataService.formatDateTime(forecastData?.actual?.displaytime)}}</span>
       </div>
     </div>
-   
+
     <div class="Weather_info">
       <div class="boxs">
         <h6> <img src="./img/temp.svg" alt=""> Temp (Min/Max)</h6>
         <div class="sky">
           <img [src]="forecastData?.actual?.iconImage" alt="" />
-          <span>{{forecastData?.actual?.description}}</span>
+          <span>{{forecastData?.actual?.description == 'THUNDERSTORM'? 'THUNDER
+            STORM':forecastData?.actual?.description}}</span>
         </div>
         <div class="max_min">
           <!-- <div class="max">
             <span>Max</span>
             <span>{{forecastData?.actual?.maxt}}°C</span>
           </div> -->
-            <div class="min">
+          <div class="min">
             <span>Max</span>
             <p>{{forecastData?.actual?.maxt}}°C</p>
           </div>
@@ -49,10 +50,10 @@
       </div>
       <div class="boxs">
         <!-- <h6> <img src="./img/huminity.svg" alt=""> Humidity</h6> -->
-         <h6> <img src="./img/huminity.svg" alt=""> Humidity</h6>
+        <h6> <img src="./img/huminity.svg" alt=""> Humidity</h6>
         <div class="Humidity">
           <!-- <img src="./img/meter-5.png" alt="" /> -->
-           <app-speedometer [humidity]="forecastData?.actual?.hr"></app-speedometer>
+          <app-speedometer [humidity]="forecastData?.actual?.hr"></app-speedometer>
           <h5>{{forecastData?.actual?.hr}}%</h5>
         </div>
       </div>
@@ -60,12 +61,12 @@
         <h6> <img src="./img/rain_fall.svg" alt=""> Rainfall probabilty</h6>
         <div class="Rainfall_probabilty">
           <!-- <img src="./img/rainfall.png" alt="" /> -->
-           <app-rainfall class="app-rainFall-item" [rainPercent]="forecastData?.actual?.precip"></app-rainfall>
-           <!-- <app-rainfall class="app-rainFall-item" [rainPercent]="90"></app-rainfall> -->
+          <app-rainfall class="app-rainFall-item" [rainPercent]="forecastData?.actual?.precip"></app-rainfall>
+          <!-- <app-rainfall class="app-rainFall-item" [rainPercent]="90"></app-rainfall> -->
 
           <div class="probabilty">
             <h5>{{forecastData?.actual?.precip}}%</h5>
-            <p>({{forecastData?.actual?.rain}} mm)</p>
+            <!-- <p>({{forecastData?.actual?.rain}} mm)</p> -->
           </div>
         </div>
       </div>

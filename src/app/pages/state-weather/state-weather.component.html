@@ -62,7 +62,7 @@
         <!-- Unified Layout for Top Cities - Responsive -->
         <div class="top-city-cards" >
             <!-- Mumbai -->
-            <div class="top-city-card" routerLink="/weather/forecast/india/{{stateName}}/{{item.CITY}}"
+            <div class="top-city-card" routerLink="/weather/forecast/india/{{stateName}}/{{item.DISTRICT}}/{{item.CITY}}"
             *ngFor="let item of topCitiesList && topCitiesList['TopCities']">
                 <h3 class="city-name-header">{{item.CITY}}</h3>
                 <div class="weather-overview">

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, catchError, delay, Observable, of, retryWhen, switchMap, take, timeout } from 'rxjs';
+import { BehaviorSubject, catchError, delay, Observable, of, retryWhen, Subject, switchMap, take, timeout } from 'rxjs';
 import { WindowService } from './window.service';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class DataService {
   localBaseUrl = `http://localhost:3011/`;
   selectedLanguages = new BehaviorSubject('en');
   nearestMeta = new BehaviorSubject('');
-  
+  currentPositionObservable = new Subject<any>();
 
   weatherForecast(locations: any): Promise<any> {    
     return this.http.get(
@@ -44,6 +44,10 @@ export class DataService {
      this.baseURL+ `nearestgpslocation/${lat},${lng}`
     );
    }
+
+     getDataByLatlng(latLng:any): Observable<any> {
+    return this.http.get<any>(`https://ngswims.skymetweather.com/serviceapi/v1/dashboard?latlon=${latLng.lat},${latLng.lng}`)
+  }
 
     allPost(currentPage:any,limit:any,lng?:any): Observable<any> {
         const randomNumber = Math.floor(Math.random() * 100000);
@@ -138,6 +142,23 @@ getToOrderDate(inputDate:any) {
     const month = date.toLocaleString('default', { month: 'short' });
     const formattedDate = `${day} ${month}`;
     return formattedDate;
+}
+
+convertToAmPm(time24:any) {
+  if(time24) {
+  const [hourStr, minuteStr] = time24.split(':');
+  let hour = parseInt(hourStr, 10);
+  const minute = minuteStr.padStart(2, '0');
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+
+  hour = hour % 12;
+  hour = hour === 0 ? 12 : hour;
+
+  return `${ampm}`;
+  } else {
+    return '-';
+  }
+
 }
 
   onError(event: Event) {

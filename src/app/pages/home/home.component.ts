@@ -43,9 +43,9 @@ export class HomeComponent implements OnInit {
   }
   @ViewChild(CurrentDataComponent) CurrentDataComponent!: CurrentDataComponent;
   @ViewChild(HourlyDataComponent) HourlyDataComponent!: HourlyDataComponent;
+  @ViewChild(SkysenseComponent) SkysenseComponent!: SkysenseComponent;
 
-  
-  
+
   constructor(
     private seoService: SeoService,
     private router: Router,
@@ -60,29 +60,38 @@ export class HomeComponent implements OnInit {
     if (event instanceof NavigationEnd) {
       this.dataService.selectedLanguages
         .pipe(take(1)) 
-        .subscribe((lng) => {
-          this.selectedLng = lng;                    
+        .subscribe(async (lng) => {
+          this.selectedLng = lng;
+          await this.initHome()                    
           this.seoConfig(event); 
+          this.dataService.currentPositionObservable.subscribe(res => {
+            res &&this.getPosition(true)
+          })
         });
     }
   });
      
   }
 
-  async ngOnInit() {
-
-
-     if (this.windowService.isBrowser()) {
+  async initHome() {
+        if (this.windowService.isBrowser()) {
             //  this.nearestMeta =  await this.nearByLocation({lat:this.latitude,lng:this.longitude});
                let latlng = await this.getPosition();
               this.nearestMeta = await this.nearByLocation(latlng);
               let forecast:any = await this.getForecastData(this.formatPath(this.nearestMeta));         
               this.CurrentDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
               this.HourlyDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
-    }
+              this.SkysenseComponent.setCurrentData(forecast?.actual)
+            }
   }
 
-  async getPosition() {
+  async ngOnInit() {
+
+
+ 
+  }
+
+  async getPosition(promptUser?:boolean) {
   return new Promise((resolve,reject) => {
     if( this.windowService.isBrowser()) {
       this.locationService
@@ -95,6 +104,7 @@ export class HomeComponent implements OnInit {
       .catch((error) => {
         console.log('position not found',{lat:this.latitude,lng:this.longitude});
         resolve({lat:this.latitude,lng:this.longitude});
+         promptUser &&  alert("Unable to retrieve your location. Please check your browser settings and ensure location services are enabled.");
       });
     }
   })

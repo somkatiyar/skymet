@@ -62,7 +62,7 @@
   
         <div class="swiper-slide" *ngFor="let item of filters;let index = index">
           <div class="channel_card" (click)="selectedFilter = item.sr_no;filterNews(item.slug)">
-            <img src="./img/channel_img.svg" alt="" [ngClass]="{ 'active': selectedFilter === index +1   }"/>
+            <img [src]="item.icon" alt="" [ngClass]="{ 'active': selectedFilter === index +1   }"/>
             <h6>{{item.filterkey}}</h6>
           </div>
         </div>
@@ -115,7 +115,7 @@
           <div class="swiper-slide Articles_card" *ngFor="let item of allNews">
             <a  [routerLink]="['/content', item.categorySlug[0], item.titleSlug]" >
             <img [src]="item.thumbnail" alt="" />
-            <p class="catch">Weather News</p>
+            <p class="catch capitalize-each">{{selectedFilter == 1 ? item.categorySlug[0].replace('-',' ')  : newsText()}}</p>
 
             <span class="dates">{{
               dataService.formatDateArticleList(item.DateTime)
@@ -198,22 +198,11 @@
         </div>
       </div>
 
-      <!-- <div class="video_card" *ngFor="let item of videos">
-          <iframe
-                    [src]="item.safeUrl"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                  ></iframe>
 
-
-      </div> -->
     </div>
     <div class="btn_center" routerLink="/video-list">
       <div class="btn">
-        <button>Learn More</button>
+        <button>View More</button>
       </div>
     </div>
   </div>

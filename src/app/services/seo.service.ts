@@ -55,7 +55,7 @@ export class SeoService {
 
   setSchema(component:any) {
     if(this.windowService.isServer()) {
-      if(component == 'home') {
+      if(component == 'home' || component=='satellite') {
         this.generateSchema(organization);
         this.generateSchema(siteNavigationElement);
       }
@@ -64,7 +64,7 @@ export class SeoService {
 
   generateSchema(schema:any) {
     
-    if(this.windowService.isServer()) {
+    if(this.windowService.isServer() || this.windowService.isBrowser()) {
       const script = this.doc.createElement('script');
       script.type = 'application/ld+json';
       script.text = typeof schema == 'object'? JSON.stringify(schema) : schema;

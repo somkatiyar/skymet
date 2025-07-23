@@ -1,0 +1,150 @@
+/* map.component.css */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+
+  .main_content {
+    width: 100%;
+    margin-top: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+#map {
+  height: 100vh;
+  width: 100%;
+ // margin-top: 60px;
+  overflow-y: hidden;
+  width: 100%;
+  position: relative;
+  z-index: 0;
+
+  .layerControls {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 999;
+
+    .controlIcon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 18px;
+      }
+    }
+  }
+}
+  }
+}
+.leaflet-touch .leaflet-control-layers {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+  background: black;
+  color: white;
+  border-radius: 50%;
+  // width: 40px;
+  // height: 40px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+}
+
+.leaflet-retina .leaflet-control-layers-toggle {
+  // background-image: url(assets/img/Vector.png);
+  background-size: 15px 15px;
+}
+.leaflet-touch .leaflet-control-layers-toggle {
+  width: 30px;
+  height: 30px;
+}
+.leaflet-control-layers-expanded {
+  border-radius: 5px !important;
+}
+/* Align each layer control option: radio + text OR checkbox + text */
+.leaflet-control-layers label > span {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* spacing between input and text */
+  font-size: 14px;
+  line-height: 1.4;
+  color: white !important;
+}
+
+/* Optional: Make inputs a little bigger if needed */
+.leaflet-control-layers input.leaflet-control-layers-selector {
+  margin: 0;
+  transform: scale(1.1); /* optional for better visibility */
+}
+
+/* Add some padding between each layer item */
+.leaflet-control-layers label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* Optional: Better section separation */
+.leaflet-control-layers-separator {
+  margin: 8px 0;
+  border-top: 1px solid #ccc;
+}
+
+.leaflet-control-layers-base label {
+  margin: 5px;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+.leaflet-control-container .leaflet-right {
+  bottom: 0 !important;
+}
+.leaflet-control-container .custom_css {
+  bottom: 9% !important;
+  position: absolute !important;
+  right: 9px;
+}
+
+
+.leaflet-bottom .leaflet-left .leaflet-control-velocity .leaflet-control {
+  color: wheat !important;
+  display: flex !important;
+  font-size: 18px !important;
+  background: #0035ff !important;
+  border-radius: 5px !important;
+  padding: 10px !important;
+}
+
+.leaflet-pane .leaflet-tile-pane {
+  filter: grayscale(100%);
+}
+
+@media (max-width: 576px) {
+  #map {
+    height: calc(100vh - 56px);
+    margin-top: 0;
+  }
+}
+
+#ad-overlay,
+.ad-overlay {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+span{
+  color: white !important;
+}

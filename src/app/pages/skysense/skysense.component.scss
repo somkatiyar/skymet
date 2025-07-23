@@ -93,3 +93,67 @@
     }
   }
 }
+
+@media only screen and (max-width: 600px) {
+ .moon{
+  width: 100% !important;
+ }
+ .Skysense .content .flex_box .cards{
+  justify-content: space-around !important;
+ }
+}
+
+.moon {
+    width: 50%;
+    padding: 30px;
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.0784313725);
+
+     h6{
+          display: flex;
+    gap: 10px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    img{
+      width: 20px;
+    }
+  
+    }
+    .moon-wrapper{
+      display: flex;
+      gap: 44px;
+      align-items: center;
+.content{
+      width: 67%;
+     width: 67%;
+    display: flex
+;
+    flex-flow: column;
+    gap: 12px;
+        .moon_states_time{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+          span{
+            font-weight: 700;
+            font-size: 14px;
+          }
+    }
+ 
+    }
+    .moon-img{
+      width: 33%;
+   img{
+      width: 110px;
+    }
+    }
+    
+    }
+
+    
+}
+
+.Skysense .content .moonads .Advertisement {
+  width: 100% !important;
+}

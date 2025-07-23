@@ -165,67 +165,102 @@ export class HeaderComponent {
 
 
 
-  scrollFunction() {
+  // scrollFunction() {
 
-    if (this.windowService.isBrowser()) {
-      const scrollTop =
-        window.document.documentElement.scrollTop ||
-        window.document.body.scrollTop;
-      const url = window.location.pathname;
-      const nav: any = document.getElementById('menulink');
-      const links = nav.querySelectorAll('ul a');
+  //   if (this.windowService.isBrowser()) {
+  //     const scrollTop =
+  //       window.document.documentElement.scrollTop ||
+  //       window.document.body.scrollTop;
+  //     const url = window.location.pathname;
+  //     const nav: any = document.getElementById('menulink');
+  //     const links = nav.querySelectorAll('ul a');
 
-      const header = window.document.getElementById('Header');
-      if (!header) return;
-      const isHome = this.getComponentFromRoute() === 'home';
-      const isForecast = this.getComponentFromRoute() === 'forecast';
-      if (scrollTop > (isHome ? 400 : 50)) {
-        header.style.background = '#FFFFFF';
-        links.forEach((link: any) => {
-          link.classList.remove('white');
-        });
-        links.forEach((link: any) => {
-          link.classList.add('black');
-        });
-      } if (scrollTop > isForecast) {
-        header.style.background = '#FFFFFF';
-      } else {
-        if (this.deviceType() == 'desktop') {
+  //     const header = window.document.getElementById('Header');
+  //     if (!header) return;
+  //     const isHome = this.getComponentFromRoute() === 'home';
+  //     const isForecast = this.getComponentFromRoute() === 'forecast';
+  //     if (scrollTop > (isHome ? 400 : 50)) {
+  //       header.style.background = '#FFFFFF';
+  //       links.forEach((link: any) => {
+  //         link.classList.remove('white');
+  //       });
+  //       links.forEach((link: any) => {
+  //         link.classList.add('black');
+  //       });
+  //     } if (scrollTop > isForecast) {
+  //       header.style.background = '#FFFFFF';
+  //     } else {
+  //       if (this.deviceType() == 'desktop') {
 
-          if (!url.includes('resources')) {
-            header.style.background = "transparent";
-            links.forEach((link: any) => {
-              link.classList.remove('white');
-            });
-            links.forEach((link: any) => {
-              link.classList.add('black');
-            });
-          } else {
-            header.style.background = `linear-gradient(180deg,
-              rgba(0, 0, 0, 0.6) 52.29%,
-              rgba(255, 255, 255, 0) 100%
-              )`;
-            links.forEach((link: any) => {
-              link.classList.add('white');
-            });
-            links.forEach((link: any) => {
-              link.classList.remove('black');
-            });
-          }
+  //         if (!url.includes('resources')) {
+  //           header.style.background = "transparent";
+  //           links.forEach((link: any) => {
+  //             link.classList.remove('white');
+  //           });
+  //           links.forEach((link: any) => {
+  //             link.classList.add('black');
+  //           });
+  //         } else {
+  //           header.style.background = `linear-gradient(180deg,
+  //             rgba(0, 0, 0, 0.6) 52.29%,
+  //             rgba(255, 255, 255, 0) 100%
+  //             )`;
+  //           links.forEach((link: any) => {
+  //             link.classList.add('white');
+  //           });
+  //           links.forEach((link: any) => {
+  //             link.classList.remove('black');
+  //           });
+  //         }
 
-        } else {
-          links.forEach((link: any) => {
-            link.classList.remove('white');
-          });
-          links.forEach((link: any) => {
-            link.classList.add('black');
-          });
-          header.style.background = "transparent";
-        }
+  //       } else {
+  //         links.forEach((link: any) => {
+  //           link.classList.remove('white');
+  //         });
+  //         links.forEach((link: any) => {
+  //           link.classList.add('black');
+  //         });
+  //         header.style.background = "transparent";
+  //       }
 
-      }
+  //     }
+  //   }
+  // }
+scrollFunction() {
+  if (!this.windowService.isBrowser()) return;
+
+  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  const header = document.getElementById('Header');
+  const nav = document.getElementById('menulink');
+  const links = nav?.querySelectorAll('ul a') || [];
+  const url = window.location.pathname;
+  const isHome = this.getComponentFromRoute() === 'home';
+  const isForecast = this.getComponentFromRoute() === 'forecast';
+
+  if (!header) return;
+
+  const setLinkColors = (add: string, remove: string) =>
+    links.forEach(link => {
+      link.classList.add(add);
+      link.classList.remove(remove);
+    });
+
+  if (scrollTop > (isHome ? 400 : 50) || isForecast) {
+    header.style.background = '#FFFFFF';
+    setLinkColors('black', 'white');
+  } else if (this.deviceType() === 'desktop') {
+    if (!url.includes('resources')) {
+      header.style.background = 'transparent';
+      setLinkColors('black', 'white');
+    } else {
+      header.style.background = `linear-gradient(180deg, rgba(0, 0, 0, 0.6) 52.29%, rgba(255, 255, 255, 0) 100%)`;
+      setLinkColors('white', 'black');
     }
+  } else {
+    header.style.background = 'transparent';
+    setLinkColors('black', 'white');
   }
+}
 
   deviceType() {
     if(this.windowService.isBrowser()) {

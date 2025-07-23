@@ -32,7 +32,7 @@
         "https://www.skymetweather.com/weather-news/",
         "https://www.skymetweather.com/forecast/weather/",
         "https://www.skymetweather.com/map/",
-        "https://www.skymetweather.com/about-us/",
+        "https://www.skymetweather.com/contact-us/",
         "https://www.skymetweather.com/himawari-latest-satellite-images-of-india/",
         "https://www.skymetweather.com/weather-satellite-images-of-india/",
         "https://www.skymetweather.com/high-resolution-satellite-images/"
@@ -72,8 +72,8 @@
     {
         "@type": "ListItem",
         "position": 6,
-        "name": "about-us",
-        "item": "https://www.skymetweather.com/about-us"
+        "name": "contact-us",
+        "item": "https://www.skymetweather.com/contact-us"
     }
   ]
 

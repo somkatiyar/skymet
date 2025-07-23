@@ -36,8 +36,14 @@ export class HourlyDataComponent implements AfterViewInit {
  ngAfterViewInit(): void {
    
  }
-  gotoForecastPage() {
-      this.router.navigate([`${this.selectedLanguage}/forecast/weather/${this.locationPath}`]);
+  gotoForecastPage(tab:any) {
+      let forecastType:any;
+      if(tab == 24) {
+        forecastType = 'hourly-forecast'
+      } else{
+        forecastType = 'weekly-forecast'
+      }
+      this.router.navigate([`${this.selectedLanguage}/forecast/weather/${this.locationPath}/${forecastType}`]);
     }
 
  corousalconfig() {
@@ -148,32 +154,23 @@ export class HourlyDataComponent implements AfterViewInit {
    initSwiper() {
     if (this.windowService.isBrowser()) {
       this.hourlySwiper && this.hourlySwiper?.destroy(true, true);
-      this.hourlySwiper = new Swiper('.forceCastBoxesCrowsel', {
-          slidesPerView: 4.5,
-        spaceBetween: 8,
-        loop: true,
-        freeMode: false,
-        autoplay: false,
+      this.hourlySwiper = new Swiper('.hourly_swiper', {
+           slidesPerView: 4.5,
+         spaceBetween: 8,
+        // loop: true,
+        // freeMode: true,
+        // autoplay: true,
         breakpoints: {
-          576: {
-            slidesPerView: 4.5,
-          },
-          768: {
-            slidesPerView: 6,
-          },
-          1100: {
-            slidesPerView: 8,
-          },
-          1300: {
-            slidesPerView: 8,
-            spaceBetween: 10,
-          },
-          1400: {
-            slidesPerView: 10,
-            spaceBetween: 10,
-          },
+       1024: {
+            slidesPerView: 13,
+          }
         },
+          navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
       });
     }
   }
+
 }

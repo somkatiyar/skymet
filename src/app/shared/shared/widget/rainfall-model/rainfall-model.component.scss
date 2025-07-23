@@ -37,7 +37,7 @@
   }
 
   .textContent {
-    margin-top: 25px;
+    margin-top: 0px;
 
     .textMain {
       color: #222;
@@ -144,12 +144,13 @@
 
 
     .mySwiper {
-     // position: absolute;
-    //   width: 100%;
-    //   bottom: 0;
-    //   backdrop-filter: blur(44px);
-    // padding-left: 28px;
-    // padding-right: 28px;
+
+      // position: absolute;
+      //   width: 100%;
+      //   bottom: 0;
+      //   backdrop-filter: blur(44px);
+      // padding-left: 28px;
+      // padding-right: 28px;
       .swiper-wrapper {
         .swiper-slider-thumb {
           padding: 10px 0;
@@ -301,16 +302,17 @@
   }
 
   .topbuttons {
-    position: absolute;
+    //position: absolute;
     top: 0;
     left: 0;
     padding: 20px;
     z-index: 9999;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
-
+   // gap: 315px;
+justify-content: space-between;
     .contentCenter {
       border-radius: 160px;
       gap: 10px;
@@ -439,17 +441,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: white; /* or any other color */
+  color: white;
+  /* or any other color */
   font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
   z-index: 999999;
+
   //pointer-events: none; /* Optional: prevent interaction */
   //display: none;
-  .fullmap{
-     height: 47px;
+  .fullmap {
+    height: 47px;
     background: white;
-     padding: 12px;
+    padding: 12px;
     margin: 12px;
     color: #003E86;
     border-radius: 24px;
@@ -457,4 +461,116 @@
     cursor: pointer;
     z-index: 99999;
   }
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  /* 8 columns on desktop */
+  gap: 10px;
+  padding: 10px;
+
+  .selected {
+    border: 4px solid blue;
+  }
+}
+
+.image-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  /* Optional styling */
+}
+
+/* Media query for mobile */
+
+.show {
+  display: block !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+
+@media screen and (max-width: 767px) {
+  .textContent {
+    margin-top: 0px !important;
+
+    .textMain {
+      font-size: 12px !important;
+
+      span {
+        font-size: 12px !important;
+      }
+    }
+  }
+
+  .topbuttons {
+    position: absolute;
+    justify-content: space-between;
+    gap: 0px !important;
+  }
+
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns on mobile */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+.swiper {
+  width: 100%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+.mySwiper2 {
+  height: 80%;
+  width: 100%;
+}
+
+.mySwiper {
+  height: 20%;
+  box-sizing: border-box;
+  //padding: 10px 0;
+}
+
+.mySwiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.4;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
+  border-radius: 20px;
+  background: #3174bf;
+
+}
+
+.swiper-slide img {
+  // display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  display: flex;
+  border-radius: 20px;
+
 }

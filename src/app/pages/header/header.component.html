@@ -15,8 +15,9 @@
             <span></span>
           </div>
         </div> -->
-        <div class="logo">
-          <img src="./img/logo.png" alt="" />
+        <div class="logo" (click)="pathName='home';" [ngClass]="pathName=='home'? 'active':''"
+                  [routerLink]="['/']">
+          <img [src]="pathName=='home' ? './img/logo.gif' : './img/logo.png'" alt="" />
         </div>
       </div>
       <div class="search_Nav">
@@ -59,21 +60,22 @@
           <ul>
 
 
-            <div class="menu-item">
+            <!-- <div class="menu-item">
               <div class="left">
-                <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+                <img src="./img/sidebar/home.png" alt="" *ngIf="deviceType() =='mobile'"/>
               <li><a (click)="pathName='home';toggleSidebar()" [ngClass]="pathName=='home'? 'active':''"
                   [routerLink]="['/']">{{ "Home" | translate }}</a></li>
               </div>
               <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
-            </div>
+            </div> -->
 
 
-            <div class="menu-item">
+            <div class="menu-item" (click)="forecastmap.click()">
                 <div class="left">
-                     <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
-              <li><a (click)="pathName='forecastmap';toggleSidebar()" [ngClass]="pathName=='forecastmap'? 'active':''"
-                  [routerLink]="['/forecast-map']">Forecast Map</a></li>
+                  <img src="./img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
+                     <!-- <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i> -->
+                 <li ><a #forecastmap (click)="pathName='forecastmap';toggleSidebar()" [ngClass]="pathName=='forecastmap'? 'active':''"
+                  [routerLink]="['/15-days-rainfall-forecast-for-india']">Forecast Map</a></li>
                 </div>
            
               <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
@@ -81,7 +83,9 @@
 
             <div class="menu-item">
               <div class="left">  
-              <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+               <img src="./img/sidebar/resources.png" alt="" *ngIf="deviceType() =='mobile'"/>
+
+              <!-- <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i> -->
               <li><a (click)="pathName='resources';toggleSidebar()" [ngClass]="pathName=='resources'? 'active':''"
                   [routerLink]="['/resources']">Resources</a></li></div>
               <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
@@ -90,25 +94,40 @@
 
             <div class="menu-item">
               <div class="left">
-              <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+             <img src="./img/sidebar/satellite.png" alt="" *ngIf="deviceType() =='mobile'"/>
+
+              <!-- <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i> -->
               <li><a (click)="pathName='satellite';toggleSidebar()" [ngClass]="pathName=='satellite'? 'active':''"
                   [routerLink]="['/himawari-latest-satellite-images-of-india']">Satellite</a></li>
               </div>
               <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
             </div>
-
-            <div class="menu-item">
+    <div class="menu-item">
               <div class="left">
-              <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
-              <li><a [routerLink]="['/advertise-with-us']">Advertise</a></li>
+             <img src="./img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
+
+              <li><a (click)="pathName='map';toggleSidebar()" [ngClass]="pathName=='map'? 'active':''"
+                  [routerLink]="['/map']">Live Map</a></li>
               </div>
               <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
             </div>
 
             <div class="menu-item">
               <div class="left">
-              <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
-              <li><a [routerLink]="['/about-us']">Contact Us</a></li>
+               <img src="./img/sidebar/aboutus.png" alt="" *ngIf="deviceType() =='mobile'"/>
+
+              <li><a [routerLink]="['/advertise-with-us']"
+                (click)="pathName='advertise';toggleSidebar()" [ngClass]="pathName=='advertise'? 'active':''">Advertise</a></li>
+              </div>
+              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+            </div>
+
+            <div class="menu-item">
+              <div class="left">
+               <img src="./img/sidebar/aboutus.png" alt=""*ngIf="deviceType() =='mobile'"/>
+
+              <li><a  (click)="pathName='contact';toggleSidebar()" [ngClass]="pathName=='contact'? 'active':''" 
+                [routerLink]="['/contact-us']">Contact Us</a></li>
               </div>
               <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
             </div>
@@ -121,7 +140,7 @@
               </select>
             </li>
 
-             <div class="connect-section"  [ngClass]="deviceType() =='desktop'?'hide':'show'">
+             <div class="connect-section"  *ngIf="deviceType() =='mobile'">
                 <p>Connect with us</p>
                 <div class="social-icons">
                   <i class="fab fa-itunes apple"></i>

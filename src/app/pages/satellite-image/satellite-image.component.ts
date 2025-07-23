@@ -5,12 +5,13 @@ import { DataService } from '../../services/data.service';
 import { WindowService } from '../../services/window.service';
 import { Autoplay, Manipulation, Navigation, Pagination, Thumbs, } from 'swiper/modules';
 import Swiper from 'swiper';
+import { RouterLink } from '@angular/router';
 declare var $:any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-satellite-image',
   standalone: true,
-  imports: [CommonModule,TrendingNewsComponent],
+  imports: [CommonModule,TrendingNewsComponent,RouterLink],
   templateUrl: './satellite-image.component.html',
   styleUrl: './satellite-image.component.scss'
 })

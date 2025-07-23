@@ -8,15 +8,32 @@ export class LocationService {
 
   constructor(private windowService:WindowService) { }
 
-   getCurrentPosition(): Promise<GeolocationPosition> {
-    if (this.windowService.isBrowser() && 'geolocation' in navigator) {
-      return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-      });
-    } else {
-      return Promise.reject('Geolocation is not available');
-    }
+  //  getCurrentPosition(): Promise<GeolocationPosition> {
+  //   if (this.windowService.isBrowser() && 'geolocation' in navigator) {
+  //     return new Promise((resolve, reject) => {
+  //       navigator.geolocation.getCurrentPosition(resolve, reject);
+  //     });
+  //   } else {
+  //     return Promise.reject('Geolocation is not available');
+  //   }
+  // }
+getCurrentPosition(): Promise<GeolocationPosition> {
+  if (this.windowService.isBrowser() && 'geolocation' in navigator) {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        resolve,
+        reject,
+        {
+          enableHighAccuracy: true, // 🔹 Request high accuracy
+          timeout: 10000,           // ⏱️ Optional: 10-second timeout
+          maximumAge: 0             // 📍 Optional: Force fresh location
+        }
+      );
+    });
+  } else {
+    return Promise.reject('Geolocation is not available');
   }
+}
 
   
 }

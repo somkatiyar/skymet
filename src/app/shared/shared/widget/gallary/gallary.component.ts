@@ -10,12 +10,14 @@ import Swiper from 'swiper';
 import { WindowService } from '../../../../services/window.service';
 import { CommonModule, Location } from '@angular/common';
 import { DataService } from '../../../../services/data.service';
+import { SeoService } from '../../../../services/seo.service';
+import { WeatherNewsComponent } from '../../../../pages/weather-news/weather-news.component';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-gallary',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,WeatherNewsComponent],
   templateUrl: './gallary.component.html',
   styleUrl: './gallary.component.scss',
 })
@@ -25,10 +27,17 @@ export class GallaryComponent implements AfterViewInit {
   satelliteImages: any[] = [];
   activeIndex: number = 0;
   viewType: any = 'swiper';
-  selectedTab: string = 'rainfall';
+  selectedTab: any = 'himawari';
+    weatherNewsHeaderConfig: any = {
+    title: "Suggested Resources",
+    isLanguagesSelecter: false,
+    isFooterView: true,
+    isHeaderView: false
+  }
   constructor(private windowService: WindowService,
     private cdRef: ChangeDetectorRef,
     private location: Location,
+    private seoService:SeoService,
     public dataService: DataService) {
 
   }
@@ -43,28 +52,34 @@ export class GallaryComponent implements AfterViewInit {
       this.location.replaceState(
         `insat/weather-satellite-images-of-india`
       );
+      this.seoService.setMetaTags('satellite','insat');
+      this.seoService.setSchema('satellite');
+      
     } else if (tab == 'himawari') {
       this.location.replaceState(
         `himawari-latest-satellite-images-of-india`
-      )
-    } else if (tab == 'rainfall') {
-      this.location.replaceState(
-        `15-days-rainfall-forecast-for-india`
-      )
+      );
+      this.seoService.setMetaTags('satellite','himawari');
+      this.seoService.setSchema('satellite');
+    } 
+  }
+
+   refreshTab() {
+    if (this.windowService.isBrowser()) {
+      if (this.viewType === 'swiper') {
+        setTimeout(() => {
+              this.getsatelliteImage(this.selectedTab);
+        }, 50);
+      }
     }
+
+
   }
 
   getsatelliteImage(tab: any) {
-    this.satelliteImages = [];
-    this.selectedTab = tab;
-    if (tab == 'rainfall') {
-      var rainFallImages = this.getImageUrls(15);
-      this.satelliteImages = this.extractDateTimeRainFall(rainFallImages);
-      this.satelliteImages &&  this.initSatelliteSwiper();
-      this.satelliteImages && this.refreshUrl(tab);
-      setTimeout(() => this.cdRef.detectChanges());
-    } else {
-      this.dataService.getSatelliteImage(tab).then((res) => {
+     this.satelliteImages = [];
+     this.selectedTab = tab;
+     this.dataService.getSatelliteImage(tab).then((res) => {
         if (res && res.length > 0 && tab == 'insat') {
           this.satelliteImages = this.extractInsatTimeDate(res);
           this.initSatelliteSwiper();
@@ -78,7 +93,6 @@ export class GallaryComponent implements AfterViewInit {
         }
 
       })
-    }
 
 
   }

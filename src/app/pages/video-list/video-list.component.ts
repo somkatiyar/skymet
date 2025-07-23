@@ -22,7 +22,7 @@ export class VideoListComponent {
   }
 
 getVideos() {
-  this.dataService.getYoutubeVideo(2).subscribe(res => {
+  this.dataService.getYoutubeVideo(6).subscribe(res => {
     if (res && res['data']) {
       this.videos = res['data'].map((item: any) => {
         const attrs = item.attributes;
