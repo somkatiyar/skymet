@@ -1,0 +1,417 @@
+{
+  "project_info": {
+    "project_number": "779019615432",
+    "firebase_url": "https://skymet-weather.firebaseio.com",
+    "project_id": "skymet-weather",
+    "storage_bucket": "skymet-weather.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779019615432:android:2e9adef6affe16677979fd",
+        "android_client_info": {
+          "package_name": "com.skykisan.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi5qyZ-I_M1VxAdXwKCkv46yzYV0YZbmg"
+        },
+        {
+          "current_key": "AIzaSyCv4ryMVM3g0Jw-LT9IEGWP5jN-yX2cS04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779019615432-02pcsiumem32ndor31k79tsieuv108h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skymet.mytestapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779019615432:android:f65538b63bd611d1",
+        "android_client_info": {
+          "package_name": "com.skymet.hsdmaweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi5qyZ-I_M1VxAdXwKCkv46yzYV0YZbmg"
+        },
+        {
+          "current_key": "AIzaSyCv4ryMVM3g0Jw-LT9IEGWP5jN-yX2cS04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779019615432-02pcsiumem32ndor31k79tsieuv108h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skymet.mytestapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779019615432:android:94dfa3dbbac1f494",
+        "android_client_info": {
+          "package_name": "com.skymet.indianweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779019615432-v48u49rlpa1vnsol4fs1r1ss65ia0aup.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skymet.indianweather",
+            "certificate_hash": "c834be6bfb7dc8789e926dd6ca2483a28a4a9619"
+          }
+        },
+        {
+          "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi5qyZ-I_M1VxAdXwKCkv46yzYV0YZbmg"
+        },
+        {
+          "current_key": "AIzaSyCv4ryMVM3g0Jw-LT9IEGWP5jN-yX2cS04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779019615432-02pcsiumem32ndor31k79tsieuv108h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skymet.mytestapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779019615432:android:e315d38f307bf9e47979fd",
+        "android_client_info": {
+          "package_name": "com.skymet.keralarain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi5qyZ-I_M1VxAdXwKCkv46yzYV0YZbmg"
+        },
+        {
+          "current_key": "AIzaSyCv4ryMVM3g0Jw-LT9IEGWP5jN-yX2cS04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779019615432-02pcsiumem32ndor31k79tsieuv108h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skymet.mytestapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779019615432:android:c5b12852fcd487da7979fd",
+        "android_client_info": {
+          "package_name": "com.skymet.mumbairain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi5qyZ-I_M1VxAdXwKCkv46yzYV0YZbmg"
+        },
+        {
+          "current_key": "AIzaSyCv4ryMVM3g0Jw-LT9IEGWP5jN-yX2cS04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779019615432-02pcsiumem32ndor31k79tsieuv108h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skymet.mytestapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779019615432:android:9a9453d8abbbbe09",
+        "android_client_info": {
+          "package_name": "com.skymet.nsdmaweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779019615432-1di4gstnq2skrijtcj29cifcml6eg7ga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skymet.nsdmaweather",
+            "certificate_hash": "6e3d03a8b92e54befe36598bc6ff6991f5c31fdc"
+          }
+        },
+        {
+          "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi5qyZ-I_M1VxAdXwKCkv46yzYV0YZbmg"
+        },
+        {
+          "current_key": "AIzaSyCv4ryMVM3g0Jw-LT9IEGWP5jN-yX2cS04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779019615432-02pcsiumem32ndor31k79tsieuv108h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skymet.mytestapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779019615432:android:325add7223172acc7979fd",
+        "android_client_info": {
+          "package_name": "com.skymet.skymetweathertv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi5qyZ-I_M1VxAdXwKCkv46yzYV0YZbmg"
+        },
+        {
+          "current_key": "AIzaSyCv4ryMVM3g0Jw-LT9IEGWP5jN-yX2cS04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779019615432-02pcsiumem32ndor31k79tsieuv108h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skymet.mytestapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779019615432:android:245cd541d3e0c75e7979fd",
+        "android_client_info": {
+          "package_name": "com.skymetweather.mumbairain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi5qyZ-I_M1VxAdXwKCkv46yzYV0YZbmg"
+        },
+        {
+          "current_key": "AIzaSyCv4ryMVM3g0Jw-LT9IEGWP5jN-yX2cS04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779019615432-02pcsiumem32ndor31k79tsieuv108h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skymet.mytestapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779019615432:android:5a25d17aa52a83587979fd",
+        "android_client_info": {
+          "package_name": "com.skymetweather.skymetwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi5qyZ-I_M1VxAdXwKCkv46yzYV0YZbmg"
+        },
+        {
+          "current_key": "AIzaSyCv4ryMVM3g0Jw-LT9IEGWP5jN-yX2cS04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779019615432-02pcsiumem32ndor31k79tsieuv108h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skymet.mytestapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779019615432:android:44a9af7a024f7ad97979fd",
+        "android_client_info": {
+          "package_name": "com.skymetweather.weatherwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi5qyZ-I_M1VxAdXwKCkv46yzYV0YZbmg"
+        },
+        {
+          "current_key": "AIzaSyCv4ryMVM3g0Jw-LT9IEGWP5jN-yX2cS04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779019615432-gt0li6mucl6t6u1v2ipq2l1bb4jcg7nl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779019615432-02pcsiumem32ndor31k79tsieuv108h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skymet.mytestapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
