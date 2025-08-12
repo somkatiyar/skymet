@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer, Meta, SafeHtml, Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { SeoService } from '../../services/seo.service';
 
@@ -14,6 +14,7 @@ import { SeoService } from '../../services/seo.service';
 })
 export class ArticleDetailComponent {
   post:any;
+ isArchivePost: boolean = false;
   item:any = {
     categorySlug:[],
     titleSlug:''
@@ -21,8 +22,10 @@ export class ArticleDetailComponent {
   constructor(private route:ActivatedRoute,
     private seoService:SeoService,
     private sanitizer: DomSanitizer,
+    private tt:Title,
+    private meta:Meta,
     public dataService:DataService) {
-    
+
      var category = this.route.snapshot.paramMap.get('category');
      var title = this.route.snapshot.paramMap.get('title');
      this.item.categorySlug[0]= category;
@@ -32,11 +35,48 @@ export class ArticleDetailComponent {
 
   getPostBySlug(category:any,title:any) {
     this.dataService.bySlug(category,title).subscribe(res => {
+      console.log(res,'res res');
+      
+    if(res && Object.keys(res).length != 0) {
       this.post = res;
-      // this.post && this.seoService.weatherNewsDynamic( await this.formatPostForSEO(this.post));
       this.post && this.seoConfig(this.post)
+      } else {
+        this.getArchivePostBySlug(category,title)
+      }
+    },err => {
+      this.getArchivePostBySlug(category,title)
     })
   }
+
+  getArchivePostBySlug(category: any, title: any) {
+    return new Promise((resolve, reject) => {
+      this.dataService.getArchivePostBySlug(category, title).subscribe(
+        async (res) => {
+          this.post = res;
+          this.isArchivePost = true;
+          this.tt.setTitle(this.post.title);
+          this.meta.updateTag({name:'description',content:this.post.description});
+          const key = "name";
+          const value = "news_keywords";
+          const keywords = this.post.metaTags.find((item:any) => item[key] === value).content;
+          this.meta.updateTag({name:'keywords',content:keywords})
+          res.metaTags.forEach((tag:any) => {
+            if (tag.property) {
+              this.meta.updateTag({ property: tag.property, content: tag.content });
+            } else if (tag.name) {
+              this.meta.updateTag({ name: tag.name, content: tag.content });
+            }
+          });
+      
+         resolve(this.post);
+        },
+        (err) => {
+          this.isArchivePost = false;
+        }
+      );
+    });
+  }
+  
 
   sanitizeHtml(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);

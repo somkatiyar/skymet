@@ -14,6 +14,10 @@ import { VideoListComponent } from './pages/video-list/video-list.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { DistrictLocationComponent } from './pages/district-location/district-location.component';
 import { LiveMapComponent } from './pages/live-map/live-map.component';
+import { LoginComponent } from './mobile-app/login/login.component';
+import { OtpVerificationComponent } from './mobile-app/otp-verification/otp-verification.component';
+import { UserInfoComponent } from './mobile-app/user-info/user-info.component';
+import { WelcomeComponent } from './mobile-app/welcome/welcome.component';
 
 
 export const routes: Routes = [
@@ -21,6 +25,12 @@ export const routes: Routes = [
     { path:'en', component: HomeComponent},
     { path:'hi', component: HomeComponent},
     { path:'mr', component: HomeComponent},
+   
+       // app route
+    {path:'login',component:LoginComponent},
+    {path:'otp-verification', component:OtpVerificationComponent},
+    {path:'user-info', component:UserInfoComponent},
+     {path:'welcome', component:WelcomeComponent},
     { path:'resources', component: ResourcesComponent},
     { path:'contact-us', component: AboutUsComponent},
      { path:'map', component: LiveMapComponent},
@@ -140,5 +150,7 @@ export const routes: Routes = [
             
         ]
         
-    }
+    },
+
+
 ];

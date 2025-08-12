@@ -19,11 +19,11 @@
               <div class="locat">
                 <img src="./img/location.png" alt="" />
                 <h5 class="mainTitleSection">{{metaInfo?.TEHSIL_ALIAS_NAME}},{{metaInfo?.DISTRICT_NAME }}</h5>
-                <img class="refressButton" src="./img/refrash.svg" alt=""/>
+                <!-- <img class="refressButton" src="./img/refrash.svg" alt=""/> -->
               </div>
               <div class="days">
                 <p [ngClass]="selectedTab == 'hourly' ? 'active' : ''" (click)="selectedTab = 'hourly'" id="hourly">
-                 Hourly
+                 {{'Hourly' | translate}}
                 </p>
                 <p [ngClass]="selectedTab == '7 days' ? 'active' : ''" (click)="selectedTab = '7 days';onTabChange(7)"
                   id="7_days">
@@ -40,6 +40,34 @@
       </div>
       <!-- temp swiper -->
       <div [hidden]="selectedTab == 'hourly'">
+       <div class="Weather_buddy">
+            <div class="container">
+              <div class="weather_box">
+                <div class="header">
+                  <div class="tittle">
+                    <img src="./img/clean.svg" alt="" />
+                    <p>Weather buddy</p>
+                  </div>
+                  <div class="controls">
+                    <button (click)="utilityService.speak(buddy7 && buddy7)">
+                      <img src="./img/play.webp" alt="">
+                    </button>
+                    <button (click)="utilityService.pause()" >
+                      <img src="./img/pause.webp" alt="">
+                    </button>
+                
+                  </div>
+                </div>
+                <p [class.collapsed]="expanded">
+                  {{buddy7 && buddy7 }}          
+               </p>
+                 <span class="toggle-button" (click)="toggleExpand()">
+                  {{ expanded ? 'Show Less' : 'Show More' }}
+                </span>
+              </div>
+            </div>
+          </div>
+
         <div class="Temperature_swipee">
           <div class="swiper swiper_temp">
             <div class="swiper-wrapper">
@@ -73,16 +101,16 @@
         <div class="Rain_swiper">
           <div class="tittle">
             <img src="./img/rain_fall.svg" alt="" />
-            <h5 class="mainTitleSection">Rainfall</h5>
+            <h5 class="mainTitleSection">{{'Rainfall probability' | translate}}</h5>
           </div>
           <div class="swiper swiper_rain">
             <div class="swiper-wrapper">
               <div class="swiper-slide" *ngFor="let item of forecastData">
                 <div class="rain-card">
                   <div class="rain-bar">
-                    <span class="rain-value">{{ item.rain_qty }} mm</span>
+                    <span class="rain-value">{{ item.rain_prob }} %</span>
                     <div class="pers" [ngStyle]="{
-                                 height: item.rain_qty == 0 ? 1 + '%' : item.rain_qty + '%'
+                                 height: item.rain_prob == 0 ? 1 + '%' : item.rain_prob + '%'
                                  }"></div>
                   </div>
                   <div class="rain-date">
@@ -100,7 +128,7 @@
         <div class="wind_swiper">
           <div class="tittle">
             <img src="./img/wind.svg" alt="" />
-            <h5 class="mainTitleSection">Wind</h5>
+            <h5 class="mainTitleSection">{{'Wind speed' | translate}}</h5>
           </div>
           <div class="swiper swiper_wind">
             <div class="swiper-wrapper">
@@ -251,7 +279,7 @@
         <div class="sunRise">
           <div class="tittle">
             <img src="./img/sunset_icon.svg" alt="" />
-            <h5 class="mainTitleSection">Sunrise/Sunset</h5>
+            <h5 class="mainTitleSection">{{'Sunrise' | translate}}/{{'Sunset' | translate}}</h5>
           </div>
           <div class="swiper swiper_sunrise">
             <div class="swiper-wrapper">
@@ -327,7 +355,7 @@
                   <div class="weather-card" [ngStyle]="{ background: item.gradient }" [id]="'hourly' + index">
                     <div class="temperature-high">{{item.temp_max}}°</div>
                     <div class="feels-like">
-                      Feels like {{item.feelslike_temp}}°
+                      {{'Feels like' | translate}} {{item.feelslike_temp}}°
                     </div>
                     <!-- <div class="dot" *ngIf="hourlyActiveIndex==index">
                               </div> -->
@@ -355,34 +383,44 @@
         <!-- <div class="graph"></div> -->
         <div class="Temperature_swipee">
           <!-- <div class="skysense-title">Skysense by skymet</div> -->
-          <div class="Weather_buddy">
+          <div class="Weather_buddy hourly_weather_buddy">
             <div class="view_date">
-              Viewing data for {{ forecastData && forecastData[0] && forecastData[0].date.split(",")[2] }} &nbsp;
+              {{'Viewing data for' | translate}} {{ forecastData && forecastData[0] && forecastData[0].date.split(",")[2] }} &nbsp;
               {{
               forecastData && forecastData[0] && forecastData[0].date.split(",")[1]
               }}
             </div>
-            <!-- <div class="container">
+            <div class="container">
               <div class="weather_box">
                 <div class="header">
                   <div class="tittle">
                     <img src="./img/clean.svg" alt="" />
-                    <h6>Weather buddy</h6>
+                    <p>Weather buddy</p>
                   </div>
-                  <img src="./img/voice.svg" alt="" />
+                  <div class="controls">
+                    <button (click)="utilityService.speak(buddyDataHourly && buddyDataHourly)">
+                      <img src="./img/play.webp" alt="">
+                    </button>
+                    <button (click)="utilityService.pause()" >
+                      <img src="./img/pause.webp" alt="">
+                    </button>
+                    <!-- <button (click)="utilityService.resume()" [disabled]="!utilityService.isPaused"><i class="fas fa-play-circle"></i></button>
+                    <button (click)="utilityService.stop()" [disabled]="!utilityService.isSpeaking"><i class="fas fa-stop"></i></button> -->
+                
+                  </div>
                 </div>
-                <p>
-                  Planning for tomorrow in Green park? *Skymet’s weather
-                  forecast* expects intensely hot and dry weather tomorrow under
-                  predominantly sunny skies. The maximum temperature in..
-                  <span>Read more</span>
-                </p>
+                <p [class.collapsed]="expanded">
+                  {{buddyDataHourly && buddyDataHourly }}          
+               </p>
+                 <span class="toggle-button" (click)="toggleExpand()">
+                  {{ expanded ? 'Show Less' : 'Show More' }}
+                </span>
               </div>
-            </div> -->
+            </div>
           </div>
           <div class="Weather_info">
             <div class="boxs">
-              <h6><img src="./img/temp.svg" alt="" /> Temp (Min/Max)</h6>
+              <h6><img src="./img/temp.svg" alt="" /> {{'Temp (Min/Max)' | translate}}</h6>
               <div class="sky">
                 <img [src]="currentData?.[0]?.iconImage" alt="" />
                 <span>
@@ -402,14 +440,14 @@
               </div>
             </div>
             <div class="boxs">
-              <h6><img src="./img/huminity.svg" alt="" /> Humidity</h6>
+              <h6><img src="./img/huminity.svg" alt="" /> {{'Humidity' | translate}}</h6>
               <div class="Humidity">
                 <app-speedometer [humidity]="currentData?.[0]?.hr"></app-speedometer>
                 <h5>{{currentData?.[0]?.hr}}%</h5>
               </div>
             </div>
             <div class="boxs">
-              <h6><img src="./img/dropIcon.svg" alt="" /> Dew Point</h6>
+              <h6><img src="./img/dropIcon.svg" alt="" /> {{'Dew Point' | translate}}</h6>
               <div class="Rainfall_probabilty wind">
                 <div class="probabilty">
                   <h5>{{currentData?.[0]?.dew_point}}°C</h5>
@@ -419,7 +457,7 @@
               </div>
             </div>
             <div class="boxs">
-              <h6 class=" Wind"><img src="./img/windFast.svg" alt="" /> Wind speed</h6>
+              <h6 class=" Wind"><img src="./img/windFast.svg" alt="" /> {{'Wind speed' | translate}}</h6>
               <div class="Rainfall_probabilty wind">
                 <div class="probabilty">
                   <h5>{{currentData?.[0]?.wind}}m/s</h5>

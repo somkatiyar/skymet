@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SharedModule } from '../../shared/shared/shared.module';
 import { SeoService } from '../../services/seo.service';
 import { DataService } from '../../services/data.service';
+import { WindowService } from '../../services/window.service';
 // Update the path below if your data.service.ts is located elsewhere
 
 
@@ -22,8 +23,12 @@ import { DataService } from '../../services/data.service';
 })
 export class AboutUsComponent implements OnInit {
   selectedLng: any;
+    contactForm!: FormGroup;
+    submitted = false;
   constructor(
     private meta: Meta,
+    private fb: FormBuilder,
+    private windowService:WindowService,
     private translateService:TranslateService,
     private dataService: DataService,
     private seoService: SeoService
@@ -86,6 +91,7 @@ export class AboutUsComponent implements OnInit {
   slectedFrame: any;
   async ngOnInit() {
    // this.seoService.aboutUsDynamic('aboutUs');
+   this.configForm();
   }
 
 
@@ -113,5 +119,110 @@ export class AboutUsComponent implements OnInit {
       element.checked = false;
     });
   }
+
+    configForm(): void {
+      this.contactForm = this.fb.group({
+        name: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        company: ['', Validators.required],
+        mobile: ['', [Validators.required, Validators.maxLength(10)]],
+        remarks: [''], // Optional
+      });
+    }
+  
+     onSubmit() {
+      this.submitted = true;
+      if (this.contactForm.invalid) {
+        return; 
+      }
+      const formData = this.contactForm.value;
+      this.dataService.submitForm(formData).subscribe(
+        (res) => {
+          if(res && res.status ==1) {
+          alert('Form submitted successfully!');
+          this.contactForm.reset();
+          this.submitted = false;
+          }else {
+          alert('Something went wrong.');
+          }
+        },
+        (err) => {
+          alert('Something went wrong.');
+        }
+      );
+    }
+
+    scrollToSection(id:any) {
+      if(this.windowService.isBrowser()) {
+         const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+      }
+    }
+
+onImageBannerClick(event: MouseEvent) {
+  if(this.windowService.isBrowser()) {
+  const element = event.target as HTMLElement;
+  const rect = element.getBoundingClientRect();
+  const x = event.clientX - rect.left; 
+  const y = event.clientY - rect.top;  
+  const watch = document.getElementById('watch') as HTMLElement;
+
+  console.log('Clicked at:', x, y);
+ const zone = {
+    xMin: 520,
+    xMax: 640,
+    yMin: 85,
+    yMax: 125
+  };
+  const otherZone ={
+    xMin: 674,
+    xMax: 821,
+    yMin: 86,
+    yMax: 121
+  }
+
+  if (x >= zone.xMin && x <= zone.xMax && y >= zone.yMin && y <= zone.yMax) {
+   this.scrollToSection('contact_form')
+  } else if(x >= otherZone.xMin && x <= otherZone.xMax && y >= otherZone.yMin && y <= otherZone.yMax) {
+    watch.click();
+  }
+}
+}
+
+onImageMouseMove(event: MouseEvent) {
+  if (!this.windowService.isBrowser()) return;
+
+  const element = event.target as HTMLElement;
+  const rect = element.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  const zone = {
+    xMin: 520,
+    xMax: 640,
+    yMin: 85,
+    yMax: 125
+  };
+
+  const otherZone = {
+    xMin: 674,
+    xMax: 821,
+    yMin: 86,
+    yMax: 121
+  };
+
+  if (
+    (x >= zone.xMin && x <= zone.xMax && y >= zone.yMin && y <= zone.yMax) ||
+    (x >= otherZone.xMin && x <= otherZone.xMax && y >= otherZone.yMin && y <= otherZone.yMax)
+  ) {
+    element.style.cursor = 'pointer';
+  } else {
+    element.style.cursor = 'default';
+  }
+}
+
+
 }
 

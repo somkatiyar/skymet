@@ -92,10 +92,45 @@ p {
     //   // top: 200px; // adjust according to height of .breadcrumb
     // }
   }
-
-  .Weather_buddy .weather_box .header .tittle h6 {
-    margin-right: 10px;
+  .Weather_buddy{
+    padding: 20px !important;
   }
+  .hourly_weather_buddy{
+    padding: 0px !important;
+  }
+  .Weather_buddy .weather_box .header .controls{
+    display: flex;
+    gap: 10px;
+    button {
+      border: 0px;
+    }
+  }
+  
+  .Weather_buddy .weather_box .header .tittle p {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+
+  .Weather_buddy .weather_box p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  transition: max-height 0.3s ease;
+}
+.Weather_buddy .weather_box .toggle-button {
+  cursor: pointer;
+  color: #007bff;
+  font-weight: 400;
+}
+
+.Weather_buddy .weather_box p.collapsed {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  display: block;
+}
   .container {
     display: flex;
     gap: 20px;
@@ -175,7 +210,7 @@ p {
 
         .tittle {
           display: flex;
-          justify-content: space-between;
+         // justify-content: space-between;
           align-items: center;
 
           .locat {
@@ -745,7 +780,7 @@ p {
     position: absolute;
     content: "";
     border-radius: 10px;
-    background-color: #d3e9f5;
+    background-color: #c0ced5;
     bottom: 0;
     left: 0;
   }

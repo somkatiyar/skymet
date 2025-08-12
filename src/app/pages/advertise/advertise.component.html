@@ -13,7 +13,6 @@
                 </p>
                 <div class="hero-buttons">
                     <button class="hero-button primary">Start Advertising <iconify-icon icon="lucide:arrow-right" width="20" height="20"></iconify-icon></button>
-                    <button class="hero-button secondary">Get in touch</button>
                 </div>
             </div>
             <div class="hero-image">
@@ -21,53 +20,7 @@
             </div>
         </div>
     </section>
-    
-    <section class="advertise-section">
-        <div class="advertise-header">
-          <div>
-            <h2>Why Advertise with Skymet?</h2>
-          </div>
-          <div>
-            <p>
-              Join Skymet now to power up your marketing strategy, cultivate deeper customer relationships, and accelerate your brand growth with India’s most trusted weather and climate platform.
-            </p>
-          </div>
-        </div>
-        
-        <div class="advertise-grid">
-          <div class="advertise-card">
-            <div class="image-wrapper">
-              <img src="./img/Placeholder Image (1).png" alt="Audience engagement analytics" />
-            </div>
-            <h3>Access a diverse Indian audience.</h3>
-            <p>
-              Tap into over 2.1 million monthly page views to amplify your messaging and drive climate-smart purchase decisions.
-            </p>
-          </div>
-          
-          <div class="advertise-card">
-            <div class="image-wrapper">
-              <img src="./img/Placeholder Image (2).png" alt="People discussing advertising strategy" />
-            </div>
-            <h3>Micro-targeted advertising opportunities for your brand</h3>
-            <p>
-              Benefit from customized advertising strategies that deliver brand message to the right audience, at the right time, increasing ROI and engagement.
-            </p>
-          </div>
-          
-          <div class="advertise-card">
-            <div class="image-wrapper">
-              <img src="./img/Placeholder Image.png" alt="Desk with marketing materials" />
-            </div>
-            <h3>Stories that resonate with your audience.</h3>
-            <p>
-              Harness powerful storytelling with targeted campaigns, letting your brand connect authentically with microlocation-specific users.
-            </p>
-          </div>
-        </div>
-      </section>
-
-    <section class="stats-section">
+       <section class="stats-section">
         <div class="stats-content">
             <h1>
              Experience Skymet’s Dynamic Audience Engagement for Advertiser.
@@ -203,7 +156,53 @@
                         </div>
           </div>
         </div>
+    </section>
+    <section class="advertise-section">
+        <div class="advertise-header">
+          <div>
+            <h2>Why Advertise with Skymet?</h2>
+          </div>
+          <div>
+            <p>
+              Join Skymet now to power up your marketing strategy, cultivate deeper customer relationships, and accelerate your brand growth with India’s most trusted weather and climate platform.
+            </p>
+          </div>
+        </div>
+        
+        <div class="advertise-grid">
+          <div class="advertise-card">
+            <div class="image-wrapper">
+              <img src="./img/Placeholder Image (1).png" alt="Audience engagement analytics" />
+            </div>
+            <h3>Access a diverse Indian audience.</h3>
+            <p>
+              Tap into over 2.1 million monthly page views to amplify your messaging and drive climate-smart purchase decisions.
+            </p>
+          </div>
+          
+          <div class="advertise-card">
+            <div class="image-wrapper">
+              <img src="./img/Placeholder Image (2).png" alt="People discussing advertising strategy" />
+            </div>
+            <h3>Micro-targeted advertising opportunities for your brand</h3>
+            <p>
+              Benefit from customized advertising strategies that deliver brand message to the right audience, at the right time, increasing ROI and engagement.
+            </p>
+          </div>
+          
+          <div class="advertise-card">
+            <div class="image-wrapper">
+              <img src="./img/Placeholder Image.png" alt="Desk with marketing materials" />
+            </div>
+            <h3>Stories that resonate with your audience.</h3>
+            <p>
+              Harness powerful storytelling with targeted campaigns, letting your brand connect authentically with microlocation-specific users.
+            </p>
+          </div>
+        </div>
       </section>
+
+ 
 
     <section class="solutions-section">
         <h1>Our solution for powered advertising.</h1>
@@ -223,7 +222,7 @@
             </div>
           </div>
           
-          <div class="solution-card col-span-4 text-center">
+          <div class="solution-card col-span-4">
             <h2>Social media presence</h2>
             <p>
               Get real-time alerts and precise tracking to ensure timely and 
@@ -234,27 +233,7 @@
             </div>
           </div>
           
-          <div class="solution-card col-span-4 text-center">
-            <h2>SKU branding</h2>
-            <p>
-              Get real-time alerts and precise tracking to ensure timely and 
-              successful breeding cycles.
-            </p>
-            <div class="image-wrapper">
-              <img src="./img/Frame 2147213241.png" alt="SKU branding examples" />
-            </div>
-          </div>
-          
-          <div class="solution-card col-span-3">
-            <h2>Banner ads</h2>
-            <p>
-              Get real-time alerts and precise tracking to ensure timely and 
-              successful breeding cycles.
-            </p>
-            <div class="image-wrapper">
-              <img src="./img/Frame 2147213239 (1).png" alt="More banner ad examples" />
-            </div>
-          </div>
+       
         </div>
       </section>
      <section class="get-in-touch">
@@ -265,33 +244,42 @@
      
     <div class="touch-left">
       <div class="overlay">
-        <h2>Get in touch</h2>
+        <h2>Connect with us to make your story audible.</h2>
         <p>Sign up for our platform today and experience the power of AI-driven hiring!</p>
       </div>
     </div>
 
     <div class="touch-right">
-      <form class="touch-form">
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>Work Email*</label>
-          <input type="email"/>
-        </div>
-        <div class="form-group">
-          <label>Company Name*</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>Phone Number*</label>
-          <input type="tel" />
-        </div>
-        <button type="submit" class="submit-btn">
-          Start Advertising <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </form>
+     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="touch-form">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" formControlName="name" />
+    <div *ngIf="submitted && contactForm.get('name')?.invalid" class="error">Name is required</div>
+  </div>
+
+  <div class="form-group">
+    <label>Work Email*</label>
+    <input type="email" formControlName="email" />
+    <div *ngIf="submitted && contactForm.get('email')?.invalid" class="error">Valid email is required</div>
+  </div>
+
+  <div class="form-group">
+    <label>Company Name*</label>
+    <input type="text" formControlName="company" />
+    <div *ngIf="submitted && contactForm.get('company')?.invalid" class="error">Company is required</div>
+  </div>
+
+  <div class="form-group">
+    <label>Phone Number*</label>
+    <input type="tel" formControlName="mobile" maxlength="10"/>
+    <div *ngIf="submitted && contactForm.get('mobile')?.invalid" class="error">Phone is required</div>
+  </div>
+
+  <button type="submit" class="submit-btn">
+    Start Advertising <i class="fa-solid fa-arrow-right"></i>
+  </button>
+     </form>
+
     </div>
     </div>
      </div>

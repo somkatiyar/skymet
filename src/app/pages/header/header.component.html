@@ -17,7 +17,9 @@
         </div> -->
         <div class="logo" (click)="pathName='home';" [ngClass]="pathName=='home'? 'active':''"
                   [routerLink]="['/']">
-          <img [src]="pathName=='home' ? './img/logo.gif' : './img/logo.png'" alt="" />
+          <!-- <img [src]="getComponentFromRoute()=='home' ? './img/logo.gif' : './img/logo.png'" alt="" /> -->
+          <img [src]="getLogo()" alt="" />
+
         </div>
       </div>
       <div class="search_Nav">
@@ -26,7 +28,7 @@
             <div class="lanc">
               <img src="./img/Vector.svg" alt="" />
             </div>
-            <input type="text" placeholder="Search city..." (input)="onSearch($event)" formControlName="searchCtrl" />
+            <input type="text" placeholder="{{'Search City' | translate}}..." (input)="onSearch($event)" formControlName="searchCtrl" />
             <div class="mic">
               <img src="./img/mic.png" alt="" (click)="startListening()" />
             </div>
@@ -42,7 +44,7 @@
           </div>
         </form>
         <div class="navmenu" id="menulink">
-          <div class="side-header" [hidden]="dataService.getDeviceType() == 'desktop'">
+          <div class="side-header" *ngIf="deviceType() =='mobile'">
             <div class="menu">
               Menu
             </div>
@@ -69,67 +71,56 @@
               <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
             </div> -->
 
-
-            <div class="menu-item" (click)="forecastmap.click()">
+            <div class="menu-item" (click)="toggleSidebar()" [routerLink]="['/15-days-rainfall-forecast-for-india']">
                 <div class="left">
                   <img src="./img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
-                     <!-- <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i> -->
-                 <li ><a #forecastmap (click)="pathName='forecastmap';toggleSidebar()" [ngClass]="pathName=='forecastmap'? 'active':''"
-                  [routerLink]="['/15-days-rainfall-forecast-for-india']">Forecast Map</a></li>
+                 <li ><a   [ngClass]="getComponentFromRoute() =='forecastmap'? 'active':''"
+                  >{{"Forecast Map" | translate}}</a></li>
                 </div>
-           
-              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
             </div>
 
-            <div class="menu-item">
+            <div class="menu-item" (click)="toggleSidebar()"  [routerLink]="['/resources']">
               <div class="left">  
                <img src="./img/sidebar/resources.png" alt="" *ngIf="deviceType() =='mobile'"/>
-
-              <!-- <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i> -->
-              <li><a (click)="pathName='resources';toggleSidebar()" [ngClass]="pathName=='resources'? 'active':''"
-                  [routerLink]="['/resources']">Resources</a></li></div>
-              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <li><a  [ngClass]="getComponentFromRoute() =='resources'? 'active':''"
+                 >{{"Resources" | translate}}</a></li></div>
+              <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
             </div>
 
 
-            <div class="menu-item">
+            <div class="menu-item"  (click)="toggleSidebar()" [routerLink]="['/himawari-latest-satellite-images-of-india']">
               <div class="left">
              <img src="./img/sidebar/satellite.png" alt="" *ngIf="deviceType() =='mobile'"/>
-
-              <!-- <i class="fas fa-photo-video" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i> -->
-              <li><a (click)="pathName='satellite';toggleSidebar()" [ngClass]="pathName=='satellite'? 'active':''"
-                  [routerLink]="['/himawari-latest-satellite-images-of-india']">Satellite</a></li>
+              <li><a  [ngClass]="getComponentFromRoute() =='satellite'? 'active':''"
+                 >{{"Satellite" | translate}}</a></li>
               </div>
-              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
             </div>
-    <div class="menu-item">
+           <div class="menu-item" (click)="toggleSidebar()" [routerLink]="['/map']">
               <div class="left">
              <img src="./img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
-
-              <li><a (click)="pathName='map';toggleSidebar()" [ngClass]="pathName=='map'? 'active':''"
-                  [routerLink]="['/map']">Live Map</a></li>
+              <li><a  [ngClass]="getComponentFromRoute()=='map'? 'active':''"
+                  >Live Map</a></li>
               </div>
-              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
             </div>
 
-            <div class="menu-item">
+            <div class="menu-item" [routerLink]="['/advertise-with-us']" (click)="toggleSidebar()">
               <div class="left">
                <img src="./img/sidebar/aboutus.png" alt="" *ngIf="deviceType() =='mobile'"/>
-
-              <li><a [routerLink]="['/advertise-with-us']"
-                (click)="pathName='advertise';toggleSidebar()" [ngClass]="pathName=='advertise'? 'active':''">Advertise</a></li>
+              <li><a  [ngClass]="getComponentFromRoute()=='advertise'? 'active':''">{{"Advertise with us" | translate}}</a></li>
               </div>
-              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
             </div>
 
-            <div class="menu-item">
+            <div class="menu-item" [routerLink]="['/contact-us']" (click)="toggleSidebar()" >
               <div class="left">
                <img src="./img/sidebar/aboutus.png" alt=""*ngIf="deviceType() =='mobile'"/>
-
-              <li><a  (click)="pathName='contact';toggleSidebar()" [ngClass]="pathName=='contact'? 'active':''" 
-                [routerLink]="['/contact-us']">Contact Us</a></li>
+              <li><a [ngClass]="getComponentFromRoute()=='contact'? 'active':''" 
+                >{{"Contact Us" | translate}}</a></li>
               </div>
-              <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
+              <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
             </div>
 
               <li>

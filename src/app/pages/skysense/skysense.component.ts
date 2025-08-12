@@ -31,7 +31,6 @@ export class SkysenseComponent {
   }
 
 setCurrentData(currentData:any) {
-console.log(currentData,'asdfsa');
 this.curretData = currentData;
 
 }

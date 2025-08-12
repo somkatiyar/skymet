@@ -143,6 +143,18 @@
   font-style: italic;
 }
 
+/* styles.css or global.scss */
+body.pulling::before {
+  content: '↻ Refreshing...';
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background: #e3f2fd;
+  color: #0277bd;
+  font-weight: 500;
+}
+
+
 /* Global .......................................................................... */
 :root {
   --black: #000000;
@@ -388,7 +400,7 @@ select {
 .Header {
   width: 100%;
   position: fixed;
-  padding: 10px 0;
+  //padding: 10px 0;
   background: transparent;
   z-index: 9999999999999999999;
 }
@@ -794,7 +806,7 @@ select {
 }
 .Weather_info .boxs:nth-child(4) h6 {
   text-align: center;
-  justify-content: center;
+  justify-content: start;
   img {
     width: 20px;
   }
@@ -1123,6 +1135,7 @@ text-align: center;
 @media (max-width: 769px) {
   .Weather_patten .maping {
     width: 100%;
+    margin-top: 20px;
   }
 }
 
@@ -1205,7 +1218,8 @@ text-align: center;
   .wetherMapArea .btn_map {
     /* padding: 5px 0; */
     /* width: 92%; */
-    left:13%
+    left:13%;
+    top:-83px
   }
 }
 

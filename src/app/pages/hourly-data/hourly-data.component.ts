@@ -4,7 +4,7 @@ import { Autoplay, Manipulation, Navigation, Pagination, Thumbs, } from 'swiper/
 import Swiper from 'swiper';
 import { WindowService } from '../../services/window.service';
 import { DataService } from '../../services/data.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 declare var $:any;
 
@@ -12,7 +12,7 @@ Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-hourly-data',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,TranslateModule],
   templateUrl: './hourly-data.component.html',
   styleUrl: './hourly-data.component.scss',
   encapsulation:ViewEncapsulation.None,
@@ -46,84 +46,7 @@ export class HourlyDataComponent implements AfterViewInit {
       this.router.navigate([`${this.selectedLanguage}/forecast/weather/${this.locationPath}/${forecastType}`]);
     }
 
- corousalconfig() {
-  if(this.windowService.isBrowser()) {
-    $('.Weather_cities_Crowsel').owlCarousel({
-      margin: 10,
-      responsiveClass: true,
-      loop: true,
-      nav: false,
-      dots: false,
-      responsive: {
-        0: {
-          items: 2,
-          nav: true,
-        },
-        600: {
-          items: 5,
-          nav: false,
-        },
-        1000: {
-          items: 7,
-          nav: true,
-          loop: false,
-        },
-      },
-    });
 
-    $('.forceCastBoxesCrowsel').owlCarousel({
-      margin: 10,
-      responsiveClass: true,
-      loop: true,
-      nav: false,
-      dots: false,
-      responsive: {
-        0: {
-          items: 3,
-          nav: true,
-        },
-        600: {
-          items: 7,
-          nav: false,
-        },
-        1000: {
-          items: 12,
-          nav: true,
-          loop: false,
-        },
-      },
-    });
-
-    window.onscroll = function () {
-      //scrollFunction();
-    };
-
-    function scrollFunction() {
-      if (
-        document.body.scrollTop > 50 ||
-        document.documentElement.scrollTop > 50
-      ) {
-        (document.getElementById('Header') as HTMLElement).style.background =
-          '#A5E8FF';
-      } else {
-        (document.getElementById('Header') as HTMLElement).style.background =
-          'transparent';
-      }
-    }
-
-
-
-    //     const menutoggle = document.querySelector(".toggle");
-    // const menulink = document.querySelector("#menulink");
-
-    // if (menutoggle && menulink) {
-    //   menutoggle.addEventListener("click", () => {
-    //     menulink.classList.toggle("active");
-    //     menutoggle.classList.toggle("active");
-    //   });
-    // }
-  }
- }
 
 
 
@@ -131,6 +54,7 @@ export class HourlyDataComponent implements AfterViewInit {
    this.locationPath = path; 
     this.hourlyData = this.dataService.bindIcon(newData?.hourly);
     let grediant = this.dataService.getGradient();
+console.log(this.hourlyData,'this.hourlyData');
 
     
       const gradientMap = Object.fromEntries(
@@ -145,9 +69,6 @@ export class HourlyDataComponent implements AfterViewInit {
     this.hourlyData = mergedData;
 
     this.cdr.detectChanges();
-
-      // Then init/reinit carousel
-    // this.corousalconfig();;
     this.initSwiper()
   }
 
@@ -157,9 +78,9 @@ export class HourlyDataComponent implements AfterViewInit {
       this.hourlySwiper = new Swiper('.hourly_swiper', {
            slidesPerView: 4.5,
          spaceBetween: 8,
-        // loop: true,
-        // freeMode: true,
-        // autoplay: true,
+         loop: true,
+         freeMode: true,
+         autoplay: true,
         breakpoints: {
        1024: {
             slidesPerView: 13,

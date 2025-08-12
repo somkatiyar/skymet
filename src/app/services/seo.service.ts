@@ -103,7 +103,7 @@ export class SeoService {
 
 
 
-  setMetaTags(component:any,subCmp?:'insat' | 'himawari' | 'Rainfall') {    
+  setMetaTags(component:any,subCmp?:'insat' | 'himawari' | 'Rainfall' | 'temperature' | 'winds') {    
     var lng = this.langCodes.includes(this.router.url.slice(1, 3))
             ? this.router.url.slice(1, 3)
             : 'en';

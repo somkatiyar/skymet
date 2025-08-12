@@ -4,7 +4,7 @@
 
 
 
-  <article *ngIf="post" class="article">
+  <article *ngIf="post && !isArchivePost" class="article">
           <span class="title fw-semibold" >{{ post.title }}</span>
           <span class="pubDate">
             <div>
@@ -110,7 +110,86 @@
               </ng-container>
             </div>
           </div>
-        </article>
+  </article>
+   <article *ngIf="post && isArchivePost" >
+          <style>
+            figure {
+              text-align: center;
+            }
+            figure img {
+              height: 460px;
+              padding-top: 10px;
+            }
+         
+            p {
+              font-size: 24px !important;
+              line-height: 45px;
+              font-family: Open Sans;
+              color: #000;
+              font-weight: 400;
+            }
+            h1[itemprop="headline"] {
+              font-size: 24px !important;
+            }
+            .content h1 {
+              font-size: 32px;
+              line-height: 38px;
+              font-weight: 600;
+              font-family: "Open Sans";
+            }
+            .dat_liveupdate {
+              padding: 12px 0 15px;
+              font-size: 18px;
+              line-height: 21px;
+              font-weight: 300;
+              color: #424242;
+              font-weight: 500;
+              margin-right: 5px;
+            }
+            span[itemprop="name"] {
+              font-weight: 600;
+              margin-left: 5px;
+            }
+            @media (max-width: 576px) {
+              figure {
+                text-align: center;
+              }
+              figure img {
+                height: 400px;
+              }
+              p {
+                font-size: 14px;
+                line-height: 25px;
+                font-family: Open Sans;
+                color: #000;
+                font-weight: 400;
+              }
+              .content h1 {
+                font-size: 20px;
+                line-height: 25px;
+                font-weight: 600;
+              }
+              .dat_liveupdate {
+                padding: 12px 0 15px;
+                font-size: 13px;
+                line-height: 18px;
+                font-weight: 300;
+                color: #424242;
+                font-weight: 500;
+                margin-right: 5px;
+              }
+              span[itemprop="name"] {
+                font-weight: 600;
+                margin-left: 5px;
+              }
+            }
+          </style>
+          <div
+            class="content"
+            id="archiveContent"
+            [innerHTML]="post.content"
+          ></div>
+    </article>
 
     <div class="feedback">
       <p>Was this article helpful?</p>

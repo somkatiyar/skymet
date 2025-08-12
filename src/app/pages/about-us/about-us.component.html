@@ -8,15 +8,15 @@
           <h1>India’s leading weather and agri-risk monitoring company.</h1>
           <p>Skymet aims at helping small marginal by mitigating the risks associated with agriculture through the use of IoT.</p>
           <div class="buttons">
-            <a href="#" class="primary-btn">Get in touch</a>
-            <a href="#" class="secondary-btn"> <span><img src="./img/contact_page/ic_play.svg" alt="icon"></span> Watch video</a>
+            <a id="touch"(click)="scrollToSection('contact_form')" class="primary-btn">Get in touch</a>
+            <a id="watch" target="_blank" href="https://www.youtube.com/@Skymetweather/featured" class="secondary-btn"> <span><img src="./img/contact_page/ic_play.svg" alt="icon"></span> Watch video</a>
           </div>
         </div>
       </div>
     </div>
     <div class="contact-hero-footer">
 
-      <img src="./img/contact_page/grass-men.png" alt="img" class="desktop-view">
+      <img src="./img/contact_page/grass-men.png" alt="img" class="desktop-view" (click)="onImageBannerClick($event)" (mousemove)="onImageMouseMove($event)">
        <img src="./img/contact_page/phone-grass-men.png" alt="img" class="phone-view">
 
       <div class="today-weather">
@@ -53,12 +53,12 @@
     <div class="container">
       <h2>Trusted by industry leaders<br />worldwide.</h2>
       <div class="trusted-logos">
-        <img src="./img/contact_page/trusted_logos/ibm.svg" alt="IBM">
-        <img src="./img/contact_page/trusted_logos/lya.svg" alt="Lyft">
-        <img src="./img/contact_page/trusted_logos/spotify.svg" alt="Spotify">
-        <img src="./img/contact_page/trusted_logos/netflix.svg" alt="Netflix">
-        <img src="./img/contact_page/trusted_logos/hbo.svg" alt="HBO">
-        <img src="./img/contact_page/trusted_logos/amazon.svg" alt="Amazon">
+        <img src="./img/company/maharastra.webp" alt="maharastra">
+        <img src="./img/company/ongc.webp" alt="ongc">
+        <img src="./img/company/reliance.webp" alt="reliance">
+        <img src="./img/company/sbi.webp" alt="sbi">
+        <img src="./img/company/worldbank.webp" alt="worldbank">
+      
       </div>
     </div>
   </section>
@@ -71,28 +71,28 @@
         <div class="card" style="background-image: url('./img/contact_page/solution-sectors/crop-insurance.png');">
           <div class="overlay">
             <h3>Crop Insurance</h3>
-            <a href="#" class="btn">Explore <span><img src="./img/contact_page/ic_arrow_next.svg" alt="icon"></span></a>
+            <a target="_blank" href="https://www.skymetweather.com/corporate/cropinsurance.html" class="btn">Explore <span><img src="./img/contact_page/ic_arrow_next.svg" alt="icon"></span></a>
           </div>
         </div>
 
         <div class="card" style="background-image: url('./img/contact_page/solution-sectors/banking.png');">
           <div class="overlay">
             <h3>Banking</h3>
-            <a href="#" class="btn">Explore <span><img src="./img/contact_page/ic_arrow_next.svg" alt="icon"></span></a>
+            <a target="_blank" href="https://www.skymetweather.com/corporate/bankingandcroploan.html" class="btn">Explore <span><img src="./img/contact_page/ic_arrow_next.svg" alt="icon"></span></a>
           </div>
         </div>
 
         <div class="card" style="background-image: url('./img/contact_page/solution-sectors/ecom.png');">
           <div class="overlay">
             <h3>ECOM and Retail</h3>
-            <a href="#" class="btn">Explore <span><img src="./img/contact_page/ic_arrow_next.svg" alt="icon"></span></a>
+            <a target="_blank" href="https://www.skymetweather.com/corporate/ecomm-and-retail.html" class="btn">Explore <span><img src="./img/contact_page/ic_arrow_next.svg" alt="icon"></span></a>
           </div>
         </div>
 
         <div class="card" style="background-image: url('./img/contact_page/solution-sectors/transport.png');">
           <div class="overlay">
             <h3>Transportation</h3>
-            <a href="#" class="btn">Explore <span><img src="./img/contact_page/ic_arrow_next.svg" alt="icon"></span></a>
+            <a target="_blank" href="https://www.skymetweather.com/corporate/transportation.html" class="btn">Explore <span><img src="./img/contact_page/ic_arrow_next.svg" alt="icon"></span></a>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
             <div class="api-box"><span><img src="./img/contact_page/api-icon.png" alt=""></span> Crop-stage-based weather advisory API</div>
           </div>
 
-          <a href="#" class="cta-btn">Try free wheather API</a>
+          <a (click)="scrollToSection('contact_form')" class="cta-btn">Try free wheather API</a>
         </div>
 
         <!-- Right Image -->
@@ -172,7 +172,7 @@
           </div>
           <h3>Weather Forecast Services</h3>
           <p>Hyperlocal weather forecasting with machine learning algorithms. Get precise predictions up to 15 days in advance with hourly granularity for critical business decisions.</p>
-          <a href="#" class="explore-btn">Explore now <span><img src="./img/contact_page/ic_chevron_right.svg" alt=""></span></a>
+          <a target="_blank" href="https://www.skymetweather.com/corporate/skymet-APIs.html" class="explore-btn">Explore now <span><img src="./img/contact_page/ic_chevron_right.svg" alt=""></span></a>
         </div>
 
 
@@ -182,7 +182,7 @@
           </div>
           <h3>Agricultural Insights</h3>
           <p>Crop monitoring, soil analysis, and yield predictions using satellite imagery combined with weather data. Optimize farming operations and maximize agricultural productivity.</p>
-          <a href="#" class="explore-btn">Explore now <span><img src="./img/contact_page/ic_chevron_right.svg" alt=""></span></a>
+          <a target="_blank" href="https://www.skymetweather.com/corporate/armsinsurance.html" class="explore-btn">Explore now <span><img src="./img/contact_page/ic_chevron_right.svg" alt=""></span></a>
         </div>
 
 
@@ -192,7 +192,7 @@
           </div>
           <h3>Customizable Climate Reports</h3>
           <p>Tailored climate analysis and reporting for your specific industry needs. Historical data analysis, trend identification, and climate change impact assessments.</p>
-          <a href="#" class="explore-btn">Explore now <span><img src="./img/contact_page/ic_chevron_right.svg" alt=""></span></a>
+          <a target="_blank" href="https://www.skymetweather.com/corporate/armsagro.html" class="explore-btn">Explore now <span><img src="./img/contact_page/ic_chevron_right.svg" alt=""></span></a>
         </div>
 
 
@@ -202,7 +202,7 @@
           </div>
           <h3>Disaster Management</h3>
           <p>Early warning systems for extreme weather events. Real-time alerts, evacuation planning support, and post-disaster recovery analytics for emergency response teams.</p>
-          <a href="#" class="explore-btn">Explore now <span><img src="./img/contact_page/ic_chevron_right.svg" alt=""></span></a>
+          <a target="_blank" href="https://www.skymetweather.com/corporate/armsagro.html" class="explore-btn">Explore now <span><img src="./img/contact_page/ic_chevron_right.svg" alt=""></span></a>
         </div>
 
         <div class="offer-card">
@@ -211,12 +211,12 @@
           </div>
           <h3>Air Quality Management</h3>
           <p>Comprehensive air quality monitoring and forecasting. Track pollutants, allergens, and environmental factors to protect public health and ensure regulatory compliance.</p>
-          <a href="#" class="explore-btn">Explore now <span><img src="./img/contact_page/ic_chevron_right.svg" alt=""></span></a>
+          <a target="_blank" href="https://www.skymetweather.com/corporate/swims.html " class="explore-btn">Explore now <span><img src="./img/contact_page/ic_chevron_right.svg" alt=""></span></a>
         </div>
 
         <div class="offer-card full-card">
           <h3>View all Offerings</h3>
-          <a href="#" class="explore-btn big">Explore now <span>→</span></a>
+          <a target="_blank" href="https://www.skymetweather.com/corporate/armsbanking.html" class="explore-btn big">Explore now <span>→</span></a>
         </div>
 
       </div>
@@ -224,7 +224,7 @@
   </section>
 
 
-  <section class="leadership">
+  <!-- <section class="leadership">
     <div class="container">
       <h2>Meet our <span>visionary</span> leaders</h2>
       <div class="leaders-grid">
@@ -299,7 +299,7 @@
         <span class="dot"></span>
       </div>
     </div>
-  </section>
+  </section> -->
 
 
   <section class="get-in-touch">
@@ -310,33 +310,41 @@
      
     <div class="touch-left">
       <div class="overlay">
-        <h2>Get in touch</h2>
+        <h2>Interested in Skymet's solutions? Get in touch with us.</h2>
         <p>Sign up for our platform today and experience the power of AI-driven hiring!</p>
       </div>
     </div>
 
-    <div class="touch-right">
-      <form class="touch-form">
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>Work Email*</label>
-          <input type="email"/>
-        </div>
-        <div class="form-group">
-          <label>Company Name*</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>Phone Number*</label>
-          <input type="tel" />
-        </div>
-        <button type="submit" class="submit-btn">
-          Start Advertising <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </form>
+    <div class="touch-right" id="contact_form">
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="touch-form">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" formControlName="name" />
+    <div *ngIf="submitted && contactForm.get('name')?.invalid" class="error">Name is required</div>
+  </div>
+
+  <div class="form-group">
+    <label>Work Email*</label>
+    <input type="email" formControlName="email" />
+    <div *ngIf="submitted && contactForm.get('email')?.invalid" class="error">Valid email is required</div>
+  </div>
+
+  <div class="form-group">
+    <label>Company Name*</label>
+    <input type="text" formControlName="company" />
+    <div *ngIf="submitted && contactForm.get('company')?.invalid" class="error">Company is required</div>
+  </div>
+
+  <div class="form-group">
+    <label>Phone Number*</label>
+    <input type="tel" formControlName="mobile" maxlength="10"/>
+    <div *ngIf="submitted && contactForm.get('mobile')?.invalid" class="error">Phone is required</div>
+  </div>
+
+  <button type="submit" class="submit-btn">
+    Start Advertising <i class="fa-solid fa-arrow-right"></i>
+  </button>
+     </form>
     </div>
     </div>
      </div>

@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild } from '@angular/core';
 import { CurrentDataComponent } from '../current-data/current-data.component';
 import { ForecastDataComponent } from '../forecast-data/forecast-data.component';
 import { HourlyDataComponent } from '../hourly-data/hourly-data.component';
@@ -19,11 +19,13 @@ import { RainfallComponent } from '../../shared/shared/widget/rainfall/rainfall.
 import { SpeedometerComponent } from '../../shared/shared/widget/speedometer/speedometer.component';
 import { SunriseComponent } from '../../shared/shared/widget/sunrise/sunrise.component';
 import { MoonriseComponent } from '../../shared/shared/widget/moonrise/moonrise.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { UtilityService } from '../../services/utility.service';
 @Component({
   selector: 'app-forecast-club',
   standalone: true,
   imports: [CurrentDataComponent,
-    DewpointComponent, CommonModule,
+    DewpointComponent, CommonModule,TranslateModule,
     SkysenseComponent, SpeedometerComponent,
     HourlyDataComponent, ForecastDataComponent, RainfallComponent,
     UvRaysComponent, WeatherNewsComponent, SunriseComponent, MoonriseComponent],
@@ -31,12 +33,14 @@ import { MoonriseComponent } from '../../shared/shared/widget/moonrise/moonrise.
   styleUrl: './forecast-club.component.scss',
 
 })
-export class ForecastClubComponent implements AfterViewInit {
+export class ForecastClubComponent implements AfterViewInit,OnDestroy {
   hourlyData: any;
   forecastData: any;
   filteredData: any;
   currentData: any;
   metaInfo: any;
+  buddyDataHourly:any;
+  buddy7:any;
   forecast: any = [];
   addressList: any = [];
   sunriseTime = '6:28 AM';
@@ -55,21 +59,44 @@ export class ForecastClubComponent implements AfterViewInit {
     isHeaderView: false
   }
   selectedTab: any = "hourly";
-  todayDay = new Date().getDate()
+  todayDay = new Date().getDate();
+  recognition: any;
+  expanded = false;
 
-  constructor(private windowService: WindowService, public dataService: DataService,
-    private router: Router, private seoService: SeoService) {
+  toggleExpand() {
+    this.expanded = !this.expanded;
+  }
 
+  ngOnDestroy(): void {
+    this.utilityService.stop()
+  }
+
+
+
+
+
+
+
+
+  constructor(private windowService: WindowService,
+    public dataService: DataService,
+    public utilityService: UtilityService,
+    private router: Router, private seoService: SeoService,
+    private translateService: TranslateService) {
+        
+  this.dataService.selectedLanguages.subscribe(lng => {
+    this.translateService.use(lng);
+  });
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         this.getForecastData();
         this.seoService.alternativeLinks(event.urlAfterRedirects);
       }
     });
-
   }
     refreshData() {
         this.dataService.currentPositionObservable.next(true);
+        
     }
 
   getForecastData() {
@@ -158,6 +185,8 @@ export class ForecastClubComponent implements AfterViewInit {
     this.hourlyData = this.dataService.bindIcon(newData?.hourly);
     this.hourlyDate = this.dataService.getToOrderDate(this.hourlyData[0].toorder)
     this.currentData = this.dataService.bindIcon([newData?.actual]);
+    this.buddyDataHourly =   newData?.forecast?.[0]?.weatherText;
+    this.buddy7 =   newData?.weatherDescription?.PHRASE;
     this.setGrediantHourly();
     this.metaInfo = newData?.metainfo;
     let grediant = this.dataService.getGradient();
@@ -197,7 +226,15 @@ export class ForecastClubComponent implements AfterViewInit {
       };
     });
 
-
+    if(this.selectedTab == '7 days' || this.selectedTab =='15 days') {
+      console.log('comming');
+      if(this.windowService.isBrowser()) {
+        setTimeout(() => {
+          this.initForecastSwiper();
+        }, 200);
+      }
+      
+    }
   }
 
   getColorHumid(humidity: number): { background: string; text: string } {

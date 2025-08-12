@@ -1,0 +1,97 @@
+
+<div class="search-wrapper" *ngIf="isSearchEnable">
+  <span class="back" (click)="goBack()">
+    <i class="fas fa-arrow-left"></i>
+  </span>
+
+  <div class="search-container">
+    <i class="fas fa-search search-icon"></i>
+
+    <form [formGroup]="searchForm">
+      <input
+        type="text"
+        id="search-input"
+        formControlName="searchCtrl"
+        placeholder="Search..."
+        (input)="onSearch($event)"
+      />
+    </form>
+
+    <i
+      class="fas fa-times clear-icon"
+      id="clear-btn"
+      *ngIf="searchForm.get('searchCtrl')?.value"
+    ></i>
+   
+  </div>
+   <span class="close-search" (click)="isSearchEnable = false">
+    <i class="fas fa-times"></i>
+  </span>
+</div>
+
+
+<ul class="suggestions" id="suggestions-list" *ngIf="isSearchEnable && locations">
+     <li *ngFor="let item of locations" (click)="getLocation(item)">
+                  {{ item["name_en"].split(",")[0] =='' ? item["name_en"].split(",").slice(1,4).join(",") :
+                  item["name_en"]}}
+     </li>
+</ul>
+
+
+<div class="container" *ngIf="!isSearchEnable">
+    <div class="top-bar">
+        <span class="back" (click)="goBack()">&#8592;</span>
+        <div class="progress-bar">
+            <div class="progress-fill"  [ngStyle]="{ width: step=='name' ? '85%' : '90%' }"></div>
+        </div>
+        <span class="skip" (click)="skip()">Skip</span>
+    </div>
+
+
+    <div class="step1" *ngIf="step == 'name' ">
+        <h2 class="heading">Enter your name</h2>
+        <p class="subtext">
+            Let us know your name so we can personalize<br />
+            the weather updates just for you!
+        </p>
+
+        <label for="name-input" class="input-label">Enter name</label>
+        <input type="text" id="name-input" class="text-input" />
+    </div>
+
+    <div class="step2" *ngIf="step == 'loc' ">
+        <h2 class="heading">Lets's make the weather work for you</h2>
+        <p class="subtext">
+            Add your key locations so we can keep you updated wherever you are.</p>
+
+        <div class="location-wrapper">
+         
+        <div class="wrapper">
+           <div class="home" (click)="searchLocationFor('home')">
+                <div class="list-loc">
+                    <img src="./img/sidebar/home.png" alt="">
+                </div>
+                <div class="loc-title">
+                    Home
+                </div>
+                <div class="list-loc" *ngIf="nativeService.getUserInfo() && !nativeService.getUserInfo().home?.loc">
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+                <div *ngIf="nativeService.getUserInfo() && nativeService.getUserInfo().home?.loc" class="change-loc">
+                    Change
+                </div>
+            </div>
+               <div class="selected-loc" *ngIf="nativeService.getUserInfo() && nativeService.getUserInfo()?.home?.loc">
+                   <img src="https://skymetglobalweather.com/img/location.png" alt="">
+                   <div>
+                        <div class="city">{{nativeService.getUserInfo()?.home?.loc?.split(",")[0]}}</div>
+                    <div class="remain_loc">{{nativeService.getUserInfo()?.home?.loc?.split(",")[1]}},{{nativeService.getUserInfo()?.home?.loc?.split(",")[2]}}</div>
+                    </div>
+               </div>
+            </div>
+         
+        </div>
+    </div>
+
+    <button class="continue-btn" (click)="continue()">Continue</button>
+</div>

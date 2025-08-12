@@ -15,6 +15,8 @@ import { FooterComponent } from '../footer/footer.component';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { SkysenseComponent } from '../skysense/skysense.component';
+import { NativeService } from '../../mobile-app/service/native.service';
+import { Geolocation, Position } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-home',
@@ -30,8 +32,8 @@ import { SkysenseComponent } from '../skysense/skysense.component';
 })
 export class HomeComponent implements OnInit {
   nearestMeta:any;
-  latitude:any = 28.11;
-  longitude:any = 78.22;
+  latitude:any = 28.7041;
+  longitude:any = 77.1025;
   selectedLng:any;
   isLoading = true;
 
@@ -52,6 +54,7 @@ export class HomeComponent implements OnInit {
     private locationService:LocationService,
     private windowService:WindowService,
     private dataService:DataService,
+    private nativeService:NativeService,
     private translateService:TranslateService
   ) {
 
@@ -62,21 +65,46 @@ export class HomeComponent implements OnInit {
         .pipe(take(1)) 
         .subscribe(async (lng) => {
           this.selectedLng = lng;
-          await this.initHome()                    
-          this.seoConfig(event); 
-          this.dataService.currentPositionObservable.subscribe(res => {
-            res &&this.getPosition(true)
-          })
+          if(this.nativeService.getPlateform() == "web") {
+            let latlng = await this.getPosition(false);     
+            await this.initHome(latlng)                    
+            this.seoConfig(event); 
+          } else {
+            let latlng = await this.getPositionNative(false);     
+            await this.initHome(latlng)                    
+           
+          }
+          
         });
     }
   });
      
   }
 
-  async initHome() {
+
+ async refreshWebLocation() {
+     let latlng = await this.getPosition(true);     
+     await this.initHome(latlng) 
+  }
+
+   async refreshWebLocationNative() {
+     let latlng = await this.getPositionNative(true);     
+     await this.initHome(latlng) 
+  }
+
+  async initHome(latlng:any) {
         if (this.windowService.isBrowser()) {
-            //  this.nearestMeta =  await this.nearByLocation({lat:this.latitude,lng:this.longitude});
-               let latlng = await this.getPosition();
+              this.nearestMeta = await this.nearByLocation(latlng);
+             
+              let forecast:any = await this.getForecastData(this.formatPath(this.nearestMeta));         
+              this.CurrentDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
+              this.HourlyDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
+              this.SkysenseComponent.setCurrentData(forecast?.actual)
+            }
+  }
+
+    async getSavedLocData(latlng:any) {
+        if (this.windowService.isBrowser()) {
               this.nearestMeta = await this.nearByLocation(latlng);
               let forecast:any = await this.getForecastData(this.formatPath(this.nearestMeta));         
               this.CurrentDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
@@ -85,31 +113,49 @@ export class HomeComponent implements OnInit {
             }
   }
 
-  async ngOnInit() {
-
-
+   async ngOnInit() {
+    
  
   }
 
-  async getPosition(promptUser?:boolean) {
+ async getPositionNative(prompt:any) {
+  return new Promise((resolve,reject) => {
+    if( this.windowService.isBrowser()) {
+      this.locationService
+      .getCurrentPositionNative()
+      .then((position:any) => {
+        const { latitude, longitude } = position.coords;
+        resolve({lat:latitude,lng:longitude});
+      })
+      .catch((error) => {
+         resolve({lat:this.latitude,lng:this.longitude});
+         prompt && alert("Unable to retrive your location please enable location in app settings");
+          return;
+      });
+    }
+  })
+
+}
+
+
+  async getPosition(prompt:any) {
   return new Promise((resolve,reject) => {
     if( this.windowService.isBrowser()) {
       this.locationService
       .getCurrentPosition()
       .then((position:any) => {
         const { latitude, longitude } = position.coords;
-        console.log('position found',position.coords);
         resolve({lat:latitude,lng:longitude});
       })
       .catch((error) => {
-        console.log('position not found',{lat:this.latitude,lng:this.longitude});
-        resolve({lat:this.latitude,lng:this.longitude});
-         promptUser &&  alert("Unable to retrieve your location. Please check your browser settings and ensure location services are enabled.");
+         resolve({lat:this.latitude,lng:this.longitude});
+         prompt &&  alert("Unable to retrieve your location. Please check your browser settings and ensure location services are enabled.");
+          return;
       });
     }
   })
 
-}
+  }
 
   getForecastData(path:any) {
      return new Promise((resolve,reject) =>{

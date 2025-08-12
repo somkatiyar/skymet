@@ -1,0 +1,8 @@
+<div class="welcome" [ngStyle]="backgroundStyle">
+    <div class="content">
+        <div class="title">{{welcomeText}},{{nativeService.getUserInfo()?.name ? nativeService.getUserInfo()?.name :"User"}}</div>
+        <div class="button" routerLink="/">
+            <button >Lets explore the day</button>
+        </div>
+    </div>
+</div>

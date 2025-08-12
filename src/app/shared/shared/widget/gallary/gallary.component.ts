@@ -12,12 +12,14 @@ import { CommonModule, Location } from '@angular/common';
 import { DataService } from '../../../../services/data.service';
 import { SeoService } from '../../../../services/seo.service';
 import { WeatherNewsComponent } from '../../../../pages/weather-news/weather-news.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-gallary',
   standalone: true,
-  imports: [CommonModule,WeatherNewsComponent],
+  imports: [CommonModule,WeatherNewsComponent,TranslateModule],
   templateUrl: './gallary.component.html',
   styleUrl: './gallary.component.scss',
 })
@@ -38,12 +40,17 @@ export class GallaryComponent implements AfterViewInit {
     private cdRef: ChangeDetectorRef,
     private location: Location,
     private seoService:SeoService,
+    private router:Router,
+    private translateService: TranslateService,
     public dataService: DataService) {
-
+    this.dataService.selectedLanguages.subscribe(lng => {
+      this.translateService.use(lng);
+    });
   }
 
   ngAfterViewInit(): void {
-    this.getsatelliteImage('himawari');
+    var url = this.router.url;
+    this.getsatelliteImage(url.includes('himawari')? 'himawari': 'insat');
     
   }
 
@@ -77,19 +84,22 @@ export class GallaryComponent implements AfterViewInit {
   }
 
   getsatelliteImage(tab: any) {
+    console.log(tab,'s,bcksd');
+    
      this.satelliteImages = [];
      this.selectedTab = tab;
      this.dataService.getSatelliteImage(tab).then((res) => {
         if (res && res.length > 0 && tab == 'insat') {
           this.satelliteImages = this.extractInsatTimeDate(res);
+          this.satelliteImages = this.satelliteImages.slice(1)
           this.initSatelliteSwiper();
           this.refreshUrl(tab);
-          setTimeout(() => this.cdRef.detectChanges());
+          // setTimeout(() => this.cdRef.detectChanges());
         } else if (res && res.images && res.images.length > 0 && tab == 'himawari') {
           this.satelliteImages = this.extractHimawariTimeDate(res['images'], res.url);
           this.initSatelliteSwiper();
           this.refreshUrl(tab);
-          setTimeout(() => this.cdRef.detectChanges());
+          // setTimeout(() => this.cdRef.detectChanges());
         }
 
       })
@@ -122,32 +132,14 @@ export class GallaryComponent implements AfterViewInit {
       }
 
       return {
-        image: url + image,
+        image: "https://www.data.jma.go.jp/mscweb/data/himawari/img/se4/" + image,
         date: formattedDate,
         time: formattedTime
       };
     });
   }
 
-  extractDateTimeRainFall(imagesArray: any) {
-    return imagesArray.map((image: any) => {
-      const input = image.split('Rainfall_')[1];
-      const year = input.slice(0, 4);
-      const month = input.slice(4, 6);
-      const day = input.slice(6, 8);
-      const date = new Date(`${year}-${month}-${day}`);
-      const options: any = { day: '2-digit', month: 'short' };
-      const formatted = date.toLocaleDateString('en-US', options);
 
-      return {
-        image: image,
-        date: "",
-        time: formatted
-      };
-
-
-    })
-  }
   extractInsatTimeDate(imagesArray: any) {
     const regex = /(\d{4})\/(\d{2})\/(\d{2})\/.*-(\d{2})[:.](\d{2})\.jpg$/;
 
@@ -169,21 +161,7 @@ export class GallaryComponent implements AfterViewInit {
     });
   }
 
-  getImageUrls(days = 15) {
-    const urls = [];
-    const now = new Date();
-    for (let i = 0; i < days; i++) {
-      const folderDate = new Date(now);
-      folderDate.setDate(folderDate.getDate() - 1);
-      const folderDateString = folderDate.toISOString().split('T')[0].replace(/-/g, ''); // Format YYYYMMDD
-      const imageDate = new Date(now);
-      imageDate.setDate(imageDate.getDate() + i);
-      const imageDateString = imageDate.toISOString().split('T')[0].replace(/-/g, ''); // Format YYYYMMDD
-      const imageUrl = `https://www.skymetweather.com/themes/skymet/images/gfs/${folderDateString}/Rainfall_${imageDateString}.png`;
-      urls.push(imageUrl);
-    }
-    return urls;
-  }
+
 
 
   async initSatelliteSwiper() {
@@ -223,7 +201,7 @@ export class GallaryComponent implements AfterViewInit {
         on: {
           slideChange: () => {
             this.activeIndex = this.satelliteMainSwiper?.activeIndex ?? 0;
-            this.cdRef.detectChanges()
+            // this.cdRef.detectChanges()
           }
         }
       });

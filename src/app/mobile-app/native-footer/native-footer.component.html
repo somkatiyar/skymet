@@ -1,0 +1,26 @@
+<footer class="footer">
+  <nav class="footer-nav">
+    <a routerLink="/" routerLinkActive="active">
+      <i class="fas fa-home"  [ngStyle]="{ color: nativeService.getComponentFromRoute()=='home' ? '#039BFF' : '' }"></i>
+      <span>Home</span>
+    </a>
+    
+    <a [routerLink]="['/15-days-rainfall-forecast-for-india']" routerLinkActive="active">
+      <i class="fa-solid fa-cloud-rain" [ngStyle]="{ color: nativeService.getComponentFromRoute()=='forecastmap' ? '#039BFF' : '' }"></i>
+      <span>Rain Model</span>
+    </a>
+     <a [routerLink]="['/map']" routerLinkActive="active">
+      <i class="fa-regular fa-cloud-rain" [ngStyle]="{ color: nativeService.getComponentFromRoute()=='map' ? '#039BFF' : '' }"></i>
+      <span>Live Map</span>
+    </a>
+      <a [routerLink]="['/himawari-latest-satellite-images-of-india']" routerLinkActive="active">
+      <i class="fa-solid fa-satellite" [ngStyle]="{ color: nativeService.getComponentFromRoute()=='satellite' ? '#039BFF' : '' }"></i>
+      <span>Satellite</span>
+    </a>
+      <a [routerLink]="['/resources']" routerLinkActive="active">
+      <i class="fa-solid fa-newspaper" [ngStyle]="{ color: nativeService.getComponentFromRoute()=='resources' ? '#039BFF' : '' }"></i>
+      <span>Resources</span>
+    </a>
+  
+  </nav>
+</footer>

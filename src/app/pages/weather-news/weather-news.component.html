@@ -2,7 +2,7 @@
       <div class="updates">
       <div class="container">
         <div class="update_heading">
-          <h5>{{weatherNewsHeaderConfig && weatherNewsHeaderConfig.title}}</h5>
+          <h5>{{weatherNewsHeaderConfig && weatherNewsHeaderConfig.title | translate}}</h5>
           <ul *ngIf="weatherNewsHeaderConfig && weatherNewsHeaderConfig.isLanguagesSelecter">
             <li class="active" (click)="onLanguageChange('english')">English</li>
             <li (click)="onLanguageChange('Hindi')">Hindi</li>
@@ -10,7 +10,7 @@
 
         <div *ngIf="weatherNewsHeaderConfig && weatherNewsHeaderConfig.isHeaderView">
           <div class="btn">
-            <button>view More</button>
+            <button>{{'View More' | translate}}</button>
           </div>
         </div>
         </div>
@@ -35,7 +35,7 @@
         <div routerLink="/news-list/weather-news-and-analysis"
         class="btn_center" *ngIf="weatherNewsHeaderConfig && weatherNewsHeaderConfig.isFooterView">
           <div class="btn">
-            <button>view More</button>
+            <button>{{'View More' | translate}}</button>
           </div>
         </div>
       </div>

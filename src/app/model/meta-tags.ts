@@ -80,6 +80,16 @@ export const homePageMeta:any = {
     "title": "15 days rainfall forecast for all the cities and states of India",
     "description": "Rainfall forecast: Get 15 days rainfall forecast and rainfall data update for all the cities and states of India, also get meterological conditions and city wise weather report.",
     "keywords": "Rainfall forecast for India,rain in india,weather in india,India weather report,Weather conditions in India,rainfall maps of India,meterological conditions of India,rain in mumbai,rain in delhi,rain in kolkata,rain in chennai,rain in bengaluru,rain in pune,India rainfall forecast,rainfall data,rainfall prediction,monsoon in india,monsoon forecast"
+    },
+    temperature:{
+    "title": "15 days temperature forecast for all the cities and states of India",
+    "description": "temperature forecast: Get 15 days temperature forecast and temperature data update for all the cities and states of India, also get meterological conditions and city wise weather report.",
+    "keywords": "temperature forecast for India,rain in india,weather in india,India weather report,Weather conditions in India,rainfall maps of India,meterological conditions of India,rain in mumbai,rain in delhi,rain in kolkata,rain in chennai,rain in bengaluru,rain in pune,India rainfall forecast,rainfall data,rainfall prediction,monsoon in india,monsoon forecast"
+    },
+    winds:{
+    "title": "24 hours winds forecast for all the cities and states of India",
+    "description": "winds forecast: Get 24 hours winds forecast and winds data update for all the cities and states of India, also get meterological conditions and city wise weather report.",
+    "keywords": "winds forecast for India,winds in india,weather in india,India weather report,Weather conditions in India,winds maps of India,meterological conditions of India,rain in mumbai,rain in delhi,rain in kolkata,rain in chennai,rain in bengaluru,rain in pune,India rainfall forecast,rainfall data,rainfall prediction,monsoon in india,monsoon forecast"
     }
 
   }

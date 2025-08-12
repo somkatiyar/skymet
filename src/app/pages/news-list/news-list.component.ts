@@ -25,7 +25,11 @@ export class NewsListComponent {
 
     if(this.weatherType && this.weatherType == 'all') {
       this.allPost();
-    } else {
+
+    } else if(this.weatherType == 'archive') {
+      this.getArchivePost();
+    }
+    else  {
      this.getArticleByCategory(this.weatherType,this.articleLanguage);
     }
    
@@ -45,6 +49,8 @@ export class NewsListComponent {
         slug = 'La Nina'
       }else if(this.weatherType == 'monsoon-update') {
         slug = 'Monsoon Update'
+      }else if(this.weatherType == 'archive') {
+        slug = 'Archive Post'
       }
     }
     return slug;
@@ -74,6 +80,26 @@ export class NewsListComponent {
     })
   }
 
+  getCategory(category:any) {
+    var cat;
+    if(Array.isArray(category)) {
+      cat = category[0];
+    } else {
+      cat = category;
+    }
+      return cat;
+  }
+
+    getArchivePost() {
+    this.dataService.getArchivePost(this.currentPage, 8).subscribe(res =>{
+      this.articles = res;
+      console.log(this.articles,'this.articles');
+      
+      this.articleTotal = res && res[0].total;
+    })
+  }
+
+
      shareOnWhatsApp(item: any): void {
       if(this.windowService.isBrowser()){
         const relativePath = `/content/${item.categorySlug[0]}/${item.titleSlug}`;
@@ -88,7 +114,10 @@ export class NewsListComponent {
     this.currentPage = event;
     if(this.weatherType == 'all') {
       this.allPost()
-    } else {
+    } else if(this.weatherType =='archive') {
+      this.getArchivePost()
+    }
+      else {
       this.getArticleByCategory(this.weatherType,this.articleLanguage)
     }
     

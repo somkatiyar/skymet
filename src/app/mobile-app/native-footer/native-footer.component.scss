@@ -1,0 +1,32 @@
+.footer {
+  position: fixed;
+  bottom: -4px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    z-index: 99900;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 30px;
+
+  a {
+    text-align: center;
+    flex: 1;
+    text-decoration: none;
+    color: #555;
+    font-size: 12px;
+
+    i {
+      font-size: 18px;
+      display: block;
+    }
+
+    &.active {
+      color: #007bff;
+    }
+  }
+}

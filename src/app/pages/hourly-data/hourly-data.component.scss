@@ -15,7 +15,7 @@
 .hours {
     width: 110px;
     flex-shrink: 0;
-    height: 156px;
+    height: 180px;
     justify-content: space-between;
     padding-top: 24px;
     padding-right: 16px;
@@ -47,6 +47,10 @@
         color: #FFFFFF;
 
     }
+}
+
+.forecast_box img {
+    width: 64px !important;
 }
 
 

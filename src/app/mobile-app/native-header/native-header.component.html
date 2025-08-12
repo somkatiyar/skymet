@@ -1,0 +1,25 @@
+<header class="header" id="head">
+<div class="left-section" *ngIf="!isSearchBoxEnable && nativeService.pageTitle">
+  <span class="page-title">{{ nativeService.pageTitle =="Home" ?"Good Morning, Som." :nativeService.pageTitle }}</span>
+</div>
+
+<div class="center-section" *ngIf="isSearchBoxEnable">
+  <form [formGroup]="searchForm">
+    <input type="text" formControlName="searchCtrl" placeholder="Search..." class="search-input" />
+  </form>
+
+  <ul class="suggestions" id="suggestions-list" *ngIf="locations">
+    <li *ngFor="let item of locations" (click)="getLocation(item)">
+      {{ item["name_en"].split(",")[0] == '' ? item["name_en"].split(",").slice(1, 4).join(",") : item["name_en"] }}
+    </li>
+  </ul>
+</div>
+
+
+  <div class="right-section">
+    <i class="fas fa-search icon" (click)="isSearchBoxEnable=true" *ngIf="!isSearchBoxEnable"></i>
+    <i class="fa-solid fa-circle-xmark" (click)="isSearchBoxEnable=false" *ngIf="isSearchBoxEnable"></i>
+    <i class="fas fa-bell icon"></i>
+    <img src="https://i.pravatar.cc/30" alt="Profile" class="profile-img" />
+  </div>
+</header>

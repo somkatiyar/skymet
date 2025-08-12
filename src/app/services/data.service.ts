@@ -25,6 +25,12 @@ export class DataService {
   nearestMeta = new BehaviorSubject('');
   currentPositionObservable = new Subject<any>();
 
+  submitForm(body:any):Observable<any> {
+     return this.http.post(this.baseURL + 'add_contactus_websiteuser',body)
+  }
+
+
+
   weatherForecast(locations: any): Promise<any> {    
     return this.http.get(
       this.baseURL+`getlocation/${locations}`
@@ -32,7 +38,6 @@ export class DataService {
   }
 
   districtwiseList(state: string, district: string): Observable<any> {
-    console.log(this.baseURL + `getlocation/india/${state}/${district}`);
     
     return this.http.get(
       this.baseURL + `getlocation/india/${state}/${district}`
@@ -60,9 +65,22 @@ export class DataService {
     }
 
     weatherNews(category: any,currentPage:any,limit:any,lng?:any): Observable<any> {
-      const randomNumber = Math.floor(Math.random() * 100000);
       return this.http.get(this.postURL + '/api/posts/' + category + `?start=${currentPage}&limit=${limit}&language=${lng ? lng : ''}`);
     }
+    getArchivePost(currentPage:any,limit:any): Observable<any> {
+      return this.http.get(this.postURL + '/api/getArchivePost' + `?start=${currentPage}&limit=${limit}`);
+    }
+      getArchivePostBySlug(category: any, title: any): Observable<any> {
+    return this.http.get(
+      this.postURL +
+        '/api/' +
+        'getArchivePostBySlug/' +
+        category +
+        '/' +
+        title
+    )
+  }
+
 
   bySlug(category: any, title: any): Observable<any> {
     return this.http.get(

@@ -2,18 +2,19 @@
   <div class="container">
     <div class="tabs">
       <button class="tab" [ngClass]="selectedTab=='rainfall'?'active':''"
-        (click)="onTabChange('rainfall')">Rainfall</button>
+        (click)="onTabChange('rainfall','Rainfall_','Rain')">Rainfall</button>
       <button class="tab" [ngClass]="selectedTab=='temperature'?'active':''"
-        (click)="onTabChange('temperature')">Temperature</button>
-      <button class="tab" [ngClass]="selectedTab=='winds'?'active':''" (click)="onTabChange('winds')">Wind
+        (click)="onTabChange('temperature','daily_temp_india_','Temp')">Temperature</button>
+      <button class="tab" [ngClass]="selectedTab=='winds'?'active':''" 
+      (click)="onTabChange('winds','frame_','Wind')">Wind
         speed</button>
     </div>
 
     <div class="textContent" *ngIf="dataService.getDeviceType() == 'mobile'">
 
       <div class="textMain">
-        Showing result from <span>12 August 2024</span> -
-        <span>27 August 2024</span>
+        Showing result from <span>{{dateRange[0] && this.dateRange[0]}} 2025</span> -
+        <span>{{this.dateRange[1] && this.dateRange[1]}} 2025</span>
       </div>
     </div>
 
@@ -31,10 +32,10 @@
         </div>
         <div class="textContent" *ngIf="dataService.getDeviceType() == 'desktop'">
 
-          <div class="textMain">
-            Showing result from <span>12 August 2024</span> -
-            <span>27 August 2024</span>
-          </div>
+      <div class="textMain">
+        Showing result from <span>{{dateRange[0] && this.dateRange[0]}} 2025</span> -
+        <span>{{this.dateRange[1] && this.dateRange[1]}} 2025</span>
+      </div>
         </div>
         <!-- <div class="contentCenter">
           <p>12 August 2024</p>
@@ -95,14 +96,14 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide swiper-slider-item" (mouseenter)="showOverlay(i)" (mouseleave)="hideOverlay()"
               *ngFor="let item of filteredModelData; let i = index">
-              <img [src]="item.imageUrl" [id]="'main' + i" />
+              <img [src]="item.url" [id]="'main' + i" [alt]="item.url"/>
               <div class="overlay-text" *ngIf="dataService.getDeviceType() == 'desktop'"
                 [ngStyle]="{ display: hoveredIndex === i ? 'block' : 'none' }">
 
 
-                <div class="fullmap" (click)="fullScreenImage(i)">View in full screen</div>
+                <div class="fullmap" (click)="fullScreenImage(i)">{{'View in full screen' | translate}}</div>
 
-                <div class="fullmap" (click)="whatsappImageShare()">Share on whatsapp</div>
+                <div class="fullmap" (click)="whatsappImageShare()">{{'Share on Whatsapp' | translate}}</div>
               </div>
             </div>
           </div>
@@ -124,16 +125,16 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide swiper-slider-thumb" [id]="'thumb' + index"
             *ngFor="let item of filteredModelData; let index = index">
-            <h5>{{item.id}}</h5>
-            <img [src]="item.imageUrl" />
+            <h5>{{item.date}}</h5>
+            <img [src]="item.url" />
           </div>
         </div>
       </div>
 
       <div *ngIf="viewType=='list'">
         <div class="image-grid">
-          <div class="image-item" *ngFor="let item of filteredModelData" (click)="toggleImageSelection(item.imageUrl)">
-            <img [src]="item.imageUrl" [class.selected]="isSelected(item.imageUrl)" />
+          <div class="image-item" *ngFor="let item of filteredModelData" (click)="toggleImageSelection(item.url)">
+            <img [src]="item.url" [class.selected]="isSelected(item.url)" />
           </div>
         </div>
       </div>

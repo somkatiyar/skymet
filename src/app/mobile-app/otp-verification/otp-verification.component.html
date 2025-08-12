@@ -1,0 +1,23 @@
+
+  <div class="container">
+    <div class="back-arrow" (click)="goBack()">&#8592;</div>
+    <h2>OTP verification.</h2>
+    <p class="otp-text">
+      Enter the OTP sent to you on <strong>{{nativeService.getUserInfo()?.mobile}}</strong>.<br/>
+      <a routerLink="/login" class="change-number">Change number</a>
+    </p>
+
+    <div class="otp-input">
+      <input type="text" maxlength="1" />
+      <input type="text" maxlength="1" />
+      <input type="text" maxlength="1" />
+      <input type="text" maxlength="1" />
+      <input type="text" maxlength="1" />
+      <input type="text" maxlength="1" />
+    </div>
+
+    <p class="resend-text">Request new OTP in 29 secs--{{otpFilled}}</p>
+
+    <button class="continue-btn" (click)="goToUserInfo()">Continue</button>
+  </div>
+

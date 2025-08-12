@@ -12,12 +12,13 @@ import { CommonModule } from '@angular/common';
 import { DataService } from '../../../../services/data.service';
 import { SeoService } from '../../../../services/seo.service';
 import { WeatherNewsComponent } from '../../../../pages/weather-news/weather-news.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-rainfall-model',
   standalone: true,
-  imports: [CommonModule,WeatherNewsComponent],
+  imports: [CommonModule, WeatherNewsComponent, TranslateModule],
   templateUrl: './rainfall-model.component.html',
   styleUrl: './rainfall-model.component.scss',
 })
@@ -160,19 +161,30 @@ export class RainfallModelComponent implements AfterViewInit {
   filteredModelData: any = [];
   selectedTab: string = 'rainfall';
   viewType: any = 'swiper';
-   weatherNewsHeaderConfig: any = {
+  weatherNewsHeaderConfig: any = {
     title: "Suggested Resources",
     isLanguagesSelecter: false,
     isFooterView: true,
     isHeaderView: false
   }
+  dateRange:any =[]
   constructor(private windowService: WindowService,
-    private seoService:SeoService,
-     public dataService: DataService) {
-     this.filteredModelData = this.getMoodelData('Rainfall');
-    console.log(this.getImageUrls(), 'getImageUrls');
+    private seoService: SeoService,
+    private translateService: TranslateService,
+    public dataService: DataService) {
+    this.dataService.selectedLanguages.subscribe(lng => {
+      this.translateService.use(lng);
+    });
+    //  this.filteredModelData = this.getMoodelData('Rainfall');
+    this.filteredModelData = this.getImageUrls(8, 'Rainfall_','Rain');
+    this.filteredModelData && this.filteredModelData[0] && this.setRange();
+    console.log(this.filteredModelData,'this.filteredModelData');
     
+  }
 
+  setRange() {
+    this.dateRange[0]= this.filteredModelData[0].date;
+    this.dateRange[1] = this.filteredModelData[this.filteredModelData.length-1].date; 
   }
 
   getMoodelData(modelType: string) {
@@ -183,62 +195,101 @@ export class RainfallModelComponent implements AfterViewInit {
     })
   }
 
-  getImageUrls(days = 8) {
+  getImageUrls(days: any, fileName: any,weatherParam:any) {
     const urls = [];
     const now = new Date();
     for (let i = 0; i < days; i++) {
-      // const folderDate = new Date(now);
       const folderDate = new Date(now);
       folderDate.setDate(folderDate.getDate() - 1);
-      const folderDateString = folderDate.toISOString().split('T')[0].replace(/-/g, ''); // Format YYYYMMDD
+      const folderDateString = folderDate.toISOString().split('T')[0].replace(/-/g, '');
       const imageDate = new Date(now);
-      imageDate.setDate(imageDate.getDate() + i);
-      const imageDateString = imageDate.toISOString().split('T')[0].replace(/-/g, ''); // Format YYYYMMDD
-      const imageUrl = `https://www.skymetweather.com/themes/skymet/images/gfs/20250715/Rainfall_${imageDateString}.png`;
-      urls.push(this.formatForecastMapDate(imageUrl));
+      imageDate.setDate(imageDate.getDate() + i-1);
+      const imageDateString = imageDate.toISOString().split('T')[0].replace(/-/g, '');       
+      const imageUrl = `https://www.skymetweather.com/themes/skymet/images/gfs/new/${folderDateString}/${weatherParam}/daily/${fileName}${imageDateString}.png`;    
+      urls.push(this.formatForecastMapDate(imageUrl, fileName));
     }
     return urls;
   }
 
-  formatForecastMapDate(el: string) {
-    
-        var timeSpan = el.split('_')[1].split('.')[0];
-        const year = parseInt(timeSpan.substring(0, 4), 10);
-        const month = parseInt(timeSpan.substring(4, 6), 10) - 1; // JS months are 0-based
-        const day = parseInt(timeSpan.substring(6, 8), 10);
-        const dateObj = new Date(year, month, day);
-        const formattedDate = dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'short'});
-        return {
-          url: el,
-          date: formattedDate,
-        }
-              
-   
+  formatForecastMapDate(el: string, fileName: any) {
+    var dt = "";
+    if (fileName == "Rainfall_") {
+      dt = el.split('_')[1].split('.')[0];
+    } else if (fileName == "daily_temp_india_") {
+      dt = el.split('daily_temp_india_')[1].split('.')[0];
+
+    }
+    var timeSpan = dt;
+    const year = parseInt(timeSpan.substring(0, 4), 10);
+    const month = parseInt(timeSpan.substring(4, 6), 10) - 1;
+    const day = parseInt(timeSpan.substring(6, 8), 10);
+    const dateObj = new Date(year, month, day);
+    const formattedDate = dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+    return {
+      url: el,
+      date: formattedDate,
+    }
+
+
   }
 
-  onTabChange(tab: any) {
-    this.filteredModelData = this.getMoodelData(tab.toLowerCase());
-    this.selectedTab = tab.toLowerCase();
-    this.initRainfallSwiper();
-       this.seoService.setMetaTags('satellite','Rainfall');
-      this.seoService.setSchema('satellite');
+  onTabChange(tab: any, fileName: any,param:any) {
+    if (this.windowService.isBrowser()) {
+      this.filteredModelData = tab == 'winds' ? this.generateImageWinds() : this.getImageUrls(8, fileName,param);
+      this.filteredModelData && this.filteredModelData[0] && this.setRange();
+      this.selectedTab = tab.toLowerCase();
+      setTimeout(() => {
+        this.initRainfallSwiper();
+      }, 50);
+    }
+
+    tab == 'rainfall' &&   this.seoService.setMetaTags('satellite', 'Rainfall');
+    tab == 'temperature' &&   this.seoService.setMetaTags('satellite', 'temperature');
+    tab == 'winds' &&   this.seoService.setMetaTags('satellite', 'winds');
+    this.seoService.setSchema('satellite');
   }
+
+generateImageWinds() {
+  var imageUrl = "https://www.skymetweather.com/themes/skymet/images/gfs/new/";
+  const now = new Date();
+    const folderDate = new Date(now);
+    folderDate.setDate(folderDate.getDate() - 1);
+    const folderDateString = folderDate.toISOString().split('T')[0].replace(/-/g, '');
+     const datePart = `frame_${folderDateString}_`;
+ // const datePart = 'frame_20250724_';
+  const imageObjects = [];
+   for (let hour = 0; hour < 24; hour++) {
+       const hourStr = String(hour).padStart(2, '0');
+    const date = `${hourStr}:00`;
+    const url = `${imageUrl}${folderDateString}/Wind/${datePart}${date}:00.png`;
+    console.log(url,'iiii');
+    
+    imageObjects.push({ url,date });
+  }
+  return imageObjects;
+}
+
+
+
+
+
+
 
   ngAfterViewInit(): void {
     this.initRainfallSwiper();
-         this.seoService.setMetaTags('satellite','Rainfall');
-      this.seoService.setSchema('satellite');
+    this.seoService.setMetaTags('satellite', 'Rainfall');
+    this.seoService.setSchema('satellite');
   }
 
 
 
- initRainfallSwiper() {
+  initRainfallSwiper() {
     if (this.windowService.isBrowser()) {
       this.rainfallMainSwiper?.destroy(true, true);
       this.rainfallthumbSwiper?.destroy(true, true);
       this.rainfallthumbSwiper = new Swiper('.mySwiper', {
-        loop: true,
-        spaceBetween: 10,
+        //loop: true,
+        //spaceBetween: 10,
         slidesPerView: 4,
         freeMode: true,
         autoplay: true,
@@ -259,9 +310,9 @@ export class RainfallModelComponent implements AfterViewInit {
 
 
       this.rainfallMainSwiper = new Swiper('.mySwiper2', {
-        loop: true,
+        // loop: true,
         autoplay: true,
-        spaceBetween: 10,
+        // spaceBetween: 10,
         breakpoints: {
           1024: {
             slidesPerView: 2,

@@ -10,10 +10,18 @@
     </div>
 
     <!-- Title -->
-    <div class="article-title">{{newsSlug()}}</div>
+     <div class="article-header">
+     <div class="article-title">{{newsSlug()}}</div>
+         <!-- <select name="" id="" *ngIf="this.weatherType =='archive'">
+      <option value="">2024</option>
+      <option value="">2023</option>
+      <option value="">2022</option>
+    </select> -->
+     </div>
+  
 
     <!-- Language Tabs -->
-    <div class="tab">
+    <div class="tab" *ngIf="this.weatherType!='archive'">
       <div
         class="tab-list"
         (click)="articleLanguage = 'hi'; onlngChange()"
@@ -30,18 +38,20 @@
       </div>
     </div>
 
+ 
+
     <!-- Articles Grid -->
     <div class="articles-grid">
       <a
         *ngFor="let item of articles | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: articleTotal }"
-        [routerLink]="['/content', item.categorySlug[0], item.titleSlug]"
+        [routerLink]="['/content', getCategory(item.categorySlug), item.titleSlug]"
       >
         <div class="item">
           <img [src]="item.thumbnail" alt="" />
           <div class="title">{{ item.title }}</div>
           <div class="article-footer">
             <div class="date">
-              <div class="date-text">{{ dataService.formatDateArticleList(item.DateTime) }}</div>
+              <div class="date-text">{{ dataService.formatDateArticleList(this.weatherType!='archive' ? item.DateTime : item.publishedAt) }}</div>
             </div>
             <div class="whtsapp-icon" (click)="shareOnWhatsApp(item)">
               <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="" />

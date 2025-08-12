@@ -1,0 +1,24 @@
+<div class="container-native">
+    <div class="top">
+        <div class="logo">
+            <img src="./img/native/sullu.png" alt="">
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="title">
+            Login With Skymet
+        </div>
+        <div class="form">
+            <label for="mobile">Enter Mobile Number</label><br>
+            <input type="text" id="mobile" 
+             (input)="onNumberInput($event)"
+              mobile="mobile" maxlength="10"  [(ngModel)]="mobile">
+            <button class="submit" (click)="submitMobile()">Continue</button> <br>
+            <p class="or">OR</p>
+           <button class="google">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+        Login with Google
+      </button>
+        </div>
+    </div>
+</div>

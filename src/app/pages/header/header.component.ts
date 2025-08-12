@@ -124,6 +124,18 @@ export class HeaderComponent {
     return status;
   }
 
+  getLogo() {
+    var logo;
+    if(this.getComponentFromRoute() === 'home' ) {
+      logo = "./img/logo.png"
+    }else if(this.getComponentFromRoute() === 'resources') {
+      logo = "./img/logo_resources.webp"
+    } else {
+      logo = "./img/logo.png"
+    }
+    return logo;
+  }
+
   onSearch(ev: any) {
     ev.target.value.length < 2 && (this.locations = []);
     if (ev.target.value.length == 0) {
@@ -246,10 +258,18 @@ scrollFunction() {
     });
 
   if (scrollTop > (isHome ? 400 : 50) || isForecast) {
+    header.style.display = 'block';
     header.style.background = '#FFFFFF';
     setLinkColors('black', 'white');
   } else if (this.deviceType() === 'desktop') {
+    console.log('desktop view');
+    
     if (!url.includes('resources')) {
+        if(scrollTop>50) {
+      header.style.display = 'none';
+    } else {
+      header.style.display = 'block';
+    }
       header.style.background = 'transparent';
       setLinkColors('black', 'white');
     } else {
@@ -257,6 +277,11 @@ scrollFunction() {
       setLinkColors('white', 'black');
     }
   } else {
+    if(scrollTop>50) {
+      header.style.display = 'none';
+    } else {
+      header.style.display = 'block';
+    }
     header.style.background = 'transparent';
     setLinkColors('black', 'white');
   }
@@ -350,7 +375,6 @@ scrollFunction() {
 
 
   toggleSearch() {
-    console.log('clicked');
     const search = document.querySelector('.search') as HTMLElement;
     const logo = document.querySelector('.logo') as HTMLElement;
     const search_icon = document.querySelector('#search_icon') as HTMLElement;
@@ -378,12 +402,25 @@ scrollFunction() {
 
   getComponentFromRoute() {
     var cmp = "";
-    if (this.router.url == '/' || this.isLanguageRoute()) {
-      cmp = 'home'
-    } else if (this.router.url.includes('forecast')) {
+     if (this.router.url.includes('forecast/weather')) {
       cmp = 'forecast'
-    } else {
-      cmp = 'other'
+    } else if(this.router.url.includes('15-days-rainfall')){
+      cmp = 'forecastmap'
+    } else if (this.router.url.includes('resources')) {
+      cmp = 'resources';
+    } else if (this.router.url.includes('himawari-latest-satellite-images-of-india') ||
+      this.router.url.includes('weather-satellite-images-of-india')) {
+      cmp = 'satellite';
+    }else if (this.router.url.includes('advertise-with-us')) {
+      cmp = 'advertise';
+    }else if (this.router.url.includes('contact-us')) {
+      cmp = 'contact';
+    }else if (this.router.url.includes('map')) {
+      cmp = 'map';
+    }else  if (this.router.url == '/' || this.isLanguageRoute()) {
+      cmp = 'home'
+    }else{
+      cmp ='other'
     }
     return cmp;
   }

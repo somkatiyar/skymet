@@ -1,22 +1,51 @@
- <div class="container">
+ <div class="container_map">
     <div class="main_content">
 <div id="map">
-
+ 
     <div class="layerControls">
-      <span class="controlIcon sg-pointer" (click)="addCurrentLocation(this.windowService.L)">
+      <span class="controlIcon sg-pointer" routerLink="/" title="Home">
+        <i class="fa-solid fa-house"></i>
+      </span>
+      <span class="controlIcon sg-pointer" (click)="addCurrentLocation(this.L)" title="Current Location">
         <img src="https://www.skymetweather.com/assets/img/location.svg" alt="tiles" class="img-fluid" />
       </span>
-      <span class="controlIcon sg-pointer">
+      <span class="controlIcon sg-pointer" title="Fullscreen">
         <img src="https://www.skymetweather.com/assets/img/expand-light.svg" alt="expand" class="img-fluid" (click)="openFullscreen()"/>
       </span>
-      <span (click)="shareThis()"
+      <span (click)="shareThis()" title="Share This"
         class="controlIcon sg-pointer sharethis-inline-share-buttons"
         data-network="sharethis"
       >
         <img src="https://www.skymetweather.com/assets/img/share-light.svg" alt="share" class="img-fluid" />
       </span>
     </div>
+<div class="customLayerPanel" [class.expanded]="isPanelOpen">
+  <button class="toggleBtn" (click)="isPanelOpen = !isPanelOpen">
+    ☰ Layers
+  </button>
+
+  <div class="layerOptions" *ngIf="isPanelOpen">
+    <div class="toggleRow" *ngFor="let layer of layerList">
+      <label>{{ layer.label }}</label>
+      <label class="switch">
+        <input type="checkbox" [checked]="layer.isActive" (change)="AddRemoveLayer($event,layer)">
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <div class="basemapSelector">
+      <label for="basemap">Basemap:</label>
+      <select id="basemap" [(ngModel)]="selectedBasemap" (change)="onBasemapChange($event)">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+</div>
+
 </div>
 </div>
-</div>
+
 

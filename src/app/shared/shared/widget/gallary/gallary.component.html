@@ -1,13 +1,13 @@
 <div class="forCastMap">
   <div class="container">
     <div class="tabs">
-      <button class="tab" [ngClass]="{'active': selectedTab === 'himawari'}" (click)="getsatelliteImage('himawari')">Himawari</button>
-      <button class="tab" [ngClass]="{'active': selectedTab === 'insat'}" (click)="getsatelliteImage('insat')">Insat</button>
+      <button class="tab" [ngClass]="{'active': selectedTab === 'himawari'}" (click)="getsatelliteImage('himawari')">{{'Himawari' | translate}}</button>
+      <button class="tab" [ngClass]="{'active': selectedTab === 'insat'}" (click)="getsatelliteImage('insat')">{{'Insat' | translate}}</button>
     </div>
 
     <div class="textContent">
       <div class="textMain">
-        Showing result from <span>{{satelliteImages && satelliteImages[activeIndex]?.date}}</span> -
+        {{'Showing result from' | translate}} <span>{{satelliteImages && satelliteImages[activeIndex]?.date}}</span> -
         <span>{{satelliteImages && satelliteImages[activeIndex]?.time}}</span>
       </div>
     </div>

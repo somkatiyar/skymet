@@ -8,6 +8,8 @@ import { RainfallComponent } from '../../shared/shared/widget/rainfall/rainfall.
 import { SpeedometerComponent } from '../../shared/shared/widget/speedometer/speedometer.component';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NativeService } from '../../mobile-app/service/native.service';
+import { LocationService } from '../../services/location.service';
 
 @Component({
   selector: 'app-current-data',
@@ -28,6 +30,8 @@ export class CurrentDataComponent implements AfterViewInit {
     public dataService: DataService,
     private windoService: WindowService,
    private router: Router,
+   public locationService:LocationService,
+   public nativeService:NativeService
   ) {
     this.dataService.selectedLanguages.subscribe(lng => {
       this.translateService.use(lng);
@@ -41,7 +45,19 @@ export class CurrentDataComponent implements AfterViewInit {
 
    triggerParentLocation() {
     if (this.parentRef) {
-      this.parentRef.getPosition(true);
+      if(this.nativeService.getPlateform() == "web") {
+        this.parentRef.refreshWebLocation();
+      }else {
+        this.parentRef.refreshWebLocationNative();
+      }
+      
+    }
+  }
+
+  staticLocationTrigger() {
+      if (this.parentRef) {
+        let locObj = this.nativeService.getUserInfo();
+        this.parentRef.getSavedLocData({lat:locObj?.home?.lat,lng:locObj?.home?.lng});
     }
   }
     setForecast(newData:any,path:any) {
@@ -156,7 +172,7 @@ getDeviceType() {
   if (window.innerWidth <= 768) {
    device = 'mobile'
   } else {
-  device = 'desktop'
+   device = 'desktop'
   }
   return 'background_banner/'+device;
 }
