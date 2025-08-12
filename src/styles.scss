@@ -145,7 +145,7 @@
 
 /* styles.css or global.scss */
 body.pulling::before {
-  content: '↻ Refreshing...';
+  content: "↻ Refreshing...";
   display: block;
   text-align: center;
   padding: 10px;
@@ -153,7 +153,6 @@ body.pulling::before {
   color: #0277bd;
   font-weight: 500;
 }
-
 
 /* Global .......................................................................... */
 :root {
@@ -357,7 +356,7 @@ select {
 .btn button {
   border: none;
   background: none;
-  color: #0075C2;
+  color: #0075c2;
   font-size: 16px;
   font-weight: 700;
 }
@@ -366,7 +365,6 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-      
 }
 
 .Header .header_content .lanc_only {
@@ -384,7 +382,7 @@ select {
   display: none;
 }
 
-@media (max-width: 426px) {
+@media (max-width: 450px) {
   .Weather_patten .main_content .moble_btn {
     display: block;
     padding-top: 20px;
@@ -628,6 +626,7 @@ select {
   font-weight: 600;
   color: rgba(0, 0, 0, 0.62);
   /* Equivalent to #0000009e */
+  // font-size: 12px;
 }
 .navmenu ul select {
   appearance: none; /* For most modern browsers */
@@ -651,6 +650,11 @@ select {
   /* Using the primary color directly */
 }
 
+@media only screen and (max-width: 1300px) {
+  .navmenu ul a {
+    font-size: 12px;
+  }
+}
 @media only screen and (max-width: 1024px) {
   .navmenu {
     display: none;
@@ -672,21 +676,20 @@ select {
       justify-content: space-between;
       margin-bottom: 24px;
 
-      .menu{
-      font-weight: 900;
-      font-style: Black;
-      font-size: 32px;
-      line-height: 32px;
-      letter-spacing: -3%;
-      color: #000000;  
+      .menu {
+        font-weight: 900;
+        font-style: Black;
+        font-size: 32px;
+        line-height: 32px;
+        letter-spacing: -3%;
+        color: #000000;
       }
-  
     }
 
     ul {
       display: flex;
       flex-direction: column;
-        gap: 5px;
+      gap: 5px;
       align-items: flex-start;
       li {
         padding: 10px 0;
@@ -701,7 +704,6 @@ select {
   width: 100%;
   padding: 150px 0 0 0;
   display: flex;
-
 }
 
 .hero_section .location {
@@ -869,7 +871,7 @@ select {
   .Weather_info .boxs .max_min {
     display: flex;
     justify-content: space-between;
-    gap:13px
+    gap: 13px;
   }
 
   .Weather_info .boxs .max_min span {
@@ -920,6 +922,17 @@ select {
   .Weather_info .boxs .Rainfall_probabilty {
     padding: 30px 0 0 0;
     width: 100%;
+  }
+}
+@media (max-width: 550px) {
+  .Weather_info .boxs .Rainfall_probabilty {
+    padding: 0px 0 0 0;
+    flex-direction: column;
+  }
+  .Weather_info .boxs {
+    padding: 10px;
+    justify-content: space-between;
+    height: 240px;
   }
 }
 
@@ -976,11 +989,11 @@ select {
 
 /* forecast .................................................... */
 .forecast {
-padding: 48px 0;
+  padding: 48px 0;
 }
 
 .forecast .fore_boxs {
-padding: 24px 0;
+  padding: 24px 0;
   /* gap: 15px;
   display: flex;
   overflow: hidden; */
@@ -1005,17 +1018,17 @@ padding: 24px 0;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 0 0 0.5px gray;
-    width: 83.5px !important;
+  width: 83.5px !important;
 
-  p{
+  p {
     margin-bottom: 0;
 
-    &:nth-child(2){
+    &:nth-child(2) {
       font-weight: 600;
     }
   }
 }
-.forecast_box .date{
+.forecast_box .date {
   width: 39px;
   height: 12px;
   font-family: Raleway;
@@ -1024,25 +1037,20 @@ padding: 24px 0;
   line-height: 120%;
   letter-spacing: 0%;
   text-align: center;
-color: #00000099;
-;
-
-
+  color: #00000099;
 }
 .forecast_box img {
   width: 40px;
 }
 .forecast_box .temp {
   width: 39px;
-height: 14px;
-font-family: Raleway;
-font-weight: 700;
-font-size: 20px;
-line-height: 120%;
-letter-spacing: 0%;
-text-align: center;
-
-
+  height: 14px;
+  font-family: Raleway;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  text-align: center;
 }
 
 @media only screen and (max-width: 769px) {
@@ -1141,7 +1149,7 @@ text-align: center;
 
 .Weather_patten .maping .haeding h6 {
   font-weight: 700;
-    color: #0084DA;
+  color: #0084da;
   /* Replaced $primary with actual value */
 }
 
@@ -1174,6 +1182,10 @@ text-align: center;
 @media only screen and (max-width: 550px) {
   .Weather_patten .blogs {
     padding-top: 30px;
+  }
+  .Weather_patten .maping .haeding{
+        margin-bottom: 100px;
+
   }
 }
 
@@ -1218,18 +1230,35 @@ text-align: center;
   .wetherMapArea .btn_map {
     /* padding: 5px 0; */
     /* width: 92%; */
-    left:13%;
-    top:-83px
+
+    left: 13%;
+    top: -83px;
+    // left: 13%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .wetherMapArea .btn_map {
+    /* padding: 5px 0; */
+    /* width: 92%; */
+    left: 6%;
+  }
+}
+@media only screen and (max-width: 310px) {
+  .wetherMapArea .btn_map {
+    /* padding: 5px 0; */
+    /* width: 92%; */
+    left: 1%;
+    padding: 0 5px;
   }
 }
 
 .wetherMapArea .btn_map ul {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 0;
-    margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  margin-bottom: 0;
 }
 
 .wetherMapArea .btn_map ul li {
@@ -1237,7 +1266,7 @@ text-align: center;
   color: #0065a7;
   padding: 8px 50px;
   cursor: pointer;
- // transition: 0.5s;
+  // transition: 0.5s;
 }
 
 .wetherMapArea .btn_map ul li:hover {
@@ -1246,7 +1275,6 @@ text-align: center;
   // color: #fff;
   // font-weight: 600;
 }
-
 
 .wetherMapArea .map {
   width: 100%;
@@ -1909,7 +1937,6 @@ text-align: center;
   /* height: 165px; */
 }
 
-
 // Weather_buddy.................................................
 .Weather_buddy {
   padding: 70px 0 0 0;
@@ -2007,6 +2034,19 @@ text-align: center;
           img {
             width: 40px;
           }
+
+          @media (max-width: 550px) {
+            flex-direction: column;
+            text-align: center;
+
+            .content{
+              order: 2;
+            }
+
+            img{
+              order: 1;
+            }
+          }
         }
 
         .sunset {
@@ -2076,6 +2116,20 @@ text-align: center;
     }
   }
 }
+
+@media only screen and (max-width: 550px) {
+  .Skysense .content .flex_box .cards {
+    width: 47% !important;
+    padding: 20px;
+    justify-content: space-between !important;
+    h6 {
+      gap: 5px;
+    }
+  }
+  .Skysense .content .flex_box .cards .sunset .sunset_time {
+    text-align: center;
+  }
+}
 @media only screen and (max-width: 769px) {
   .Skysense .content .flex_box {
     flex-wrap: wrap;
@@ -2087,7 +2141,7 @@ text-align: center;
     width: 55%;
   }
 
-  @media only screen and (max-width: 426px) {
+  @media only screen and (max-width: 550px) {
     .Skysense .content .flex_box .cards {
       width: 48%;
     }
@@ -2132,7 +2186,7 @@ text-align: center;
   }
 }
 
-button{
+button {
   cursor: pointer;
   .btn {
     cursor: pointer;

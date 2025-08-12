@@ -243,6 +243,7 @@ h4 {
       height: 85vh;
       object-fit: cover;
     }
+        
   }
   @media (max-width: 769px) {
     .swiper-horizontal {
@@ -453,6 +454,18 @@ h4 {
         justify-content: space-between;
         margin-top: 16px;
       }
+    }
+    @media (max-width: 1025px) {
+        .custom{
+         
+            .card_custom {
+              width: 484.3333435058594px;
+          
+
+
+            }
+        }
+
     }
   }
   .btn_center {

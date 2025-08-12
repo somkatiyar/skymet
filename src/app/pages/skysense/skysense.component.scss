@@ -102,6 +102,13 @@
   justify-content: space-around !important;
  }
 }
+@media only screen and (max-width: 600px) {
+   .Skysense .content .flex_box .cards{
+    justify-content: space-between !important;
+   }
+}
+
+
 
 .moon {
     width: 50%;
