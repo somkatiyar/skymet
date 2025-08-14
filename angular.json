@@ -29,7 +29,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              { "glob": "**/*.txt", "input": "src/sitemaps", "output": "/" }
             ],
             "styles": [
                "node_modules/leaflet/dist/leaflet.css",

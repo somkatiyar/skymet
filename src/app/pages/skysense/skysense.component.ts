@@ -6,6 +6,7 @@ import { AirQualityComponent } from '../../shared/shared/widget/air-quality/air-
 import { UvRaysComponent } from '../../shared/shared/widget/uv-rays/uv-rays.component';
 import { MoonriseComponent } from '../../shared/shared/widget/moonrise/moonrise.component';
 import { DataService } from '../../services/data.service';
+import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
 
 @Component({
   selector: 'app-skysense',
@@ -14,8 +15,10 @@ import { DataService } from '../../services/data.service';
     SunriseComponent,
     MoonriseComponent,
     DewpointComponent,
-    AirQualityComponent
+    AirQualityComponent,
+    AdsenseDirective
   ],
+
   templateUrl: './skysense.component.html',
   styleUrl: './skysense.component.scss'
 })
