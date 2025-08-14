@@ -216,7 +216,10 @@ newsText() {
         this.resourcesSwiper.destroy(true, true);
       }
       this.resourcesSwiper = new Swiper('.resourcesSwiper', {
-        autoplay: true,
+        autoplay: {
+          delay: 10000, // Time each slide stays before moving to next (5s)
+          disableOnInteraction: false
+        },
         effect: 'fade',
         slidesPerView: 1,
         pagination: {
