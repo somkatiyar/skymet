@@ -1,0 +1,45 @@
+
+main {
+  .termAndCondition {
+    background-color: transparent;
+    padding: 12px;
+
+    .innerContent {
+      padding: 20px 10px 0;
+
+      .mainHeader {
+        margin-top: 60px;
+        .title {
+          font-size: 16px;
+          font-weight: 500;
+        }
+      }
+
+      .tAndcContent {
+        padding: 15px 10px 0;
+
+        .title {
+          font-size: 18px;
+          font-weight: 600;
+        }
+        ul {
+          list-style: lower-alpha;
+          li {
+            border-top: 1px solid gray;
+            .subtitle {
+              font-size: 16px;
+              padding: 15px 10px;
+            }
+          }
+        }
+        .contentPolicy {
+          padding-bottom: 12px;
+          .subTitle {
+            font-size: 16px;
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}

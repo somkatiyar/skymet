@@ -18,6 +18,8 @@ import { LoginComponent } from './mobile-app/login/login.component';
 import { OtpVerificationComponent } from './mobile-app/otp-verification/otp-verification.component';
 import { UserInfoComponent } from './mobile-app/user-info/user-info.component';
 import { WelcomeComponent } from './mobile-app/welcome/welcome.component';
+import { TermAndConditionsComponent } from './pages/term-and-conditions/term-and-conditions.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 
 
 export const routes: Routes = [
@@ -45,6 +47,8 @@ export const routes: Routes = [
      { path:'video-list', component: VideoListComponent},
      { path:'15-days-rainfall-forecast-for-india', component: RainfallModelComponent},
     { path:'advertise-with-us', component: AdvertiseComponent},
+    { path:'legal/term-and-conditions', component: TermAndConditionsComponent},
+    { path:'legal/privacy-policy', component: PrivacyPolicyComponent},
     { path:'content/:category/:title', component: ArticleDetailComponent},
     { path: ':himawari-latest-satellite-images-of-india', component: GallaryComponent },
     { path: ':himawari-latest-satellite-images-of-india/:time', component: GallaryComponent },
