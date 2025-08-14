@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
   selector: '[appAdsense]',
-  standalone:true
+  standalone: true
 })
 export class AdsenseDirective implements OnInit {
   @Input() adClient!: string;
@@ -27,17 +27,23 @@ export class AdsenseDirective implements OnInit {
       ins.setAttribute('data-full-width-responsive', this.fullWidthResponsive);
 
       this.el.nativeElement.appendChild(ins);
-      setTimeout(() => {
-        try {
-          (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-          (window as any).adsbygoogle.push({});
-        } catch (e) {
-          console.warn('AdsbyGoogle error:', e);
-        }
-      }, 0);
-    //   const script = document.createElement('script');
-    //   script.innerHTML = '(adsbygoogle = window.adsbygoogle || []).push({});';
-    //   this.el.nativeElement.appendChild(script);
+
+      // Wait until element is visible and has width
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && ins.offsetWidth > 0) {
+            try {
+              (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+              (window as any).adsbygoogle.push({});
+              observer.unobserve(ins); // Stop observing after first load
+            } catch (e) {
+              console.warn('AdsbyGoogle error:', e);
+            }
+          }
+        });
+      });
+
+      observer.observe(ins);
     }
   }
 }
