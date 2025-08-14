@@ -918,23 +918,24 @@ select {
   gap: 20px;
 }
 
-@media (max-width: 426px) {
+/* Medium: 426–550px */
+@media (max-width: 550px) and (min-width: 427px) {
   .Weather_info .boxs .Rainfall_probabilty {
     padding: 30px 0 0 0;
     width: 100%;
+    flex-direction: row; /* keep row layout */
   }
 }
-@media (max-width: 550px) {
+
+/* Small: ≤426px */
+@media (max-width: 426px) {
   .Weather_info .boxs .Rainfall_probabilty {
-    padding: 0px 0 0 0;
-    flex-direction: column;
-  }
-  .Weather_info .boxs {
-    padding: 10px;
-    justify-content: space-between;
-    height: 240px;
+    padding: 0;
+    flex-direction: column; /* stack items */
+    width: 100%;
   }
 }
+
 
 .Weather_info .boxs .Rainfall_probabilty img {
   /* width: 75px; */
@@ -2151,7 +2152,7 @@ select {
 
     .Skysense .content .flex_box .cards .Dew_point img {
       // width: 100px;
-      height: 60px;
+      height: 112px;
     }
     .Skysense .content .flex_box .cards .sunset {
       .sunset_time div:nth-child(2) {

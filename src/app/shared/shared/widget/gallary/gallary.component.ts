@@ -83,29 +83,38 @@ export class GallaryComponent implements AfterViewInit {
 
   }
 
-  getsatelliteImage(tab: any) {
-    console.log(tab,'s,bcksd');
-    
-     this.satelliteImages = [];
-     this.selectedTab = tab;
-     this.dataService.getSatelliteImage(tab).then((res) => {
-        if (res && res.length > 0 && tab == 'insat') {
-          this.satelliteImages = this.extractInsatTimeDate(res);
-          this.satelliteImages = this.satelliteImages.slice(1)
-          this.initSatelliteSwiper();
-          this.refreshUrl(tab);
-          // setTimeout(() => this.cdRef.detectChanges());
-        } else if (res && res.images && res.images.length > 0 && tab == 'himawari') {
-          this.satelliteImages = this.extractHimawariTimeDate(res['images'], res.url);
-          this.initSatelliteSwiper();
-          this.refreshUrl(tab);
-          // setTimeout(() => this.cdRef.detectChanges());
+getsatelliteImage(tab: any) {
+  console.log(tab, 's,bcksd');
+
+  this.satelliteImages = [];
+  this.selectedTab = tab;
+
+  try {
+    this.dataService.getSatelliteImage(tab)
+      .then((res) => {
+        try {
+          if (res && res.length > 0 && tab === 'insat') {
+            this.satelliteImages = this.extractInsatTimeDate(res);
+            this.satelliteImages = this.satelliteImages.slice(1);
+            this.initSatelliteSwiper();
+            this.refreshUrl(tab);
+
+          } else if (res && res.images && res.images.length > 0 && tab === 'himawari') {
+            this.satelliteImages = this.extractHimawariTimeDate(res.images, res.url);
+            this.initSatelliteSwiper();
+            this.refreshUrl(tab);
+          }
+        } catch (innerError) {
+          console.error("Error processing satellite image data:", innerError);
         }
-
       })
-
-
+      .catch((err) => {
+        console.error("Error fetching satellite images:", err);
+      });
+  } catch (error) {
+    console.error("Unexpected error in getsatelliteImage():", error);
   }
+}
 
 
   extractHimawariTimeDate(imagesArray: any, url: string) {

@@ -78,11 +78,12 @@
       <div class="boxs">
         <h6><img src="./img/windFast.svg" alt=""> {{'Wind speed' | translate}}</h6>
         <div class="Rainfall_probabilty wind">
+          <img src="./img/wind_direction/DIRECTIONS_{{forecastData?.actual?.wind_dir && forecastData?.actual?.wind_dir}}.webp" alt="" />
           <div class="probabilty">
             <h5>{{forecastData?.actual?.wind}}m/s</h5>
             <span>({{forecastData?.actual?.wind_dir}})</span>
           </div>
-          <img src="./img/wind_direction/DIRECTIONS_{{forecastData?.actual?.wind_dir && forecastData?.actual?.wind_dir}}.webp" alt="" />
+         
         </div>
       </div>
     </div>

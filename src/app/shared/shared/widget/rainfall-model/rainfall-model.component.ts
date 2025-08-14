@@ -261,7 +261,7 @@ generateImageWinds() {
    for (let hour = 0; hour < 24; hour++) {
        const hourStr = String(hour).padStart(2, '0');
     const date = `${hourStr}:00`;
-    const url = `${imageUrl}${folderDateString}/Wind/${datePart}${date}:00.png`;
+    const url = `${imageUrl}${folderDateString}/Wind/${folderDateString}/${datePart}${date}:00.png`;
     console.log(url,'iiii');
     
     imageObjects.push({ url,date });
