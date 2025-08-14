@@ -6,13 +6,14 @@ import { WindowService } from '../../services/window.service';
 import { DataService } from '../../services/data.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
 declare var $:any;
 
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-hourly-data',
   standalone: true,
-  imports: [CommonModule,TranslateModule],
+  imports: [CommonModule,TranslateModule,AdsenseDirective],
   templateUrl: './hourly-data.component.html',
   styleUrl: './hourly-data.component.scss',
   encapsulation:ViewEncapsulation.None,

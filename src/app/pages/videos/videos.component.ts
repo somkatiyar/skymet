@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
 
 @Component({
   selector: 'app-videos',
   standalone: true,
-  imports: [CommonModule,RouterLink,TranslateModule],
+  imports: [CommonModule,RouterLink,TranslateModule,AdsenseDirective],
   templateUrl: './videos.component.html',
   styleUrl: './videos.component.scss'
 })
@@ -30,7 +31,7 @@ export class VideosComponent {
   }
 
 getVideos() {
-  this.dataService.getYoutubeVideo(2).subscribe(res => {
+  this.dataService.getYoutubeVideo(3).subscribe(res => {
     if (res && res['data']) {
       this.videos = res['data'].map((item: any) => {
         const attrs = item.attributes;

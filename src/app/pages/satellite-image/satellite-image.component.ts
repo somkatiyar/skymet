@@ -7,12 +7,13 @@ import { Autoplay, Manipulation, Navigation, Pagination, Thumbs, } from 'swiper/
 import Swiper from 'swiper';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
 declare var $:any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-satellite-image',
   standalone: true,
-  imports: [CommonModule,TrendingNewsComponent,RouterLink,TranslateModule],
+  imports: [CommonModule,AdsenseDirective,TrendingNewsComponent,RouterLink,TranslateModule],
   templateUrl: './satellite-image.component.html',
   styleUrl: './satellite-image.component.scss'
 })
