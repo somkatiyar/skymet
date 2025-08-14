@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { DomSanitizer, Meta, SafeHtml, Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -24,6 +24,7 @@ export class ArticleDetailComponent {
     private sanitizer: DomSanitizer,
     private tt:Title,
     private meta:Meta,
+    private router:Router,
     public dataService:DataService) {
 
      var category = this.route.snapshot.paramMap.get('category');
@@ -31,11 +32,15 @@ export class ArticleDetailComponent {
      this.item.categorySlug[0]= category;
      this.item.titleSlug = title;
      this.getPostBySlug(category,title);
+      this.router.events.subscribe((event: any) => {
+         if (event instanceof NavigationEnd) {
+            this.seoService.setCanonicalLink(event.urlAfterRedirects);
+         }
+      });
   }
 
   getPostBySlug(category:any,title:any) {
     this.dataService.bySlug(category,title).subscribe(res => {
-      console.log(res,'res res');
       
     if(res && Object.keys(res).length != 0) {
       this.post = res;

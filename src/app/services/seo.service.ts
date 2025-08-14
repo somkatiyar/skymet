@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { WindowService } from './window.service';
 import { Router } from '@angular/router';
-import { environment_dev } from '../../environments/environment'
+import { environment_prod } from '../../environments/environment'
 import { organization,siteNavigationElement,bredcrumbSchema} from '../model/schema'
 import { homePageMeta,satelliteMeta } from '../model/meta-tags'
 import { Meta, Title } from '@angular/platform-browser';
@@ -45,9 +45,10 @@ export class SeoService {
   ]
 
   setCanonicalLink(remainingUrl:any): void {
+    
     let link: HTMLLinkElement = this.doc.querySelector("link[rel='canonical']") || this.doc.createElement('link');
     link.setAttribute('rel', 'canonical');
-    link.setAttribute('href', environment_dev.baseUrl + remainingUrl);
+    link.setAttribute('href', environment_prod.baseUrl + remainingUrl);
     if (!link.parentNode) {
       this.doc.head.appendChild(link);
     }
@@ -89,14 +90,14 @@ export class SeoService {
       const link = this.doc.createElement('link');
       link.setAttribute('rel', 'alternate');
       link.setAttribute('hreflang', code);
-      link.setAttribute('href', `${environment_dev.baseUrl}/${code}/${basePath}`);
+      link.setAttribute('href', `${environment_prod.baseUrl}/${code}/${basePath}`);
       this.doc.head.appendChild(link);
     });
 
     const defaultLink = this.doc.createElement('link');
     defaultLink.setAttribute('rel', 'alternate');
     defaultLink.setAttribute('hreflang', 'x-default');
-    defaultLink.setAttribute('href', `${environment_dev.baseUrl}/en/${basePath}`);
+    defaultLink.setAttribute('href', `${environment_prod.baseUrl}/en/${basePath}`);
     this.doc.head.appendChild(defaultLink);
   
   }

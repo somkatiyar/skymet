@@ -6,5 +6,5 @@ export const environment_dev = {
   // environment.prod.ts (for SSR or production)
   export const environment_prod = {
     production: true,
-    baseUrl: 'https://skymetglobalweather.com'
+    baseUrl: 'https://www.skymetweather.com'
   };
