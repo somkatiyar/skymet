@@ -30,7 +30,8 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              { "glob": "**/*.txt", "input": "src/sitemaps", "output": "/" }
+              { "glob": "**/*.txt", "input": "src/sitemaps", "output": "/" },
+              { "glob": "**/*.xml", "input": "src/sitemaps", "output": "/" }
             ],
             "styles": [
                "node_modules/leaflet/dist/leaflet.css",
