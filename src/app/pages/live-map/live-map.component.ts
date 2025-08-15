@@ -51,8 +51,8 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
   darkLayer:any;
 
   selectedBasemap = 'light';
-  //mode: any = "development";
-  mode:any="production"
+  mode: any = "development";
+  //mode:any="production"
 
   constructor(
     private seoService: SeoService,
@@ -129,7 +129,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
       popupAnchor: [0, -32]
     });
       this.locationService
-      .getCurrentPosition()
+      .getFastLocation()
       .then((position:any) => {
          const { latitude, longitude } = position.coords;
            this.map.flyTo([latitude,longitude], 6);

@@ -65,15 +65,11 @@ export class HomeComponent implements OnInit {
         .pipe(take(1)) 
         .subscribe(async (lng) => {
           this.selectedLng = lng;
-          if(this.nativeService.getPlateform() == "web") {
             let latlng = await this.getPosition(false);     
-            await this.initHome(latlng)                    
+            await this.initHome(latlng)    
+          if(this.nativeService.getPlateform() == "web") {               
             this.seoConfig(event); 
-          } else {
-            let latlng = await this.getPositionNative(false);     
-            await this.initHome(latlng)                    
-           
-          }
+          } 
           
         });
     }
@@ -88,7 +84,7 @@ export class HomeComponent implements OnInit {
   }
 
    async refreshWebLocationNative() {
-     let latlng = await this.getPositionNative(true);     
+     let latlng = await this.getPosition(true);     
      await this.initHome(latlng) 
   }
 
@@ -118,44 +114,40 @@ export class HomeComponent implements OnInit {
  
   }
 
- async getPositionNative(prompt:any) {
-  return new Promise((resolve,reject) => {
-    if( this.windowService.isBrowser()) {
-      this.locationService
-      .getCurrentPositionNative()
-      .then((position:any) => {
-        const { latitude, longitude } = position.coords;
-        resolve({lat:latitude,lng:longitude});
-      })
-      .catch((error) => {
-         resolve({lat:this.latitude,lng:this.longitude});
-         prompt && alert("Unable to retrive your location please enable location in app settings");
-          return;
-      });
-    }
-  })
+async getPosition(prompt?: boolean, highAccuracy = false) {
+  return new Promise(async (resolve) => {
+    if (this.windowService.isBrowser()) {
+      try {
+        const position: any = await this.locationService.getFastLocation(highAccuracy);
 
+        if (position?.coords) {
+          resolve({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          });
+        } else {
+          // Fallback to last known static values if available
+          resolve({ lat: this.latitude, lng: this.longitude });
+          if (prompt) {
+            alert(
+              "Unable to retrieve your location. Please check your location settings."
+            );
+          }
+        }
+      } catch (error) {
+        resolve({ lat: this.latitude, lng: this.longitude });
+        if (prompt) {
+          alert(
+            "Unable to retrieve your location. Please check your location settings."
+          );
+        }
+      }
+    } else {
+      // If not browser context
+      resolve({ lat: this.latitude, lng: this.longitude });
+    }
+  });
 }
-
-
-  async getPosition(prompt:any) {
-  return new Promise((resolve,reject) => {
-    if( this.windowService.isBrowser()) {
-      this.locationService
-      .getCurrentPosition()
-      .then((position:any) => {
-        const { latitude, longitude } = position.coords;
-        resolve({lat:latitude,lng:longitude});
-      })
-      .catch((error) => {
-         resolve({lat:this.latitude,lng:this.longitude});
-         prompt &&  alert("Unable to retrieve your location. Please check your browser settings and ensure location services are enabled.");
-          return;
-      });
-    }
-  })
-
-  }
 
   getForecastData(path:any) {
      return new Promise((resolve,reject) =>{

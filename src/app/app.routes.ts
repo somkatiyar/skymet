@@ -79,12 +79,6 @@ export const routes: Routes = [
                 path:':country/:state/:district/:tehsil/:mode',
                 component:ForecastClubComponent
             },
-
-
-
-
-
-
             {
                 path:'weather/:country/:state/:district/:tehsil',
                 component:ForecastClubComponent
@@ -105,9 +99,6 @@ export const routes: Routes = [
                 path:'weather/:country/:state/:district/:tehsil/:mode',
                 component:ForecastClubComponent
             },
-
-
-
             {
                 path:'forecast/:country/:state/:district/:tehsil',
                 component:ForecastClubComponent

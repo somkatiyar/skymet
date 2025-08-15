@@ -1,116 +1,114 @@
 import { Injectable } from '@angular/core';
-import { WindowService } from './window.service';
-import { NativeService } from '../mobile-app/service/native.service';
-import { Geolocation, Position } from '@capacitor/geolocation';
-import { AppLauncher } from '@capacitor/app-launcher';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Position, Geolocation } from '@capacitor/geolocation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
 
-  isLocationEnable:boolean = true;;
-  constructor(private windowService:WindowService,
-    private nativeService:NativeService,private http:HttpClient) { }
+  private lastPosition: Position | null = null; // In-memory cache
+  private ipStackKey = 'd6feabbbb3247bf95a8f95c9df283346'; // Replace with your key
+  isLocationEnable: boolean = true; // default true
+  constructor(private http: HttpClient) { }
 
+  /**
+   * Get location fast — returns cached location instantly, 
+   * while updating in background
+   */
+  async getFastLocation(highAccuracy = false): Promise<Position | null> {
+    if (this.lastPosition) {
+      // Refresh in background
+      this.refreshLocation(highAccuracy);
+      return this.lastPosition;
+    }
+    // No cache? Fetch fresh
+    return await this.refreshLocation(highAccuracy);
+  }
 
-async getCurrentPosition(): Promise<Position | null> {
-  if (this.windowService.isBrowser() && 'geolocation' in navigator) {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition( position => {
-        this.isLocationEnable = true;
-        resolve(position)
-      },
-        async error => {
+  /**
+   * Refreshes location from GPS or IP fallback
+   */
+  private async refreshLocation(highAccuracy = false): Promise<Position | null> {
+    try {
+      const position = await this.getLocationWithFallback(highAccuracy);
+      if (position) {
+        this.lastPosition = position;
+      }
+      return position;
+    } catch {
+      return null;
+    }
+  }
 
-          switch (error.code) {
-            case error.PERMISSION_DENIED:
-              this.isLocationEnable = false;
-              console.warn('User denied the request for Geolocation.');
-              // let ip:any = await this.getIp();
-              // let data = await this.getDataByIP(ip.ip);
-              // console.log(data,'dadad');
-              // resolve({
-              //   coords: {
-              //     latitude: data.latitude,
-              //     longitude: data.longitude,
-              //     accuracy: 0,
-              //     altitude: null,
-              //     altitudeAccuracy: null,
-              //     heading: null,
-              //     speed: null
-              //   },
-              //   timestamp: Date.now()
-              // })
-              break;
-            case error.POSITION_UNAVAILABLE:
-              this.isLocationEnable = false;
-              console.warn('Location information is unavailable.');
-              break;
-            case error.TIMEOUT:
-              this.isLocationEnable = false;
-              console.warn('The request to get user location timed out.');
-              break;
-            default:
-              console.warn('An unknown error occurred.');
-              break;
-          }
+  /**
+   * Runs GPS & IP-based location lookup in parallel, returns fastest
+   */
+  private async getLocationWithFallback(highAccuracy = false): Promise<Position | null> {
+      const gpsPromise = this.getCurrentPositionNativeFast(highAccuracy);
+  const ipPromise = this.getLocationByIP();
 
-          resolve(null); // fallback instead of reject
+  const result = await Promise.race([gpsPromise, ipPromise]);
+
+  // Update location enable flag
+  this.isLocationEnable = !!(result && result.coords);
+
+  return result;
+  }
+
+  /**
+   * Fast GPS-based location (Capacitor)
+   */
+  private async getCurrentPositionNativeFast(highAccuracy = false): Promise<Position | null> {
+    try {
+      return await Geolocation.getCurrentPosition({
+        enableHighAccuracy: highAccuracy,
+        timeout: 5000 // Short timeout for speed
+      });
+    } catch (err) {
+      console.warn('GPS location failed:', err);
+      return null;
+    }
+  }
+
+  /**
+   * IP-based location fallback
+   */
+  private async getLocationByIP(): Promise<Position | null> {
+    try {
+      const ip: any = await this.getIp();
+      const data: any = await this.getDataByIP(ip.ip);
+      return {
+        coords: {
+          latitude: data.latitude,
+          longitude: data.longitude,
+          accuracy: 5000,
+          altitude: null,
+          altitudeAccuracy: null,
+          heading: null,
+          speed: null
         },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 0
-        }
-      );
-    });
-  } else {
-    console.warn('Geolocation not supported or not in browser context.');
-    return null;
+        timestamp: Date.now()
+      };
+    } catch (err) {
+      console.warn('IP location failed:', err);
+      return null;
+    }
   }
 
-
-}
-
-getIp():Promise<any> {
-  return this.http.get("https://api.ipify.org/?format=json").toPromise();
-}
-
-getDataByIP(ip:any): Promise<any> {
-  return this.http.get(`https://api.ipstack.com/${ip}?access_key=d6feabbbb3247bf95a8f95c9df283346`).toPromise()
-}
-
-
-async getCurrentPositionNative(): Promise<Position | null> {
-  try {
-    const permissions = await Geolocation.checkPermissions();
-    if (permissions.location !== 'granted') {
-      await Geolocation.requestPermissions();
-    }
-
-    const position = await Geolocation.getCurrentPosition({
-      enableHighAccuracy: true,
-      timeout: 20000 // Increase timeout (default is 10000)
-    });
-
-    console.log('Native Position:', position);
-    return position;
-
-  } catch (err: any) {
-    console.error('Geolocation error on native:', err);
-
-    // Optional: Handle known Capacitor geolocation error codes
-    if (err?.code === 'OS-PLUG-GLOC-0010') {
-      console.warn('Try again with a higher timeout or check GPS availability.');
-    }
-
-    return null; // Return null instead of throwing
+  /**
+   * Get public IP
+   */
+  private getIp(): Promise<any> {
+    return this.http.get('https://api.ipify.org/?format=json').toPromise();
   }
-}
 
-
-
+  /**
+   * Get location data by IP
+   */
+  private getDataByIP(ip: string): Promise<any> {
+    return this.http
+      .get(`https://api.ipstack.com/${ip}?access_key=${this.ipStackKey}`)
+      .toPromise();
+  }
 }
