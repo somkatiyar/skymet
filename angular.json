@@ -31,7 +31,9 @@
                 "input": "public"
               },
               { "glob": "**/*.txt", "input": "src/sitemaps", "output": "/" },
-              { "glob": "**/*.xml", "input": "src/sitemaps", "output": "/" }
+              { "glob": "**/*.xml", "input": "src/sitemaps", "output": "/" },
+               { "glob": "**/*.html", "input": "src/sitemaps", "output": "/" },
+                { "glob": "service-worker.js", "input": "src/sitemaps", "output": "./" }
             ],
             "styles": [
                "node_modules/leaflet/dist/leaflet.css",
