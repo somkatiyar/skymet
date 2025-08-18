@@ -171,21 +171,36 @@ letter-spacing: -3%;
 color: black;
 margin-bottom: 13px;
 }
-
 .social-icons {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  a {
+    width: unset !important;
+  }
 }
 
 .social-icons i {
   font-size: 20px;
   color: #fff;
   background: #999;
-  padding: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
+/* Hover effect */
+.social-icons i:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+/* Custom brand colors */
 .social-icons .apple {
   background: #f06292;
 }

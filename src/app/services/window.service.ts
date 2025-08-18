@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 export class WindowService {
    L:any;
    leafletSubject = new Subject()
-   mode="development"
+  mode="development"
   //mode="production"
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(platformId)) {

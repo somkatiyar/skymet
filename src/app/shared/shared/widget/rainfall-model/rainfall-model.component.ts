@@ -8,7 +8,7 @@ import {
 } from 'swiper/modules';
 import Swiper from 'swiper';
 import { WindowService } from '../../../../services/window.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { DataService } from '../../../../services/data.service';
 import { SeoService } from '../../../../services/seo.service';
 import { WeatherNewsComponent } from '../../../../pages/weather-news/weather-news.component';
@@ -171,6 +171,7 @@ export class RainfallModelComponent implements AfterViewInit {
   constructor(private windowService: WindowService,
     private seoService: SeoService,
     private translateService: TranslateService,
+    private location: Location,
     public dataService: DataService) {
     this.dataService.selectedLanguages.subscribe(lng => {
       this.translateService.use(lng);
@@ -247,6 +248,25 @@ export class RainfallModelComponent implements AfterViewInit {
     tab == 'temperature' &&   this.seoService.setMetaTags('satellite', 'temperature');
     tab == 'winds' &&   this.seoService.setMetaTags('satellite', 'winds');
     this.seoService.setSchema('satellite');
+    this.refreshUrl(tab);
+  }
+
+
+    refreshUrl(tab: any) {
+    if (tab == 'rainfall') {
+      this.location.replaceState(
+        `15-days-rainfall-forecast-for-india`
+      );
+      
+    } else if (tab == 'temperature') {
+      this.location.replaceState(
+        `15-days-temperature-forecast-for-india`
+      );
+    } else if(tab == 'winds') {
+      this.location.replaceState(
+        `24-hours-winds-forecast-for-india`
+      );
+    }
   }
 
 generateImageWinds() {

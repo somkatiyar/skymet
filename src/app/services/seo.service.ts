@@ -110,6 +110,8 @@ export class SeoService {
             : 'en';
     if(component == 'home') {
      let meta = homePageMeta['normal'][lng];
+     console.log(meta,'meta');
+     
      this.titleService.setTitle(meta.title);
      this.metaService.updateTag({ name: 'keywords', content: meta['keywords'] });
      this.metaService.updateTag({ name: 'description', content: meta['description'] });

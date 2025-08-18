@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, catchError, delay, Observable, of, retryWhen, Subject, switchMap, take, timeout } from 'rxjs';
 import { WindowService } from './window.service';
+import { ScriptLoaderService } from './script-loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { WindowService } from './window.service';
 export class DataService {
 
   constructor(private http:HttpClient, 
-    private translationService:TranslateService,private windowService:WindowService) { 
+    private translationService:TranslateService,
+    private windowService:WindowService) { 
       this.selectedLanguages.subscribe(lng => {
         this.translationService.use(lng)
       })

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { CurrentDataComponent } from '../current-data/current-data.component';
 import { HourlyDataComponent } from '../hourly-data/hourly-data.component';
 import { ForecastDataComponent } from '../forecast-data/forecast-data.component';
@@ -17,6 +17,9 @@ import { take } from 'rxjs';
 import { SkysenseComponent } from '../skysense/skysense.component';
 import { NativeService } from '../../mobile-app/service/native.service';
 import { Geolocation, Position } from '@capacitor/geolocation';
+import { ScriptLoaderService } from '../../services/script-loader.service';
+import { After } from 'v8';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +33,7 @@ import { Geolocation, Position } from '@capacitor/geolocation';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit,AfterViewInit {
   nearestMeta:any;
   latitude:any = 28.7041;
   longitude:any = 77.1025;
@@ -46,11 +49,17 @@ export class HomeComponent implements OnInit {
   @ViewChild(CurrentDataComponent) CurrentDataComponent!: CurrentDataComponent;
   @ViewChild(HourlyDataComponent) HourlyDataComponent!: HourlyDataComponent;
   @ViewChild(SkysenseComponent) SkysenseComponent!: SkysenseComponent;
+ @ViewChild('videoContainer', { static: true }) videoContainer!: ElementRef;
+  showVideo = false;
+
 
 
   constructor(
     private seoService: SeoService,
     private router: Router,
+    private titie:Title,
+    private metaService: Meta,
+    private scriptLoader: ScriptLoaderService,
     private locationService:LocationService,
     private windowService:WindowService,
     private dataService:DataService,
@@ -58,17 +67,17 @@ export class HomeComponent implements OnInit {
     private translateService:TranslateService
   ) {
 
-   
- this.router.events.subscribe((event: any) => {
+  this.router.events.subscribe((event: any) => {
     if (event instanceof NavigationEnd) {
+      
       this.dataService.selectedLanguages
         .pipe(take(1)) 
         .subscribe(async (lng) => {
           this.selectedLng = lng;
           if(this.nativeService.getPlateform() == "web") {
-            let latlng = await this.getPosition(false);     
-            await this.initHome(latlng)                    
-            this.seoConfig(event); 
+              let latlng = await this.getPosition(false); 
+               await this.initHome(latlng)                
+               this.seoConfig(event); 
           } else {
             let latlng = await this.getPositionNative(false);     
             await this.initHome(latlng)                    
@@ -80,6 +89,33 @@ export class HomeComponent implements OnInit {
   });
      
   }
+
+  ngAfterViewInit(): void {
+    this.loadVideo();
+    this.firstLoad()
+  }
+
+
+  loadVideo(){
+     if (this.windowService.isBrowser()) {
+
+     
+     const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.showVideo = true;  
+            observer.unobserve(entry.target); 
+          }
+        });
+      },
+      { threshold: 0.2 } 
+    );
+
+    observer.observe(this.videoContainer.nativeElement);
+  }
+  }
+  
 
 
  async refreshWebLocation() {
@@ -95,27 +131,41 @@ export class HomeComponent implements OnInit {
   async initHome(latlng:any) {
         if (this.windowService.isBrowser()) {
               this.nearestMeta = await this.nearByLocation(latlng);
-             
-              let forecast:any = await this.getForecastData(this.formatPath(this.nearestMeta));         
+              let forecast:any = await this.getForecastData(this.formatPath(this.nearestMeta));                 
+              await this.setStaticForecast(forecast);
               this.CurrentDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
               this.HourlyDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
               this.SkysenseComponent.setCurrentData(forecast?.actual)
+             
+
             }
   }
 
-    async getSavedLocData(latlng:any) {
-        if (this.windowService.isBrowser()) {
-              this.nearestMeta = await this.nearByLocation(latlng);
-              let forecast:any = await this.getForecastData(this.formatPath(this.nearestMeta));         
-              this.CurrentDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
-              this.HourlyDataComponent?.setForecast(forecast,this.formatPath(this.nearestMeta));
-              this.SkysenseComponent.setCurrentData(forecast?.actual)
-            }
+ async setStaticForecast(data:any) {
+    if (this.windowService.isBrowser()) {
+      localStorage.setItem('location', JSON.stringify(data));
+    }
   }
+
+
 
    async ngOnInit() {
-    
+    this.setMetaTitle()
  
+  }
+
+   firstLoad() {
+    if(this.windowService.isBrowser()) {
+        let forecast = JSON.parse(localStorage.getItem('location') || '{}');
+        let pathSegment = forecast.metainfo;
+        let path = "india/"+pathSegment.STATE_NAME.toLowerCase() + '/' + pathSegment.DISTRICT_NAME.toLowerCase() + '/' + pathSegment.TEHSIL_ALIAS_NAME.toLowerCase();
+             this.CurrentDataComponent?.setForecast(forecast,path);
+              this.HourlyDataComponent?.setForecast(forecast,path);
+              this.SkysenseComponent?.setCurrentData(forecast?.actual)
+              
+      
+    }
+       
   }
 
  async getPositionNative(prompt:any) {
@@ -167,6 +217,7 @@ export class HomeComponent implements OnInit {
   }
 
 formatPath(data:any) {
+  
   let path = `${data['Country'].toLowerCase()}/${data['State'].toLowerCase()}/${data['District'].toLowerCase()}/${data['Tehsil'].toLowerCase()}`
   return path;
 }
@@ -175,9 +226,17 @@ formatPath(data:any) {
     this.seoService.setCanonicalLink(event.urlAfterRedirects);
     this.seoService.setSchema('home');
     this.seoService.alternativeLinks(event.urlAfterRedirects);
-    this.seoService.setMetaTags('home');
+    //this.seoService.setMetaTags('home');
+    //this.setMetaTitle()
     this.seoService.setSeoTags('home');
    
+  }
+
+  setMetaTitle() {
+
+    this.titie.setTitle("Weather Forecast | Weather in India and World | Skymet Weather");
+    this.metaService.updateTag({ name: 'keywords', content: "Weather Forecast | Weather in India and World | Skymet Weather" });
+    this.metaService.updateTag({ name: 'description', content: "Weather Forecast for India, weather news and temperature in major cities across the world. Live weather News and Updates about weather from India and across the world." });
   }
 
     async nearByLocation(obj: any) {  

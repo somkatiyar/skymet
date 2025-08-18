@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /statesitemap2.xml
+Disallow: /statesitemap3.xml
+Sitemap: https://www.skymetweather.com/sitemap.xml

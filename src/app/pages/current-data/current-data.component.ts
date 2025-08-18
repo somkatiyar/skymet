@@ -61,6 +61,8 @@ export class CurrentDataComponent implements AfterViewInit {
     }
   }
     setForecast(newData:any,path:any) {
+      console.log('newData', newData);
+      
       this.forecastData = newData;
       this.locationPath = path;      
        let actual = this.dataService.bindIcon([newData?.actual]);

@@ -96,7 +96,10 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide swiper-slider-item" (mouseenter)="showOverlay(i)" (mouseleave)="hideOverlay()"
               *ngFor="let item of filteredModelData; let i = index">
-              <img [src]="item.url" [id]="'main' + i" [alt]="item.url"/>
+              <img [src]="item.url" [id]="'main' + i" [alt]="item.url" alt="model image"
+                [ngStyle]="{
+                  'object-fit': (selectedTab === 'insat' || selectedTab === 'himawari') ?  'cover' : 'contain',
+                }" />
               <div class="overlay-text" *ngIf="dataService.getDeviceType() == 'desktop'"
                 [ngStyle]="{ display: hoveredIndex === i ? 'block' : 'none' }">
 
@@ -126,7 +129,7 @@
           <div class="swiper-slide swiper-slider-thumb" [id]="'thumb' + index"
             *ngFor="let item of filteredModelData; let index = index">
             <h5>{{item.date}}</h5>
-            <img [src]="item.url" />
+            <img [src]="item.url" alt="model image"/>
           </div>
         </div>
       </div>
@@ -134,7 +137,7 @@
       <div *ngIf="viewType=='list'">
         <div class="image-grid">
           <div class="image-item" *ngFor="let item of filteredModelData" (click)="toggleImageSelection(item.url)">
-            <img [src]="item.url" [class.selected]="isSelected(item.url)" />
+            <img [src]="item.url" [class.selected]="isSelected(item.url)" alt="model image"/>
           </div>
         </div>
       </div>

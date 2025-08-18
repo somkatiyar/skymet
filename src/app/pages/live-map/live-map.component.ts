@@ -86,7 +86,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
     }
   }
 
- initMap(latLng: any) {
+   initMap(latLng: any) {
     if (this.windowService.isBrowser()) {
 
       try {
@@ -123,7 +123,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
 
   async addCurrentLocation(L: any) {
     var customIcon = L.icon({
-      iconUrl: 'https://www.skymetweather.com/assets/img/currentloc.svg',
+      iconUrl: './img/currentloc.svg',
       iconSize: [32, 32],
       iconAnchor: [16, 32],
       popupAnchor: [0, -32]
@@ -461,7 +461,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
 
   lightningIcon(L: any) {
     return L.icon({
-      iconUrl: 'https://www.skymetweather.com/assets/img/Lightning.png',
+      iconUrl: './img/Lightning.png',
       iconSize: [20, 20],
       iconAnchor: [45, 45],
       popupAnchor: [-3, -76],
@@ -470,7 +470,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
 
   awsIcon(L: any) {
     return L.icon({
-      iconUrl: 'https://www.skymetweather.com/assets/img/aws_icon_red.svg',
+      iconUrl: './img/aws_icon_red.svg',
       iconSize: [25, 25],
       iconAnchor: [45, 45],
       popupAnchor: [-3, -76],

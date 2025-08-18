@@ -204,7 +204,6 @@ newsText() {
       this.weatherNewsList = weather;
       this.climateChangeList = trending;
       this.monsoonUpdateList = monsoon;
-      console.log(this.weatherNewsList,'this.weatherNewsList');
       this.getPostBySlug(this.weatherNewsList[0]?.categorySlug?.[0],this.weatherNewsList[0]?.titleSlug)
       
     });

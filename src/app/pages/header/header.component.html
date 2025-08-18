@@ -74,7 +74,7 @@
             <div class="menu-item" (click)="toggleSidebar()" [routerLink]="['/15-days-rainfall-forecast-for-india']">
                 <div class="left">
                   <img src="./img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
-                 <li ><a   [ngClass]="getComponentFromRoute() =='forecastmap'? 'active':''"
+                 <li ><a   [ngClass]="getComponentFromRoute() =='forecastmap'? 'active':''" [routerLink]="['/15-days-rainfall-forecast-for-india']"
                   >{{"Forecast Map" | translate}}</a></li>
                 </div>
               <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
@@ -83,7 +83,7 @@
             <div class="menu-item" (click)="toggleSidebar()"  [routerLink]="['/resources']">
               <div class="left">  
                <img src="./img/sidebar/resources.png" alt="" *ngIf="deviceType() =='mobile'"/>
-              <li><a  [ngClass]="getComponentFromRoute() =='resources'? 'active':''"
+              <li><a  [ngClass]="getComponentFromRoute() =='resources'? 'active':''" [routerLink]="['/resources']"
                  >{{"Resources" | translate}}</a></li></div>
               <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
             </div>
@@ -92,7 +92,7 @@
             <div class="menu-item"  (click)="toggleSidebar()" [routerLink]="['/himawari-latest-satellite-images-of-india']">
               <div class="left">
              <img src="./img/sidebar/satellite.png" alt="" *ngIf="deviceType() =='mobile'"/>
-              <li><a  [ngClass]="getComponentFromRoute() =='satellite'? 'active':''"
+              <li><a  [ngClass]="getComponentFromRoute() =='satellite'? 'active':''" [routerLink]="['/himawari-latest-satellite-images-of-india']"
                  >{{"Satellite" | translate}}</a></li>
               </div>
               <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
@@ -100,7 +100,7 @@
            <div class="menu-item" (click)="toggleSidebar()" [routerLink]="['/map']">
               <div class="left">
              <img src="./img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
-              <li><a  [ngClass]="getComponentFromRoute()=='map'? 'active':''"
+              <li><a  [ngClass]="getComponentFromRoute()=='map'? 'active':''" [routerLink]="['/map']"
                   >Live Map</a></li>
               </div>
               <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
@@ -109,7 +109,8 @@
             <div class="menu-item" [routerLink]="['/advertise-with-us']" (click)="toggleSidebar()">
               <div class="left">
                <img src="./img/sidebar/aboutus.png" alt="" *ngIf="deviceType() =='mobile'"/>
-              <li><a  [ngClass]="getComponentFromRoute()=='advertise'? 'active':''">{{"Advertise with us" | translate}}</a></li>
+              <li><a  [ngClass]="getComponentFromRoute()=='advertise'? 'active':''" [routerLink]="['/advertise-with-us']">
+                {{"Advertise with us" | translate}}</a></li>
               </div>
               <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
             </div>
@@ -118,7 +119,7 @@
               <div class="left">
                <img src="./img/sidebar/aboutus.png" alt=""*ngIf="deviceType() =='mobile'"/>
               <li><a [ngClass]="getComponentFromRoute()=='contact'? 'active':''" 
-                >{{"Contact Us" | translate}}</a></li>
+                [routerLink]="['/contact-us']">{{"Contact Us" | translate}}</a></li>
               </div>
               <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
             </div>
@@ -133,16 +134,39 @@
 
              <div class="connect-section"  *ngIf="deviceType() =='mobile'">
                 <p>Connect with us</p>
-                <div class="social-icons">
+              <div class="social-icons">
+                <a target="_blank" href="https://podcasts.apple.com/in/podcast/skymet-podcast/id1772264634">
                   <i class="fab fa-itunes apple"></i>
+                </a>
+
+                <a target="_blank" href="https://open.spotify.com/show/49takv1rC7dyQmEp4IMRYA?si=80a2e90b3c47402b&nd=1&dlsi=70985fad844a4092">
                   <i class="fab fa-spotify spotify"></i>
-                  <i class="fas fa-leaf plant"></i>
+                </a>
+
+                <a target="_blank" href="https://www.jiosaavn.com/shows/skymet-podcast/1/NKmTKXHI3og_">
+                <i class="fas fa-leaf plant"></i>
+                </a>
+
+                <a target="_blank" href="https://music.amazon.in/podcasts/c771657b-bca0-4b97-b2b2-eef28198af75/skymet-podcast?ref=dm_sh_7ZXAixvmbAescbdEiPaE5oebe">
                   <i class="fab fa-amazon amazon"></i>
+                </a>
+
+                <a target="_blank" href="https://music.youtube.com/watch?v=LSOyCMLWqU8">
                   <i class="fab fa-youtube youtube"></i>
+                </a>
+
+                <a target="_blank" href="https://www.linkedin.com/company/skymet-weather-services/">
                   <i class="fab fa-linkedin linkedin"></i>
+                </a>
+
+                <a target="_blank" href="https://www.facebook.com/SkymetWeatherServices">
                   <i class="fab fa-facebook facebook"></i>
-                </div>
-    </div>
+                </a>
+              </div>
+
+
+
+              </div>
 
 
             <!-- <li><a (click)="pathName='home';toggleSidebar()" [ngClass]="pathName=='home'? 'active':''"
@@ -176,5 +200,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>
 </div>
