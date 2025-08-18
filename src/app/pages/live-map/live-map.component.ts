@@ -51,8 +51,8 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
   darkLayer:any;
 
   selectedBasemap = 'light';
-  //mode: any = "development";
-  mode:any="production"
+  mode: any = "development";
+  //mode:any="production"
 
   constructor(
     private seoService: SeoService,
