@@ -186,15 +186,32 @@ convertToAmPm(time24:any) {
     element.src = 'https://d33v4339jhl8k0.cloudfront.net/docs/assets/55843a0fe4b027e1978e93c6/images/5d3a11f92c7d3a2ec4bf6e06/file-h1Q3OCdYwG.jpg';
   }
 
-  bindIcon(data: any, name?: any) {
-    return data.map((element: any) => {
-      const timeOfDay = element.night ? 'night' : 'day';
-      element.iconImage = `img/${timeOfDay}/${element.icon.replaceAll(" ","").toLowerCase()}.webp`
-      name =='mobile' &&( element.mobileIcon = `assets/img/weather_icon/${element.icon.replaceAll(" ","").toLowerCase()}.webp`)
+  // bindIcon(data: any, name?: any) {
+  //   return data.map((element: any) => {
+  //     const timeOfDay = element?.night ? 'night' : 'day';
+  //     element['iconImage'] = `img/${timeOfDay}/${element?.icon.replaceAll(" ","").toLowerCase()}.webp`
+  //     name =='mobile' &&( element.mobileIcon = `assets/img/weather_icon/${element.icon.replaceAll(" ","").toLowerCase()}.webp`)
+  //     return element;
+  //   });
+  // }
+
+bindIcon(data: any[], name?: any) {
+  if (!Array.isArray(data)) return [];
+
+  return data
+    .filter(element => element && element.icon)
+    .map((element: any) => {
+      const timeOfDay = element?.night ? 'night' : 'day';
+      
+      element.iconImage = `img/${timeOfDay}/${element.icon.replaceAll(" ", "").toLowerCase()}.webp`;
+
+      if (name === 'mobile') {
+        element.mobileIcon = `assets/img/weather_icon/${element.icon.replaceAll(" ", "").toLowerCase()}.webp`;
+      }
+
       return element;
     });
-  }
-
+}
 
 
   getGradient() {

@@ -55,7 +55,6 @@ export class HourlyDataComponent implements AfterViewInit {
    this.locationPath = path; 
     this.hourlyData = this.dataService.bindIcon(newData?.hourly);
     let grediant = this.dataService.getGradient();
-console.log(this.hourlyData,'this.hourlyData');
 
     
       const gradientMap = Object.fromEntries(
@@ -79,8 +78,8 @@ console.log(this.hourlyData,'this.hourlyData');
       this.hourlySwiper = new Swiper('.hourly_swiper', {
            slidesPerView: 4.5,
          spaceBetween: 8,
-         loop: true,
-         freeMode: true,
+         loop: false,
+         freeMode: false,
          autoplay: true,
         breakpoints: {
        1024: {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WindowService } from './window.service';
+import { TextToSpeech } from '@capacitor-community/text-to-speech';
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +53,7 @@ export class UtilityService {
 
   pause() {
     if (this.windowService.isBrowser() && this.synth.speaking && !this.synth.paused) {
-      this.synth.pause();
+     this.synth && this.synth.pause();
       this.isPaused = true;
       this.isSpeaking = false;
     }
@@ -60,10 +61,34 @@ export class UtilityService {
 
   stop() {
     if (this.windowService.isBrowser()) {
-      this.synth.cancel();
+     this.synth && this.synth.cancel();
       this.isSpeaking = false;
       this.isPaused = false;
       this.currentText = null;
+    }
+  }
+
+
+   async speakNative(text: string) {
+    try {
+      await TextToSpeech.speak({
+        text,
+        lang: 'en-US',
+        rate: 1.0,
+        pitch: 1.0,
+        volume: 1.0,
+        category: 'ambient',
+      });
+    } catch (error) {
+      console.error('TTS Error:', error);
+    }
+  }
+
+  async stopNative() {
+    try {
+      await TextToSpeech.stop();
+    } catch (error) {
+      console.error('Stop Error:', error);
     }
   }
 }

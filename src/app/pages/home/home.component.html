@@ -10,3 +10,20 @@
   </ng-container>
 </div>
 
+
+
+<div class="image-container" *ngIf="isOverlayVisible">
+  <div class="image-wrapper">
+    <img [src]="selectedImage" alt="Preview Image" />
+</div>
+
+  <div class="button-wrapper" *ngIf="dataService.getDeviceType() == 'mobile'">
+    <button class="setting" (click)="goToSetting()">Go to setting</button>
+  </div>
+
+  <button class="close-btn" (click)="closeOverlay()">×</button>
+</div>
+
+
+
+

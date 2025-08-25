@@ -90,7 +90,7 @@
         </div>
       </div> -->
 
-      <div class="swiper-ad-container" *ngIf="viewType=='swiper'">
+      <div class="swiper-ad-container" *ngIf="viewType=='swiper'" #fullscreenEl>
 
         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
           <div class="swiper-wrapper">
@@ -102,7 +102,6 @@
                 }" />
               <div class="overlay-text" *ngIf="dataService.getDeviceType() == 'desktop'"
                 [ngStyle]="{ display: hoveredIndex === i ? 'block' : 'none' }">
-
 
                 <div class="fullmap" (click)="fullScreenImage(i)">{{'View in full screen' | translate}}</div>
 
@@ -143,6 +142,7 @@
       </div>
 
     </div>
+    <div class="writable">SkySat: Forecast Maps for pan-India, powered by Skymet’s own next-gen weather model, engineered for India’s complex climate with customized region-specific calibration, high-res physics and aerosol-aware radiation modeling. Find here 15 days weather forecast images generated every day for Rain, Heat, Wind and Cloud cover. Redefining weather forecasts for India with precision and real-time accuracy.</div>
 
           <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
 

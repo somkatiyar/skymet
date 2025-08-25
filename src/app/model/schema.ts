@@ -75,5 +75,33 @@
         "name": "contact-us",
         "item": "https://www.skymetweather.com/contact-us"
     }
-  ]
+  ];
+
+
+export function createForecastBreadcrumb(state: string, district: string, tehsil: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": state
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": district
+       
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": tehsil,
+        "item": `https://www.skymetweather.com/weather/forecast/india/${state.toLowerCase()}/${district.toLowerCase()}/${tehsil.toLowerCase()}`
+      }
+    ]
+  };
+}
+
 

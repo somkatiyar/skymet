@@ -13,7 +13,7 @@
 
       </div>
 
-      <img src="./img/refresh.png" alt="" class="refresh_icon" (click)="triggerParentLocation()" />
+    <img *ngIf="!isForecastPage" src="./img/refresh.png" alt=""  class="refresh_icon" id="refresh_icon" (click)="triggerParentLocation()" />
 
     </div>
     <p class="dist_state">{{ forecastData?.metainfo?.DISTRICT_NAME }}</p>
@@ -29,7 +29,16 @@
       </div>
     </div>
 
-    <div class="Weather_info">
+      <div class="rain"  *ngIf="isForecastPage">
+        <div class="rain_text">
+          Rain probability
+        </div>
+        <div class="rain_value">
+          {{forecastData?.actual?.precip}} %
+        </div>
+      </div>
+
+    <div class="Weather_info" *ngIf="!isForecastPage">
       <div class="boxs">
         <h6> <img src="./img/temp.svg" alt=""> {{'Temp (Min/Max)' | translate}}</h6>
         <div class="sky">
@@ -38,10 +47,7 @@
             STORM':forecastData?.actual?.description}}</span>
         </div>
         <div class="max_min">
-          <!-- <div class="max">
-            <span>Max</span>
-            <span>{{forecastData?.actual?.maxt}}°C</span>
-          </div> -->
+      
           <div class="min">
             <span>Max</span>
             <p>{{forecastData?.actual?.maxt}}°C</p>
@@ -54,10 +60,8 @@
         </div>
       </div>
       <div class="boxs">
-        <!-- <h6> <img src="./img/huminity.svg" alt=""> Humidity</h6> -->
         <h6> <img src="./img/huminity.svg" alt=""> {{'Humidity' | translate}}</h6>
         <div class="Humidity">
-          <!-- <img src="./img/meter-5.png" alt="" /> -->
           <app-speedometer [humidity]="forecastData?.actual?.hr"></app-speedometer>
           <h5>{{forecastData?.actual?.hr}}%</h5>
         </div>
@@ -65,13 +69,10 @@
       <div class="boxs">
         <h6> <img src="./img/rain_fall.svg" alt=""> {{'Rainfall probability' | translate}}</h6>
         <div class="Rainfall_probabilty">
-          <!-- <img src="./img/rainfall.png" alt="" /> -->
           <app-rainfall class="app-rainFall-item" [rainPercent]="forecastData?.actual?.precip"></app-rainfall>
-          <!-- <app-rainfall class="app-rainFall-item" [rainPercent]="90"></app-rainfall> -->
 
           <div class="probabilty">
             <h5>{{forecastData?.actual?.precip}}%</h5>
-            <!-- <p>({{forecastData?.actual?.rain}} mm)</p> -->
           </div>
         </div>
       </div>

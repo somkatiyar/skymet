@@ -24,6 +24,7 @@
     "@angular/platform-server": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@angular/ssr": "^18.2.12",
+    "@capacitor-community/text-to-speech": "^6.0.0",
     "@capacitor/android": "^7.4.2",
     "@capacitor/app": "^7.0.1",
     "@capacitor/app-launcher": "^7.0.1",

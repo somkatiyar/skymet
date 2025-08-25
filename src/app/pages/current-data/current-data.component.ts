@@ -24,6 +24,7 @@ export class CurrentDataComponent implements AfterViewInit {
   weatherText:any = `स्काइमेट वेदर में आपका स्वागत है`;
   locationPath:any;
   selectedLanguage:any;
+  isForecastPage:boolean = false;
   @Input() parentRef: any;
   constructor(
     private translateService: TranslateService,
@@ -36,6 +37,7 @@ export class CurrentDataComponent implements AfterViewInit {
     this.dataService.selectedLanguages.subscribe(lng => {
       this.translateService.use(lng);
       this.selectedLanguage = lng;
+      this.isForecastPage = this.router.url.includes('forecast/weather');
     })
   }
 
@@ -44,6 +46,15 @@ export class CurrentDataComponent implements AfterViewInit {
   }
 
    triggerParentLocation() {
+    if(this.windoService.isBrowser()) {
+      const refreshBtn = (document.getElementById('refresh_icon') as HTMLElement);
+      if (refreshBtn) {
+        refreshBtn.classList.add('spin');
+         setTimeout(() => {
+        refreshBtn.classList.remove('spin'); 
+      }, 2000);
+      }
+    }
     if (this.parentRef) {
       if(this.nativeService.getPlateform() == "web") {
         this.parentRef.refreshWebLocation();
@@ -60,12 +71,10 @@ export class CurrentDataComponent implements AfterViewInit {
         this.parentRef.getSavedLocData({lat:locObj?.home?.lat,lng:locObj?.home?.lng});
     }
   }
-    setForecast(newData:any,path:any) {
-      console.log('newData', newData);
-      
+    setForecast(newData:any,path:any) {      
       this.forecastData = newData;
       this.locationPath = path;      
-       let actual = this.dataService.bindIcon([newData?.actual]);
+      let actual = this.dataService.bindIcon([newData?.actual]);
       this.forecastData['actual'] = actual[0];
       
     }
@@ -83,6 +92,8 @@ export class CurrentDataComponent implements AfterViewInit {
       speechSynthesis.speak(utterance);
       }
     }
+
+
 
 
     // setBackground() {

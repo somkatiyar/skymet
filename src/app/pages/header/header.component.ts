@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { WindowService } from '../../services/window.service';
 import { CommonModule } from '@angular/common';
 import {
@@ -44,14 +44,28 @@ declare var window: any;
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   searchCtrl: string = '';
   searchForm: any = FormGroup;
   recognition: any;
   locations: any = [];
   isResourcesPage: boolean = false;
-  selectedLanguage: any;
+  selectedLanguage: any = 'en';
   isSidebarOpen: boolean = false;
+  currentRoute: any;
+  languages: any = [
+    { name: 'English', code: 'en' },
+    { name: 'हिन्दी', code: 'hi' },
+    { name: 'मराठी', code: 'mr' },
+    { name: 'বাংলা', code: 'bn' },
+    { name: 'ગુજરાતી', code: 'gu' },
+    { name: 'தமிழ்', code: 'ta' },
+    { name: 'తెలుగు', code: 'te' },
+    { name: 'ಕನ್ನಡ', code: 'kn' },
+    { name: 'മലയാളം', code: 'ml' },
+    { name: 'ਪੰਜਾਬੀ', code: 'pa' },
+
+  ];
   @ViewChild('locationList') locationList!: ElementRef;
   @HostListener('document:click', ['$event'])
   @HostListener('window:scroll', [])
@@ -89,13 +103,27 @@ export class HeaderComponent {
         window.location.href.includes('resources') &&
           (this.isResourcesPage = true);
       }
-     
-   
+
+
     }
     this.seturlConfig();
     this.configListning();
     this.searchDataInput();
     this.initSearchCtrl();
+  }
+
+  ngOnInit(): void {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.currentRoute = this.getActiveRoute(this.router.routerState.root);
+      });
+  }
+  private getActiveRoute(route: any): string {
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+    return route.component?.name || 'Unknown';
   }
 
   volatileUrl = [
@@ -106,6 +134,8 @@ export class HeaderComponent {
     'content/weather-news-and-analysis/',
     'legal/term-and-condiation',
     'legal/privacy-and-policy',
+    'resources',
+    'content'
   ];
   isUrlChangable() {
     if (this.windowService.isBrowser()) {
@@ -120,15 +150,14 @@ export class HeaderComponent {
         status = true;
       }
     }
-
     return status;
   }
 
   getLogo() {
     var logo;
-    if(this.getComponentFromRoute() === 'home' ) {
+    if (this.getComponentFromRoute() === 'home') {
       logo = "./img/logo.png"
-    }else if(this.getComponentFromRoute() === 'resources') {
+    } else if (this.getComponentFromRoute() === 'resources') {
       logo = "./img/logo_resources.webp"
     } else {
       logo = "./img/logo.png"
@@ -156,9 +185,9 @@ export class HeaderComponent {
       } else {
         status = false;
       }
-  
+
     }
-        return status
+    return status
 
   }
 
@@ -168,7 +197,7 @@ export class HeaderComponent {
     if (this.windowService.isBrowser()) {
       this.isSidebarOpen != this.isSidebarOpen;
       const menulink: any = document.querySelector('#menulink');
-    
+
       if (!this.isSidebarOpen) {
         menulink.classList.toggle('active');
       }
@@ -177,128 +206,68 @@ export class HeaderComponent {
 
 
 
-  // scrollFunction() {
 
-  //   if (this.windowService.isBrowser()) {
-  //     const scrollTop =
-  //       window.document.documentElement.scrollTop ||
-  //       window.document.body.scrollTop;
-  //     const url = window.location.pathname;
-  //     const nav: any = document.getElementById('menulink');
-  //     const links = nav.querySelectorAll('ul a');
+  scrollFunction() {
 
-  //     const header = window.document.getElementById('Header');
-  //     if (!header) return;
-  //     const isHome = this.getComponentFromRoute() === 'home';
-  //     const isForecast = this.getComponentFromRoute() === 'forecast';
-  //     if (scrollTop > (isHome ? 400 : 50)) {
-  //       header.style.background = '#FFFFFF';
-  //       links.forEach((link: any) => {
-  //         link.classList.remove('white');
-  //       });
-  //       links.forEach((link: any) => {
-  //         link.classList.add('black');
-  //       });
-  //     } if (scrollTop > isForecast) {
-  //       header.style.background = '#FFFFFF';
-  //     } else {
-  //       if (this.deviceType() == 'desktop') {
+    if (!this.windowService.isBrowser()) return;
 
-  //         if (!url.includes('resources')) {
-  //           header.style.background = "transparent";
-  //           links.forEach((link: any) => {
-  //             link.classList.remove('white');
-  //           });
-  //           links.forEach((link: any) => {
-  //             link.classList.add('black');
-  //           });
-  //         } else {
-  //           header.style.background = `linear-gradient(180deg,
-  //             rgba(0, 0, 0, 0.6) 52.29%,
-  //             rgba(255, 255, 255, 0) 100%
-  //             )`;
-  //           links.forEach((link: any) => {
-  //             link.classList.add('white');
-  //           });
-  //           links.forEach((link: any) => {
-  //             link.classList.remove('black');
-  //           });
-  //         }
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const header = document.getElementById('Header');
+    const nav = document.getElementById('menulink');
+    const links = nav?.querySelectorAll('ul a') || [];
+    const url = window.location.pathname;
+    const isHome = this.getComponentFromRoute() === 'home';
+    const isForecast = this.getComponentFromRoute() === 'forecast';
 
-  //       } else {
-  //         links.forEach((link: any) => {
-  //           link.classList.remove('white');
-  //         });
-  //         links.forEach((link: any) => {
-  //           link.classList.add('black');
-  //         });
-  //         header.style.background = "transparent";
-  //       }
+    if (!header) return;
 
-  //     }
-  //   }
-  // }
-scrollFunction() {
-  if (!this.windowService.isBrowser()) return;
+    const setLinkColors = (add: string, remove: string) =>
+      links.forEach(link => {
+        link.classList.add(add);
+        link.classList.remove(remove);
+      });
 
-  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-  const header = document.getElementById('Header');
-  const nav = document.getElementById('menulink');
-  const links = nav?.querySelectorAll('ul a') || [];
-  const url = window.location.pathname;
-  const isHome = this.getComponentFromRoute() === 'home';
-  const isForecast = this.getComponentFromRoute() === 'forecast';
-
-  if (!header) return;
-
-  const setLinkColors = (add: string, remove: string) =>
-    links.forEach(link => {
-      link.classList.add(add);
-      link.classList.remove(remove);
-    });
-
-  if (scrollTop > (isHome ? 400 : 50) || isForecast) {
-    header.style.display = 'block';
-    header.style.background = '#FFFFFF';
-    setLinkColors('black', 'white');
-  } else if (this.deviceType() === 'desktop') {
-    console.log('desktop view');
-    
-    if (!url.includes('resources')) {
-        if(scrollTop>50) {
-      header.style.display = 'none';
-    } else {
+    if (scrollTop > ((isHome || this.currentRoute == "_ForecastClubComponent") ? 400 : 50)) {
       header.style.display = 'block';
-    }
+      header.style.background = '#FFFFFF';
+      setLinkColors('black', 'white');
+    } else if (this.deviceType() === 'desktop') {
+
+      if (!url.includes('resources')) {
+        if (scrollTop > 50) {
+          header.style.display = 'none';
+        } else {
+          header.style.display = 'block';
+        }
+        header.style.background = 'transparent';
+        setLinkColors('black', 'white');
+      } else {
+        header.style.background = `linear-gradient(180deg, rgba(0, 0, 0, 0.6) 52.29%, rgba(255, 255, 255, 0) 100%)`;
+        setLinkColors('white', 'black');
+      }
+    } else {
+      if (scrollTop > 50) {
+        header.style.display = 'none';
+      } else {
+        header.style.display = 'block';
+      }
       header.style.background = 'transparent';
       setLinkColors('black', 'white');
-    } else {
-      header.style.background = `linear-gradient(180deg, rgba(0, 0, 0, 0.6) 52.29%, rgba(255, 255, 255, 0) 100%)`;
-      setLinkColors('white', 'black');
     }
-  } else {
-    if(scrollTop>50) {
-      header.style.display = 'none';
-    } else {
-      header.style.display = 'block';
-    }
-    header.style.background = 'transparent';
-    setLinkColors('black', 'white');
   }
-}
 
   deviceType() {
-    if(this.windowService.isBrowser()) {
-    const width = window.innerWidth;
-    var device!: any;
-    if (width <= 768) {
-      device = 'mobile';
-      return device;
-    } else {
-      device = 'desktop';
-      return device;
+    if (this.windowService.isBrowser()) {
+      const width = window.innerWidth;
+      var device!: any;
+      if (width <= 768) {
+        device = 'mobile';
+        return device;
+      } else {
+        device = 'desktop';
+        return device;
+      }
     }
-  }
   }
 
   configListning() {
@@ -402,25 +371,25 @@ scrollFunction() {
 
   getComponentFromRoute() {
     var cmp = "";
-     if (this.router.url.includes('forecast/weather')) {
+    if (this.router.url.includes('forecast/weather')) {
       cmp = 'forecast'
-    } else if(this.router.url.includes('15-days-rainfall')){
+    } else if (this.router.url.includes('15-days-rainfall')) {
       cmp = 'forecastmap'
     } else if (this.router.url.includes('resources')) {
       cmp = 'resources';
     } else if (this.router.url.includes('himawari-latest-satellite-images-of-india') ||
       this.router.url.includes('weather-satellite-images-of-india')) {
       cmp = 'satellite';
-    }else if (this.router.url.includes('advertise-with-us')) {
+    } else if (this.router.url.includes('advertise-with-us')) {
       cmp = 'advertise';
-    }else if (this.router.url.includes('contact-us')) {
+    } else if (this.router.url.includes('contact-us')) {
       cmp = 'contact';
-    }else if (this.router.url.includes('map')) {
+    } else if (this.router.url.includes('map')) {
       cmp = 'map';
-    }else  if (this.router.url == '/' || this.isLanguageRoute()) {
+    } else if (this.router.url == '/' || this.isLanguageRoute()) {
       cmp = 'home'
-    }else{
-      cmp ='other'
+    } else {
+      cmp = 'other'
     }
     return cmp;
   }
@@ -456,7 +425,9 @@ scrollFunction() {
   }
 
   onLanguagesChange(event: any) {
+    this.selectedLanguage = event.target.value;
     var code = event.target.value;
+    this.translateService.use(code)
     if (this.isUrlChangable()) {
       this.dataService.selectedLanguages.next(code);
       var len = this.router.url.split('/').length;
@@ -477,8 +448,6 @@ scrollFunction() {
   }
   pathName: string = 'home';
   isActiveLink(link: string): any {
-
-
   }
 }
 

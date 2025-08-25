@@ -1,0 +1,59 @@
+.image-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60vh; /* half of screen */
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+ // display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* ensures button stays at bottom */
+  align-items: center;
+  //padding: 16px;
+  z-index: 1000;
+  animation: slideUp 0.3s ease-out;
+}
+
+.image-wrapper {
+  flex: 1; /* take available space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-wrapper img {
+  max-height: 80%; /* prevent it from covering button space */
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 16px 16px 0 0;
+}
+
+.button-wrapper {
+  margin-top: 12px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.setting {
+  padding: 10px 18px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.setting:hover {
+  background: #0056b3;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0px;
+  right: 4px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}

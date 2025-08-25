@@ -3,22 +3,17 @@
     <div class="swiper-wrapper">
       <div
         class="swiper-slide swiper-item-banner"
-        *ngFor="let item of allArticles && allArticles.slice(0, 5)"
+        *ngFor="let item of allArticles"
       >
         <div class="swapper-contentArea">
           <div class="container">
             <div class="mainContent">
-              <!-- <div class="youtube">
-                <img src="./img/youtube_voice.svg" alt="" />
-                <h6>Youtube</h6>
-              </div> -->
               <h1>{{ item.title }}</h1>
               <h6 class="banner_para">
                 {{ item.description }}
               </h6>
-              <!-- <div class="swiper-pagination"></div> -->
 
-              <div class="watch"[routerLink]="['/content', item.categorySlug[0], item.titleSlug]">
+              <div class="watch"[routerLink]="['/content', item.category[0], item.og_url?.split('/').at(-1)]">
 
                 <h6>Read More</h6>
               </div>
@@ -26,7 +21,7 @@
           </div>
         </div>
 
-        <img class="satelliteImage" [src]="item.thumbnail" alt="" />
+        <img class="satelliteImage" [src]="item.thumbnail_image" alt="" />
       </div>
     </div>
 
@@ -66,7 +61,6 @@
             <h6>{{item.filterkey}}</h6>
           </div>
         </div>
-    
       </div>
     </div>
   </div>
@@ -171,7 +165,7 @@
       </div>
     </div> -->
     <div class="btn_center" 
-       (click)="handlePostClick()">
+       (click)="handlePostClick();">
       <div class="btn">
         <button>View More</button>
       </div>

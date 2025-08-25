@@ -990,11 +990,11 @@ export class AppComponent implements AfterViewInit {
       this.pullToRefreshService.init(this.handleRefresh.bind(this));
         this.handleBackButton();
         this.pushService.initPush();
-       if( this.nativeService.isUserLoggedIn()) {
-        this.router.navigate(['/']);
-       } else {
-        this.router.navigate(['login']);
-       }
+      //  if( this.nativeService.isUserLoggedIn()) {
+      //   this.router.navigate(['/']);
+      //  } else {
+      //   this.router.navigate(['login']);
+      //  }
      } 
      if(this.windowService.isBrowser()) {
       if(!localStorage.getItem('location')) {
@@ -1043,7 +1043,6 @@ handleRefresh() {
         if (currentTime - this.lastBackTime < 2000) {
           CapacitorApp.exitApp();
         } else {
-          console.log('kya jana chahte ho');
           
           this.lastBackTime = currentTime;
           await Toast.show({

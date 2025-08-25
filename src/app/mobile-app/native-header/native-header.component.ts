@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { NativeService } from '../service/native.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +22,8 @@ export class NativeHeaderComponent implements AfterViewInit {
     private fb:FormBuilder,private router:Router) {
     
   }
+
+
 
   ngAfterViewInit(): void {
     this.setHedarStyle();
@@ -65,7 +67,6 @@ export class NativeHeaderComponent implements AfterViewInit {
           )
           .subscribe((res: any) => {
             this.locations = res['data'];
-            console.log( this.locations,'skhd');
             
           });
       }
@@ -79,7 +80,25 @@ export class NativeHeaderComponent implements AfterViewInit {
       .navigate([`forecast/weather/${obj.toLowerCase().split(",").reverse().join("/").replace(/\/\s+/g, '/').trim()}`
       ])
       .then(() => {
-        this.locations = []
+        this.locations = [];
+    this.searchForm.get('searchCtrl')?.setValue('');
+    this.isSearchBoxEnable = false;
       });
   }
+
+  getGreeting(): string {
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour >= 5 && hour < 12) {
+    return "Good Morning 🌞";
+  } else if (hour >= 12 && hour < 17) {
+    return "Good Afternoon ☀️";
+  } else if (hour >= 17 && hour < 21) {
+    return "Good Evening 🌇";
+  } else {
+    return "Good Night 🌙";
+  }
+}
+
 }

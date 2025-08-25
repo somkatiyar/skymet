@@ -59,7 +59,7 @@ export class SeoService {
       if(component == 'home' || component=='satellite') {
         this.generateSchema(organization);
         this.generateSchema(siteNavigationElement);
-      }
+      } 
     }
   }
 

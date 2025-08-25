@@ -22,9 +22,14 @@ async getCurrentPosition(): Promise<Position | null> {
       navigator.geolocation.getCurrentPosition( position => {
         this.isLocationEnable = true;
         resolve(position)
+        if (position.coords.accuracy > 10000) { 
+          console.warn('Geolocation accuracy is too low:', position.coords.accuracy);
+
+        }
+        console.log(position, 'position from browser');
+        
       },
         async error => {
-
           switch (error.code) {
             case error.PERMISSION_DENIED:
               this.isLocationEnable = false;
@@ -58,7 +63,7 @@ async getCurrentPosition(): Promise<Position | null> {
               break;
           }
 
-          resolve(null); // fallback instead of reject
+          resolve(null); 
         },
         {
           enableHighAccuracy: true,

@@ -84,8 +84,6 @@ export class GallaryComponent implements AfterViewInit {
   }
 
 getsatelliteImage(tab: any) {
-  console.log(tab, 's,bcksd');
-
   this.satelliteImages = [];
   this.selectedTab = tab;
 

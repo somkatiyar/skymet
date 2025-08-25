@@ -126,9 +126,7 @@
 
               <li>
               <select (change)="onLanguagesChange($event)">
-                <option name="English" value="en">English</option>
-                <option name="Hindi" value="hi">Hindi</option>
-                <option name="Marathi" value="mr">Marathi</option>
+                <option  [selected]="item.code === selectedLanguage" [value]="item.code" *ngFor="let item of languages">{{item.name}}</option>
               </select>
             </li>
 

@@ -1,35 +1,39 @@
 <div class="farecast_page">
-  <div class="container">
+  <div class="container custom">
     <div class="main_content">
+      <!-- <div class="breadcrumb">state>district>tehsil</div> -->
+      <nav class="breadcrumb" aria-label="Breadcrumb" *ngIf="dataService.getDeviceType() == 'desktop'">
+        <ol>
+          <li>
+            <a routerLink="/state-weather/{{metaInfo?.STATE_NAME}}" class="crumb-link">{{metaInfo?.STATE_NAME}}</a>
+          </li>
+          <li>
+            <a routerLink="/weather/forecast/india/{{metaInfo?.STATE_NAME}}/{{metaInfo?.DISTRICT_NAME}}" class="crumb-link">{{metaInfo?.DISTRICT_NAME}}</a>
+          </li>
+          <li aria-current="page" class="crumb-current">{{metaInfo?.TEHSIL_ALIAS_NAME}}</li>
+        </ol>
+      </nav>
+      <app-current-data [parentRef]="this"></app-current-data>
       <div class="cover_area">
-        <div class="breadcrumb">
-          <span>
-            <a href="#">Home</a>
-          </span>
-          <span class="breadcrumb-separator"> &#10095;</span>
-          <span>
-            <a href="#">{{metaInfo?.TEHSIL_ALIAS_NAME}}</a>
-          </span>
-          <span class="breadcrumb-separator">&#10095;</span>
-          <span>{{selectedTab}} forecast</span>
-        </div>
+  
         <div class="Temperature_swipee fixedTabArea">
           <div class="tittle">
             <div class="heading_flex">
-              <div class="locat">
+              <!-- <div class="locat">
                 <img src="./img/location.png" alt="" />
                 <h5 class="mainTitleSection">{{metaInfo?.TEHSIL_ALIAS_NAME}},{{metaInfo?.DISTRICT_NAME }}</h5>
-                <!-- <img class="refressButton" src="./img/refrash.svg" alt=""/> -->
-              </div>
+              </div> -->
               <div class="days">
-                <p [ngClass]="selectedTab == 'hourly' ? 'active' : ''" (click)="selectedTab = 'hourly'" id="hourly">
-                 {{'Hourly' | translate}}
+                <p [ngClass]="selectedTab == 'hourly' ? 'active' : ''"
+                  (click)="selectedTab = 'hourly';onTabChange('hourly')" id="hourly">
+                  {{'Hourly' | translate}}
                 </p>
                 <p [ngClass]="selectedTab == '7 days' ? 'active' : ''" (click)="selectedTab = '7 days';onTabChange(7)"
                   id="7_days">
                   7 Days
                 </p>
-                <p [ngClass]="selectedTab == '15 days' ? 'active' : ''" (click)="selectedTab = '15 days';onTabChange(15)">
+                <p [ngClass]="selectedTab == '15 days' ? 'active' : ''" id="15_days"
+                  (click)="selectedTab = '15 days';onTabChange(15)">
                   15 Days
                 </p>
               </div>
@@ -40,33 +44,33 @@
       </div>
       <!-- temp swiper -->
       <div [hidden]="selectedTab == 'hourly'">
-       <div class="Weather_buddy">
-            <div class="container">
-              <div class="weather_box">
-                <div class="header">
-                  <div class="tittle">
-                    <img src="./img/clean.svg" alt="" />
-                    <p>Weather buddy</p>
-                  </div>
-                  <div class="controls">
-                    <button (click)="utilityService.speak(buddy7 && buddy7)">
-                      <img src="./img/play.webp" alt="">
-                    </button>
-                    <button (click)="utilityService.pause()" >
-                      <img src="./img/pause.webp" alt="">
-                    </button>
-                
-                  </div>
+        <div class="Weather_buddy">
+          <div class="container">
+            <div class="weather_box">
+              <div class="header">
+                <div class="tittle">
+                  <img src="./img/clean.svg" alt="" />
+                  <p>Weather buddy</p>
                 </div>
-                <p [class.collapsed]="expanded">
-                  {{buddy7 && buddy7 }}          
-               </p>
-                 <span class="toggle-button" (click)="toggleExpand()">
-                  {{ expanded ? 'Show Less' : 'Show More' }}
-                </span>
+                <div class="controls">
+                  <button (click)="speak(buddy7 && buddy7)">
+                    <img src="./img/play.webp" alt="">
+                  </button>
+                  <button (click)="pause()">
+                    <img src="./img/pause.webp" alt="">
+                  </button>
+
+                </div>
               </div>
+              <p [class.collapsed]="expanded">
+                {{buddy7 && buddy7 }}
+              </p>
+              <span class="toggle-button" (click)="toggleExpand()">
+                {{ expanded ? 'Show Less' : 'Show More' }}
+              </span>
             </div>
           </div>
+        </div>
 
         <div class="Temperature_swipee">
           <div class="swiper swiper_temp">
@@ -286,7 +290,8 @@
               <div class="swiper-slide" *ngFor="let item of forecastData">
                 <div class="sunRise_container">
                   <div class="time-label top">
-                    <span class="sunrise">{{ item.sunrise }}</span><span class="am">{{dataService.convertToAmPm(item.sunrise)}}</span>
+                    <span class="sunrise">{{ item.sunrise }}</span><span
+                      class="am">{{dataService.convertToAmPm(item.sunrise)}}</span>
                   </div>
                   <img class="curve" src="./img/sunrise_graph.svg" alt="" />
                   <!-- <svg class="curve" viewBox="0 0 100 50" preserveAspectRatio="none">
@@ -294,7 +299,8 @@
                               </svg> -->
                   <div class="middle-line"></div>
                   <div class="time-label bottom">
-                    <span class="sunset">{{ item.sunset }}</span><span class="pm">{{dataService.convertToAmPm(item.sunset)}}</span>
+                    <span class="sunset">{{ item.sunset }}</span><span
+                      class="pm">{{dataService.convertToAmPm(item.sunset)}}</span>
                   </div>
                 </div>
                 <div class="date-section">
@@ -320,7 +326,8 @@
               <div class="swiper-slide" *ngFor="let item of forecastData">
                 <div class="sunRise_container">
                   <div class="time-label top">
-                    <span class="sunset">{{item.moonrise}}</span><span class="pm">{{dataService.convertToAmPm(item.moonrise)}}</span>
+                    <span class="sunset">{{item.moonrise}}</span><span
+                      class="pm">{{dataService.convertToAmPm(item.moonrise)}}</span>
                   </div>
                   <!-- <img class="curve" src="./img/Moonrise.svg" alt="" /> -->
                   <svg class="curve" width="121" height="28" viewBox="0 0 121 28" fill="none"
@@ -331,7 +338,8 @@
                   </svg>
                   <div class="middle-line"></div>
                   <div class="time-label bottom">
-                    <span class="sunrise">{{item.moonset}}</span><span class="am">{{dataService.convertToAmPm(item.moonset)}}</span>
+                    <span class="sunrise">{{item.moonset}}</span><span
+                      class="am">{{dataService.convertToAmPm(item.moonset)}}</span>
                   </div>
                 </div>
                 <div class="date-section">
@@ -346,7 +354,7 @@
           </div>
         </div>
       </div>
-      <div class="abc"[hidden]="selectedTab == '7 days' || selectedTab == '15 days'">
+      <div class="abc" [hidden]="selectedTab == '7 days' || selectedTab == '15 days'">
         <div class="hourly_tab">
           <div class="Temperature_swipee">
             <div class="swiper swiper_temp_hourly">
@@ -385,7 +393,8 @@
           <!-- <div class="skysense-title">Skysense by skymet</div> -->
           <div class="Weather_buddy hourly_weather_buddy">
             <div class="view_date">
-              {{'Viewing data for' | translate}} {{ forecastData && forecastData[0] && forecastData[0].date.split(",")[2] }} &nbsp;
+              {{'Viewing data for' | translate}} {{ forecastData && forecastData[0] &&
+              forecastData[0].date.split(",")[2] }} &nbsp;
               {{
               forecastData && forecastData[0] && forecastData[0].date.split(",")[1]
               }}
@@ -398,21 +407,21 @@
                     <p>Weather buddy</p>
                   </div>
                   <div class="controls">
-                    <button (click)="utilityService.speak(buddyDataHourly && buddyDataHourly)">
+                    <button (click)="speak(buddyDataHourly && buddyDataHourly)">
                       <img src="./img/play.webp" alt="">
                     </button>
-                    <button (click)="utilityService.pause()" >
+                    <button (click)="pause()">
                       <img src="./img/pause.webp" alt="">
                     </button>
                     <!-- <button (click)="utilityService.resume()" [disabled]="!utilityService.isPaused"><i class="fas fa-play-circle"></i></button>
                     <button (click)="utilityService.stop()" [disabled]="!utilityService.isSpeaking"><i class="fas fa-stop"></i></button> -->
-                
+
                   </div>
                 </div>
                 <p [class.collapsed]="expanded">
-                  {{buddyDataHourly && buddyDataHourly }}          
-               </p>
-                 <span class="toggle-button" (click)="toggleExpand()">
+                  {{buddyDataHourly && buddyDataHourly }}
+                </p>
+                <span class="toggle-button" (click)="toggleExpand()">
                   {{ expanded ? 'Show Less' : 'Show More' }}
                 </span>
               </div>
@@ -424,7 +433,6 @@
               <div class="sky">
                 <img [src]="currentData?.[0]?.iconImage" alt="" />
                 <span>
-                  <!-- {{currentData?.[0]?.description}} -->
                   {{currentData?.[0]?.description == 'THUNDERSTORM'? 'THUNDER STORM':currentData?.[0]?.description}}
                 </span>
               </div>
@@ -446,6 +454,7 @@
                 <h5>{{currentData?.[0]?.hr}}%</h5>
               </div>
             </div>
+
             <div class="boxs">
               <h6><img src="./img/dropIcon.svg" alt="" /> {{'Dew Point' | translate}}</h6>
               <div class="Rainfall_probabilty wind">
@@ -456,6 +465,7 @@
                 <img src="./img/man.svg" alt="" />
               </div>
             </div>
+
             <div class="boxs">
               <h6 class=" Wind"><img src="./img/windFast.svg" alt="" /> {{'Wind speed' | translate}}</h6>
               <div class="Rainfall_probabilty wind">
@@ -467,12 +477,8 @@
               </div>
             </div>
           </div>
-          <!-- <div class="card-wrapper" style="display: flex; gap: 20px">
-               <div class="card">
-                 <h6><img src="./img/temp.svg" alt="" /> Temp (Min/Max)</h6>
-               </div>
-               </div> -->
-          <!-- <div class="card-wrapper Weather_info" style="display: flex; gap: 20px">
+
+          <!-- <div class="Weather_info" >
                <div class="boxs">
                  <h6 class=" UV_Index"><img src="./img/wind.svg" alt="" /> UV Index</h6>
                  <div class="Rainfall_probabilty wind">
@@ -538,15 +544,22 @@
                    </div>
                  </div>
                </div>
-               </div> -->
+          </div> -->
         </div>
       </div>
       <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
+   
+ 
     </div>
     <!-- <div class="ads">
       <div class="Advertisement">
         <h5>Advertisement</h5>
       </div>
     </div> -->
+
+       <!-- <div class="bottom-filter">
+      
+      </div> -->
+
   </div>
 </div>

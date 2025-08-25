@@ -1,3 +1,6 @@
+.hero_section {
+  background-size: cover !important;
+}
 .Weather_info .boxs .Rainfall_probabilty {
   .app-rainFall-item {
     width: 45%;
@@ -45,7 +48,25 @@
     margin: 5px;
     cursor: pointer;
   }
+  .rain {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    .rain_text {
+         font-size: 17px;
+    font-weight: 600;
+    }
+  }
 }
+
+.refresh_icon.spin {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
 
 
 

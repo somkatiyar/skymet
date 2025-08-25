@@ -1,6 +1,6 @@
 <header class="header" id="head">
 <div class="left-section" *ngIf="!isSearchBoxEnable && nativeService.pageTitle">
-  <span class="page-title">{{ nativeService.pageTitle =="Home" ?"Good Morning, Som." :nativeService.pageTitle }}</span>
+  <span class="page-title">{{ nativeService.pageTitle =="Home" ? getGreeting() + ', user' :nativeService.pageTitle }}</span>
 </div>
 
 <div class="center-section" *ngIf="isSearchBoxEnable">
@@ -19,7 +19,7 @@
   <div class="right-section">
     <i class="fas fa-search icon" (click)="isSearchBoxEnable=true" *ngIf="!isSearchBoxEnable"></i>
     <i class="fa-solid fa-circle-xmark" (click)="isSearchBoxEnable=false" *ngIf="isSearchBoxEnable"></i>
-    <i class="fas fa-bell icon"></i>
-    <img src="https://i.pravatar.cc/30" alt="Profile" class="profile-img" />
+    <!-- <i class="fas fa-bell icon"></i> -->
+    <!-- <img src="https://i.pravatar.cc/30" alt="Profile" class="profile-img" /> -->
   </div>
 </header>

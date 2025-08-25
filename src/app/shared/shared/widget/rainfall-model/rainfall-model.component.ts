@@ -179,7 +179,6 @@ export class RainfallModelComponent implements AfterViewInit {
     //  this.filteredModelData = this.getMoodelData('Rainfall');
     this.filteredModelData = this.getImageUrls(8, 'Rainfall_','Rain');
     this.filteredModelData && this.filteredModelData[0] && this.setRange();
-    console.log(this.filteredModelData,'this.filteredModelData');
     
   }
 
@@ -282,7 +281,6 @@ generateImageWinds() {
        const hourStr = String(hour).padStart(2, '0');
     const date = `${hourStr}:00`;
     const url = `${imageUrl}${folderDateString}/Wind/${folderDateString}/${datePart}${date}:00.png`;
-    console.log(url,'iiii');
     
     imageObjects.push({ url,date });
   }
@@ -477,7 +475,12 @@ generateImageWinds() {
         }, 50);
       }
     }
-
-
+  }
+    toggleFullscreen(element: HTMLElement) {
+    if (!document.fullscreenElement) {
+      element.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
   }
 }

@@ -4,6 +4,30 @@
   // height: 100% !important;
   // background: white !important;
   // text-align: start !important;
+  max-width: unset !important;
+}
+.custom{
+    width: 100% !important;
+    // padding-left: 10px !important;
+    // padding-right: 10px !important;
+     padding-left: 0px !important;
+    padding-right: 0px !important;
+    position: relative;
+
+  // .bottom-filter{
+  //     position: absolute;
+  //     opacity: 1;
+  //     border-radius: 250px;
+  //     padding-right: 16px;
+  //     padding-left: 16px;
+  //     background: #000000B2;
+  //     height: 40px;
+  //     width: 90%;
+  //     bottom: 0px;
+  //   }
+    
+  
+
 }
 
 @media (max-width: 450px) {
@@ -54,16 +78,72 @@ p {
     font-weight: 700;
   }
 
-  padding-top: 120px;
+  //padding-top: 120px;
 
   .main_content {
-    height: 90vh; /* or remove */
-    overflow-y: scroll; /* or remove */
     scroll-margin-top: 300px;
     &::-webkit-scrollbar {
       display: none;
     }
     position: relative;
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    top: 80px;
+    left: 15px;
+}
+
+
+  .breadcrumb ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+}
+
+
+.breadcrumb li + li::before {
+  content: ">";
+  margin: 0 8px 0 4px;
+  color: #9aa3af;
+}
+
+
+.crumb-link {
+  text-decoration: none;
+  color: #2b8dfc;              
+}
+
+.crumb-link:hover,
+.crumb-link:focus {
+  text-decoration: underline;
+}
+
+.crumb-current {
+  color: #6b7280;             
+  cursor: default;
+}
+
+
+.breadcrumb li {
+  max-width: 220px;
+}
+.breadcrumb a,
+.breadcrumb .crumb-current {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
     .cover_area {
       position: sticky;
@@ -137,7 +217,7 @@ p {
 
     .main_content {
       // margin-top: 110px;
-      width: 75%;
+      width: 100%;
 
       .breadcrumb {
         display: flex;
@@ -721,7 +801,7 @@ p {
 
 @media (max-width: 550px) {
   .farecast_page{
-    padding-top: 70px;
+    //padding-top: 70px;
 
     .main_content{
       margin-top: 0;

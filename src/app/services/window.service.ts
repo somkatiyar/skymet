@@ -9,7 +9,7 @@ export class WindowService {
    L:any;
    leafletSubject = new Subject()
   mode="development"
-  //mode="production"
+ //mode="production"
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(platformId)) {
       if(this.mode == "production") {

@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild } fr
 import { CurrentDataComponent } from '../current-data/current-data.component';
 import { ForecastDataComponent } from '../forecast-data/forecast-data.component';
 import { HourlyDataComponent } from '../hourly-data/hourly-data.component';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { WindowService } from '../../services/window.service';
 import { SeoService } from '../../services/seo.service';
 import { DataService } from '../../services/data.service';
@@ -21,11 +21,13 @@ import { SunriseComponent } from '../../shared/shared/widget/sunrise/sunrise.com
 import { MoonriseComponent } from '../../shared/shared/widget/moonrise/moonrise.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { UtilityService } from '../../services/utility.service';
+import { createForecastBreadcrumb } from '../../model/schema';
+import { NativeService } from '../../mobile-app/service/native.service';
 @Component({
   selector: 'app-forecast-club',
   standalone: true,
-  imports: [CurrentDataComponent,
-    DewpointComponent, CommonModule,TranslateModule,
+  imports: [CurrentDataComponent, RouterLink,
+    DewpointComponent, CommonModule, TranslateModule,
     SkysenseComponent, SpeedometerComponent,
     HourlyDataComponent, ForecastDataComponent, RainfallComponent,
     UvRaysComponent, WeatherNewsComponent, SunriseComponent, MoonriseComponent],
@@ -33,14 +35,14 @@ import { UtilityService } from '../../services/utility.service';
   styleUrl: './forecast-club.component.scss',
 
 })
-export class ForecastClubComponent implements AfterViewInit,OnDestroy {
+export class ForecastClubComponent implements AfterViewInit, OnDestroy {
   hourlyData: any;
   forecastData: any;
   filteredData: any;
   currentData: any;
   metaInfo: any;
-  buddyDataHourly:any;
-  buddy7:any;
+  buddyDataHourly: any;
+  buddy7: any;
   forecast: any = [];
   addressList: any = [];
   sunriseTime = '6:28 AM';
@@ -62,7 +64,7 @@ export class ForecastClubComponent implements AfterViewInit,OnDestroy {
   todayDay = new Date().getDate();
   recognition: any;
   expanded = false;
-
+  @ViewChild(CurrentDataComponent) CurrentDataComponent!: CurrentDataComponent;
   toggleExpand() {
     this.expanded = !this.expanded;
   }
@@ -71,33 +73,63 @@ export class ForecastClubComponent implements AfterViewInit,OnDestroy {
     this.utilityService.stop()
   }
 
+  speak(text:string){
+    if(this.nativeService.getPlateform() == 'native') {
+      console.log('native platform');
+      
+      this.utilityService.speakNative(text);
+    } else {
+      console.log('web platform');
+      this.utilityService.speak(text);
+    }
+  }
 
+  pause() {
+    if(this.nativeService.getPlateform() == 'native') {
+      this.utilityService.stopNative();
+    } else {
+      this.utilityService.pause();
+    }
+  }
 
-
-
+  
 
 
 
   constructor(private windowService: WindowService,
     public dataService: DataService,
     public utilityService: UtilityService,
+    private route: ActivatedRoute,
+    private nativeService: NativeService,
     private router: Router, private seoService: SeoService,
     private translateService: TranslateService) {
-        
-  this.dataService.selectedLanguages.subscribe(lng => {
-    this.translateService.use(lng);
-  });
+
+    this.dataService.selectedLanguages.subscribe(lng => {
+      this.translateService.use(lng);
+    });
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         this.getForecastData();
         this.seoService.alternativeLinks(event.urlAfterRedirects);
+        this.managetabs(event.urlAfterRedirects);
+        
       }
     });
   }
-    refreshData() {
-        this.dataService.currentPositionObservable.next(true);
-        
+
+  managetabs(url:any) {
+    if (url.includes('hourly-forecast')) {
+      this.selectedTab = 'hourly';
+    } else if (url.includes('weekly-forecast')) {
+      this.selectedTab = '7 days';
+    } else if (url.includes('fifteen-days-forecast')) {
+      this.selectedTab = '15 days';
     }
+  }
+  refreshData() {
+    this.dataService.currentPositionObservable.next(true);
+
+  }
 
   getForecastData() {
     const decodedURL = decodeURIComponent(this.router.url);
@@ -108,13 +140,28 @@ export class ForecastClubComponent implements AfterViewInit,OnDestroy {
       if ((res && res.length > 1) || (res && res['data'] && res['data']['forecast'])) {
         this.forecast = res && res['data'];
         this.setForecast(res && res['data']);
+        this.setCurrentData(res && res['data'])
         this.forecast && this.setForecastMeta();
+        //this.forecast && this.setForecastSchema();
       } else {
         this.addressList = res;
       }
     });
   }
 
+  setCurrentData(data: any) {
+    if (this.windowService.isBrowser()) {
+      let pathSegment = data.metainfo;
+      let path = "india/" + pathSegment?.STATE_NAME.toLowerCase() + '/' + pathSegment?.DISTRICT_NAME.toLowerCase() + '/' + pathSegment?.TEHSIL_ALIAS_NAME.toLowerCase();
+      this.CurrentDataComponent?.setForecast(data, path);
+
+    }
+  }
+  setForecastSchema() {
+    const metaInfo = this.forecast?.metainfo;
+    const breadcrumbData = createForecastBreadcrumb(metaInfo?.STATE_NAME, metaInfo?.DISTRICT_NAME, metaInfo?.TEHSIL_ALIAS_NAME);
+    this.seoService.generateSchema(breadcrumbData);
+  }
 
   setForecastMeta() {
     const url = this.router.url;
@@ -180,13 +227,15 @@ export class ForecastClubComponent implements AfterViewInit,OnDestroy {
     }
   }
 
+
+
   setForecast(newData: any) {
     this.forecastData = this.dataService.bindIcon(newData?.forecast);
     this.hourlyData = this.dataService.bindIcon(newData?.hourly);
     this.hourlyDate = this.dataService.getToOrderDate(this.hourlyData[0].toorder)
     this.currentData = this.dataService.bindIcon([newData?.actual]);
-    this.buddyDataHourly =   newData?.forecast?.[0]?.weatherText;
-    this.buddy7 =   newData?.weatherDescription?.PHRASE;
+    this.buddyDataHourly = newData?.forecast?.[0]?.weatherText;
+    this.buddy7 = newData?.weatherDescription?.PHRASE;
     this.setGrediantHourly();
     this.metaInfo = newData?.metainfo;
     let grediant = this.dataService.getGradient();
@@ -226,14 +275,13 @@ export class ForecastClubComponent implements AfterViewInit,OnDestroy {
       };
     });
 
-    if(this.selectedTab == '7 days' || this.selectedTab =='15 days') {
-      console.log('comming');
-      if(this.windowService.isBrowser()) {
+    if (this.selectedTab == '7 days' || this.selectedTab == '15 days') {
+      if (this.windowService.isBrowser()) {
         setTimeout(() => {
           this.initForecastSwiper();
         }, 200);
       }
-      
+
     }
   }
 
@@ -320,7 +368,6 @@ export class ForecastClubComponent implements AfterViewInit,OnDestroy {
             this.hourlyDate = this.dataService.getToOrderDate(this.hourlyData[event.activeIndex].toorder)
             this.hourlyActiveIndex = event.activeIndex;
             this.todayDay = new Date(this.hourlyData[event.activeIndex].toorder).getDate();
-            console.log(this.todayDay, 'todayDay');
 
           }
         },
@@ -616,8 +663,25 @@ export class ForecastClubComponent implements AfterViewInit,OnDestroy {
     if (this.windowService.isBrowser()) {
       setTimeout(() => {
         this.initForecastSwiper();
+        this.setCurrentData(this.forecast);
       }, 100);
     }
+  }
+
+  manageUrl(tab: any) {
+    let baseUrl = this.router.url;
+    baseUrl = baseUrl
+      .replace(/\/weekly-forecast/g, '')
+      .replace(/\/fifteen-days-forecast/g, '');
+
+    if (tab === 7) {
+      baseUrl += '/weekly-forecast';
+    } else if (tab === 15) {
+      baseUrl += '/fifteen-days-forecast';
+    }
+
+    // replace URL without pushing history entry
+    this.router.navigateByUrl(baseUrl, { replaceUrl: true });
   }
 
 
@@ -625,8 +689,10 @@ export class ForecastClubComponent implements AfterViewInit,OnDestroy {
 
   onTabChange(tab: any) {
     if (this.windowService.isBrowser()) {
+      this.expanded = false;
+      this.manageUrl(tab);
       if (tab == 7) {
-        this.forecastData = this.filteredData.slice(0, 7);
+        this.forecastData = this.filteredData?.slice(0, 7);
       } else {
         this.forecastData = this.filteredData.slice(0, 15);
       }

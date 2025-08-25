@@ -169,7 +169,7 @@ onImageBannerClick(event: MouseEvent) {
   const y = event.clientY - rect.top;  
   const watch = document.getElementById('watch') as HTMLElement;
 
-  console.log('Clicked at:', x, y);
+
  const zone = {
     xMin: 520,
     xMax: 640,
