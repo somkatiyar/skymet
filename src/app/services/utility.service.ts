@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WindowService } from './window.service';
-import { TextToSpeech } from '@capacitor-community/text-to-speech';
+import { NativeService } from '../mobile-app/service/native.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class UtilityService {
   isPaused = false;
   currentText: string | null = null; // Track which text is being read
 
-  constructor(private windowService: WindowService) {
+  constructor(private windowService: WindowService,private nativeService:NativeService) {
     if (this.windowService.isBrowser()) {
       this.synth = window.speechSynthesis;
     }
@@ -69,8 +69,10 @@ export class UtilityService {
   }
 
 
-   async speakNative(text: string) {
+async speakNative(text: string) {
+  if (this.nativeService.getPlateform() === 'native') {
     try {
+      const { TextToSpeech } = await import('@capacitor-community/text-to-speech');
       await TextToSpeech.speak({
         text,
         lang: 'en-US',
@@ -83,12 +85,16 @@ export class UtilityService {
       console.error('TTS Error:', error);
     }
   }
+}
 
-  async stopNative() {
+async stopNative() {
+  if (this.nativeService.getPlateform() === 'native') {
     try {
+      const { TextToSpeech } = await import('@capacitor-community/text-to-speech');
       await TextToSpeech.stop();
     } catch (error) {
       console.error('Stop Error:', error);
     }
   }
+}
 }

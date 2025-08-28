@@ -13,7 +13,7 @@
                 {{ item.description }}
               </h6>
 
-              <div class="watch"[routerLink]="['/content', item.category[0], item.og_url?.split('/').at(-1)]">
+              <div class="watch"[routerLink]="['/content',item.category && item.category[0], item.og_url?.split('/').at(-1)]">
 
                 <h6>Read More</h6>
               </div>

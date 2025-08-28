@@ -3,7 +3,7 @@
     "@type": "Organization",
     "name": "Skymet Weather",
     "url": "https://www.skymetweather.com/",
-    "logo": "https://www.skymetweather.com/assets/img/bblogo.png",
+    "logo": "https://www.skymetweather.com/img/logo.png",
     "address": {
         "@type": "PostalAddress",
         "streetAddress": "Plot No. 10 & 11, Sector-125",
@@ -14,30 +14,51 @@
     }
   
   };
-  export const siteNavigationElement = {
+export const siteNavigationElement = [
+  {
     "@context": "https://schema.org",
     "@type": "SiteNavigationElement",
-    "name": [
-        "Home",
-        "Weather News",
-        "Forecasts",
-        "Maps",
-        "About Us",
-        "Satellite - Himawari",
-        "Satellite - INSAT",
-        "Satellite - SkySat"
-    ],
-    "url": [
-        "https://www.skymetweather.com/",
-        "https://www.skymetweather.com/weather-news/",
-        "https://www.skymetweather.com/forecast/weather/",
-        "https://www.skymetweather.com/map/",
-        "https://www.skymetweather.com/contact-us/",
-        "https://www.skymetweather.com/himawari-latest-satellite-images-of-india/",
-        "https://www.skymetweather.com/weather-satellite-images-of-india/",
-        "https://www.skymetweather.com/high-resolution-satellite-images/"
-    ]
-  };
+    "name": "Home",
+    "url": "https://www.skymetweather.com/"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "Forecast Map",
+    "url": "https://www.skymetweather.com/15-days-rainfall-forecast-for-india"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "News",
+    "url": "https://www.skymetweather.com/forecast/resources"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "Satellite",
+    "url": "https://www.skymetweather.com/himawari-latest-satellite-images-of-india"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "Live Map",
+    "url": "https://www.skymetweather.com/map"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "Advertise with us",
+    "url": "https://www.skymetweather.com/advertise-with-us"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "Contact us",
+    "url": "https://www.skymetweather.com/contact-us"
+  }
+];
+
   export const bredcrumbSchema = [
     {
         "@type": "ListItem",
@@ -86,12 +107,14 @@ export function createForecastBreadcrumb(state: string, district: string, tehsil
       {
         "@type": "ListItem",
         "position": 1,
-        "name": state
+        "name": state,
+        "item":`https://www.skymetweather.com/state-weather/${state.toLowerCase()}`
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": district
+        "name": district,
+        "item":`https://www.skymetweather.com/weather/forecast/india/${state.toLowerCase()}/${district.toLowerCase()}`
        
       },
       {

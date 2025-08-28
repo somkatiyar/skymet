@@ -266,16 +266,14 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
 
   async addCloudImage(L: any) {
     try {
-      var imageUrl = "./img/cloudimage.jpg";
+      var imageUrl = "./img/cloud_test.png";
       var imageBounds = new L.LatLngBounds(new L.LatLng(36.324355, 97.56348), new L.LatLng(6.274355, 67.21348));
       var cloudImage = L.imageOverlay(imageUrl, imageBounds);
       this.layerControl.addOverlay(cloudImage, 'Cloud');
       this.layerList[3].isActive = true
     } catch (error) {
-
       this.layerList[3].isActive = false
     }
-
   }
 
   plotIndiaLayer(L: any) {

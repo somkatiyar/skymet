@@ -1,0 +1,34 @@
+<div class="container-box">
+  <div class="title">
+      Where should we show the weather?
+  </div>
+  <div class="subtitle">
+      Enter a city or use your current location. You can change this anytime in Settings.
+  </div>
+
+  <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <form [formGroup]="searchForm">
+          <input type="text" id="search-input" placeholder="Search..." 
+                 (input)="onSearch($event)" formControlName="searchCtrl"/>
+      </form>
+      <i class="fas fa-times clear-icon" id="clear-btn" (click)="clearInput()"></i>
+
+  
+  </div>
+    <div class="listing" *ngIf="locations && locations.length" #locationList>
+          <div class="list">
+              <p *ngFor="let item of locations" (click)="getLocation(item)">
+                {{ item["name_en"].split(",")[0] =='' ? 
+                   item["name_en"].split(",").slice(1,4).join(",") : item["name_en"] }}
+              </p>
+          </div>
+      </div>
+  <div class="or">OR</div>
+  <div class="loc">
+      <i class="fas fa-map-marker-alt location-icon loc-icon"></i>
+      <div class="current-loc" (click)="getPositionNative(true)">
+          Use my current location
+      </div>
+  </div>
+</div>

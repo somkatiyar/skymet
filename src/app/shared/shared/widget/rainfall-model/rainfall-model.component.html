@@ -5,8 +5,8 @@
         (click)="onTabChange('rainfall','Rainfall_','Rain')">Rainfall</button>
       <button class="tab" [ngClass]="selectedTab=='temperature'?'active':''"
         (click)="onTabChange('temperature','daily_temp_india_','Temp')">Temperature</button>
-      <button class="tab" [ngClass]="selectedTab=='winds'?'active':''" 
-      (click)="onTabChange('winds','frame_','Wind')">Wind
+      <button class="tab" [ngClass]="selectedTab=='winds'?'active':''"
+        (click)="onTabChange('winds','frame_','Wind')">Wind
         speed</button>
     </div>
 
@@ -22,33 +22,35 @@
       <div class="topbuttons">
         <div class="cards">
           <div class="buttons">
-            <button class="button" [ngClass]="viewType === 'swiper' ? 'active' : ''" (click)="viewType='swiper';refreshTab()">
+            <button id="swiper_btn" class="button" [ngClass]="viewType === 'swiper' ? 'active' : ''"
+              (click)="viewType='swiper';refreshTab()">
               <img src="/img/map.svg" alt="" />
             </button>
-            <button class="button" [ngClass]="viewType === 'list' ? 'active' : ''" (click)="viewType='list';refreshTab()">
+            <button class="button" [ngClass]="viewType === 'list' ? 'active' : ''"
+              (click)="viewType='list';refreshTab()">
               <img src="/img/menu4.svg" alt="" />
             </button>
           </div>
         </div>
         <div class="textContent" *ngIf="dataService.getDeviceType() == 'desktop'">
 
-      <div class="textMain">
-        Showing result from <span>{{dateRange[0] && this.dateRange[0]}} 2025</span> -
-        <span>{{this.dateRange[1] && this.dateRange[1]}} 2025</span>
-      </div>
+          <div class="textMain">
+            Showing result from <span>{{dateRange[0] && this.dateRange[0]}} 2025</span> -
+            <span>{{this.dateRange[1] && this.dateRange[1]}} 2025</span>
+          </div>
         </div>
         <!-- <div class="contentCenter">
           <p>12 August 2024</p>
         </div> -->
 
         <div class="cards thirdButtonGroup">
-          <div class="buttons singleButton" *ngIf="dataService.getDeviceType() == 'mobile' || viewType === 'list'">
+          <!-- <div class="buttons singleButton" *ngIf="dataService.getDeviceType() == 'mobile' || viewType === 'list'">
             <button class="button" (click)="openFullscreen()">
               <img src="/img/expend.svg" alt="" />
             </button>
-          </div>
+          </div> -->
           <div class="buttons singleButton" *ngIf="dataService.getDeviceType() == 'mobile' || viewType === 'list'">
-            <button class="button" (click)="viewType=='swiper'? whatsappImageShare() : shareFiles()">
+            <button class="button" (click)="viewType=='swiper'? whatsappImageShare() : shareUrl()">
               <img src="/img/whatsapp.svg" alt="" />
             </button>
           </div>
@@ -90,22 +92,20 @@
         </div>
       </div> -->
 
-      <div class="swiper-ad-container" *ngIf="viewType=='swiper'" #fullscreenEl>
+      <div class="swiper-ad-container" *ngIf="viewType=='swiper'">
 
         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
           <div class="swiper-wrapper">
             <div class="swiper-slide swiper-slider-item" (mouseenter)="showOverlay(i)" (mouseleave)="hideOverlay()"
               *ngFor="let item of filteredModelData; let i = index">
-              <img [src]="item.url" [id]="'main' + i" [alt]="item.url" alt="model image"
+              <img (click)="openFullscreen(i)" [src]="item.url" [id]="'main' + i" [alt]="item.url" alt="model image"
                 [ngStyle]="{
-                  'object-fit': (selectedTab === 'insat' || selectedTab === 'himawari') ?  'cover' : 'contain',
-                }" />
+                    'object-fit': 'contain'
+                  }" />
               <div class="overlay-text" *ngIf="dataService.getDeviceType() == 'desktop'"
                 [ngStyle]="{ display: hoveredIndex === i ? 'block' : 'none' }">
-
-                <div class="fullmap" (click)="fullScreenImage(i)">{{'View in full screen' | translate}}</div>
-
-                <div class="fullmap" (click)="whatsappImageShare()">{{'Share on Whatsapp' | translate}}</div>
+                <div class="fullmap" (click)="openFullscreen(i)">{{'View in full screen' | translate}}</div>
+                <div class="fullmap" (click)="whatsappImageShare(i)">{{'Share on Whatsapp' | translate}}</div>
               </div>
             </div>
           </div>
@@ -117,9 +117,15 @@
           </div>
         </div>
         <div class="ad-section" *ngIf="dataService.getDeviceType() == 'desktop'">
-          <img
+          <!-- <img
             src="https://static.semrush.com/blog/uploads/media/8b/06/8b063f735e2192a61c6861f4755ffc5d/what-is-digital-advertising.svg"
-            alt="Ad Banner" />
+            alt="Ad Banner" /> -->
+                        <div appAdsense
+      [adClient]="'ca-pub-6993696142089445'"
+      [adSlot]="'1044022650'"
+      [adFormat]="'auto'"
+      [fullWidthResponsive]="'true'">
+      </div>
         </div>
       </div>
 
@@ -128,23 +134,50 @@
           <div class="swiper-slide swiper-slider-thumb" [id]="'thumb' + index"
             *ngFor="let item of filteredModelData; let index = index">
             <h5>{{item.date}}</h5>
-            <img [src]="item.url" alt="model image"/>
+            <img [src]="item.url" alt="model image" />
           </div>
         </div>
       </div>
 
       <div *ngIf="viewType=='list'">
         <div class="image-grid">
-          <div class="image-item" *ngFor="let item of filteredModelData" (click)="toggleImageSelection(item.url)">
-            <img [src]="item.url" [class.selected]="isSelected(item.url)" alt="model image"/>
+          <div class="image-item" *ngFor="let item of filteredModelData;let i=index" (click)="toggleImageSelection(i);">
+            <img [src]="item.url" alt="model image" />
           </div>
         </div>
       </div>
 
-    </div>
-    <div class="writable">SkySat: Forecast Maps for pan-India, powered by Skymet’s own next-gen weather model, engineered for India’s complex climate with customized region-specific calibration, high-res physics and aerosol-aware radiation modeling. Find here 15 days weather forecast images generated every day for Rain, Heat, Wind and Cloud cover. Redefining weather forecasts for India with precision and real-time accuracy.</div>
 
-          <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
+
+
+    </div>
+    <div class="writable">SkySat: Forecast Maps for pan-India, powered by Skymet’s own next-gen weather model,
+      engineered for India’s complex climate with customized region-specific calibration, high-res physics and
+      aerosol-aware radiation modeling. Find here 15 days weather forecast images generated every day for Rain, Heat,
+      Wind and Cloud cover. Redefining weather forecasts for India with precision and real-time accuracy.</div>
+
+    <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
 
   </div>
 </div>
+
+<!-- isFullScreen swiper -->
+<div class="container" #fullscreenEl [hidden]="!isFullScreen">
+
+  <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper fullscreenSwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide swiper-slider-item" *ngFor="let item of filteredModelData; let i = index">
+        <img [src]="item.url" [id]="'main' + i" [alt]="item.url" alt="model image" [ngStyle]="{
+                    'object-fit' : 'contain',
+                  }" />
+
+      </div>
+    </div>
+    <div class="swiper-button-next">
+    </div>
+    <div class="swiper-button-prev">
+    </div>
+  </div>
+
+</div>
+<!-- end -->

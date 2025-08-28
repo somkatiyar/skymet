@@ -1,0 +1,28 @@
+.container-box {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center; 
+  background: #fff; 
+}
+
+.logo {
+  //width: 100px;
+  height: auto;
+  animation: growRotate 2s ease-in-out forwards;
+}
+
+
+@keyframes growRotate {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}

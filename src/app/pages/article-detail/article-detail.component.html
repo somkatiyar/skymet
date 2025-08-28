@@ -93,7 +93,7 @@
                   [src]="content.image.url"
                   [alt]="content.image.alternativeText"
                 />
-                <ng-container *ngIf="post?.caption">
+                <ng-container *ngIf="post?.caption || content?.image?.caption">
                   <p *ngSwitchCase="'image'"  class="credit" >{{content.image.caption}}</p>
                 </ng-container>
               

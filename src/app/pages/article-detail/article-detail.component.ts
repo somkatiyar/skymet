@@ -90,7 +90,7 @@ export class ArticleDetailComponent {
 
    async seoConfig(post:any) {
      this.seoService.setArticleMetaTags(await this.formatPostForSEO(post));
-    let schema = this.createDynamicSchema(post);
+    let schema = this.createDynamicSchema(post);        
     this.seoService.generateSchema(schema);
   }
 
@@ -119,38 +119,36 @@ export class ArticleDetailComponent {
   }
 
   createDynamicSchema(post:any) {
-  return `
-{
-  "@context": "https://schema.org",
-  "@type": "NewsArticle",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "${post.og_url}"
-  },
-  "headline": "${post.title}",
-  "description": "${post.description}",
-  "image": [
-    "${post.thumbnail_image}"
-  ],
-  "author": {
-    "@type": "Organization",
-    "name": "Skymet Weather",
-    "url": "https://www.skymetweather.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Skymet Weather",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.skymetweather.com/logo.png",
-      "width": 200,
-      "height": 60
+    let obj ={
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${post.og_url}`
+    },
+    "headline": `${post.title}`,
+    "description": `${post.description}`,
+    "image": [
+      `${post.thumbnail_image}`
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Skymet Weather",
+      "url": "https://www.skymetweather.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Skymet Weather",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.skymetweather.com/logo.png",
+        "width": 200,
+        "height": 60
+      }
+    },
+    "datePublished": `${post.DateTime}`,
+    "dateModified": `${post.updatedAt}`
     }
-  },
-  "datePublished": "${post.DateTime}",
-  "dateModified": "${post.updatedAt}"
-}`
-
-
-  }
+    return obj;
+    }
 }

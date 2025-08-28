@@ -20,6 +20,8 @@ import { UserInfoComponent } from './mobile-app/user-info/user-info.component';
 import { WelcomeComponent } from './mobile-app/welcome/welcome.component';
 import { TermAndConditionsComponent } from './pages/term-and-conditions/term-and-conditions.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { SplashComponent } from './mobile-app/splash/splash.component';
+import { LocationComponent } from './mobile-app/location/location.component';
 
 
 export const routes: Routes = [
@@ -30,12 +32,14 @@ export const routes: Routes = [
    
        // app route
     {path:'login',component:LoginComponent},
+    {path:'splash',component:SplashComponent},
+    {path:'location',component:LocationComponent},
     {path:'otp-verification', component:OtpVerificationComponent},
     {path:'user-info', component:UserInfoComponent},
      {path:'welcome', component:WelcomeComponent},
     { path:'resources', component: ResourcesComponent},
     { path:'contact-us', component: AboutUsComponent},
-     { path:'map', component: LiveMapComponent},
+    { path:'map', component: LiveMapComponent},
     { path:'state-weather/:state', component: StateWeatherComponent},
 
 // district location

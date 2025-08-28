@@ -995,6 +995,12 @@ export class AppComponent implements AfterViewInit {
       //  } else {
       //   this.router.navigate(['login']);
       //  }
+      this.router.navigate(['location']);
+      if(this.windowService.isBrowser()) {
+        setTimeout(() => {
+          this.router.navigate(['location']);
+        }, 3000);
+      }
      } 
      if(this.windowService.isBrowser()) {
       if(!localStorage.getItem('location')) {

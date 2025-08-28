@@ -8,8 +8,8 @@ import { NavigationEnd, Router } from '@angular/router';
   providedIn: 'root'
 })
 export class NativeService {
-  headerExcludeUrl: string[] = ['/login', '/user-info', '/otp-verification','/welcome','/map'];
-  footerExcludeUrl:string[]=['/login', '/user-info', '/otp-verification','/welcome','/map']
+  headerExcludeUrl: string[] = ['/login', '/user-info', '/otp-verification','/welcome','/map','/splash','/location'];
+  footerExcludeUrl:string[]=['/login', '/user-info', '/otp-verification','/welcome','/map','/splash','/location']
   isHeader:boolean= true;
   isFooter:boolean = true;
   lngCode = ['hi', 'mr', 'gu', 'en', 'ta', 'te', 'kn', 'ml', 'bn', 'pa'];
@@ -64,12 +64,12 @@ export class NativeService {
    urlConfig() {
     this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd) {        
-        if(this.headerExcludeUrl.includes(this.router.url)) {
+        if(this.headerExcludeUrl.includes(this.router.url) || this.headerExcludeUrl.includes(this.router.url.split('?')[0])) {
           this.isHeader = false;
         } else {
           this.isHeader = true;
         }
-        if(this.footerExcludeUrl.includes(this.router.url)) {
+        if(this.footerExcludeUrl.includes(this.router.url) || this.footerExcludeUrl.includes(this.router.url.split('?')[0])) {
           this.isFooter = false;
         } else {
           this.isFooter = true;

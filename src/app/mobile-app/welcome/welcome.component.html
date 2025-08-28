@@ -1,6 +1,20 @@
 <div class="welcome" [ngStyle]="backgroundStyle">
     <div class="content">
-        <div class="title">{{welcomeText}},{{nativeService.getUserInfo()?.name ? nativeService.getUserInfo()?.name :"User"}}</div>
+        <!-- <div class="title">{{welcomeText}},{{nativeService.getUserInfo()?.name ? nativeService.getUserInfo()?.name :"User"}}</div> -->
+        <div class="title">{{welcomeText}},Current Forecast</div>
+        <div class="weather">
+            <div class="icon">
+                <img [src]="weatherData && weatherData?.iconImage" alt="">
+            </div>
+            <div class="temp-wrapper">
+                <div class="temp">{{weatherData && weatherData?.tmp}} °C</div>
+                <div class="date">{{weatherData && weatherData?.displaytime}}</div>
+            </div>
+        </div>
+        <div class="advisory">
+            {{advisory?.weatherText}}
+        </div>
+
         <div class="button" routerLink="/">
             <button >Lets explore the day</button>
         </div>

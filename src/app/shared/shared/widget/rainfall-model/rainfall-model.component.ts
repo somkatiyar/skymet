@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import {
   Autoplay,
   Manipulation,
@@ -13,18 +13,20 @@ import { DataService } from '../../../../services/data.service';
 import { SeoService } from '../../../../services/seo.service';
 import { WeatherNewsComponent } from '../../../../pages/weather-news/weather-news.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AdsenseDirective } from '../../directive/ads.directive';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-rainfall-model',
   standalone: true,
-  imports: [CommonModule, WeatherNewsComponent, TranslateModule],
+  imports: [CommonModule, WeatherNewsComponent, TranslateModule, AdsenseDirective],
   templateUrl: './rainfall-model.component.html',
   styleUrl: './rainfall-model.component.scss',
 })
 export class RainfallModelComponent implements AfterViewInit {
   rainfallMainSwiper?: Swiper;
   rainfallthumbSwiper?: Swiper;
+  rainfallMainSwiperFullScreen?: Swiper;
   activeIndex: number = 0;
   modelData: any = [
     {
@@ -161,13 +163,15 @@ export class RainfallModelComponent implements AfterViewInit {
   filteredModelData: any = [];
   selectedTab: string = 'rainfall';
   viewType: any = 'swiper';
+
   weatherNewsHeaderConfig: any = {
     title: "Suggested Resources",
     isLanguagesSelecter: false,
     isFooterView: true,
     isHeaderView: false
   }
-  dateRange:any =[]
+  dateRange: any = [];
+  isFullScreen: boolean = false;
   constructor(private windowService: WindowService,
     private seoService: SeoService,
     private translateService: TranslateService,
@@ -177,14 +181,15 @@ export class RainfallModelComponent implements AfterViewInit {
       this.translateService.use(lng);
     });
     //  this.filteredModelData = this.getMoodelData('Rainfall');
-    this.filteredModelData = this.getImageUrls(8, 'Rainfall_','Rain');
+    this.filteredModelData = this.getImageUrls(8, 'Rainfall_', 'Rain');
+
     this.filteredModelData && this.filteredModelData[0] && this.setRange();
-    
+
   }
 
   setRange() {
-    this.dateRange[0]= this.filteredModelData[0].date;
-    this.dateRange[1] = this.filteredModelData[this.filteredModelData.length-1].date; 
+    this.dateRange[0] = this.filteredModelData[0].date;
+    this.dateRange[1] = this.filteredModelData[this.filteredModelData.length - 1].date;
   }
 
   getMoodelData(modelType: string) {
@@ -195,7 +200,7 @@ export class RainfallModelComponent implements AfterViewInit {
     })
   }
 
-  getImageUrls(days: any, fileName: any,weatherParam:any) {
+  getImageUrls(days: any, fileName: any, weatherParam: any) {
     const urls = [];
     const now = new Date();
     for (let i = 0; i < days; i++) {
@@ -203,9 +208,9 @@ export class RainfallModelComponent implements AfterViewInit {
       folderDate.setDate(folderDate.getDate() - 1);
       const folderDateString = folderDate.toISOString().split('T')[0].replace(/-/g, '');
       const imageDate = new Date(now);
-      imageDate.setDate(imageDate.getDate() + i-1);
-      const imageDateString = imageDate.toISOString().split('T')[0].replace(/-/g, '');       
-      const imageUrl = `https://www.skymetweather.com/themes/skymet/images/gfs/new/${folderDateString}/${weatherParam}/daily/${fileName}${imageDateString}.png`;    
+      imageDate.setDate(imageDate.getDate() + i - 1);
+      const imageDateString = imageDate.toISOString().split('T')[0].replace(/-/g, '');
+      const imageUrl = `https://www.skymetweather.com/themes/skymet/images/gfs/new/${folderDateString}/${weatherParam}/daily/${fileName}${imageDateString}.png`;
       urls.push(this.formatForecastMapDate(imageUrl, fileName));
     }
     return urls;
@@ -233,9 +238,9 @@ export class RainfallModelComponent implements AfterViewInit {
 
   }
 
-  onTabChange(tab: any, fileName: any,param:any) {
+  onTabChange(tab: any, fileName: any, param: any) {
     if (this.windowService.isBrowser()) {
-      this.filteredModelData = tab == 'winds' ? this.generateImageWinds() : this.getImageUrls(8, fileName,param);
+      this.filteredModelData = tab == 'winds' ? this.generateImageWinds() : this.getImageUrls(8, fileName, param);
       this.filteredModelData && this.filteredModelData[0] && this.setRange();
       this.selectedTab = tab.toLowerCase();
       setTimeout(() => {
@@ -243,49 +248,49 @@ export class RainfallModelComponent implements AfterViewInit {
       }, 50);
     }
 
-    tab == 'rainfall' &&   this.seoService.setMetaTags('satellite', 'Rainfall');
-    tab == 'temperature' &&   this.seoService.setMetaTags('satellite', 'temperature');
-    tab == 'winds' &&   this.seoService.setMetaTags('satellite', 'winds');
+    tab == 'rainfall' && this.seoService.setMetaTags('satellite', 'Rainfall');
+    tab == 'temperature' && this.seoService.setMetaTags('satellite', 'temperature');
+    tab == 'winds' && this.seoService.setMetaTags('satellite', 'winds');
     this.seoService.setSchema('satellite');
     this.refreshUrl(tab);
   }
 
 
-    refreshUrl(tab: any) {
+  refreshUrl(tab: any) {
     if (tab == 'rainfall') {
       this.location.replaceState(
         `15-days-rainfall-forecast-for-india`
       );
-      
+
     } else if (tab == 'temperature') {
       this.location.replaceState(
         `15-days-temperature-forecast-for-india`
       );
-    } else if(tab == 'winds') {
+    } else if (tab == 'winds') {
       this.location.replaceState(
         `24-hours-winds-forecast-for-india`
       );
     }
   }
 
-generateImageWinds() {
-  var imageUrl = "https://www.skymetweather.com/themes/skymet/images/gfs/new/";
-  const now = new Date();
+  generateImageWinds() {
+    var imageUrl = "https://www.skymetweather.com/themes/skymet/images/gfs/new/";
+    const now = new Date();
     const folderDate = new Date(now);
     folderDate.setDate(folderDate.getDate() - 1);
     const folderDateString = folderDate.toISOString().split('T')[0].replace(/-/g, '');
-     const datePart = `frame_${folderDateString}_`;
- // const datePart = 'frame_20250724_';
-  const imageObjects = [];
-   for (let hour = 0; hour < 24; hour++) {
-       const hourStr = String(hour).padStart(2, '0');
-    const date = `${hourStr}:00`;
-    const url = `${imageUrl}${folderDateString}/Wind/${folderDateString}/${datePart}${date}:00.png`;
-    
-    imageObjects.push({ url,date });
+    const datePart = `frame_${folderDateString}_`;
+    // const datePart = 'frame_20250724_';
+    const imageObjects = [];
+    for (let hour = 0; hour < 24; hour++) {
+      const hourStr = String(hour).padStart(2, '0');
+      const date = `${hourStr}:00`;
+      const url = `${imageUrl}${folderDateString}/Wind/${folderDateString}/${datePart}${date}:00.png`;
+
+      imageObjects.push({ url, date });
+    }
+    return imageObjects;
   }
-  return imageObjects;
-}
 
 
 
@@ -295,6 +300,7 @@ generateImageWinds() {
 
   ngAfterViewInit(): void {
     this.initRainfallSwiper();
+    this.initfullScreenSwiper();
     this.seoService.setMetaTags('satellite', 'Rainfall');
     this.seoService.setSchema('satellite');
   }
@@ -310,7 +316,7 @@ generateImageWinds() {
         //spaceBetween: 10,
         slidesPerView: 4,
         freeMode: true,
-        autoplay: true,
+        autoplay: false,
         breakpoints: {
           1024: {
             slidesPerView: 13,
@@ -329,7 +335,7 @@ generateImageWinds() {
 
       this.rainfallMainSwiper = new Swiper('.mySwiper2', {
         // loop: true,
-        autoplay: true,
+        autoplay: false,
         // spaceBetween: 10,
         breakpoints: {
           1024: {
@@ -344,6 +350,7 @@ generateImageWinds() {
           slideChange: (event) => {
             this.activeIndex = event.activeIndex;
 
+
           }
         },
         thumbs: {
@@ -352,32 +359,82 @@ generateImageWinds() {
       });
     }
   }
+  initfullScreenSwiper() {
+    if (this.windowService.isBrowser()) {
+      this.rainfallMainSwiperFullScreen?.destroy(true, true);
+
+
+      this.rainfallMainSwiperFullScreen = new Swiper('.fullscreenSwiper', {
+        // loop: true,
+        autoplay: false,
+        // spaceBetween: 10,
+        breakpoints: {
+          1024: {
+            slidesPerView: 1,
+          }
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        on: {
+          slideChange: (event) => {
+            this.activeIndex = event.activeIndex;
+
+
+          }
+        }
+      });
+    }
+  }
 
   hoveredIndex: number | null = 1;
 
   showOverlay(index: number): void {
+
     this.hoveredIndex = index;
     this.rainfallMainSwiper?.autoplay.stop();
     this.rainfallthumbSwiper?.autoplay.stop();
+
+
   }
 
   hideOverlay(): void {
+
     this.hoveredIndex = null;
     this.rainfallMainSwiper?.autoplay.start();
     this.rainfallthumbSwiper?.autoplay.start();
+
+
   }
 
-  openFullscreen() {
+  @ViewChild('fullscreenEl', { static: false }) fullscreenEl!: ElementRef<HTMLElement>;
+  @HostListener('document:fullscreenchange', ['$event'])
+  onFullscreenChange(event: Event) {
     if (this.windowService.isBrowser()) {
-      var elem: any = this.viewType == 'swiper' ?
-        document.getElementById('main' + this.activeIndex) :
-        document.querySelector('.image-grid');
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
+      if (document.fullscreenElement) {
+        this.isFullScreen = true;
+
+        console.log('Entered fullscreen:');
+      } else {
+        // this.initRainfallSwiper();
+        this.isFullScreen = false;
+        this.rainfallMainSwiper?.slideTo(this.activeIndex);
+        console.log('Exited fullscreen');
+
+      }
+    }
+
+  }
+  openFullscreen(index?: number): void {
+    if (this.windowService.isBrowser()) {
+
+      if (!document.fullscreenElement) {
+        this.rainfallMainSwiperFullScreen?.slideTo(index || 0);
+        this.fullscreenEl.nativeElement.requestFullscreen();
+
+      } else {
+        document.exitFullscreen();
       }
     }
   }
@@ -400,31 +457,31 @@ generateImageWinds() {
     }
   }
 
-  whatsappImageShare() {
-    if (!this.windowService.isBrowser()) return;
+  whatsappImageShare(index?: number): void {
+    if (this.windowService.isBrowser()) {
+      let imageUrl: string | undefined;
+      imageUrl = this.filteredModelData[index ? index : this.activeIndex]?.url;
+      let date = this.filteredModelData[index ? index : this.activeIndex]?.date;
 
-    const imageUrl = this.filteredModelData?.[this.activeIndex]?.imageUrl;
-    if (!imageUrl) {
-      alert('No image found to share.');
-      return;
+      if (!imageUrl) {
+        alert('No image found to share.');
+        return;
+      } else {
+        const message = encodeURIComponent(`Check the ${this.selectedTab} forecast for ${date}.Click on the link ${window.location.href} to check more details- Team Skymet`);
+        const whatsappUrl = `https://wa.me/?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+      }
     }
-
-    // Just open WhatsApp link with image URL
-    const message = encodeURIComponent(`Check this satellite image: ${imageUrl}`);
-    const whatsappUrl = `https://wa.me/?text=${message}`;
-    window.open(whatsappUrl, '_blank');
   }
 
   selectedImages: string[] = [];
 
-  toggleImageSelection(url: string) {
-
-    const index = this.selectedImages.indexOf(url);
-    if (index > -1) {
-      this.selectedImages.splice(index, 1);
-    } else {
-      this.selectedImages.push(url);
+  toggleImageSelection(index: number): void {
+    if (this.windowService.isBrowser()) {
+      this.openFullscreen(index)
     }
+
+
   }
 
   isSelected(url: string): boolean {
@@ -433,16 +490,18 @@ generateImageWinds() {
 
 
 
-  async shareFiles() {
-    const urls = this.selectedImages;
-    if (!urls.length) {
-      alert('No images selected.');
-      return;
+  async shareUrl() {
+    if (this.windowService.isBrowser()) {
+      const urls = window.location.href ? [window.location.href] : [];
+      if (!urls.length) {
+        alert('No images selected.');
+        return;
+      } else {
+        const message = encodeURIComponent(`Check the ${this.selectedTab} forecast from ${this.dateRange[0]} to ${this.dateRange[1]}.Click on the link ${window.location.href} to check more details- Team Skymet`);
+        const whatsappUrl = `https://wa.me/?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+      }
     }
-
-    const message = encodeURIComponent(`Check these satellite images:\n${urls.join('\n')}`);
-    const whatsappUrl = `https://wa.me/?text=${message}`;
-    window.open(whatsappUrl, '_blank');
   }
   scale = 1;
   zoomIn() {
@@ -476,11 +535,13 @@ generateImageWinds() {
       }
     }
   }
-    toggleFullscreen(element: HTMLElement) {
-    if (!document.fullscreenElement) {
-      element.requestFullscreen();
-    } else {
-      document.exitFullscreen();
+  toggleFullscreen(element: HTMLElement) {
+    if (this.windowService.isBrowser()) {
+      if (!document.fullscreenElement) {
+        element.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
     }
   }
 }

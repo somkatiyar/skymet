@@ -56,6 +56,7 @@ selectedFilter:any = 1;
 selectedLng:any;
 
 sliderArticles=[
+   {category:'monsoon-update',slug:"world-water-week-2025-delhi-mumbai-chennai-india-urban-water-crisis-non-revenue-water-climate-action-know-what-is-water-week"},
   {category:'la-nina',slug:"nino-indices-indian-ocean-dipole-mjo-enso-neutral-la-nina-indian-monsoon-forecast-2025-rainfall-impact-on-agriculture"},
   {category:'climate-change',slug:"cloudburst-glacier-collapse-in-kullu-shimla-lahaul-spiti-uttarkashi-arakot-nainital-himalayas-know-why-extreme-rainfall-climate-change-and-disaster-risk-is-affecting-jammu-kashmir-himachal-pradesh-and-uttarakhand "},
   {category:'climate-change',slug:"sheltering-stray-dogs-in-india-extreme-weather-impact-heatwave-cold-wave-monsoon-deaths-animal-shelters-neuter-vaccinate-release-rabies-prevention-public-safety "},
@@ -66,6 +67,9 @@ sliderArticles=[
   {category:'monsoon-update',slug:"mumbai-water-supply-future-beyond-monsoon-dependence-rainfall-catchment-lakes-conservation-urban-planning "},
   {category:'climate-change',slug:"is-the-global-mean-temperature-rise-still-the-right-lens-to-view-the-climate-crisis"},
   {category:'climate-change',slug:"moon-phases-explained-impact-on-weather-climate-truths-and-tracking-from-india "},
+  {category:'climate-change',slug:"national-space-day-2025-celebrates-aryabhatta-to-gaganyaan-highlighting-india-space-achievements-isro-missions-space-technology-in-agriculture-and-climate-resilience"},
+  {category:'climate-change',slug:"rare-black-moon-august-23-2025-meaning-science-stargazing-new-moon-crescent"},
+ 
 ]
   constructor(
     private windowService: WindowService,
@@ -190,7 +194,6 @@ newsText() {
         this.postLimit += 3;
       } else {
        let slug = this.filters[this.selectedFilter-1].slug;
-       console.log(slug,'oooo');
        this.filterNews(slug);
        this.postLimit += 3;
        
@@ -247,8 +250,7 @@ newsText() {
 
   forkJoin(requests).subscribe({
     next: (results) => {
-      console.log('All articles loaded:', results);
-      this.allArticles = results; // save in array for UI
+      this.allArticles = results;
 
    
   },
@@ -265,10 +267,10 @@ newsText() {
         this.resourcesSwiper.destroy(true, true);
       }
       this.resourcesSwiper = new Swiper('.resourcesSwiper', {
-        autoplay: {
-          delay: 10000, // Time each slide stays before moving to next (5s)
-          disableOnInteraction: false
-        },
+        // autoplay: {
+        //   delay: 10000, 
+        //   disableOnInteraction: false
+        // },
         effect: 'fade',
         slidesPerView: 1,
         pagination: {
@@ -448,10 +450,12 @@ newsText() {
   }
 
    shareOnWhatsApp(item: any): void {
-    const relativePath = `/content/${item.categorySlug[0]}/${item.titleSlug}`;
+    if(this.windowService.isBrowser()) {
+   const relativePath = `/content/${item.categorySlug[0]}/${item.titleSlug}`;
     const absoluteUrl = `${window.location.origin}${relativePath}`;
     const encodedText = encodeURIComponent(`Check this out: ${absoluteUrl}`);
     const whatsappUrl = `https://wa.me/?text=${encodedText}`;
     window.open(whatsappUrl, '_blank');
+    }
   }
 }

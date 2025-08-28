@@ -6,12 +6,44 @@
         align-items: center;
         height: 100%;
         justify-content: center;
-       gap: 30px;
+        gap: 10px;
 
         .title {
           font-size: 25px;
         }
+        .weather{
+          display: flex;
+          flex-flow: row;
+          .icon{
+            width: 142px;
+          }
+          .temp-wrapper{
+            display: flex;
+            flex-flow: column;
+            gap: 10px;
+            .temp{
+              font-size: 24px;
+            }
+            .date{
+
+            }
+          }
+        }
+        .advisory {
+            padding-left: 16px;
+            padding-right: 16px;
+            font-size: 16px;
+            line-clamp: 4;
+            color: #736969;
+            block-size: 4.8em;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            overflow: hidden;
+            text-align: center;
+        }
         button{
+                margin-top: 90px;
                 opacity: 1;
                 border-radius: 250px;
                 padding-top: 12px;

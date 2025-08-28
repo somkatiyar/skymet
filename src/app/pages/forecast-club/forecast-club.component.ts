@@ -71,6 +71,7 @@ export class ForecastClubComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.utilityService.stop()
+    //this.utilityService.stopNative()
   }
 
   speak(text:string){
@@ -131,18 +132,32 @@ export class ForecastClubComponent implements AfterViewInit, OnDestroy {
 
   }
 
+cleanForecastUrl(url:any) {
+  const patterns = [
+    'extended-forecast',
+    'fifteen-days-forecast',
+    'weekly-forecast',
+    'hourly-forecast',
+    'current-weather'
+  ];
+  const regex = new RegExp(`\/(${patterns.join('|')})(?=\/|$)`, 'g');
+  let cleaned = url.replace(regex, '');
+  cleaned = cleaned.split('?')[0];
+  return cleaned;
+}
+
   getForecastData() {
     const decodedURL = decodeURIComponent(this.router.url);
-    const pathAfterIndia = decodedURL.split("/india/")[1];
+    const pathAfterIndia = decodedURL.split("/india/")[1];    
     this.forecast = [];
     this.addressList = [];
-    this.dataService.weatherForecast("india/" + pathAfterIndia).then((res) => {
+    this.dataService.weatherForecast("india/" +  this.cleanForecastUrl(pathAfterIndia)).then((res) => {
       if ((res && res.length > 1) || (res && res['data'] && res['data']['forecast'])) {
         this.forecast = res && res['data'];
         this.setForecast(res && res['data']);
         this.setCurrentData(res && res['data'])
         this.forecast && this.setForecastMeta();
-        //this.forecast && this.setForecastSchema();
+        this.forecast && this.setForecastSchema();
       } else {
         this.addressList = res;
       }
@@ -158,9 +173,59 @@ export class ForecastClubComponent implements AfterViewInit, OnDestroy {
     }
   }
   setForecastSchema() {
+    
     const metaInfo = this.forecast?.metainfo;
+    var type;
+    var data;
+    if(this.selectedTab == 'hourly') {
+      type= 'Hourly';
+      data = this.forecast?.hourly;
+    }else if(this.selectedTab == '7 days') {
+      type= '7 Days';
+      data = this.forecast?.forecast?.slice(0,7);
+    }else if(this.selectedTab = '15 days') {
+      type= '15 Days';
+      data = this.forecast?.forecast?.slice(0,15);
+    }
+
+
     const breadcrumbData = createForecastBreadcrumb(metaInfo?.STATE_NAME, metaInfo?.DISTRICT_NAME, metaInfo?.TEHSIL_ALIAS_NAME);
-    this.seoService.generateSchema(breadcrumbData);
+    this.seoService.generateSchema([
+      breadcrumbData,
+      this.dynamicJsonLd(data, `${type} Forecast`)
+    ]);
+  }
+
+  dynamicJsonLd(data:any,forecastType:any) {
+    let schema = {
+    "@context": "https://schema.org",
+    "@type": "WeatherForecast",
+    "forecastFor": `${forecastType}`,
+ "forecast": data.map((e: any) => ({
+      "@type": "WeatherForecast",
+      "date": e.toorder ? e.toorder : e.date, 
+      "temperature": {
+        "@type": "QuantitativeValue",
+        "value": e.temp_max,
+        "unitCode": "CEL" 
+      },
+      "windDirection": e.winddir ? e.winddir: e.wind_shrt,
+      "windSpeed": {
+        "@type": "QuantitativeValue",
+        "value": e.windspd ?e.windspd:e.wind_spd,
+        "unitCode": "KMH"
+      },
+      "humidity": e.humidity ? e.humidity: e.rh_max, 
+      "precipitation": {
+        "@type": "QuantitativeValue",
+        "value": e.rain_prob,
+        "unitCode": "%"
+      }
+    }))
+    
+   
+}
+return schema
   }
 
   setForecastMeta() {
@@ -185,9 +250,6 @@ export class ForecastClubComponent implements AfterViewInit, OnDestroy {
           (document.getElementById('hourly') as HTMLElement).click();
         }
       }
-
-
-
 
     } else {
       this.seoService.setForecastTags(this.forecast?.metainfo, 'current');

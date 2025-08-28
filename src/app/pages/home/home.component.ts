@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.loadVideo();
-    this.firstLoad()
+    this.firstLoad();
   }
 
 
@@ -132,8 +132,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.CurrentDataComponent?.setForecast(forecast, this.formatPath(this.nearestMeta));
       this.HourlyDataComponent?.setForecast(forecast, this.formatPath(this.nearestMeta));
       this.SkysenseComponent.setCurrentData(forecast?.actual)
-
-
     }
   }
 
@@ -147,6 +145,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   async ngOnInit() {
     this.setMetaTitle();
+    this.seoService.generateSchema();
     if (this.windowService.isBrowser()) {
       setTimeout(() => {
         this.openOverlay(this.dataService.getDeviceType() == 'mobile' ? './img/loc_popup_mobile.webp' : './img/loc_popup-desktop.webp');
@@ -180,7 +179,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             resolve({ lat: latitude, lng: longitude });
           })
           .catch((error) => {
-            resolve({ lat: this.latitude, lng: this.longitude });
+           // resolve({ lat: this.latitude, lng: this.longitude });
             prompt && alert("Unable to retrive your location please enable location in app settings");
             return;
           });
@@ -230,7 +229,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   seoConfig(event: any) {
     this.seoService.setCanonicalLink(event.urlAfterRedirects);
-    this.seoService.setSchema('home');
+
+    console.log('schema added');
+    
     this.seoService.alternativeLinks(event.urlAfterRedirects);
     //this.seoService.setMetaTags('home');
     //this.setMetaTitle()
