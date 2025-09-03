@@ -8,6 +8,7 @@ import Swiper from 'swiper';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
+import { NativeService } from '../../mobile-app/service/native.service';
 declare var $:any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
@@ -31,6 +32,7 @@ export class SatelliteImageComponent implements AfterViewInit {
   selectedLanguage: any;
   constructor(public dataService: DataService,
     private router:Router,
+    public nativeService:NativeService,
     private cdr: ChangeDetectorRef,private translateService: TranslateService,
     private windowService:WindowService) {
        this.dataService.selectedLanguages.subscribe(lng => {

@@ -7,6 +7,7 @@ import { DataService } from '../../services/data.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
+import { NativeService } from '../../mobile-app/service/native.service';
 declare var $:any;
 
 Swiper.use([Autoplay, Navigation, Thumbs]);
@@ -26,6 +27,7 @@ export class HourlyDataComponent implements AfterViewInit {
  constructor(
   private windowService:WindowService,
   private router:Router,
+  public nativeService:NativeService,
   private translateService: TranslateService,
   public dataService:DataService,private cdr: ChangeDetectorRef) {
    this.dataService.selectedLanguages.subscribe(lng => {

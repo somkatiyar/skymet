@@ -59,7 +59,7 @@ export class CurrentDataComponent implements AfterViewInit {
       if(this.nativeService.getPlateform() == "web") {
         this.parentRef.refreshWebLocation();
       }else {
-        this.parentRef.refreshWebLocationNative();
+         this.parentRef.refreshWebLocationNative();
       }
       
     }

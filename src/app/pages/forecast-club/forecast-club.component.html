@@ -138,7 +138,7 @@
             <div class="swiper-wrapper">
               <div class="swiper-slide" *ngFor="let item of forecastData">
                 <div class="wind-card">
-                  <div class="wind-speed">{{ item.wind_spd }} m/s</div>
+                  <div class="wind-speed">{{ item.wind_spd }}&nbsp; km/h</div>
                   <div class="wind-circle">
                     <img src="./img/wind_direction/DIRECTIONS_{{ item.wind_shrt }}.webp" alt="" />
                   </div>
@@ -470,7 +470,7 @@
               <h6 class=" Wind"><img src="./img/windFast.svg" alt="" /> {{'Wind speed' | translate}}</h6>
               <div class="Rainfall_probabilty wind">
                 <div class="probabilty">
-                  <h5>{{currentData?.[0]?.wind}}m/s</h5>
+                  <h5>{{currentData?.[0]?.wind}}&nbsp; km/h</h5>
                   <span>Wind Speed</span>
                 </div>
                 <img src="./img/wind_direction/DIRECTIONS_E.webp" alt="" />

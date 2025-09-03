@@ -33,7 +33,7 @@
   
             </div>
           </div> -->
-                                <div appAdsense
+      <div appAdsense *ngIf="this.nativeService.getPlateform() == 'web'"
       [adClient]="'ca-pub-6993696142089445'"
       [adSlot]="'9187952748'"
       [adFormat]="'rectangle'"

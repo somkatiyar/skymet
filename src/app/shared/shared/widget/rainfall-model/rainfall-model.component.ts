@@ -14,6 +14,7 @@ import { SeoService } from '../../../../services/seo.service';
 import { WeatherNewsComponent } from '../../../../pages/weather-news/weather-news.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AdsenseDirective } from '../../directive/ads.directive';
+import { NativeService } from '../../../../mobile-app/service/native.service';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
@@ -176,6 +177,7 @@ export class RainfallModelComponent implements AfterViewInit {
     private seoService: SeoService,
     private translateService: TranslateService,
     private location: Location,
+    public nativeService:NativeService,
     public dataService: DataService) {
     this.dataService.selectedLanguages.subscribe(lng => {
       this.translateService.use(lng);

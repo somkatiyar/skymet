@@ -1,10 +1,6 @@
 <div class="hero_section" id="heroSection" [ngStyle]="backgroundStyle">
   <div class="container">
-    <div class="savedLoc" *ngIf="nativeService.getPlateform()=='native' && this.nativeService.getUserInfo()?.home?.loc">
-      <div class="item" (click)="staticLocationTrigger()">
-        Home
-      </div>
-    </div>
+  
     <div class="location">
       <h1 hidden></h1>
       <div class="location-wrap" (click)="gotoForecastPage()">
@@ -81,7 +77,7 @@
         <div class="Rainfall_probabilty wind">
           <img src="./img/wind_direction/DIRECTIONS_{{forecastData?.actual?.wind_dir && forecastData?.actual?.wind_dir}}.webp" alt="" />
           <div class="probabilty">
-            <h5>{{forecastData?.actual?.wind}}m/s</h5>
+            <h5>{{forecastData?.actual?.wind}}&nbsp; km/h</h5>
             <span>({{forecastData?.actual?.wind_dir}})</span>
           </div>
          

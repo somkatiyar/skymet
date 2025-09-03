@@ -18,7 +18,7 @@
   </div>
     <div class="listing" *ngIf="locations && locations.length" #locationList>
           <div class="list">
-              <p *ngFor="let item of locations" (click)="getLocation(item)">
+              <p *ngFor="let item of locations" (click)="getSearchLocation(item)">
                 {{ item["name_en"].split(",")[0] =='' ? 
                    item["name_en"].split(",").slice(1,4).join(",") : item["name_en"] }}
               </p>
@@ -27,7 +27,7 @@
   <div class="or">OR</div>
   <div class="loc">
       <i class="fas fa-map-marker-alt location-icon loc-icon"></i>
-      <div class="current-loc" (click)="getPositionNative(true)">
+      <div class="current-loc" (click)="nativeService.getPositionNative()">
           Use my current location
       </div>
   </div>

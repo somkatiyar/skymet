@@ -7,6 +7,9 @@ import { CommonModule } from '@angular/common';
 import { filter, debounceTime, distinctUntilChanged, switchMap, catchError, of } from 'rxjs';
 import { DataService } from '../../services/data.service';
 
+import { NativeService } from '../service/native.service';
+import { SplashScreen } from '@capacitor/splash-screen';
+
 @Component({
   selector: 'app-location',
   standalone: true,
@@ -24,41 +27,18 @@ export class LocationComponent implements AfterViewInit {
  constructor(private locationService:LocationService,
   private router:Router,
   private fb:FormBuilder,
+  public nativeService:NativeService,
   private dataService:DataService) {
   this.searchDataInput();
     this.initSearchCtrl();
  }
-  async getPositionNative(prompt: any) {
-    return new Promise((resolve, reject) => {
-        this.locationService
-          .getCurrentPositionNative()
-          .then((position: any) => {
-            const { latitude, longitude } = position.coords;
-            resolve({ lat: latitude, lng: longitude });
-            this.router.navigate(['welcome'],{
-              queryParams:{
-                lat:latitude,
-                lng:longitude
-              }
-            })
-          })
-          .catch((error) => {
-               this.router.navigate(['welcome'],{
-              queryParams:{
-                lat:this.latitude,
-                lng:this.longitude
-              }
-            })
-            prompt && alert("Unable to retrive your location please enable location in app settings");
-            return;
-          });
-      
-    })
 
-  }
 
-  ngAfterViewInit(): void {
+
   
+
+  async ngAfterViewInit() {
+    await SplashScreen.hide();
   }
     searchDataInput() {
     this.searchForm = this.fb.group({
@@ -93,13 +73,14 @@ export class LocationComponent implements AfterViewInit {
     }
   }
 
-    async getLocation(ev: any) {
+  async getSearchLocation(ev: any) {
     this.searchForm.get('searchCtrl')?.setValue('');
     this.locations = [];
        this.router.navigate(['welcome'],{
               queryParams:{
                 lat:ev.latitude,
-                lng:ev.longitude
+                lng:ev.longitude,
+                isManualSearch:true
               }
             })
   }

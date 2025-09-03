@@ -14,17 +14,18 @@ import { Toast } from '@capacitor/toast';
 import { NotificationService } from './mobile-app/service/notification.service';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { LocationService } from './services/location.service';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,HeaderComponent,FooterComponent,CommonModule,NativeFooterComponent,NativeHeaderComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, CommonModule, NativeFooterComponent, NativeHeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements AfterViewInit {
   title = 'skymetweather';
-  staticForecastData={
+  staticForecastData = {
 
     "metainfo": {
       "TEHSIL_ID": 7970,
@@ -961,95 +962,129 @@ export class AppComponent implements AfterViewInit {
       "PHRASE": " From Saturday, August 16th to Friday, August 26th, expect mostly cloudy skies with temperatures ranging from a comfortable 21°C to a warm 32°C. Humidity levels will be high, varying between 63% and 97%. You may experience some rainfall throughout the period, accumulating up to 41mm in total. Winds should be moderate with an average speed of around 13.6 km/h."
     }
 
-}
-    private lastBackTime = 0;
+  }
+  private lastBackTime = 0;
 
-  constructor(private windowService:WindowService,
-    public nativeService:NativeService,
+  constructor(private windowService: WindowService,
+    public nativeService: NativeService,
     private renderer: Renderer2,
-    public locationService:LocationService,
+    public locationService: LocationService,
     private pushService: NotificationService,
-    private pullToRefreshService:PullToRefreshService,
-    private router:Router) {
+    private pullToRefreshService: PullToRefreshService,
+    private router: Router) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        if(this.windowService.isBrowser()) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (this.windowService.isBrowser()) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       });
-        
 
-   }
 
-   ngAfterViewInit(): void {
-     if(this.nativeService.getPlateform() == 'native' ) {
+  }
+
+  ngAfterViewInit(): void {
+    if (this.nativeService.getPlateform() == 'native') {
+      //this.handleScreen();
       this.setStyleGlobal();
       this.initStatusBar();
-
       this.pullToRefreshService.init(this.handleRefresh.bind(this));
-        this.handleBackButton();
-        this.pushService.initPush();
-      //  if( this.nativeService.isUserLoggedIn()) {
-      //   this.router.navigate(['/']);
-      //  } else {
-      //   this.router.navigate(['login']);
-      //  }
-      this.router.navigate(['location']);
-      if(this.windowService.isBrowser()) {
-        setTimeout(() => {
-          this.router.navigate(['location']);
-        }, 3000);
-      }
-     } 
-     if(this.windowService.isBrowser()) {
-      if(!localStorage.getItem('location')) {
-       localStorage.setItem('location', JSON.stringify(this.staticForecastData));
-      }
-     }
-     
-   }
+      this.handleBackButton();
+      this.pushService.initPush();
 
-   setStyleGlobal() {
-    if(this.nativeService.getPlateform() =="native") {
+    } else {
+      if (this.windowService.isBrowser() && this.nativeService.getPlateform() == 'web') {
+        if (!localStorage.getItem('location')) {
+          localStorage.setItem('location', JSON.stringify(this.staticForecastData));
+        }
+      }
+    }
 
-    this.renderer.setStyle(document.body, 'padding-bottom', '100px');
-    //this.renderer.setStyle(document.body, 'margin-top', '0px');
   }
-    } 
+
+
+
+  // handleScreen() {
+  //   var appState = this.nativeService.getNativeState();
+  //   console.log(appState,'appState on initial load');
+    
+  //   if (appState == null ) {
+  //     setTimeout(() => {
+  //       this.router.navigate(['location']).then(() => {
+  //         SplashScreen.hide();
+  //       });
+  //     }, 4000);
+  //   } else if (appState && !appState.isVisited) {
+  //     setTimeout(() => {
+  //       this.router.navigate(['location']).then(() => {
+  //         SplashScreen.hide();
+  //       });;
+  //     }, 4000);
+  //   } else if ( appState && appState.isVisited) {
+  //     setTimeout(() => {        
+  //       this.router.navigate(['/']).then(() => {
+  //         SplashScreen.hide();
+  //       });
+  //     }, 4000);
+  //   }
+
+
+  // }
+  handleScreen() {
+    var appState = this.nativeService.getNativeState();
+    console.log(appState,'appState on initial load');
+    if(appState && appState.isVisited){
+         setTimeout(() => {
+          SplashScreen.hide();
+      }, 4000);
+      return
+    } else {
+      setTimeout(() => {
+        this.router.navigate(['location']).then(() => {
+          SplashScreen.hide();
+        });;
+      }, 4000);
+    }
+
+
+
+  }
+  setStyleGlobal() {
+    if (this.nativeService.getPlateform() == "native") {
+      this.renderer.setStyle(document.body, 'padding-bottom', '100px');
+    }
+  }
 
   async initStatusBar() {
-     if(this.nativeService.getPlateform() =="native") {
-    // Make status bar transparent and overlay the WebView
-    await StatusBar.setOverlaysWebView({ overlay: true });
-    await StatusBar.setBackgroundColor({ color: '#00000000' });
-    await StatusBar.setStyle({ style: Style.Light });
-      } // or Style.Dark
+    if (this.nativeService.getPlateform() == "native") {
+      await StatusBar.setOverlaysWebView({ overlay: true });
+      await StatusBar.setBackgroundColor({ color: '#00000000' });
+      await StatusBar.setStyle({ style: Style.Light });
+    }
   }
-   
-handleRefresh() {
-  if (this.windowService.isBrowser()) {
-    const currentUrl = this.router.url;
 
-    // Force re-navigation to the same route
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
+  handleRefresh() {
+    if (this.windowService.isBrowser()) {
+      const currentUrl = this.router.url;
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate([currentUrl]);
+      });
+    }
   }
-}
 
   handleBackButton() {
     CapacitorApp.addListener('backButton', async () => {
       const url = this.router.url;
 
-      // Only enable back-to-exit on the home/root page
       if (url === '/') {
         const currentTime = new Date().getTime();
 
         if (currentTime - this.lastBackTime < 2000) {
+          console.log('app exit from ');
+
           CapacitorApp.exitApp();
         } else {
-          
+
           this.lastBackTime = currentTime;
           await Toast.show({
             text: 'Press back again to exit',
@@ -1058,15 +1093,10 @@ handleRefresh() {
           });
         }
       } else {
-        window.history.back(); 
+        window.history.back();
       }
     });
   }
-   hideSnackBar() {
-    if(this.windowService.isBrowser()) {
-          (document.getElementById('snackbar') as HTMLElement).classList.remove('show');
-    }
-    
-  }
+
 
 }

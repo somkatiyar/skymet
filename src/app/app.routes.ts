@@ -22,10 +22,12 @@ import { TermAndConditionsComponent } from './pages/term-and-conditions/term-and
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 import { SplashComponent } from './mobile-app/splash/splash.component';
 import { LocationComponent } from './mobile-app/location/location.component';
+import { RootGuard } from './shared/shared/gaurd/canactivate.guard';
+import { LocationGuard } from './shared/shared/gaurd/location-guard.guard';
 
 
 export const routes: Routes = [
-    { path:'', component: HomeComponent},
+    { path:'', component: HomeComponent, canActivate: [RootGuard]},
     { path:'en', component: HomeComponent},
     { path:'hi', component: HomeComponent},
     { path:'mr', component: HomeComponent},
@@ -33,7 +35,7 @@ export const routes: Routes = [
        // app route
     {path:'login',component:LoginComponent},
     {path:'splash',component:SplashComponent},
-    {path:'location',component:LocationComponent},
+    {path:'location',component:LocationComponent,canActivate:[LocationGuard]},
     {path:'otp-verification', component:OtpVerificationComponent},
     {path:'user-info', component:UserInfoComponent},
      {path:'welcome', component:WelcomeComponent},

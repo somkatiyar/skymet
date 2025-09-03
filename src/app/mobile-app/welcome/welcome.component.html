@@ -1,7 +1,8 @@
-<div class="welcome" [ngStyle]="backgroundStyle">
+<div class="welcome" [ngStyle]="nativeService.setBackgroundNative()">
     <div class="content">
         <!-- <div class="title">{{welcomeText}},{{nativeService.getUserInfo()?.name ? nativeService.getUserInfo()?.name :"User"}}</div> -->
-        <div class="title">{{welcomeText}},Current Forecast</div>
+        <div class="title">{{nativeService.getGreetingMessage()}},</div>
+        <div class="title">Current Forecast,</div>
         <div class="weather">
             <div class="icon">
                 <img [src]="weatherData && weatherData?.iconImage" alt="">
@@ -11,12 +12,12 @@
                 <div class="date">{{weatherData && weatherData?.displaytime}}</div>
             </div>
         </div>
-        <div class="advisory">
-            {{advisory?.weatherText}}
+        <div class="advisory"> 
+            {{nativeService.getWeatherMessage(weatherData && weatherData?.tmp,weatherData && weatherData?.precip,weatherData && weatherData?.description)}}
         </div>
 
         <div class="button" routerLink="/">
-            <button >Lets explore the day</button>
+            <button class="explore">Check the weather</button>
         </div>
     </div>
 </div>

@@ -7,11 +7,14 @@ import { UvRaysComponent } from '../../shared/shared/widget/uv-rays/uv-rays.comp
 import { MoonriseComponent } from '../../shared/shared/widget/moonrise/moonrise.component';
 import { DataService } from '../../services/data.service';
 import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
+import { NativeService } from '../../mobile-app/service/native.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-skysense',
   standalone: true,
   imports: [UvRaysComponent,
+    CommonModule,
     SunriseComponent,
     MoonriseComponent,
     DewpointComponent,
@@ -29,7 +32,7 @@ export class SkysenseComponent {
   uvRange=[1,3,5,9,10,11];
   aqiRange=[50,100,250,320,400,500];
   curretData: any;
-  constructor(public dataService:DataService){
+  constructor(public dataService:DataService,public nativeService:NativeService){
 
   }
 

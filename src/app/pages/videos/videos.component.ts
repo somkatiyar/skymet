@@ -6,6 +6,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
+import { NativeService } from '../../mobile-app/service/native.service';
 
 @Component({
   selector: 'app-videos',
@@ -19,7 +20,7 @@ export class VideosComponent {
   url!: SafeResourceUrl;
   selectedLanguage: any;
   constructor(private dataService:DataService,
-    private windowService:WindowService,
+public nativeService:NativeService,
     private sanitizer: DomSanitizer,
     private translateService: TranslateService
   ) {

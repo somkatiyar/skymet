@@ -4,10 +4,22 @@ const config: CapacitorConfig = {
   appId: 'com.skymet.indianweather',
   appName: 'skymetweather',
   webDir: 'dist/skymetweather/browser',
-   server: {
-    url: 'http://192.168.105.3:4200',  
-    cleartext: true
-  }
+    plugins: {
+    SplashScreen: {
+      launchShowDuration:3000,
+      launchAutoHide: false, 
+      androidScaleType: 'CENTER_CROP',
+      showSpinner: false,
+      backgroundColor: '#ffffff',
+      //launchShowDuration:5000
+    }
+  },
+  //  server: {
+  //    url: 'http://192.168.1.2:4200',  
+  //   cleartext: true
+  // },
+  
+  
 };
 
 export default config;

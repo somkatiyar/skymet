@@ -120,7 +120,7 @@
           <!-- <img
             src="https://static.semrush.com/blog/uploads/media/8b/06/8b063f735e2192a61c6861f4755ffc5d/what-is-digital-advertising.svg"
             alt="Ad Banner" /> -->
-                        <div appAdsense
+      <div appAdsense *ngIf="this.nativeService.getPlateform() == 'web'"
       [adClient]="'ca-pub-6993696142089445'"
       [adSlot]="'1044022650'"
       [adFormat]="'auto'"

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NativeService } from '../service/native.service';
 import { NgStyle } from '@angular/common';
+import { NavigationBar } from '@squareetlabs/capacitor-navigation-bar'
 
 @Component({
   selector: 'app-native-footer',
@@ -10,8 +11,23 @@ import { NgStyle } from '@angular/common';
   templateUrl: './native-footer.component.html',
   styleUrl: './native-footer.component.scss'
 })
-export class NativeFooterComponent {
-  constructor(public nativeService:NativeService) {
+export class NativeFooterComponent implements AfterViewInit,OnDestroy {
+  constructor(public nativeService:NativeService) {}
 
+
+
+  async ngAfterViewInit() {
+    
+    await NavigationBar.setTransparency({
+      isTransparent:true
+    });
+ 
   }
+
+  ngOnDestroy() {
+  }
+
+
+
+
 }

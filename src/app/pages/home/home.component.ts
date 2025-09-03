@@ -12,14 +12,11 @@ import { DataService } from '../../services/data.service';
 import { CommonModule } from '@angular/common';
 import { VideosComponent } from '../videos/videos.component';
 import { FooterComponent } from '../footer/footer.component';
-import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { SkysenseComponent } from '../skysense/skysense.component';
 import { NativeService } from '../../mobile-app/service/native.service';
-import { Geolocation, Position } from '@capacitor/geolocation';
-import { ScriptLoaderService } from '../../services/script-loader.service';
-import { After } from 'v8';
 import { Meta, Title } from '@angular/platform-browser';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-home',
@@ -59,12 +56,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private router: Router,
     private titie: Title,
     private metaService: Meta,
-    private scriptLoader: ScriptLoaderService,
     public locationService: LocationService,
     private windowService: WindowService,
     public dataService: DataService,
     private nativeService: NativeService,
-    private translateService: TranslateService
   ) {
 
     this.router.events.subscribe((event: any) => {
@@ -78,17 +73,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
               await this.initHome(latlng)
               this.seoConfig(event);
             } else {
-              let latlng = await this.getPositionNative(false);
-              await this.initHome(latlng)
-
+              console.log('calling from home and native plateform');
+              //this.setAppJourney();
+              await SplashScreen.hide();
+              return
             }
-
           });
       }
     });
 
   }
+  setAppJourney() {
+    let nativeConfig = this.nativeService.getNativeState();
+    localStorage.setItem('nativeConfig', JSON.stringify({isWelcome:true,isVisited:true,isManualSearch:nativeConfig.isManualSearch}));
 
+  }
   ngAfterViewInit(): void {
     this.loadVideo();
     this.firstLoad();
@@ -119,9 +118,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     await this.initHome(latlng)
   }
 
-  async refreshWebLocationNative() {
-    let latlng = await this.getPositionNative(true);
-    await this.initHome(latlng)
+  async refreshWebLocationNative() {    
+    let latlng = await this.nativeService.getNativeLocation();
+    let position = latlng?.coords
+    await this.initHome({lat:position?.latitude,lng:position?.longitude})
   }
 
   async initHome(latlng: any) {
@@ -155,13 +155,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
 
-  firstLoad() {
+  firstLoad(metaPath?:any) {
     if (this.windowService.isBrowser()) {
       let forecast = JSON.parse(localStorage.getItem('location') || '{}');
       let pathSegment = forecast?.metainfo;
       let path = pathSegment && "india/" + pathSegment.STATE_NAME.toLowerCase() + '/' + pathSegment.DISTRICT_NAME.toLowerCase() + '/' + pathSegment.TEHSIL_ALIAS_NAME.toLowerCase();
-      this.CurrentDataComponent?.setForecast(forecast, path);
-      this.HourlyDataComponent?.setForecast(forecast, path);
+       console.log(path,'in first load');
+    
+      this.CurrentDataComponent?.setForecast(forecast, metaPath ? metaPath :path);
+      this.HourlyDataComponent?.setForecast(forecast, metaPath ? metaPath :path);
       this.SkysenseComponent?.setCurrentData(forecast?.actual)
 
 
