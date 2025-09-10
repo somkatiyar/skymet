@@ -24,6 +24,10 @@ import { SplashComponent } from './mobile-app/splash/splash.component';
 import { LocationComponent } from './mobile-app/location/location.component';
 import { RootGuard } from './shared/shared/gaurd/canactivate.guard';
 import { LocationGuard } from './shared/shared/gaurd/location-guard.guard';
+import { NotificationScreenComponent } from './mobile-app/notification-screen/notification-screen.component';
+import { AutoLocationComponent } from './mobile-app/auto-location/auto-location.component';
+import { LoadingComponent } from './mobile-app/loading/loading.component';
+import { ManualSearchComponent } from './mobile-app/manual-search/manual-search.component';
 
 
 export const routes: Routes = [
@@ -35,7 +39,11 @@ export const routes: Routes = [
        // app route
     {path:'login',component:LoginComponent},
     {path:'splash',component:SplashComponent},
+    {path:'notification',component:NotificationScreenComponent},
+    {path:'loading',component:LoadingComponent},
     {path:'location',component:LocationComponent,canActivate:[LocationGuard]},
+     {path:'location-enable',component:AutoLocationComponent,canActivate:[LocationGuard]},
+      {path:'manual-search',component:ManualSearchComponent},
     {path:'otp-verification', component:OtpVerificationComponent},
     {path:'user-info', component:UserInfoComponent},
      {path:'welcome', component:WelcomeComponent},

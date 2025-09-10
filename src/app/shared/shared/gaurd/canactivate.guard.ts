@@ -9,14 +9,19 @@ export class RootGuard implements CanActivate {
 
   canActivate(): boolean {
     const platform = this.nativeService.getPlateform();
-
     if (platform === 'native') {
       const appState = this.nativeService.getNativeState();
-      console.log(appState,'app state in can deactivate ');
-      
+        if (!appState) {
+        setTimeout(() => {
+          this.router.navigate(['/notification']).then(() => {
+            SplashScreen.hide();
+          });
+        }, 3000);
+        return false;
+      }
       if (appState == null || !appState?.isVisited) {
        setTimeout(() => {
-         this.router.navigate(['/location']).then(() => {
+         this.router.navigate(['/location-enable']).then(() => {
           SplashScreen.hide();
         });
        }, 3000);

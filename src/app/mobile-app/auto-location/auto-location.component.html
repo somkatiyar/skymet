@@ -1,0 +1,22 @@
+<div class="container-box">
+  <div class="notification-screen" *ngIf="!isLocationGet && !isProcessStart">
+    <div class="content">
+      <div class="text-wrapper">
+        <div class="text">
+          Hyper-local weather forecast tuned for Bharat.
+        </div>
+        <div class="sub-text">
+          Enable the current location to get the most accurate weather data, forecast news and alerts.
+        </div>
+      </div>
+      <div class="next">
+        <button class="btn btn-primary" (click)="getPositionNative()">Enable Location</button>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Loading overlay -->
+<app-loading *ngIf="isProcessStart"></app-loading>

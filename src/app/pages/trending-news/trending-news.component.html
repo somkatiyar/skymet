@@ -30,7 +30,7 @@
               <a  [routerLink]="['/content', item.categorySlug[0], item.titleSlug]" *ngFor="let item of trendingNews">
                 <div class="news_card">
                    <img [src]="item.thumbnail" alt="" />
-                 <!-- <img src="./img/new1.jpg" alt="" /> -->
+                 <!-- <img src="https://skymetweather.com/img/new1.jpg" alt="" /> -->
                    <div class="news-content">
                     <div class="source">
                       <span>Skymet News</span>
@@ -44,7 +44,7 @@
                     <div class="date_share">
                       <span> {{dataService.formatDateTrending(item.DateTime)}}</span>
                       <img alt="Share on WhatsApp"
-                        src="./img/whatapp.png"
+                        src="https://skymetweather.com/img/whatapp.png"
                         width="16"
                       />
                     </div>

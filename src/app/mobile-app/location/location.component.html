@@ -1,18 +1,27 @@
 <div class="container-box">
   <div class="title">
-      Where should we show the weather?
+            Hyper-local weather forecast tuned for Bharat.
   </div>
   <div class="subtitle">
-      Enter a city or use your current location. You can change this anytime in Settings.
+     Enable the current location to get the most accurate weather data,forecast news and alerts.
   </div>
-
+ 
+  <div class="loc">
+      <i class="fas fa-map-marker-alt location-icon loc-icon"></i>
+      <div class="current-loc" (click)="nativeService.getPositionNative()">
+          Use my current location
+      </div>
+  </div>
+   <div class="or">OR</div>
   <div class="search-container">
       <i class="fas fa-search search-icon"></i>
       <form [formGroup]="searchForm">
           <input type="text" id="search-input" placeholder="Search..." 
                  (input)="onSearch($event)" formControlName="searchCtrl"/>
       </form>
-      <i class="fas fa-times clear-icon" id="clear-btn" (click)="clearInput()"></i>
+      <i  class="fas fa-times clear-icon"
+      *ngIf="searchForm.get('searchCtrl')?.value"
+       id="clear-btn" (click)="clearInput()"></i>
 
   
   </div>
@@ -24,11 +33,5 @@
               </p>
           </div>
       </div>
-  <div class="or">OR</div>
-  <div class="loc">
-      <i class="fas fa-map-marker-alt location-icon loc-icon"></i>
-      <div class="current-loc" (click)="nativeService.getPositionNative()">
-          Use my current location
-      </div>
-  </div>
+
 </div>

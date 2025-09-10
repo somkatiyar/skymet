@@ -172,6 +172,18 @@ body.pulling::before {
   --mobile-l: 550px;
   --tablet: 769px;
   --laptop: 1025px;
+
+  --footer-bottom: 0px; 
+
+}
+
+#footer_native {
+  position: fixed;
+  bottom: var(--footer-bottom, 0px);
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  z-index: 99900;
 }
 
 * {

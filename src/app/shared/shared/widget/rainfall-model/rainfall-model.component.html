@@ -24,11 +24,11 @@
           <div class="buttons">
             <button id="swiper_btn" class="button" [ngClass]="viewType === 'swiper' ? 'active' : ''"
               (click)="viewType='swiper';refreshTab()">
-              <img src="/img/map.svg" alt="" />
+              <img src="https://www.skymetweather.com/img/map.svg" alt="" />
             </button>
             <button class="button" [ngClass]="viewType === 'list' ? 'active' : ''"
               (click)="viewType='list';refreshTab()">
-              <img src="/img/menu4.svg" alt="" />
+              <img src="https://www.skymetweather.com/img/menu4.svg" alt="" />
             </button>
           </div>
         </div>
@@ -51,15 +51,15 @@
           </div> -->
           <div class="buttons singleButton" *ngIf="dataService.getDeviceType() == 'mobile' || viewType === 'list'">
             <button class="button" (click)="viewType=='swiper'? whatsappImageShare() : shareUrl()">
-              <img src="/img/whatsapp.svg" alt="" />
+              <img src="https://www.skymetweather.com/img/whatsapp.svg" alt="" />
             </button>
           </div>
           <div class="buttons multiButton" *ngIf="dataService.getDeviceType() == 'mobile' && viewType=='swiper'">
             <button class="button" (click)="zoomOut()">
-              <img src="/img/minus.svg" alt="" />
+              <img src="https://www.skymetweather.com/img/minus.svg" alt="" />
             </button>
             <button class="button" (click)="zoomIn()">
-              <img src="/img/plus.svg" alt="" />
+              <img src="https://www.skymetweather.com/img/plus.svg" alt="" />
             </button>
           </div>
         </div>
@@ -110,21 +110,21 @@
             </div>
           </div>
           <div class="swiper-button-next">
-            <img src="/img/rightArrow.svg" alt="" />
+            <img src="https://www.skymetweather.com/img/rightArrow.svg" alt="" />
           </div>
           <div class="swiper-button-prev">
-            <img src="/img/leftArrow.svg" alt="" />
+            <img src="https://www.skymetweather.com/img/leftArrow.svg" alt="" />
           </div>
         </div>
         <div class="ad-section" *ngIf="dataService.getDeviceType() == 'desktop'">
           <!-- <img
             src="https://static.semrush.com/blog/uploads/media/8b/06/8b063f735e2192a61c6861f4755ffc5d/what-is-digital-advertising.svg"
             alt="Ad Banner" /> -->
-      <div appAdsense *ngIf="this.nativeService.getPlateform() == 'web'"
-      [adClient]="'ca-pub-6993696142089445'"
-      [adSlot]="'1044022650'"
-      [adFormat]="'auto'"
-      [fullWidthResponsive]="'true'">
+          <div appAdsense *ngIf="this.nativeService.getPlateform() == 'web'"
+          [adClient]="'ca-pub-6993696142089445'"
+          [adSlot]="'1044022650'"
+          [adFormat]="'auto'"
+          [fullWidthResponsive]="'true'">
       </div>
         </div>
       </div>

@@ -73,21 +73,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
               await this.initHome(latlng)
               this.seoConfig(event);
             } else {
-              console.log('calling from home and native plateform');
-              //this.setAppJourney();
-              await SplashScreen.hide();
-              return
+
+                 await SplashScreen.hide();
+                //  await this.nativeService.setNavigationBarTransparent();
+                 let savedData = JSON.parse(localStorage.getItem('location') || '{}');
+                  let pathSegment = savedData?.metainfo;
+                  let path = pathSegment && "india/" + pathSegment.STATE_NAME.toLowerCase() + '/' + pathSegment.DISTRICT_NAME.toLowerCase() + '/' + pathSegment.TEHSIL_ALIAS_NAME.toLowerCase();
+                  let forecast: any = await this.getForecastData(path);                
+                   await this.setStaticForecast(forecast);
+                  this.CurrentDataComponent?.setForecast(forecast,path);
+                  this.HourlyDataComponent?.setForecast(forecast, path);
+                  this.SkysenseComponent?.setCurrentData(forecast?.actual)
+              
             }
           });
       }
     });
 
   }
-  setAppJourney() {
-    let nativeConfig = this.nativeService.getNativeState();
-    localStorage.setItem('nativeConfig', JSON.stringify({isWelcome:true,isVisited:true,isManualSearch:nativeConfig.isManualSearch}));
 
-  }
   ngAfterViewInit(): void {
     this.loadVideo();
     this.firstLoad();
@@ -160,8 +164,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       let forecast = JSON.parse(localStorage.getItem('location') || '{}');
       let pathSegment = forecast?.metainfo;
       let path = pathSegment && "india/" + pathSegment.STATE_NAME.toLowerCase() + '/' + pathSegment.DISTRICT_NAME.toLowerCase() + '/' + pathSegment.TEHSIL_ALIAS_NAME.toLowerCase();
-       console.log(path,'in first load');
-    
       this.CurrentDataComponent?.setForecast(forecast, metaPath ? metaPath :path);
       this.HourlyDataComponent?.setForecast(forecast, metaPath ? metaPath :path);
       this.SkysenseComponent?.setCurrentData(forecast?.actual)
@@ -203,7 +205,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
           })
           .catch((error) => {
             console.log({ lat: this.latitude, lng: this.longitude }, 'error position (static lat lng)');
-
             resolve({ lat: this.latitude, lng: this.longitude });
 
             //  prompt &&  alert("Unable to retrieve your location. Please check your browser settings and ensure location services are enabled.");
@@ -231,9 +232,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   seoConfig(event: any) {
     this.seoService.setCanonicalLink(event.urlAfterRedirects);
-
-    console.log('schema added');
-    
     this.seoService.alternativeLinks(event.urlAfterRedirects);
     //this.seoService.setMetaTags('home');
     //this.setMetaTitle()

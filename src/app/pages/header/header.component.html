@@ -17,7 +17,7 @@
         </div> -->
         <div class="logo" (click)="pathName='home';" [ngClass]="pathName=='home'? 'active':''"
                   [routerLink]="['/']">
-          <!-- <img [src]="getComponentFromRoute()=='home' ? './img/logo.gif' : './img/logo.png'" alt="" /> -->
+          <!-- <img [src]="getComponentFromRoute()=='home' ? 'https://skymetweather.com/img/logo.gif' : 'https://skymetweather.com/img/logo.png'" alt="" /> -->
           <img [src]="getLogo()" alt="" />
 
         </div>
@@ -26,11 +26,11 @@
         <form [formGroup]="searchForm" *ngIf="!isResourcesPage">
           <div class="search" id="searchBox">
             <div class="lanc">
-              <img src="./img/Vector.svg" alt="" />
+              <img src="https://skymetweather.com/img/Vector.svg" alt="" />
             </div>
             <input type="text" placeholder="{{'Search City' | translate}}..." (input)="onSearch($event)" formControlName="searchCtrl" />
             <div class="mic">
-              <img src="./img/mic.png" alt="" (click)="startListening()" />
+              <img src="https://skymetweather.com/img/mic.png" alt="" (click)="startListening()" />
             </div>
 
             <div class="listing" *ngIf="locations" #locationList>
@@ -64,7 +64,7 @@
 
             <!-- <div class="menu-item">
               <div class="left">
-                <img src="./img/sidebar/home.png" alt="" *ngIf="deviceType() =='mobile'"/>
+                <img src="https://skymetweather.com/img/sidebar/home.png" alt="" *ngIf="deviceType() =='mobile'"/>
               <li><a (click)="pathName='home';toggleSidebar()" [ngClass]="pathName=='home'? 'active':''"
                   [routerLink]="['/']">{{ "Home" | translate }}</a></li>
               </div>
@@ -73,7 +73,7 @@
 
             <div class="menu-item" (click)="toggleSidebar()" [routerLink]="['/15-days-rainfall-forecast-for-india']">
                 <div class="left">
-                  <img src="./img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
+                  <img src="https://skymetweather.com/img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
                  <li ><a   [ngClass]="getComponentFromRoute() =='forecastmap'? 'active':''" [routerLink]="['/15-days-rainfall-forecast-for-india']"
                   >{{"Forecast Map" | translate}}</a></li>
                 </div>
@@ -82,7 +82,7 @@
 
             <div class="menu-item" (click)="toggleSidebar()"  [routerLink]="['/resources']">
               <div class="left">  
-               <img src="./img/sidebar/resources.png" alt="" *ngIf="deviceType() =='mobile'"/>
+               <img src="https://skymetweather.com/img/sidebar/resources.png" alt="" *ngIf="deviceType() =='mobile'"/>
               <li><a  [ngClass]="getComponentFromRoute() =='resources'? 'active':''" [routerLink]="['/resources']"
                  >{{"Resources" | translate}}</a></li></div>
               <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
@@ -91,7 +91,7 @@
 
             <div class="menu-item"  (click)="toggleSidebar()" [routerLink]="['/himawari-latest-satellite-images-of-india']">
               <div class="left">
-             <img src="./img/sidebar/satellite.png" alt="" *ngIf="deviceType() =='mobile'"/>
+             <img src="https://skymetweather.com/img/sidebar/satellite.png" alt="" *ngIf="deviceType() =='mobile'"/>
               <li><a  [ngClass]="getComponentFromRoute() =='satellite'? 'active':''" [routerLink]="['/himawari-latest-satellite-images-of-india']"
                  >{{"Satellite" | translate}}</a></li>
               </div>
@@ -99,7 +99,7 @@
             </div>
            <div class="menu-item" (click)="toggleSidebar()" [routerLink]="['/map']">
               <div class="left">
-             <img src="./img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
+             <img src="https://skymetweather.com/img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
               <li><a  [ngClass]="getComponentFromRoute()=='map'? 'active':''" [routerLink]="['/map']"
                   >Live Map</a></li>
               </div>
@@ -108,7 +108,7 @@
 
             <div class="menu-item" [routerLink]="['/advertise-with-us']" (click)="toggleSidebar()">
               <div class="left">
-               <img src="./img/sidebar/aboutus.png" alt="" *ngIf="deviceType() =='mobile'"/>
+               <img src="https://skymetweather.com/img/sidebar/aboutus.png" alt="" *ngIf="deviceType() =='mobile'"/>
               <li><a  [ngClass]="getComponentFromRoute()=='advertise'? 'active':''" [routerLink]="['/advertise-with-us']">
                 {{"Advertise with us" | translate}}</a></li>
               </div>
@@ -117,7 +117,7 @@
 
             <div class="menu-item" [routerLink]="['/contact-us']" (click)="toggleSidebar()" >
               <div class="left">
-               <img src="./img/sidebar/aboutus.png" alt=""*ngIf="deviceType() =='mobile'"/>
+               <img src="https://skymetweather.com/img/sidebar/aboutus.png" alt=""*ngIf="deviceType() =='mobile'"/>
               <li><a [ngClass]="getComponentFromRoute()=='contact'? 'active':''" 
                 [routerLink]="['/contact-us']">{{"Contact Us" | translate}}</a></li>
               </div>
@@ -191,7 +191,7 @@
       </div>
       <div class="lanc_only" (click)="toggleSearch()">
         <div id="search_icon">
-          <img src="./img/Vector.svg" alt="" />
+          <img src="https://skymetweather.com/img/Vector.svg" alt="" />
         </div>
         <div id="close">
           X

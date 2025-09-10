@@ -1,0 +1,64 @@
+.notification-screen {
+  background-image: url('https://www.skymetweather.com/img/app_background/background/loading.webp');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top;
+  position: relative;
+  height: 100vh;
+
+  .content {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-flow: column;
+    height: 70%;
+    justify-content: flex-end;
+    padding: 18px;
+    margin-top: 0px;
+
+    img {
+      width: 163px;
+    }
+
+    .title {
+      color: white;
+      font-size: 40px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .loading-dots {
+      display: flex;
+      gap: 8px;
+      margin-top: 80px;
+
+      span {
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.3;
+        animation: blink 1.5s infinite;
+      }
+
+      span:nth-child(1) { animation-delay: 0s; }
+      span:nth-child(2) { animation-delay: 0.5s; }
+      span:nth-child(3) { animation-delay: 1s; }
+    }
+
+    .subtitle {
+      color: white;
+      font-size: 20px;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+}
+
+@keyframes blink {
+  0%   { opacity: 0.3; transform: scale(0.8); }
+  20%  { opacity: 1;   transform: scale(1.2); }
+  40%  { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 0.3; transform: scale(0.8); }
+}

@@ -4,22 +4,29 @@ import { Capacitor } from '@capacitor/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { App } from '@capacitor/app';
+import { NavigationBar } from '@squareetlabs/capacitor-navigation-bar'
+import { SafeArea } from 'capacitor-plugin-safe-area';
+import { Toast } from '@capacitor/toast';
 
 import {
   NativeSettings,
   AndroidSettings,
   IOSSettings
 } from 'capacitor-native-settings';
+import { BehaviorSubject, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class NativeService {
-  headerExcludeUrl: string[] = ['/login', '/user-info', '/otp-verification', '/welcome', '/map', '/splash', '/location'];
-  footerExcludeUrl: string[] = ['/login', '/user-info', '/otp-verification', '/welcome', '/map', '/splash', '/location']
+  headerExcludeUrl: string[] = ['/login', '/user-info', '/otp-verification', '/welcome', '/map', '/splash', '/location', '/notification', '/location-enable', '/loading', '/manual-search'];
+  footerExcludeUrl: string[] = ['/login', '/user-info', '/otp-verification', '/welcome', '/map', '/splash', '/location', '/notification', '/location-enable', '/loading', '/manual-search']
   isHeader: boolean = true;
   isFooter: boolean = true;
   lngCode = ['hi', 'mr', 'gu', 'en', 'ta', 'te', 'kn', 'ml', 'bn', 'pa'];
   pageTitle: any = ""
+
+  processSubject = new BehaviorSubject(false)
+
   constructor(private windowService: WindowService,
     private router: Router) {
     this.urlConfig();
@@ -107,6 +114,14 @@ export class NativeService {
   isManualSearch() {
     return this.getNativeState()?.isManualSearch ? true : false;
   }
+  isNotification() {
+    return this.getNativeState()?.isNotificationAllowed ? true : false;
+  }
+  isAutoSearch() {
+    return this.getNativeState()?.isAutoSearch ? true : false;
+  }
+
+
 
 
   urlConfig() {
@@ -173,16 +188,14 @@ export class NativeService {
   }
 
 
-  // location related method
-  async getPositionNative() {
+  async getPositionNative(isRouteEnable: boolean = false) {
     try {
       const checkPermission = await this.checkPermission();
       console.log('Initial Permission:', checkPermission.location);
 
       switch (checkPermission.location) {
         case 'granted':
-          await this.handleGetLocation();
-          break;
+          return await this.handleGetLocation();
 
         case 'prompt':
           const statusPrompt = await this.requestPermission();
@@ -190,18 +203,22 @@ export class NativeService {
 
           if (statusPrompt.location === 'granted') {
             let latLng = await this.handleGetLocation();
-            return latLng
+
+            return latLng;
           } else {
-            console.warn('User declined after prompt.');
+            console.warn('User declined after prompt. Redirecting to manual search...');
+            isRouteEnable && this.router.navigate(['manual-search'], {
+              queryParams: {  replaceUrl: true }
+            }).then(() => {
+              this.setLocalConfig(false)
+            });
           }
           break;
 
         case 'prompt-with-rationale':
           console.log('Need to show rationale before requesting permission.');
 
-          const userAgreed = await this.showRationaleDialog(
-            'We need your location to provide nearby weather updates. Please allow location access.'
-          );
+          const userAgreed = await this.showRationaleDialog()
 
           if (userAgreed) {
             const statusRationale = await this.requestPermission();
@@ -209,53 +226,74 @@ export class NativeService {
 
             if (statusRationale.location === 'granted') {
               let latLng = await this.handleGetLocation();
-              return latLng
+              return latLng;
             } else {
-                this.openSetting();
-              console.warn('User denied after rationale.');
+              console.warn('User denied after rationale. Redirecting to manual search...');
+              isRouteEnable && this.router.navigate(['manual-search'], {
+                queryParams: {  replaceUrl: true }
+              }).then(() => {
+                this.setLocalConfig(false)
+              });;
             }
           } else {
-            console.log('User refused rationale dialog.');
+            console.log('User refused rationale dialog. Redirecting to manual search...');
+            isRouteEnable && this.router.navigate(['manual-search'], {
+              queryParams: {  replaceUrl: true }
+            }).then(() => {
+              this.setLocalConfig(false)
+            });;
           }
           break;
 
         case 'denied':
-          console.warn('Permission denied permanently. Redirecting to app settings.');
-          this.openSetting();
+          this.openSetting()
+          console.warn('Permission denied permanently. Redirecting to manual search...');
+          isRouteEnable && this.router.navigate(['manual-search'], {
+            queryParams: {  replaceUrl: true }
+          }).then(() => {
+            this.setLocalConfig(false)
+          });;
           break;
 
         default:
           console.error('Unknown permission state:', checkPermission.location);
+          isRouteEnable && this.router.navigate(['manual-search'], {
+            queryParams: {  replaceUrl: true }
+          }).then(() => {
+            this.setLocalConfig(false)
+          });;
       }
     } catch (err) {
       console.error('Error getting position:', err);
+      isRouteEnable && this.router.navigate(['manual-search'], {
+        queryParams: {  replaceUrl: true }
+      }).then(() => {
+        this.setLocalConfig(false)
+      });;
     }
   }
 
   private async handleGetLocation() {
     try {
+      this.processSubject.next(true);
       const position: any = await this.getNativeLocation();
       console.log('Got Position:', position);
-      const { latitude, longitude } = position.coords;
-
-      var routes = this.isUserVisited() ? '/' : 'welcome'
-      this.router.navigate([routes], {
-        queryParams: {
-          lat: latitude,
-          lng: longitude,
-          isManualSearch: false
-        }
-      }).then(() => {
-      });
+      this.setLocalConfig(true)
+      setTimeout(() => {
+        this.processSubject.next(false);
+      }, 1500);
       return position.coords;
     } catch (err) {
       console.error('Error fetching location:', err);
     }
   }
 
-  private async showRationaleDialog(message: string): Promise<boolean> {
-    console.log('Rationale message:', message);
-    return true;
+  private async showRationaleDialog() {
+    console.log('Rationale message popup');
+    const agreed = confirm(
+      '📍 We use Current location to keep you updated with real time weather data.\n\nDo you want to allow location?'
+    );
+    return agreed;
   }
   async checkPermission() {
     const permissions = await Geolocation.checkPermissions();
@@ -329,26 +367,26 @@ export class NativeService {
     switch (part) {
       case "day":
         this.backgroundStyleNative = {
-          background: `url(./img/app_background/6_12_am.jpg)`,
+          background: `url(https://skymetweather.com/img/app_background/6_12_am.jpg)`,
           ...commonStyle
         };
         break;
       case "afternoon":
         this.backgroundStyleNative = {
-          background: `url(./img/app_background/12_4_pm.jpg)`,
+          background: `url(https://skymetweather.com/img/app_background/12_4_pm.jpg)`,
           ...commonStyle
         };
 
         break;
       case "evening":
         this.backgroundStyleNative = {
-          background: `url(./img/app_background/4_7_pm.jpg)`,
+          background: `url(https://skymetweather.com/img/app_background/4_7_pm.jpg)`,
           ...commonStyle
         };
         break;
       case "night":
         this.backgroundStyleNative = {
-          background: `url(./img/app_background/7_6_am.jpg)`,
+          background: `url(https://skymetweather.com/img/app_background/7_6_am.jpg)`,
           ...commonStyle
         };
         break;
@@ -358,63 +396,154 @@ export class NativeService {
 
   }
 
- getWeatherMessage(temp:any, rainChance:any, skyCondition:any, d = new Date()) {
-  const h = d.getHours();
-  const m = d.getMinutes();
-  const mm = h * 60 + m; // total minutes since midnight
+  getWeatherMessage(temp: any, rainChance: any, skyCondition: any, d = new Date()) {
+    const h = d.getHours();
+    const m = d.getMinutes();
+    const mm = h * 60 + m; // total minutes since midnight
 
-  const toMin = (hh: number, mm: number) => hh * 60 + mm;
+    const toMin = (hh: number, mm: number) => hh * 60 + mm;
 
-  // time ranges
-  const MORNING_START   = toMin(5, 0);    // 5:00 AM
-  const MORNING_END     = toMin(11, 59);  // 11:59 AM
+    // time ranges
+    const MORNING_START = toMin(5, 0);    // 5:00 AM
+    const MORNING_END = toMin(11, 59);  // 11:59 AM
 
-  const AFTERNOON_START = toMin(12, 0);   // 12:00 PM
-  const AFTERNOON_END   = toMin(17, 59);  // 5:59 PM
+    const AFTERNOON_START = toMin(12, 0);   // 12:00 PM
+    const AFTERNOON_END = toMin(17, 59);  // 5:59 PM
 
-  const EVENING_START   = toMin(18, 0);   // 6:00 PM
-  const EVENING_END     = toMin(21, 0);   // 9:00 PM
+    const EVENING_START = toMin(18, 0);   // 6:00 PM
+    const EVENING_END = toMin(21, 0);   // 9:00 PM
 
-  const NIGHT_START     = toMin(21, 1);   // 9:01 PM
-  const NIGHT_END       = toMin(23, 59);  // 11:59 PM
+    const NIGHT_START = toMin(21, 1);   // 9:01 PM
+    const NIGHT_END = toMin(23, 59);  // 11:59 PM
 
-  const MIDNIGHT_START  = toMin(0, 0);    // 12:00 AM
-  const MIDNIGHT_END    = toMin(4, 59);   // 4:59 AM
+    const MIDNIGHT_START = toMin(0, 0);    // 12:00 AM
+    const MIDNIGHT_END = toMin(4, 59);   // 4:59 AM
 
-  let message = "";
+    let message = "";
 
-  if (mm >= MORNING_START && mm <= MORNING_END) {
-    message = `Good morning! It’s ${temp}° outside with a ${rainChance}% chance of rain, and the skies are ${skyCondition}. Plan your day accordingly.`;
-  } else if (mm >= AFTERNOON_START && mm <= AFTERNOON_END) {
-    message = `Good afternoon! The weather’s at ${temp}° with a ${rainChance}% chance of rain, and the sky is feeling ${skyCondition}. Need to decide if you should take a break indoors or enjoy some fresh air?`;
-  } else if (mm >= EVENING_START && mm <= EVENING_END) {
-    message = `Evening’s here! It’s cooling down to ${temp}° with a ${rainChance}% chance of rain, and the sky looks ${skyCondition}. Perfect moment to wind down or plan your night out.`;
-  } else if (mm >= NIGHT_START && mm <= NIGHT_END) {
-    message = `Nighttime vibes! It’s around ${temp}° with a ${rainChance}% chance of rain under a ${skyCondition} sky. Time to rest easy, but tap for a peek at tomorrow’s forecast so you’re ready to go.`;
-  } else if (mm >= MIDNIGHT_START && mm <= MIDNIGHT_END) {
-    message = `Hey, it’s midnight! The temperature is a cool ${temp}° with a ${rainChance}% chance of rain. Perfect for a peaceful night or a late stroll. Tap here to see what’s in store for the morning.`;
+    if (mm >= MORNING_START && mm <= MORNING_END) {
+      message = `Good morning! It’s ${temp}° outside with a ${rainChance}% chance of rain. Plan your day accordingly.`;
+    } else if (mm >= AFTERNOON_START && mm <= AFTERNOON_END) {
+      message = `Good afternoon! The weather’s at ${temp}° with a ${rainChance}% chance of rain. Need to decide if you should take a break indoors or enjoy some fresh air?`;
+    } else if (mm >= EVENING_START && mm <= EVENING_END) {
+      message = `Evening’s here! It’s cooling down to ${temp}° with a ${rainChance}% chance of rain. Perfect moment to wind down or plan your night out.`;
+    } else if (mm >= NIGHT_START && mm <= NIGHT_END) {
+      message = `Nighttime vibes! It’s around ${temp}° with a ${rainChance}% chance of rain. Time to rest easy, but tap for a peek at tomorrow’s forecast so you’re ready to go.`;
+    } else if (mm >= MIDNIGHT_START && mm <= MIDNIGHT_END) {
+      message = `Hey, it’s midnight! The temperature is a cool ${temp}° with a ${rainChance}% chance of rain. Perfect for a peaceful night or a late stroll. Tap here to see what’s in store for the morning.`;
+    }
+
+    return message;
   }
 
-  return message;
-}
+  getGreetingMessage(): string {
+    const hour = new Date().getHours();
 
-getGreetingMessage(): string {
-  const hour = new Date().getHours();
-
-  if (hour >= 0 && hour < 5) {
-    return "Hey, it’s midnight! 🌙";
-  } else if (hour >= 5 && hour < 12) {
-    return "Good Morning! ☀️";
-  } else if (hour >= 12 && hour < 18) {
-    return "Good Afternoon! 🌤️";
-  } else if (hour >= 18 && hour < 21) {
-    return "Good Evening! 🌆 ";
-  } else if (hour >= 21 && hour <= 23) {
-    return "Nighttime vibes! 🌌";
-  } else {
-    return "Hello! Have a great day!"; // fallback
+    if (hour >= 0 && hour < 5) {
+      return "Hey, it’s midnight! 🌙";
+    } else if (hour >= 5 && hour < 12) {
+      return "Good Morning! ☀️";
+    } else if (hour >= 12 && hour < 15) {
+      return "Good Afternoon! 🌤️";
+    } else if (hour >= 15 && hour < 20) {
+      return "Good Evening! 🌆 ";
+    } else if (hour >= 20 && hour <= 23) {
+      return "Nighttime vibes! 🌌";
+    } else {
+      return "Hello! Have a great day!"; // fallback
+    }
   }
+
+  async setNavigationBarTransparent() {
+    await NavigationBar.setTransparency({
+      isTransparent: true
+    });
+  }
+
+
+  private setLocalConfig(isAllowed: boolean) {
+    var isNotification = this.isNotification();
+    localStorage.setItem(
+      'nativeConfig',
+      JSON.stringify({
+        isVisited: false,
+        isManualSearch: false,
+        isNotificationAllowed: isNotification,
+        isAutoSearch: isAllowed
+      })
+    );
+
+  }
+
+
+async updateFooterInset(bottom: number) {
+  var footerBottom;
+
+    if(bottom > 10 && bottom<20 ) {
+    footerBottom = 0
+    console.log(`bottom-->${bottom}-->❌Navigation bar not found`);
+    await this.showMessage(`bottom-->${bottom}-->❌Navigation bar not found`)
+  } else if(bottom>40 && bottom<45) {
+    footerBottom = 23
+    console.log(`bottom-->${bottom}-->✅Navigation bar  found`);
+    await this.showMessage(`bottom-->${bottom}-->✅Navigation bar  found,bottom set ${footerBottom}`);
+      
+      await NavigationBar.setTransparency({
+      isTransparent: false,
+    });
+    await NavigationBar.setColor({
+      color: '#000000',
+      darkButtons: false, 
+    });
+
+
+  
+  }else if(bottom>44 && bottom<60) {
+      footerBottom = 0
+    console.log(`bottom-->${bottom}-->✅Navigation bar  found`);
+    await this.showMessage(`bottom-->${bottom}-->✅Navigation bar  found,bottom set ${footerBottom}`);
+          await NavigationBar.setTransparency({
+      isTransparent: false,
+    });
+    
+    await NavigationBar.setColor({
+      color: '#000000',
+      darkButtons: false, 
+    });
+
+
+
+  }
+  else if(bottom == 0 ){
+    footerBottom = 0
+    console.log(`bottom-->${bottom}-->❌Navigation bar not found for Abhishek device`);
+     await this.showMessage(`bottom-->${bottom}-->❌Navigation bar not found for Abhishek device`)
+  }
+
+  document.documentElement.style.setProperty('--footer-bottom', `${footerBottom}px`);
 }
+
+async showMessage(text:any) {
+     await Toast.show({
+            text: JSON.stringify(text),
+            duration: 'long',
+            position: 'top',
+          });
+}
+async initSafeArea() {
+  const { insets } = await SafeArea.getSafeAreaInsets();
+  this.updateFooterInset(insets.bottom);
+   console.log(insets,'inset obj');
+
+  SafeArea.addListener('safeAreaChanged', async ( { insets }) => {
+   await this.updateFooterInset(insets.bottom);
+  });
+    setTimeout(async () => {
+    const { insets: recheckInsets } = await SafeArea.getSafeAreaInsets();
+    await this.updateFooterInset(recheckInsets.bottom);
+  }, 300);
+}
+
 
 
 }

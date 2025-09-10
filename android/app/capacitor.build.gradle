@@ -20,6 +20,7 @@ dependencies {
     implementation project(':capacitor-toast')
     implementation project(':squareetlabs-capacitor-navigation-bar')
     implementation project(':capacitor-native-settings')
+    implementation project(':capacitor-plugin-safe-area')
 
 }
 

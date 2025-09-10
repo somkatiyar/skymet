@@ -123,7 +123,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
 
   async addCurrentLocation(L: any) {
     var customIcon = L.icon({
-      iconUrl: './img/currentloc.svg',
+      iconUrl: 'https://skymetweather.com/img/currentloc.svg',
       iconSize: [32, 32],
       iconAnchor: [16, 32],
       popupAnchor: [0, -32]
@@ -266,7 +266,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
 
   async addCloudImage(L: any) {
     try {
-      var imageUrl = "./img/cloud_test.png";
+      var imageUrl = "https://skymetweather.com/img/cloud_test.png";
       var imageBounds = new L.LatLngBounds(new L.LatLng(36.324355, 97.56348), new L.LatLng(6.274355, 67.21348));
       var cloudImage = L.imageOverlay(imageUrl, imageBounds);
       this.layerControl.addOverlay(cloudImage, 'Cloud');
@@ -459,7 +459,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
 
   lightningIcon(L: any) {
     return L.icon({
-      iconUrl: './img/Lightning.png',
+      iconUrl: 'https://skymetweather.com/img/Lightning.png',
       iconSize: [20, 20],
       iconAnchor: [45, 45],
       popupAnchor: [-3, -76],
@@ -468,7 +468,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
 
   awsIcon(L: any) {
     return L.icon({
-      iconUrl: './img/aws_icon_red.svg',
+      iconUrl: 'https://skymetweather.com/img/aws_icon_red.svg',
       iconSize: [25, 25],
       iconAnchor: [45, 45],
       popupAnchor: [-3, -76],

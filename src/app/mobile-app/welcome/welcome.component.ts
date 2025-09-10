@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WindowService } from '../../services/window.service';
 import { CommonModule } from '@angular/common';
 import { NativeService } from '../service/native.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-welcome',
@@ -15,9 +15,10 @@ export class WelcomeComponent implements OnInit {
   welcomeText: any = "";
   advisory: any;
   weatherData: any;
+  metainfo:any;
   backgroundStyle: { [key: string]: string } = {};
   constructor(private windoService: WindowService,
-    private dataService: DataService,
+    private dataService: DataService,private router:Router,
     public nativeService: NativeService, private route: ActivatedRoute) {
  
 
@@ -54,6 +55,7 @@ export class WelcomeComponent implements OnInit {
     let forecast: any = path && await this.getForecastData(path);
     await this.setForecastData(forecast,isManualSearch);
     this.advisory = forecast && forecast?.forecast && forecast?.forecast[0];
+    this.metainfo = forecast && forecast?.metainfo;
     let actual = this.dataService.bindIcon([forecast && forecast?.actual]);
     this.weatherData = actual[0];
     console.log(this.weatherData,'weatherData');
@@ -62,8 +64,10 @@ export class WelcomeComponent implements OnInit {
 
   async setForecastData(data: any,isManualSearch:any) {
     if (this.windoService.isBrowser()) {
+      var isNotification = this.nativeService.isNotification();
+      var isAutoSearch = this.nativeService.isAutoSearch();
       localStorage.setItem('location', JSON.stringify(data));
-      localStorage.setItem('nativeConfig', JSON.stringify({isVisited:true,isManualSearch:isManualSearch}));
+      localStorage.setItem('nativeConfig', JSON.stringify({isVisited:true,isManualSearch:isManualSearch,isNotification:isNotification,isAutoSearch:isAutoSearch}));
     }
   }
   getForecastData(path: any) {
@@ -91,6 +95,10 @@ export class WelcomeComponent implements OnInit {
       }
       );
     })
+  }
+
+  gotoHome() {
+    this.router.navigate(['/'],{replaceUrl:true})
   }
 
   getDeviceType() {

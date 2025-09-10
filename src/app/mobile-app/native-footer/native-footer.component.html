@@ -4,13 +4,12 @@
       <i class="fas fa-home"  [ngStyle]="{ color: nativeService.getComponentFromRoute()=='home' ? '#039BFF' : '' }"></i>
       <span>Home</span>
     </a>
-    
     <a [routerLink]="['/15-days-rainfall-forecast-for-india']" routerLinkActive="active">
       <i class="fa-solid fa-cloud-rain" [ngStyle]="{ color: nativeService.getComponentFromRoute()=='forecastmap' ? '#039BFF' : '' }"></i>
       <span>Model</span>
     </a>
      <a [routerLink]="['/map']" routerLinkActive="active">
-      <i class="fa-regular fa-cloud-rain" [ngStyle]="{ color: nativeService.getComponentFromRoute()=='map' ? '#039BFF' : '' }"></i>
+      <i class="fa-solid fa-map" [ngStyle]="{ color: nativeService.getComponentFromRoute()=='map' ? '#039BFF' : '' }"></i>
       <span>Map</span>
     </a>
       <a [routerLink]="['/himawari-latest-satellite-images-of-india']" routerLinkActive="active">
@@ -21,6 +20,5 @@
       <i class="fa-solid fa-newspaper" [ngStyle]="{ color: nativeService.getComponentFromRoute()=='resources' ? '#039BFF' : '' }"></i>
       <span>News</span>
     </a>
-  
   </nav>
 </footer>

@@ -156,11 +156,11 @@ export class HeaderComponent implements OnInit {
   getLogo() {
     var logo;
     if (this.getComponentFromRoute() === 'home') {
-      logo = "./img/logo.png"
+      logo = "https://skymetweather.com/img/logo.png"
     } else if (this.getComponentFromRoute() === 'resources') {
-      logo = "./img/logo_resources.webp"
+      logo = "https://skymetweather.com/img/logo_resources.webp"
     } else {
-      logo = "./img/logo.png"
+      logo = "https://skymetweather.com/img/logo.png"
     }
     return logo;
   }

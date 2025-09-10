@@ -1,8 +1,9 @@
 <div class="welcome" [ngStyle]="nativeService.setBackgroundNative()">
     <div class="content">
         <!-- <div class="title">{{welcomeText}},{{nativeService.getUserInfo()?.name ? nativeService.getUserInfo()?.name :"User"}}</div> -->
-        <div class="title">{{nativeService.getGreetingMessage()}},</div>
-        <div class="title">Current Forecast,</div>
+        <div class="title">{{nativeService.getGreetingMessage()}}</div>
+        <div class="title">Current Forecast</div>
+        <div class="loc">{{metainfo?.TEHSIL_ALIAS_NAME}},{{metainfo?.DISTRICT_NAME}}</div>
         <div class="weather">
             <div class="icon">
                 <img [src]="weatherData && weatherData?.iconImage" alt="">
@@ -16,7 +17,7 @@
             {{nativeService.getWeatherMessage(weatherData && weatherData?.tmp,weatherData && weatherData?.precip,weatherData && weatherData?.description)}}
         </div>
 
-        <div class="button" routerLink="/">
+        <div class="button" (click)="gotoHome()">
             <button class="explore">Check the weather</button>
         </div>
     </div>

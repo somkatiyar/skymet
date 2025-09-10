@@ -203,7 +203,7 @@ bindIcon(data: any[], name?: any) {
     .map((element: any) => {
       const timeOfDay = element?.night ? 'night' : 'day';
       
-      element.iconImage = `img/${timeOfDay}/${element.icon.replaceAll(" ", "").toLowerCase()}.webp`;
+      element.iconImage = `https://skymetweather.com/img/${timeOfDay}/${element.icon.replaceAll(" ", "").toLowerCase()}.webp`;
 
       if (name === 'mobile') {
         element.mobileIcon = `assets/img/weather_icon/${element.icon.replaceAll(" ", "").toLowerCase()}.webp`;

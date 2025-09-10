@@ -1,6 +1,6 @@
 .footer {
   position: fixed;
-  bottom: 0px;
+//  bottom: var(--footer-bottom, 0px);
   width: 100%;
   background: #fff;
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);

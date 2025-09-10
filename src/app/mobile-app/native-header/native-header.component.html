@@ -1,6 +1,6 @@
 <header class="header" id="head">
 <div class="left-section" *ngIf="!isSearchBoxEnable && nativeService.pageTitle">
-  <span class="page-title">{{ nativeService.pageTitle =="Home" ? nativeService.getGreetingMessage() + ', user' :nativeService.pageTitle }}</span>
+  <span class="page-title">{{ nativeService.pageTitle =="Home" ? nativeService.getGreetingMessage() :nativeService.pageTitle }}</span>
 </div>
 
 <div class="center-section" *ngIf="isSearchBoxEnable">

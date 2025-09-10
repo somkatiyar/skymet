@@ -15,7 +15,7 @@ import { NotificationService } from './mobile-app/service/notification.service';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { LocationService } from './services/location.service';
 import { SplashScreen } from '@capacitor/splash-screen';
-
+import { NavigationBar } from '@squareetlabs/capacitor-navigation-bar';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -969,8 +969,7 @@ export class AppComponent implements AfterViewInit {
     public nativeService: NativeService,
     private renderer: Renderer2,
     public locationService: LocationService,
-    private pushService: NotificationService,
-    private pullToRefreshService: PullToRefreshService,
+
     private router: Router) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -983,14 +982,18 @@ export class AppComponent implements AfterViewInit {
 
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit() {
     if (this.nativeService.getPlateform() == 'native') {
-      //this.handleScreen();
       this.setStyleGlobal();
       this.initStatusBar();
-      this.pullToRefreshService.init(this.handleRefresh.bind(this));
+      await this.initSafeArea();
+      console.log('safe area process done');
+      setTimeout(async () => {
+        await this.initNavigationBarColor();
+      }, 4000);
+     
+      //this.pullToRefreshService.init(this.handleRefresh.bind(this));
       this.handleBackButton();
-      this.pushService.initPush();
 
     } else {
       if (this.windowService.isBrowser() && this.nativeService.getPlateform() == 'web') {
@@ -1002,7 +1005,28 @@ export class AppComponent implements AfterViewInit {
 
   }
 
+async initNavigationBarColor() {
+  try {
+    await NavigationBar.setTransparency({
+      isTransparent: false,
+    });
+    await NavigationBar.setColor({
+      color: '#000000',
+      darkButtons: false, 
+    });
 
+
+
+
+    console.log('✅ Navigation bar forced to black (opaque)');
+  } catch (err) {
+    console.error('❌ Failed to set navigation bar color', err);
+  }
+}
+
+  async initSafeArea() {
+   await this.nativeService.initSafeArea();
+  }
 
   // handleScreen() {
   //   var appState = this.nativeService.getNativeState();
@@ -1045,9 +1069,6 @@ export class AppComponent implements AfterViewInit {
         });;
       }, 4000);
     }
-
-
-
   }
   setStyleGlobal() {
     if (this.nativeService.getPlateform() == "native") {
@@ -1075,16 +1096,12 @@ export class AppComponent implements AfterViewInit {
   handleBackButton() {
     CapacitorApp.addListener('backButton', async () => {
       const url = this.router.url;
-
       if (url === '/') {
         const currentTime = new Date().getTime();
-
         if (currentTime - this.lastBackTime < 2000) {
           console.log('app exit from ');
-
           CapacitorApp.exitApp();
         } else {
-
           this.lastBackTime = currentTime;
           await Toast.show({
             text: 'Press back again to exit',
@@ -1093,7 +1110,18 @@ export class AppComponent implements AfterViewInit {
           });
         }
       } else {
+        var status;
+        this.windowService.isFullScreen.subscribe(res => {
+          console.log(res,'ASNKahsiA');
+          status = res
+        })
+      if (status) {
+        this.windowService.exitFullscreen();
+      } else {
         window.history.back();
+      }
+        
+       // window.history.back();
       }
     });
   }

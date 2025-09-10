@@ -1,6 +1,6 @@
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Toast } from '@capacitor/toast';
 @Injectable({
   providedIn: 'root'
@@ -9,8 +9,9 @@ export class WindowService {
    L:any;
    leafletSubject = new Subject();
    onlineOfflineSubject = new Subject();
-  //mode="development"
-  mode="production"
+   isFullScreen = new BehaviorSubject(false);
+   mode="development"
+   //mode="production"
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(platformId)) {
       if(this.mode == "production") {
@@ -55,5 +56,17 @@ export class WindowService {
             position: 'top',
           });
   }
+
+exitFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if ((document as any).webkitExitFullscreen) {
+    (document as any).webkitExitFullscreen();
+  } else if ((document as any).mozCancelFullScreen) {
+    (document as any).mozCancelFullScreen();
+  } else if ((document as any).msExitFullscreen) {
+    (document as any).msExitFullscreen();
+  }
+}
    
 }

@@ -202,32 +202,32 @@ setBackground(): void {
     // Put night condition first
     if (hour >= 21 || hour < 5) {
       this.backgroundStyle = {
-        background: `url(./img/${dayNight}/9_5_am.webp)`,
+        background: `url(https://skymetweather.com/img/${dayNight}/9_5_am.webp)`,
         ...commonStyle
       };
     } else if (hour >= 5 && hour < 7) {
       this.backgroundStyle = {
-        background: `url(./img/${dayNight}/5_7_am.webp)`,
+        background: `url(https://skymetweather.com/img/${dayNight}/5_7_am.webp)`,
         ...commonStyle
       };
     } else if (hour >= 7 && hour < 11) {
       this.backgroundStyle = {
-        background: `url(./img/${dayNight}/7_11_am.webp)`,
+        background: `url(https://skymetweather.com/img/${dayNight}/7_11_am.webp)`,
         ...commonStyle
       };
     } else if (hour >= 11 && hour < 18) {
       this.backgroundStyle = {
-        background: `url(./img/${dayNight}/11_6_pm.webp)`,
+        background: `url(https://skymetweather.com/img/${dayNight}/11_6_pm.webp)`,
         ...commonStyle
       };
     } else if (hour >= 18 && hour < 19) {
       this.backgroundStyle = {
-        background: `url(./img/${dayNight}/6_7_pm.webp)`,
+        background: `url(https://skymetweather.com/img/${dayNight}/6_7_pm.webp)`,
         ...commonStyle
       };
     } else if (hour >= 19 && hour < 21) {
       this.backgroundStyle = {
-        background: `url(./img/${dayNight}/7_9_pm.webp)`,
+        background: `url(https://skymetweather.com/img/${dayNight}/7_9_pm.webp)`,
         ...commonStyle
       };
     } else {

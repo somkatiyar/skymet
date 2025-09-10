@@ -434,9 +434,10 @@ export class RainfallModelComponent implements AfterViewInit {
       if (!document.fullscreenElement) {
         this.rainfallMainSwiperFullScreen?.slideTo(index || 0);
         this.fullscreenEl.nativeElement.requestFullscreen();
-
+        this.windowService.isFullScreen.next(true)
       } else {
         document.exitFullscreen();
+        this.windowService.isFullScreen.next(false)
       }
     }
   }

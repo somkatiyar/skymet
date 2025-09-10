@@ -41,16 +41,16 @@ export class ResourcesComponent implements AfterViewInit {
   allNews:any;
   postLimit:any = 9;
   filters = [
-  { filterkey: "All News", role: null ,sr_no:1,slug:'all',icon:'./img/article_filter/weather.webp'},
-  { filterkey: "Weather News", role: null,sr_no:2,slug:'weather-news-and-analysis', icon:'./img/article_filter/weather.webp'},
-  { filterkey: "Climate change", role: null,sr_no:3,slug:'climate-change', icon:'./img/article_filter/climate.webp'},
-  { filterkey: "La nina", role: null ,sr_no:4,slug:'la-nina', icon:'./img/article_filter/lanina.webp'},
-  { filterkey: "Monsoon Update", role: null,sr_no:5,slug:'monsoon-update', icon:'./img/article_filter/monsoon.webp'},
-  // { filterkey: "Astronomy", role: null ,sr_no:6,slug:'weather-news-and-analysis', icon:'./img/article_filter/astronomy.webp'},
-  // { filterkey: "Mumbai", role: null,sr_no:7,slug:'weather-news-and-analysis', icon:'./img/article_filter/mumbai.webp'},
-  // { filterkey: "Delhi", role: null,sr_no:8,slug:'weather-news-and-analysis', icon:'./img/article_filter/delhi.webp'},
-  // { filterkey: "Rainfall", role: null,sr_no:9 ,slug:'weather-news-and-analysis', icon:'./img/article_filter/rainfall.webp'},
-  // { filterkey: "Eastern India", role: null,sr_no:10,slug:'weather-news-and-analysis', icon:'./img/article_filter/eastern-india.webp'}
+  { filterkey: "All News", role: null ,sr_no:1,slug:'all',icon:'https://skymetweather.com/img/article_filter/weather.webp'},
+  { filterkey: "Weather News", role: null,sr_no:2,slug:'weather-news-and-analysis', icon:'https://skymetweather.com/img/article_filter/weather.webp'},
+  { filterkey: "Climate change", role: null,sr_no:3,slug:'climate-change', icon:'https://skymetweather.com/img/article_filter/climate.webp'},
+  { filterkey: "La nina", role: null ,sr_no:4,slug:'la-nina', icon:'https://skymetweather.com/img/article_filter/lanina.webp'},
+  { filterkey: "Monsoon Update", role: null,sr_no:5,slug:'monsoon-update', icon:'https://skymetweather.com/img/article_filter/monsoon.webp'},
+  // { filterkey: "Astronomy", role: null ,sr_no:6,slug:'weather-news-and-analysis', icon:'https://skymetweather.com/img/article_filter/astronomy.webp'},
+  // { filterkey: "Mumbai", role: null,sr_no:7,slug:'weather-news-and-analysis', icon:'https://skymetweather.com/img/article_filter/mumbai.webp'},
+  // { filterkey: "Delhi", role: null,sr_no:8,slug:'weather-news-and-analysis', icon:'https://skymetweather.com/img/article_filter/delhi.webp'},
+  // { filterkey: "Rainfall", role: null,sr_no:9 ,slug:'weather-news-and-analysis', icon:'https://skymetweather.com/img/article_filter/rainfall.webp'},
+  // { filterkey: "Eastern India", role: null,sr_no:10,slug:'weather-news-and-analysis', icon:'https://skymetweather.com/img/article_filter/eastern-india.webp'}
 ];
 selectedFilter:any = 1;
 selectedLng:any;

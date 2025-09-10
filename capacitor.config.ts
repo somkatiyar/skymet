@@ -12,10 +12,10 @@ const config: CapacitorConfig = {
       showSpinner: false,
       backgroundColor: '#ffffff',
       //launchShowDuration:5000
-    }
+    },
   },
   //  server: {
-  //    url: 'http://192.168.1.2:4200',  
+  //    url: 'http://192.168.105.3:4200',  
   //   cleartext: true
   // },
   
