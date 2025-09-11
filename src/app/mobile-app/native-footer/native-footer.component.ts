@@ -14,23 +14,11 @@ export class NativeFooterComponent implements AfterViewInit,OnDestroy {
   constructor(public nativeService:NativeService) {}
 
   async ngAfterViewInit() {
-  //this.initSafeArea();
+
 
   }
 
-async  initSafeArea() {
-  const { insets } = await SafeArea.getSafeAreaInsets();
-  this.updateFooterInset(insets.bottom);
 
-  await SafeArea.removeAllListeners();
-  await SafeArea.addListener('safeAreaChanged', ({ insets }) => {
-    this.updateFooterInset(insets.bottom);
-  });
-}
-updateFooterInset(bottom: number) {
-  const footerBottom = bottom > 20 ? 23 : 0;
-  document.documentElement.style.setProperty('--footer-bottom', `${footerBottom}px`);
-}
   ngOnDestroy() {
   }
 

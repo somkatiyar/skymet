@@ -10,8 +10,8 @@ export class WindowService {
    leafletSubject = new Subject();
    onlineOfflineSubject = new Subject();
    isFullScreen = new BehaviorSubject(false);
-   mode="development"
-   //mode="production"
+   //mode="development"
+   mode="production"
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(platformId)) {
       if(this.mode == "production") {

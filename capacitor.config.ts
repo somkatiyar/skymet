@@ -15,7 +15,7 @@ const config: CapacitorConfig = {
     },
   },
   //  server: {
-  //    url: 'http://192.168.105.3:4200',  
+  //    url: 'http://192.168.0.139:4200',  
   //   cleartext: true
   // },
   

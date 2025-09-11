@@ -16,6 +16,9 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 import { LocationService } from './services/location.service';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { NavigationBar } from '@squareetlabs/capacitor-navigation-bar';
+import { SafeArea } from 'capacitor-plugin-safe-area';
+import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -984,14 +987,12 @@ export class AppComponent implements AfterViewInit {
 
   async ngAfterViewInit() {
     if (this.nativeService.getPlateform() == 'native') {
-      this.setStyleGlobal();
+
       this.initStatusBar();
-      await this.initSafeArea();
+      await this.setPadding();
+      await this.nativeService.initSafeArea();
       console.log('safe area process done');
-      setTimeout(async () => {
-        await this.initNavigationBarColor();
-      }, 4000);
-     
+
       //this.pullToRefreshService.init(this.handleRefresh.bind(this));
       this.handleBackButton();
 
@@ -1005,61 +1006,39 @@ export class AppComponent implements AfterViewInit {
 
   }
 
-async initNavigationBarColor() {
-  try {
-    await NavigationBar.setTransparency({
-      isTransparent: false,
-    });
-    await NavigationBar.setColor({
-      color: '#000000',
-      darkButtons: false, 
-    });
+
+
+  async initNavigationBarColor() {
+    try {
+      await NavigationBar.setTransparency({
+        isTransparent: false,
+      });
+      await NavigationBar.setColor({
+        color: '#000000',
+        darkButtons: false,
+      });
 
 
 
 
-    console.log('✅ Navigation bar forced to black (opaque)');
-  } catch (err) {
-    console.error('❌ Failed to set navigation bar color', err);
-  }
-}
-
-  async initSafeArea() {
-   await this.nativeService.initSafeArea();
+      console.log('✅ Navigation bar forced to black (opaque)');
+    } catch (err) {
+      console.error('❌ Failed to set navigation bar color', err);
+    }
   }
 
-  // handleScreen() {
-  //   var appState = this.nativeService.getNativeState();
-  //   console.log(appState,'appState on initial load');
-    
-  //   if (appState == null ) {
-  //     setTimeout(() => {
-  //       this.router.navigate(['location']).then(() => {
-  //         SplashScreen.hide();
-  //       });
-  //     }, 4000);
-  //   } else if (appState && !appState.isVisited) {
-  //     setTimeout(() => {
-  //       this.router.navigate(['location']).then(() => {
-  //         SplashScreen.hide();
-  //       });;
-  //     }, 4000);
-  //   } else if ( appState && appState.isVisited) {
-  //     setTimeout(() => {        
-  //       this.router.navigate(['/']).then(() => {
-  //         SplashScreen.hide();
-  //       });
-  //     }, 4000);
-  //   }
 
 
-  // }
+
+
+
+
   handleScreen() {
     var appState = this.nativeService.getNativeState();
-    console.log(appState,'appState on initial load');
-    if(appState && appState.isVisited){
-         setTimeout(() => {
-          SplashScreen.hide();
+    console.log(appState, 'appState on initial load');
+    if (appState && appState.isVisited) {
+      setTimeout(() => {
+        SplashScreen.hide();
       }, 4000);
       return
     } else {
@@ -1070,11 +1049,21 @@ async initNavigationBarColor() {
       }, 4000);
     }
   }
-  setStyleGlobal() {
-    if (this.nativeService.getPlateform() == "native") {
-      this.renderer.setStyle(document.body, 'padding-bottom', '100px');
+  async setStyleGlobal(bottom:any) {
+    if (this.nativeService.getPlateform() === "native") {
+       const footerHeight = 0;
+      const padding = footerHeight + bottom;
+      this.renderer.setStyle(document.body, 'padding-bottom', `${padding}px`);
     }
   }
+  async setPadding() {
+   const { insets } = await SafeArea.getSafeAreaInsets();
+    this.setStyleGlobal(insets.bottom);
+    SafeArea.addListener('safeAreaChanged', ({ insets }) => {
+      this.setStyleGlobal(insets.bottom);
+    });
+  }
+
 
   async initStatusBar() {
     if (this.nativeService.getPlateform() == "native") {
@@ -1112,16 +1101,16 @@ async initNavigationBarColor() {
       } else {
         var status;
         this.windowService.isFullScreen.subscribe(res => {
-          console.log(res,'ASNKahsiA');
+          console.log(res, 'ASNKahsiA');
           status = res
         })
-      if (status) {
-        this.windowService.exitFullscreen();
-      } else {
-        window.history.back();
-      }
-        
-       // window.history.back();
+        if (status) {
+          this.windowService.exitFullscreen();
+        } else {
+          window.history.back();
+        }
+
+        // window.history.back();
       }
     });
   }

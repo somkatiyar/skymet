@@ -475,54 +475,6 @@ export class NativeService {
 
   }
 
-
-async updateFooterInset(bottom: number) {
-  var footerBottom;
-
-    if(bottom > 10 && bottom<20 ) {
-    footerBottom = 0
-    console.log(`bottom-->${bottom}-->❌Navigation bar not found`);
-    await this.showMessage(`bottom-->${bottom}-->❌Navigation bar not found`)
-  } else if(bottom>40 && bottom<45) {
-    footerBottom = 23
-    console.log(`bottom-->${bottom}-->✅Navigation bar  found`);
-    await this.showMessage(`bottom-->${bottom}-->✅Navigation bar  found,bottom set ${footerBottom}`);
-      
-      await NavigationBar.setTransparency({
-      isTransparent: false,
-    });
-    await NavigationBar.setColor({
-      color: '#000000',
-      darkButtons: false, 
-    });
-
-
-  
-  }else if(bottom>44 && bottom<60) {
-      footerBottom = 0
-    console.log(`bottom-->${bottom}-->✅Navigation bar  found`);
-    await this.showMessage(`bottom-->${bottom}-->✅Navigation bar  found,bottom set ${footerBottom}`);
-          await NavigationBar.setTransparency({
-      isTransparent: false,
-    });
-    
-    await NavigationBar.setColor({
-      color: '#000000',
-      darkButtons: false, 
-    });
-
-
-
-  }
-  else if(bottom == 0 ){
-    footerBottom = 0
-    console.log(`bottom-->${bottom}-->❌Navigation bar not found for Abhishek device`);
-     await this.showMessage(`bottom-->${bottom}-->❌Navigation bar not found for Abhishek device`)
-  }
-
-  document.documentElement.style.setProperty('--footer-bottom', `${footerBottom}px`);
-}
-
 async showMessage(text:any) {
      await Toast.show({
             text: JSON.stringify(text),
@@ -530,6 +482,31 @@ async showMessage(text:any) {
             position: 'top',
           });
 }
+async updateFooterInset(bottom: number) {
+  var footerBottom;
+
+    if(bottom > 10 && bottom<20 ) {
+    footerBottom = 0
+    console.log(`bottom-->${bottom}-->❌Navigation bar not found`);
+  } else if(bottom>40 && bottom<45) {
+    footerBottom = 0
+    console.log(`bottom-->${bottom}-->✅Navigation bar  found`);
+
+  
+  }else if(bottom>44 && bottom<60) {
+      footerBottom = 0
+
+
+  }
+  else if(bottom == 0 ){
+    footerBottom = 0
+    console.log(`bottom-->${bottom}-->❌Navigation bar not found for Abhishek device`);
+  }
+
+  document.documentElement.style.setProperty('--footer-bottom', `${footerBottom}px`);
+}
+
+
 async initSafeArea() {
   const { insets } = await SafeArea.getSafeAreaInsets();
   this.updateFooterInset(insets.bottom);

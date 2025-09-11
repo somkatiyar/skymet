@@ -173,17 +173,19 @@ body.pulling::before {
   --tablet: 769px;
   --laptop: 1025px;
 
-  --footer-bottom: 0px; 
-
+ --footer-bottom: 0px; 
 }
 
 #footer_native {
-  position: fixed;
-  bottom: var(--footer-bottom, 0px);
+ position: fixed;
   width: 100%;
-  background: #fff;
+  height: 0px;
+   bottom: var(--footer-bottom, 0px);
+
+  background: white;
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
   z-index: 99900;
+  box-sizing: content-box;
 }
 
 * {
