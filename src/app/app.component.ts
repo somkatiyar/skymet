@@ -17,7 +17,8 @@ import { LocationService } from './services/location.service';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { NavigationBar } from '@squareetlabs/capacitor-navigation-bar';
 import { SafeArea } from 'capacitor-plugin-safe-area';
-import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { AppUpdate } from '@capawesome/capacitor-app-update';
 
 @Component({
   selector: 'app-root',
@@ -987,8 +988,9 @@ export class AppComponent implements AfterViewInit {
 
   async ngAfterViewInit() {
     if (this.nativeService.getPlateform() == 'native') {
-
-      this.initStatusBar();
+      await this.lockLandscape();
+      await this.checkForUpdates();
+      await this.initStatusBar();
       await this.setPadding();
       await this.nativeService.initSafeArea();
       console.log('safe area process done');
@@ -1028,7 +1030,10 @@ export class AppComponent implements AfterViewInit {
   }
 
 
-
+async lockLandscape() {
+  await ScreenOrientation.lock({ orientation: 'portrait' });
+  //await ScreenOrientation.unlock();
+}
 
 
 
@@ -1101,7 +1106,7 @@ export class AppComponent implements AfterViewInit {
       } else {
         var status;
         this.windowService.isFullScreen.subscribe(res => {
-          console.log(res, 'ASNKahsiA');
+          console.log(res, 'is full screen or not');
           status = res
         })
         if (status) {
@@ -1109,11 +1114,48 @@ export class AppComponent implements AfterViewInit {
         } else {
           window.history.back();
         }
-
-        // window.history.back();
       }
     });
   }
 
+  async checkForUpdates() {
+    try {
+      const info = await AppUpdate.getAppUpdateInfo();
+      if (info.updateAvailability && info.flexibleUpdateAllowed) {
+        // A flexible update is available, start the process
+        await AppUpdate.startFlexibleUpdate();
+        // You might want to listen for flexible update state changes
+        AppUpdate.addListener('onFlexibleUpdateStateChange', (state:any) => {
+          console.log('Flexible update state:', state);
+          if (state.installStatus === 'DOWNLOADED') {
+            // Update downloaded, prompt user to complete
+            this.promptToCompleteUpdate();
+          }
+        });
+      } else if (info.updateAvailability && info.immediateUpdateAllowed) {
+        // An immediate update is available, trigger it
+        await AppUpdate.performImmediateUpdate();
+      } else {
+        console.log('No app update available or allowed for this type.');
+      }
+    } catch (error) {
+      
+      console.error('Error checking for app updates:', error);
+    }
+  }
 
+  async promptToCompleteUpdate() {
+    // Implement UI to ask the user to complete the update
+    const confirmed = confirm('A new version has been downloaded. Restart to update?');
+    if (confirmed) {
+      await AppUpdate.completeFlexibleUpdate();
+    }
+  }
+
+  // You can also open the app store directly if needed
+  async openStore() {
+    await AppUpdate.openAppStore();
+  }
+
+    
 }

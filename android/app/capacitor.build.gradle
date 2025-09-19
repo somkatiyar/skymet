@@ -10,15 +10,18 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':capacitor-community-text-to-speech')
+    implementation project(':capacitor-firebase-analytics')
     implementation project(':capacitor-app')
     implementation project(':capacitor-app-launcher')
     implementation project(':capacitor-device')
     implementation project(':capacitor-geolocation')
     implementation project(':capacitor-push-notifications')
+    implementation project(':capacitor-screen-orientation')
     implementation project(':capacitor-splash-screen')
     implementation project(':capacitor-status-bar')
     implementation project(':capacitor-toast')
     implementation project(':capawesome-capacitor-android-edge-to-edge-support')
+    implementation project(':capawesome-capacitor-app-update')
     implementation project(':squareetlabs-capacitor-navigation-bar')
     implementation project(':capacitor-native-settings')
     implementation project(':capacitor-plugin-safe-area')

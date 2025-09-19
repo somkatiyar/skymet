@@ -15,12 +15,13 @@ import { WeatherNewsComponent } from '../../../../pages/weather-news/weather-new
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AdsenseDirective } from '../../directive/ads.directive';
 import { NativeService } from '../../../../mobile-app/service/native.service';
+import { Router } from '@angular/router';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-rainfall-model',
   standalone: true,
-  imports: [CommonModule, WeatherNewsComponent, TranslateModule, AdsenseDirective],
+  imports: [CommonModule, WeatherNewsComponent, TranslateModule, AdsenseDirective ],
   templateUrl: './rainfall-model.component.html',
   styleUrl: './rainfall-model.component.scss',
 })
@@ -177,13 +178,14 @@ export class RainfallModelComponent implements AfterViewInit {
     private seoService: SeoService,
     private translateService: TranslateService,
     private location: Location,
-    public nativeService:NativeService,
+    public nativeService: NativeService,
+    private router: Router,
     public dataService: DataService) {
     this.dataService.selectedLanguages.subscribe(lng => {
       this.translateService.use(lng);
     });
     //  this.filteredModelData = this.getMoodelData('Rainfall');
-    this.filteredModelData = this.getImageUrls(8, 'Rainfall_', 'Rain');
+    this.filteredModelData = this.getImageUrls(16, 'Rainfall_', 'Rain');
 
     this.filteredModelData && this.filteredModelData[0] && this.setRange();
 
@@ -215,7 +217,7 @@ export class RainfallModelComponent implements AfterViewInit {
       const imageUrl = `https://www.skymetweather.com/themes/skymet/images/gfs/new/${folderDateString}/${weatherParam}/daily/${fileName}${imageDateString}.png`;
       urls.push(this.formatForecastMapDate(imageUrl, fileName));
     }
-    return urls;
+    return urls.slice(1);
   }
 
   formatForecastMapDate(el: string, fileName: any) {
@@ -242,7 +244,7 @@ export class RainfallModelComponent implements AfterViewInit {
 
   onTabChange(tab: any, fileName: any, param: any) {
     if (this.windowService.isBrowser()) {
-      this.filteredModelData = tab == 'winds' ? this.generateImageWinds() : this.getImageUrls(8, fileName, param);
+      this.filteredModelData = tab == 'winds' ? this.generateImageWinds() : this.getImageUrls(16, fileName, param);
       this.filteredModelData && this.filteredModelData[0] && this.setRange();
       this.selectedTab = tab.toLowerCase();
       setTimeout(() => {
@@ -279,16 +281,20 @@ export class RainfallModelComponent implements AfterViewInit {
     var imageUrl = "https://www.skymetweather.com/themes/skymet/images/gfs/new/";
     const now = new Date();
     const folderDate = new Date(now);
-    folderDate.setDate(folderDate.getDate() - 1);
+    folderDate.setDate(folderDate.getDate());
+    const pickUpFolder:any = new Date(now);
+    pickUpFolder.setDate(pickUpFolder.getDate()-1);
+    const pickUpfolderString = pickUpFolder.toISOString().split('T')[0].replace(/-/g, '');
     const folderDateString = folderDate.toISOString().split('T')[0].replace(/-/g, '');
     const datePart = `frame_${folderDateString}_`;
+        
+
     // const datePart = 'frame_20250724_';
     const imageObjects = [];
     for (let hour = 0; hour < 24; hour++) {
       const hourStr = String(hour).padStart(2, '0');
       const date = `${hourStr}:00`;
-      const url = `${imageUrl}${folderDateString}/Wind/${folderDateString}/${datePart}${date}:00.png`;
-
+      const url = `${imageUrl}${pickUpfolderString}/Wind/${folderDateString}/${datePart}${date}:00.png`;
       imageObjects.push({ url, date });
     }
     return imageObjects;
@@ -428,6 +434,16 @@ export class RainfallModelComponent implements AfterViewInit {
     }
 
   }
+
+  goBack() {
+    if (this.windowService.isBrowser()) {
+      if (document.fullscreenElement) {
+        this.isFullScreen = false;
+        document.exitFullscreen();
+      }
+    }
+
+  }
   openFullscreen(index?: number): void {
     if (this.windowService.isBrowser()) {
 
@@ -465,12 +481,12 @@ export class RainfallModelComponent implements AfterViewInit {
       let imageUrl: string | undefined;
       imageUrl = this.filteredModelData[index ? index : this.activeIndex]?.url;
       let date = this.filteredModelData[index ? index : this.activeIndex]?.date;
-
+      var fullUrl = "https://www.skymetweather.com" + this.router.url;
       if (!imageUrl) {
         alert('No image found to share.');
         return;
       } else {
-        const message = encodeURIComponent(`Check the ${this.selectedTab} forecast for ${date}.Click on the link ${window.location.href} to check more details- Team Skymet`);
+        const message = encodeURIComponent(`Check the ${this.selectedTab} forecast for ${date}.Click on the link ${fullUrl} to check more details- Team Skymet`);
         const whatsappUrl = `https://wa.me/?text=${message}`;
         window.open(whatsappUrl, '_blank');
       }
@@ -495,12 +511,12 @@ export class RainfallModelComponent implements AfterViewInit {
 
   async shareUrl() {
     if (this.windowService.isBrowser()) {
-      const urls = window.location.href ? [window.location.href] : [];
+      const urls =  "https://www.skymetweather.com" + this.router.url;
       if (!urls.length) {
         alert('No images selected.');
         return;
       } else {
-        const message = encodeURIComponent(`Check the ${this.selectedTab} forecast from ${this.dateRange[0]} to ${this.dateRange[1]}.Click on the link ${window.location.href} to check more details- Team Skymet`);
+        const message = encodeURIComponent(`Check the ${this.selectedTab} forecast from ${this.dateRange[0]} to ${this.dateRange[1]}.Click on the link ${urls} to check more details- Team Skymet`);
         const whatsappUrl = `https://wa.me/?text=${message}`;
         window.open(whatsappUrl, '_blank');
       }

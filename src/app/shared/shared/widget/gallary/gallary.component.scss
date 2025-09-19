@@ -3,7 +3,9 @@
    @media (max-width:550px) {
 
     padding-top: 85px;
-    
+
+
+
   }
 
   .tabs {
@@ -446,7 +448,15 @@
 }
 
 
-
+  .controlIcon{
+    position:absolute;
+    top: 60px;
+    right: 20px;
+    img{
+      height: 30px;
+      width: 30px;
+    }
+  }
 
 
 

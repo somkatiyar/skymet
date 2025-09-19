@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WindowService } from './window.service';
 import { NativeService } from '../mobile-app/service/native.service';
+import { AnalyticsService } from './analytics.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,9 @@ export class UtilityService {
   isPaused = false;
   currentText: string | null = null; // Track which text is being read
 
-  constructor(private windowService: WindowService,private nativeService:NativeService) {
+  constructor(private windowService: WindowService,
+    private analyticsService:AnalyticsService,
+    private nativeService:NativeService) {
     if (this.windowService.isBrowser()) {
       this.synth = window.speechSynthesis;
     }
@@ -71,6 +74,7 @@ export class UtilityService {
 
 async speakNative(text: string) {
   if (this.nativeService.getPlateform() === 'native') {
+      this.analyticsService.logFirebaseEvent('weather_buddy', { text: text });
     try {
       const { TextToSpeech } = await import('@capacitor-community/text-to-speech');
       await TextToSpeech.speak({

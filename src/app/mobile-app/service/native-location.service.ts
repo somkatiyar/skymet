@@ -12,7 +12,8 @@ import {
 })
 export class NativeLocationService {
 
-  constructor(private router: Router,private nativeService:NativeService) { }
+  constructor(private router: Router,
+    private nativeService:NativeService) { }
 
 
   async configNativeLocation() {

@@ -17,6 +17,8 @@ import { SkysenseComponent } from '../skysense/skysense.component';
 import { NativeService } from '../../mobile-app/service/native.service';
 import { Meta, Title } from '@angular/platform-browser';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { AnalyticsService } from '../../services/analytics.service';
+import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +27,7 @@ import { SplashScreen } from '@capacitor/splash-screen';
     HourlyDataComponent,
     ForecastDataComponent,
     SatelliteImageComponent,
+    AdsenseDirective,
     FooterComponent, SkysenseComponent,
     WeatherNewsComponent, VideosComponent],
   templateUrl: './home.component.html',
@@ -59,7 +62,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     public locationService: LocationService,
     private windowService: WindowService,
     public dataService: DataService,
-    private nativeService: NativeService,
+    public nativeService: NativeService,
+    private analyticsService:AnalyticsService
   ) {
 
     this.router.events.subscribe((event: any) => {
@@ -84,6 +88,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
                   this.CurrentDataComponent?.setForecast(forecast,path);
                   this.HourlyDataComponent?.setForecast(forecast, path);
                   this.SkysenseComponent?.setCurrentData(forecast?.actual)
+                  this.analyticsService.logFirebaseEvent('user_location', { position: path });
+
               
             }
           });
@@ -152,7 +158,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.seoService.generateSchema();
     if (this.windowService.isBrowser()) {
       setTimeout(() => {
-        this.openOverlay(this.dataService.getDeviceType() == 'mobile' ? './img/loc_popup_mobile.webp' : './img/loc_popup-desktop.webp');
+        this.openOverlay(this.dataService.getDeviceType() == 'mobile' ? 'https://www.skymetweather.com/img/loc_popup_mobile.webp' : 'https://www.skymetweather.com/img/loc_popup-desktop.webp');
       }, 2000);
     }
   }

@@ -135,12 +135,9 @@
           <h5>Advertisement</h5>
     
         </div> -->
-      <div appAdsense *ngIf="this.nativeService.getPlateform() == 'web'"
-      [adClient]="'ca-pub-6993696142089445'"
-      [adSlot]="'9187952748'"
-      [adFormat]="'rectangle'"
-      [fullWidthResponsive]="'true'">
-      </div>
+        <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+          [adClient]="'ca-pub-6993696142089445'" [adSlot]="'4948802552'">
+        </div>
       </div>
     </div>
   </div>

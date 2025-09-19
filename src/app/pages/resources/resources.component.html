@@ -172,6 +172,10 @@
     </div>
   </div>
 </div>
+  <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+     [adClient]="'ca-pub-6993696142089445'"
+     [adSlot]="'9187952748'">
+</div>
 
 <div class="videos_section">
   <div class="container">
@@ -199,5 +203,9 @@
         <button>View More</button>
       </div>
     </div>
+      <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+     [adClient]="'ca-pub-6993696142089445'"
+     [adSlot]="'9187952748'">
+</div>
   </div>
 </div>

@@ -14,10 +14,10 @@ const config: CapacitorConfig = {
       //launchShowDuration:5000
     },
   },
-  //  server: {
-  //    url: 'http://192.168.0.139:4200',  
-  //   cleartext: true
-  // },
+   server: {
+     url: 'http://192.168.0.139:4200',  
+    cleartext: true
+  },
   
   
 };

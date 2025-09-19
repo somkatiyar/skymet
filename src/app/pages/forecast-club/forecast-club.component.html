@@ -14,6 +14,10 @@
         </ol>
       </nav>
       <app-current-data [parentRef]="this"></app-current-data>
+        <div class="adsense_web" appAdsense  *ngIf="this.nativeService.getPlateform() == 'web'"
+     [adClient]="'ca-pub-6993696142089445'"
+     [adSlot]="'9500962092'">
+</div>
       <div class="cover_area">
   
         <div class="Temperature_swipee fixedTabArea">
@@ -547,8 +551,15 @@
           </div> -->
         </div>
       </div>
+        <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+     [adClient]="'ca-pub-6993696142089445'"
+     [adSlot]="'1149158344'">
+</div>
       <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
-   
+          <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+     [adClient]="'ca-pub-6993696142089445'"
+     [adSlot]="'9793989024'">
+</div>
  
     </div>
     <!-- <div class="ads">

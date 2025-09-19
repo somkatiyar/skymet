@@ -15,10 +15,12 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { SeoService } from '../../services/seo.service';
 import { TranslateService } from '@ngx-translate/core';
+import { NativeService } from '../../mobile-app/service/native.service';
+import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
 @Component({
   selector: 'app-resources',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive,AdsenseDirective],
   templateUrl: './resources.component.html',
   styleUrl: './resources.component.scss',
 })
@@ -78,6 +80,7 @@ sliderArticles=[
     public dataService: DataService,
     private router:Router,
     private seoService:SeoService,
+    public nativeService: NativeService,
     private translateService:TranslateService
   ) {
        this.dataService.selectedLanguages.subscribe((lng: any) => {
@@ -452,7 +455,7 @@ newsText() {
    shareOnWhatsApp(item: any): void {
     if(this.windowService.isBrowser()) {
    const relativePath = `/content/${item.categorySlug[0]}/${item.titleSlug}`;
-    const absoluteUrl = `${window.location.origin}${relativePath}`;
+    const absoluteUrl = `https://www.skymetweather.com${relativePath}`;
     const encodedText = encodeURIComponent(`Check this out: ${absoluteUrl}`);
     const whatsappUrl = `https://wa.me/?text=${encodedText}`;
     window.open(whatsappUrl, '_blank');

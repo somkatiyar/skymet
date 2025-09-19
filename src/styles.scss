@@ -142,7 +142,9 @@
   font-weight: 100 900;
   font-style: italic;
 }
-
+body {
+  font-family: "Raleway", sans-serif;
+}
 /* styles.css or global.scss */
 body.pulling::before {
   content: "↻ Refreshing...";
@@ -192,9 +194,11 @@ body.pulling::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: "Raleway", sans-serif;
 }
-
+.adsense_web{
+  padding: 10px;
+}
 .container {
   width: 100%;
   max-width: var(--container);

@@ -11,7 +11,7 @@ import { SeoService } from '../../services/seo.service';
 import { WindowService } from '../../services/window.service';
 import { FormsModule } from '@angular/forms';
 import { LocationService } from '../../services/location.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-map',
   templateUrl: './live-map.component.html',
@@ -58,6 +58,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
     private seoService: SeoService,
     public windowService: WindowService,
     private dataService: DataService,
+    private router: Router,
     private locationService:LocationService
   ) { }
 
@@ -120,7 +121,19 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-
+  async shareUrl() {
+    if (this.windowService.isBrowser()) {
+      const urls =  "https://www.skymetweather.com" + this.router.url;
+      if (!urls.length) {
+        alert('No images selected.');
+        return;
+      } else {
+        const message = encodeURIComponent(`Check the Live weather map .Click on the link ${urls} to check more details- Team Skymet`);
+        const whatsappUrl = `https://wa.me/?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+      }
+    }
+  }
   async addCurrentLocation(L: any) {
     var customIcon = L.icon({
       iconUrl: 'https://skymetweather.com/img/currentloc.svg',
@@ -144,7 +157,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
   }
 
   addBaseLayers(L: any) {
-    this.googleHybrid = this.L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+    this.googleHybrid = this.L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
       maxZoom: 20,
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
     }).addTo(this.map);

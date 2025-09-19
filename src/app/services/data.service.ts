@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, catchError, delay, Observable, of, retryWhen, Subject, switchMap, take, timeout } from 'rxjs';
 import { WindowService } from './window.service';
 import { ScriptLoaderService } from './script-loader.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class DataService {
 
   constructor(private http:HttpClient, 
     private translationService:TranslateService,
+    private router:Router,
     private windowService:WindowService) { 
       this.selectedLanguages.subscribe(lng => {
         this.translationService.use(lng)
@@ -217,22 +219,22 @@ bindIcon(data: any[], name?: any) {
   getGradient() {
     let item:any = [
       {ist:'11 PM',
-         gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #B0BCC9 23.56%, #F5FBFF 78.85%);'
+         gradient:'linear-gradient(180deg, #FFF 1.92%, #8B9FB6 23.56%, #F5FBFF 78.85%, #FFF 95.67%)'
       },
        {ist:'12 PM',
          gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #B0BCC9 23.56%, #F5FBFF 78.85%);'
       },
        {ist:'1 AM',
-         gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #B0BCC9 23.56%, #F5FBFF 78.85%);'
+         gradient:'linear-gradient(180deg, #FFF 1.92%, #8B9FB6 23.56%, #F5FBFF 78.85%, #FFF 95.67%)'
       },
        {ist:'2 AM',
-         gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #B0BCC9 23.56%, #F5FBFF 78.85%);'
+         gradient:'linear-gradient(180deg, #FFF 1.92%, #8B9FB6 23.56%, #F5FBFF 78.85%, #FFF 95.67%)'
       },
        {ist:'3 AM',
-         gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #B0BCC9 23.56%, #F5FBFF 78.85%);'
+         gradient:'linear-gradient(180deg, #FFF 1.92%, #8B9FB6 23.56%, #F5FBFF 78.85%, #FFF 95.67%)'
       },
        {ist:'4 AM',
-         gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #B0BCC9 23.56%, #F5FBFF 78.85%);'
+         gradient:'linear-gradient(180deg, #FFF 1.92%, #8B9FB6 23.56%, #F5FBFF 78.85%, #FFF 95.67%)'
       },
        {ist:'5 AM',
          gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #FFD3C3 23.56%, rgba(242, 184, 163, 0.05) 78.85%)'
@@ -253,10 +255,13 @@ bindIcon(data: any[], name?: any) {
          gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #C9EAFF 24.04%, #F5FBFF 67.79%)'
       },
        {ist:'11 AM',
-         gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #FFF4C3 23.56%, #FFFCF6 78.85%)'
+          gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #C9EAFF 24.04%, #F5FBFF 67.79%)'
       },
+      //  {ist:'12 AM',
+      //    gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #FFF4C3 23.56%, #FFFCF6 78.85%)'
+      // },
        {ist:'12 AM',
-         gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #FFF4C3 23.56%, #FFFCF6 78.85%)'
+         gradient:'linear-gradient(180deg, #FFF 1.92%, #8B9FB6 23.56%, #F5FBFF 78.85%, #FFF 95.67%)'
       },
        {ist:'1 PM',
          gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #FFF4C3 23.56%, #FFFCF6 78.85%)'
@@ -285,8 +290,8 @@ bindIcon(data: any[], name?: any) {
        {ist:'9 PM',
          gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #94B2D6 23.56%, #F5FBFF 78.85%)'
       },
-       {ist:'10 pM',
-         gradient:'linear-gradient(180deg, #FFFFFF 1.92%, #94B2D6 23.56%, #F5FBFF 78.85%)'
+       {ist:'10 PM',
+            gradient:'linear-gradient(180deg, #FFF 1.92%, #8B9FB6 23.56%, #F5FBFF 78.85%, #FFF 95.67%)'
       }
     ];
     return item
@@ -315,7 +320,7 @@ bindIcon(data: any[], name?: any) {
    shareOnWhatsApp(item: any): void {
       if(this.windowService.isBrowser()) {
       const relativePath = `/content/${item.categorySlug[0]}/${item.titleSlug}`;
-      const absoluteUrl = `${window.location.origin}${relativePath}`;
+      const absoluteUrl = `https://www.skymetweather.com${relativePath}`;
       const encodedText = encodeURIComponent(`Check this out: ${absoluteUrl}`);
       const whatsappUrl = `https://wa.me/?text=${encodedText}`;
       window.open(whatsappUrl, '_blank');
@@ -324,10 +329,12 @@ bindIcon(data: any[], name?: any) {
 
   nativeShare() {
     if(this.windowService.isBrowser()) {
+      console.log(this.router.url,'sharing url in native share');
+      
   if (navigator.share) {
     navigator.share({
       title: 'Check this out',
-      url: window.location.pathname
+      url: "https://www.skymetweather.com"+this.router.url,
     }).then(() => console.log('✅ Shared!'))
       .catch(err => console.error('❌ Error sharing', err));
   } else {

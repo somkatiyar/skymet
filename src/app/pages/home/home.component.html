@@ -1,21 +1,31 @@
-
 <app-current-data [parentRef]="this"></app-current-data>
+<div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+  [adClient]="'ca-pub-6993696142089445'" [adSlot]="'3942896545'">
+</div>
 <app-hourly-data></app-hourly-data>
 <app-skysense></app-skysense>
 <app-satellite-image></app-satellite-image>
+<div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+  [adClient]="'ca-pub-6993696142089445'" [adSlot]="'9047829661'">
+</div>
 <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
+<div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+  [adClient]="'ca-pub-6993696142089445'" [adSlot]="'2079150534'">
+</div>
 <div #videoContainer style="min-height: 400px;">
   <ng-container *ngIf="showVideo">
     <app-videos></app-videos>
   </ng-container>
 </div>
 
-
+<div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+  [adClient]="'ca-pub-6993696142089445'" [adSlot]="'4513688281'">
+</div>
 
 <div class="image-container" *ngIf="isOverlayVisible">
   <div class="image-wrapper">
     <img [src]="selectedImage" alt="Preview Image" />
-</div>
+  </div>
 
   <div class="button-wrapper" *ngIf="dataService.getDeviceType() == 'mobile'">
     <button class="setting" (click)="goToSetting()">Go to setting</button>
@@ -23,7 +33,3 @@
 
   <button class="close-btn" (click)="closeOverlay()">×</button>
 </div>
-
-
-
-

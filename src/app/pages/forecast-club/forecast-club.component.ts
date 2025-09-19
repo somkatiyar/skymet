@@ -23,12 +23,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { UtilityService } from '../../services/utility.service';
 import { createForecastBreadcrumb } from '../../model/schema';
 import { NativeService } from '../../mobile-app/service/native.service';
+import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
 @Component({
   selector: 'app-forecast-club',
   standalone: true,
   imports: [CurrentDataComponent, RouterLink,
     DewpointComponent, CommonModule, TranslateModule,
-    SkysenseComponent, SpeedometerComponent,
+    SkysenseComponent, SpeedometerComponent,AdsenseDirective,
     HourlyDataComponent, ForecastDataComponent, RainfallComponent,
     UvRaysComponent, WeatherNewsComponent, SunriseComponent, MoonriseComponent],
   templateUrl: './forecast-club.component.html',
@@ -101,7 +102,7 @@ export class ForecastClubComponent implements AfterViewInit, OnDestroy {
     public dataService: DataService,
     public utilityService: UtilityService,
     private route: ActivatedRoute,
-    private nativeService: NativeService,
+    public nativeService: NativeService,
     private router: Router, private seoService: SeoService,
     private translateService: TranslateService) {
 
@@ -351,7 +352,7 @@ return schema
     if (humidity >= 1 && humidity <= 30) {
       return { background: '#F5C5B1', text: "Low" };
     } else if (humidity >= 31 && humidity <= 69) {
-      return { background: '##F5F2B1', text: "Moderate" };
+      return { background: '#F5F2B1', text: "Moderate" };
     } else if (humidity >= 70 && humidity <= 100) {
       return { background: '#A5C7FF', text: "High" };
     } else {

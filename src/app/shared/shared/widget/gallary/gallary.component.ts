@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import {
   Autoplay,
   Manipulation,
@@ -14,12 +14,14 @@ import { SeoService } from '../../../../services/seo.service';
 import { WeatherNewsComponent } from '../../../../pages/weather-news/weather-news.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { AdsenseDirective } from '../../directive/ads.directive';
+import { NativeService } from '../../../../mobile-app/service/native.service';
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-gallary',
   standalone: true,
-  imports: [CommonModule,WeatherNewsComponent,TranslateModule],
+  imports: [CommonModule, WeatherNewsComponent, TranslateModule,AdsenseDirective],
   templateUrl: './gallary.component.html',
   styleUrl: './gallary.component.scss',
 })
@@ -30,17 +32,19 @@ export class GallaryComponent implements AfterViewInit {
   activeIndex: number = 0;
   viewType: any = 'swiper';
   selectedTab: any = 'himawari';
-    weatherNewsHeaderConfig: any = {
+  weatherNewsHeaderConfig: any = {
     title: "Suggested Resources",
     isLanguagesSelecter: false,
     isFooterView: true,
     isHeaderView: false
-  }
+  };
+  isFullScreen: boolean = false;
   constructor(private windowService: WindowService,
     private cdRef: ChangeDetectorRef,
     private location: Location,
-    private seoService:SeoService,
-    private router:Router,
+    private seoService: SeoService,
+    private router: Router,
+    public nativeService: NativeService,
     private translateService: TranslateService,
     public dataService: DataService) {
     this.dataService.selectedLanguages.subscribe(lng => {
@@ -48,10 +52,35 @@ export class GallaryComponent implements AfterViewInit {
     });
   }
 
+  @HostListener('document:fullscreenchange', ['$event'])
+  onFullscreenChange(event: Event) {
+    if (this.windowService.isBrowser()) {
+      if (document.fullscreenElement) {
+        this.isFullScreen = true;
+        this.windowService.isFullScreen.next(true)
+        console.log('Entered fullscreen:');
+      } else {
+        // this.initRainfallSwiper();
+        this.isFullScreen = false;
+        this.windowService.isFullScreen.next(false);
+        console.log('Exited fullscreen');
+
+      }
+    }
+  }
+  goBack() {
+    if (this.windowService.isBrowser()) {
+      if (document.fullscreenElement) {
+        this.isFullScreen = false;
+        document.exitFullscreen();
+      }
+    }
+
+  }
   ngAfterViewInit(): void {
     var url = this.router.url;
-    this.getsatelliteImage(url.includes('himawari')? 'himawari': 'insat');
-    
+    this.getsatelliteImage(url.includes('himawari') ? 'himawari' : 'insat');
+
   }
 
   refreshUrl(tab: any) {
@@ -59,23 +88,23 @@ export class GallaryComponent implements AfterViewInit {
       this.location.replaceState(
         `insat/weather-satellite-images-of-india`
       );
-      this.seoService.setMetaTags('satellite','insat');
+      this.seoService.setMetaTags('satellite', 'insat');
       this.seoService.setSchema('satellite');
-      
+
     } else if (tab == 'himawari') {
       this.location.replaceState(
         `himawari-latest-satellite-images-of-india`
       );
-      this.seoService.setMetaTags('satellite','himawari');
+      this.seoService.setMetaTags('satellite', 'himawari');
       this.seoService.setSchema('satellite');
-    } 
+    }
   }
 
-   refreshTab() {
+  refreshTab() {
     if (this.windowService.isBrowser()) {
       if (this.viewType === 'swiper') {
         setTimeout(() => {
-              this.getsatelliteImage(this.selectedTab);
+          this.getsatelliteImage(this.selectedTab);
         }, 50);
       }
     }
@@ -83,36 +112,36 @@ export class GallaryComponent implements AfterViewInit {
 
   }
 
-getsatelliteImage(tab: any) {
-  this.satelliteImages = [];
-  this.selectedTab = tab;
+  getsatelliteImage(tab: any) {
+    this.satelliteImages = [];
+    this.selectedTab = tab;
 
-  try {
-    this.dataService.getSatelliteImage(tab)
-      .then((res) => {
-        try {
-          if (res && res.length > 0 && tab === 'insat') {
-            this.satelliteImages = this.extractInsatTimeDate(res);
-            this.satelliteImages = this.satelliteImages.slice(1);
-            this.initSatelliteSwiper();
-            this.refreshUrl(tab);
+    try {
+      this.dataService.getSatelliteImage(tab)
+        .then((res) => {
+          try {
+            if (res && res.length > 0 && tab === 'insat') {
+              this.satelliteImages = this.extractInsatTimeDate(res);
+              this.satelliteImages = this.satelliteImages.slice(1);
+              this.initSatelliteSwiper();
+              this.refreshUrl(tab);
 
-          } else if (res && res.images && res.images.length > 0 && tab === 'himawari') {
-            this.satelliteImages = this.extractHimawariTimeDate(res.images, res.url);
-            this.initSatelliteSwiper();
-            this.refreshUrl(tab);
+            } else if (res && res.images && res.images.length > 0 && tab === 'himawari') {
+              this.satelliteImages = this.extractHimawariTimeDate(res.images, res.url);
+              this.initSatelliteSwiper();
+              this.refreshUrl(tab);
+            }
+          } catch (innerError) {
+            console.error("Error processing satellite image data:", innerError);
           }
-        } catch (innerError) {
-          console.error("Error processing satellite image data:", innerError);
-        }
-      })
-      .catch((err) => {
-        console.error("Error fetching satellite images:", err);
-      });
-  } catch (error) {
-    console.error("Unexpected error in getsatelliteImage():", error);
+        })
+        .catch((err) => {
+          console.error("Error fetching satellite images:", err);
+        });
+    } catch (error) {
+      console.error("Unexpected error in getsatelliteImage():", error);
+    }
   }
-}
 
 
   extractHimawariTimeDate(imagesArray: any, url: string) {

@@ -14,7 +14,8 @@ Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-satellite-image',
   standalone: true,
-  imports: [CommonModule,AdsenseDirective,TrendingNewsComponent,RouterLink,TranslateModule],
+  imports: [CommonModule,AdsenseDirective,AdsenseDirective,
+    TrendingNewsComponent,RouterLink,TranslateModule],
   templateUrl: './satellite-image.component.html',
   styleUrl: './satellite-image.component.scss'
 })

@@ -9,6 +9,8 @@ export class AdsenseDirective implements OnInit {
   @Input() adClient!: string;
   @Input() adSlot!: string;
   @Input() adFormat: string = 'auto';
+  @Input() adWidth?: string ;
+  @Input() adHeight?: string;
   @Input() fullWidthResponsive: string = 'true';
 
   constructor(
@@ -21,6 +23,8 @@ export class AdsenseDirective implements OnInit {
       const ins = document.createElement('ins');
       ins.className = 'adsbygoogle';
       ins.style.display = 'block';
+      ins.style.width = this.adWidth ?? '';
+      ins.style.height = this.adHeight ?? '';
       ins.setAttribute('data-ad-client', this.adClient);
       ins.setAttribute('data-ad-slot', this.adSlot);
       ins.setAttribute('data-ad-format', this.adFormat);
@@ -35,7 +39,7 @@ export class AdsenseDirective implements OnInit {
             try {
               (window as any).adsbygoogle = (window as any).adsbygoogle || [];
               (window as any).adsbygoogle.push({});
-              observer.unobserve(ins); // Stop observing after first load
+              observer.unobserve(ins); 
             } catch (e) {
               console.warn('AdsbyGoogle error:', e);
             }
@@ -47,3 +51,4 @@ export class AdsenseDirective implements OnInit {
     }
   }
 }
+

@@ -17,8 +17,8 @@
                    <div class="icons">
                         <img (click)="dataService.shareOnWhatsApp(item)"
                          src="https://img.icons8.com/ios-filled/50/whatsapp.png" alt="WhatsApp icon" title="Share on WhatsApp" />
-                        <img (click)="dataService.nativeShare()"
-                        src="https://img.icons8.com/material-outlined/48/share.png" alt="Share icon" title="Share" />
+                        <!-- <img (click)="dataService.nativeShare()"
+                        src="https://img.icons8.com/material-outlined/48/share.png" alt="Share icon" title="Share" /> -->
                     </div>
           </span>
           <div class="bannerImg">
@@ -191,14 +191,27 @@
           ></div>
     </article>
 
-    <div class="feedback">
+    <!-- <div class="feedback">
       <p>Was this article helpful?</p>
       <div class="emoji-options">
         <span title="Not helpful">😞</span>
         <span title="Neutral">😐</span>
         <span title="Helpful">😊</span>
       </div>
-    </div>
+    </div> -->
+<div>
+    <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+     [adClient]="'ca-pub-6993696142089445'"
+     [adSlot]="'9187952748'">
+</div>
+          <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
+
+  <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+     [adClient]="'ca-pub-6993696142089445'"
+     [adSlot]="'9187952748'">
+</div>
+        </div>
+
   </div>
   </div>
 

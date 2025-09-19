@@ -4,11 +4,14 @@ import { DataService } from '../../services/data.service';
 import { DomSanitizer, Meta, SafeHtml, Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { SeoService } from '../../services/seo.service';
+import { WeatherNewsComponent } from '../weather-news/weather-news.component';
+import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
+import { NativeService } from '../../mobile-app/service/native.service';
 
 @Component({
   selector: 'app-article-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,WeatherNewsComponent,AdsenseDirective],
   templateUrl: './article-detail.component.html',
   styleUrl: './article-detail.component.scss'
 })
@@ -19,12 +22,19 @@ export class ArticleDetailComponent {
     categorySlug:[],
     titleSlug:''
   }
+    weatherNewsHeaderConfig: any = {
+    title: "Suggested Resources",
+    isLanguagesSelecter: false,
+    isFooterView: true,
+    isHeaderView: false
+  };
   constructor(private route:ActivatedRoute,
     private seoService:SeoService,
     private sanitizer: DomSanitizer,
     private tt:Title,
     private meta:Meta,
     private router:Router,
+    public nativeService:NativeService,
     public dataService:DataService) {
 
      var category = this.route.snapshot.paramMap.get('category');

@@ -1,8 +1,12 @@
 <div class="forCastMap">
   <div class="container">
+
+
     <div class="tabs">
-      <button class="tab" [ngClass]="{'active': selectedTab === 'himawari'}" (click)="getsatelliteImage('himawari')">{{'Himawari' | translate}}</button>
-      <button class="tab" [ngClass]="{'active': selectedTab === 'insat'}" (click)="getsatelliteImage('insat')">{{'Insat' | translate}}</button>
+      <button class="tab" [ngClass]="{'active': selectedTab === 'himawari'}"
+        (click)="getsatelliteImage('himawari')">{{'Himawari' | translate}}</button>
+      <button class="tab" [ngClass]="{'active': selectedTab === 'insat'}" (click)="getsatelliteImage('insat')">{{'Insat'
+        | translate}}</button>
     </div>
 
     <div class="textContent">
@@ -16,10 +20,11 @@
       <div class="topbuttons">
         <div class="cards">
           <div class="buttons">
-            <button class="button" (click)="viewType='swiper';refreshTab()" [ngClass]="{'active': viewType === 'swiper'}">
+            <button class="button" (click)="viewType='swiper';refreshTab()"
+              [ngClass]="{'active': viewType === 'swiper'}">
               <img src="https://www.skymetweather.com/img/map.svg" alt="" />
             </button>
-            <button class="button"  (click)="viewType='grid';refreshTab()" [ngClass]="{'active': viewType === 'grid'}">
+            <button class="button" (click)="viewType='grid';refreshTab()" [ngClass]="{'active': viewType === 'grid'}">
               <img src="https://www.skymetweather.com/img/menu4.svg" alt="" />
             </button>
           </div>
@@ -51,51 +56,53 @@
         </div>
       </div>
 
-    
 
-     <div *ngIf="viewType=='swiper'">
-       <div
-        style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-        class="swiper mySwiper2"
-      >
-        <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slider-item" *ngFor="let item of satelliteImages;let i = index">
-            <img [src]="item.image" alt="satellite image" id="img{{i}}" [ngStyle]="{
-              'object-fit': (selectedTab === 'insat' || selectedTab === 'himawari') ?  'cover' : 'contain',
-              
-            }"/>
+
+      <div *ngIf="viewType=='swiper'">
+        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide swiper-slider-item" *ngFor="let item of satelliteImages;let i = index">
+              <img [src]="item.image" alt="satellite image" id="img{{i}}" 
+              [ngStyle]="{'object-fit': (selectedTab === 'insat' || selectedTab === 'himawari') ?  'cover' : 'contain',}"
+               />
+            </div>
+          </div>
+          <div class="swiper-button-next">
+            <img src="https://www.skymetweather.com/img/rightArrow.svg" alt="" />
+          </div>
+          <div class="swiper-button-prev">
+            <img src="https://www.skymetweather.com/img/leftArrow.svg" alt="" />
           </div>
         </div>
-        <div class="swiper-button-next">
-          <img src="https://www.skymetweather.com/img/rightArrow.svg" alt="" />
-        </div>
-        <div class="swiper-button-prev">
-          <img src="https://www.skymetweather.com/img/leftArrow.svg" alt="" />
-        </div>
-      </div>
-      <div thumbsSlider="" class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slider-thumb" *ngFor="let item of satelliteImages">
-            <h5>{{item.time}}</h5>
-            <img [src]="item.image" alt="satellite image" />
-          </div>
-      
-        </div>
-      </div>
-     </div>
-     <div *ngIf="viewType=='grid'">
-      <div class="gridContainer" id="gridContainer">
-        <div *ngFor="let item of satelliteImages"  
-        (click)="toggleImageSelection(item.image)">
-          <h6>{{item.time}}</h6>
-          <img [src]="item.image" [class.selected]="isSelected(item.image)" alt="satellite image"/>
+        <div thumbsSlider="" class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide swiper-slider-thumb" *ngFor="let item of satelliteImages">
+              <h5>{{item.time}}</h5>
+              <img [src]="item.image" alt="satellite image" />
+            </div>
 
+          </div>
         </div>
       </div>
-     </div>
+      <div *ngIf="viewType=='grid'">
+        <div class="gridContainer" id="gridContainer">
+          <div *ngFor="let item of satelliteImages" (click)="toggleImageSelection(item.image)">
+            <h6>{{item.time}}</h6>
+            <img [src]="item.image" [class.selected]="isSelected(item.image)" alt="satellite image" />
+
+          </div>
+        </div>
+      </div>
     </div>
+  <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+     [adClient]="'ca-pub-6993696142089445'"
+     [adSlot]="'9187952748'">
+</div>
 
-              <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
-
+    <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
+  <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+     [adClient]="'ca-pub-6993696142089445'"
+     [adSlot]="'9187952748'">
+</div>
   </div>
 </div>

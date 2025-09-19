@@ -1,60 +1,54 @@
-
 <div class="Weather_patten">
-      <div class="container">
-        <div class="main_content">
-          <div class="maping">
-            <div class="haeding">
-              <h5>{{'Real-time weather patterns' | translate}}</h5>
-              <h6 routerLink="himawari-latest-satellite-images-of-india">{{'View detailed patterns' | translate}}</h6>
-            </div>
-            <div class="wetherMapArea">
-              <div class="btn_map">
-                <ul>
-                  <li [class.active]="selectedTab === 'himawari'" (click)="changeSatelliteImages('himawari');selectedTab='himawari'">HIMAWARI</li>
-                  <li [class.active]="selectedTab === 'insat'" (click)="changeSatelliteImages('insat');selectedTab='insat'">INSAT</li>
-                  <li [class.active]="selectedTab === 'Rainfall'" (click)="changeSatelliteImages('Rainfall');selectedTab='Rainfall'">RAINFALL</li>
-                </ul>
+  <div class="container">
+    <div class="main_content">
+      <div class="maping">
+        <div class="haeding">
+          <h5>{{'Real-time weather patterns' | translate}}</h5>
+          <h6 routerLink="himawari-latest-satellite-images-of-india">{{'View detailed patterns' | translate}}</h6>
+        </div>
+        <div class="wetherMapArea">
+          <div class="btn_map">
+            <ul>
+              <li [class.active]="selectedTab === 'himawari'"
+                (click)="changeSatelliteImages('himawari');selectedTab='himawari'">HIMAWARI</li>
+              <li [class.active]="selectedTab === 'insat'" (click)="changeSatelliteImages('insat');selectedTab='insat'">
+                INSAT</li>
+              <li [class.active]="selectedTab === 'Rainfall'"
+                (click)="changeSatelliteImages('Rainfall');selectedTab='Rainfall'">RAINFALL</li>
+            </ul>
+          </div>
+
+          <div class="swiper satelliteSwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" *ngFor="let item of satelliteImage">
+                <img class="satelliteImage" [src]="item" alt="satelliteImages" (click)="gotoSatellite()">
               </div>
-      
-               <div class="swiper satelliteSwiper">
-                  <div class="swiper-wrapper" >
-                    <div class="swiper-slide" *ngFor="let item of satelliteImage" >
-                      <img class="satelliteImage" [src]="item" alt="satelliteImages" (click)="gotoSatellite()">
-                    </div>
-               
-                  </div>
-               </div>
-               
-              <div class="moble_btn" routerLink="himawari-latest-satellite-images-of-india">
-                <div class="btn">
-                  <button >{{'View detailed patterns' | translate}}</button>
-                </div>
-              </div>
+
             </div>
           </div>
-         
-          <div class="blogs">
-            <div class="haeding">
-              <div class="news-title">{{'Explore trending news' | translate}}</div>
+
+          <div class="moble_btn" routerLink="himawari-latest-satellite-images-of-india">
+            <div class="btn">
+              <button>{{'View detailed patterns' | translate}}</button>
             </div>
-                 <app-trending-news></app-trending-news>
           </div>
         </div>
       </div>
+      <div appAdsense class="adsense_web"
+        *ngIf="this.nativeService.getPlateform() == 'web' && this.dataService.getDeviceType() =='mobile'"
+        [adClient]="'ca-pub-6993696142089445'" [adSlot]="'7498998179'">
+      </div>
+      <div class="blogs">
+
+        <div class="haeding">
+          <div class="news-title">{{'Explore trending news' | translate}}</div>
+        </div>
+        <app-trending-news></app-trending-news>
+      </div>
+    </div>
+  </div>
 </div>
 
-  <!-- <div class="adds">
-      <div class="container">
-        <div class="Advertisement">
-          <h5>{{'Advertisement' | translate}}</h5>
-
-        </div>
-      </div>
-</div> -->
-
-  <div appAdsense *ngIf="this.nativeService.getPlateform() == 'web'"
-      [adClient]="'ca-pub-6993696142089445'"
-      [adSlot]="'9187952748'"
-      [adFormat]="'rectangle'"
-      [fullWidthResponsive]="'true'">
- </div>
+<div appAdsense *ngIf="this.nativeService.getPlateform() == 'web'" [adClient]="'ca-pub-6993696142089445'"
+  [adSlot]="'9187952748'" [adFormat]="'rectangle'" [fullWidthResponsive]="'true'">
+</div>

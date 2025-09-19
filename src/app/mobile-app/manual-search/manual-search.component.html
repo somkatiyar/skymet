@@ -8,19 +8,21 @@
                 <div class="search-container">
                     <i class="fas fa-search search-icon"></i>
                     <form [formGroup]="searchForm">
-                       
-                             <input type="text" id="search-input-main" placeholder="Search..." 
-                             (focus)="onFocus()" 
-                             (blur)="onBlur()" />
+
+                        <input type="text" id="search-input-main" placeholder="Search..." (focus)="onFocus()"
+                            (blur)="onBlur()" />
                     </form>
                     <i class="fas fa-times clear-icon" *ngIf="searchForm.get('searchCtrl')?.value" id="clear-btn"
                         (click)="clearInput()"></i>
                 </div>
                 <div class="or">
-                OR
-               </div>
+                    OR
+                </div>
+                <div class="subtext">
+                    Turn on location permission for real-time updates on the go.
+                </div>
             </div>
-            
+
             <div class="next">
                 <button class="btn btn-primary" (click)="getPositionNative()">Enable the Location</button>
 
@@ -33,39 +35,38 @@
 
 
 
-    <div class="search-screen" *ngIf="isSearchClicked && !isProcessStart" [class.show]="isSearchClicked">
-  <div class="search-wrapper">
-  <div class="main-cross" (click)="isSearchClicked = false">
-    <i  class="fas fa-times clear-icon"></i>
-    <span class="cross-text">Search Locations</span>
-   </div>
-    <div class="search-container">
-      <i class="fas fa-search search-icon"></i>
-      <form [formGroup]="searchForm">
-          <input type="text" id="search-input" placeholder="Search locations..." 
-                 (input)="onSearch($event)" formControlName="searchCtrl"/>
-      </form>
-      <i  class="fas fa-times clear-icon"
-      *ngIf="searchForm.get('searchCtrl')?.value"
-       id="clear-btn" (click)="clearInput()"></i>
+<div class="search-screen" *ngIf="isSearchClicked && !isProcessStart" [class.show]="isSearchClicked">
+    <div class="search-wrapper">
+        <div class="main-cross" (click)="isSearchClicked = false">
+            <i class="fas fa-times clear-icon"></i>
+            <span class="cross-text">Search Locations</span>
+        </div>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <form [formGroup]="searchForm">
+                <input type="text" id="search-input" placeholder="Search locations..." (input)="onSearch($event)"
+                    formControlName="searchCtrl" />
+            </form>
+            <i class="fas fa-times clear-icon" *ngIf="searchForm.get('searchCtrl')?.value" id="clear-btn"
+                (click)="clearInput()"></i>
+        </div>
+        <div class="subtext"  *ngIf="(searchForm.get('searchCtrl')?.value.length >2) && (locations && locations.length == 0)">
+            Location not able to found. Please enable location permission to get accurate forecast.
+        </div>
+        <div class="next"
+            *ngIf="(searchForm.get('searchCtrl')?.value.length >2) && (locations && locations.length == 0)">
+            <button class="btn btn-primary" (click)="getPositionNative()">Enable the Location</button>
+        </div>
+
     </div>
-
- <div class="next" *ngIf="(searchForm.get('searchCtrl')?.value.length >2) && (locations && locations.length == 0)">
-  <button class="btn btn-primary" (click)="getPositionNative()">Enable the Location</button>
-
-</div>
-
-  </div>
     <div class="listing" *ngIf="locations && locations.length" #locationList>
-          <div class="list">
-              <p *ngFor="let item of locations" (click)="getSearchLocation(item)">
-                {{ item["name_en"].split(",")[0] =='' ? 
-                   item["name_en"].split(",").slice(1,4).join(",") : item["name_en"] }}
-              </p>
-          </div>
-      </div>
+        <div class="list">
+            <p *ngFor="let item of locations" (click)="getSearchLocation(item)">
+                {{ item["name_en"].split(",")[0] =='' ?
+                item["name_en"].split(",").slice(1,4).join(",") : item["name_en"] }}
+            </p>
+        </div>
+    </div>
 </div>
 
 <app-loading *ngIf="isProcessStart"></app-loading>
-
-
