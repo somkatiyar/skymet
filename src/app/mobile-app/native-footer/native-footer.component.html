@@ -20,5 +20,9 @@
       <i class="fa-solid fa-newspaper" [ngStyle]="{ color: nativeService.getComponentFromRoute()=='resources' ? '#039BFF' : '' }"></i>
       <span>News</span>
     </a>
+      <a [routerLink]="['/profile']" routerLinkActive="active">
+      <i class="fa-solid fa-newspaper" [ngStyle]="{ color: nativeService.getComponentFromRoute()=='resources' ? '#039BFF' : '' }"></i>
+      <span>Profile</span>
+    </a>
   </nav>
 </footer>

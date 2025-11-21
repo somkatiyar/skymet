@@ -36,6 +36,13 @@
       >
         English
       </div>
+       <div
+        class="tab-list"
+        (click)="articleLanguage = 'kn'; onlngChange()"
+        [ngClass]="{ 'active': articleLanguage === 'kn' }"
+      >
+        Kannada
+      </div>
     </div>
 
  

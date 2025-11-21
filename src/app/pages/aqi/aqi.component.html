@@ -1,0 +1,234 @@
+<div class="container1">
+    <div class="main_content">
+        <div [ngStyle]="{'background':  aqiStyle}">
+            <div class="location">
+                <h1 hidden=""></h1>
+                <div class="location-wrap">
+                    <img src="https://skymetweather.com/img/location.png" alt="">
+                    <h3>{{metaInfo && metaInfo?.TEHSIL_ALIAS_NAME}} </h3>
+                    <img src="https://skymetweather.com/img/refresh.png" alt="" id="refresh_icon" class="refresh_icon">
+
+                </div>
+                <div class="date">
+                    {{dataService.formatDateTime(actual && actual?.displaytime)}}
+                </div>
+            </div>
+
+            <div class="aqi">
+
+                <div class="left">
+                    <div class="img">
+                        <img [src]="aqiConfig(airQuality?.current?.aqi).img" alt="">
+                    </div>
+                    <div class="aqi_wrapper">
+                        <div class="aqi_value" [ngStyle]="{'color': aqiConfig(airQuality?.current?.aqi).color}">{{
+                            airQuality?.current?.aqi }}</div>
+                        <div class="aqi_status"
+                            [ngStyle]="{'background-color': aqiConfig(airQuality?.current?.aqi).color}">{{
+                            aqiConfig(airQuality?.current?.aqi).condiation }}</div>
+                    </div>
+                </div>
+                <div class="right">
+                    <p><span [ngStyle]="{'color': aqiConfig(airQuality?.current?.aqi).color}">{{
+                            aqiConfig(airQuality?.current?.aqi).condiation }}</span>! {{
+                        aqiConfig(airQuality?.current?.aqi).advisory }}</p>
+                </div>
+
+            </div>
+
+            <div class="slider">
+                <div class="wrap">
+
+                    <div id="bar" class="aqi-bar">
+                        <div *ngFor="let seg of aqiSegments" class="seg" [style.background]="seg.color"
+                            [style.width.%]="seg.width">
+                        </div>
+
+                        <div id="marker" class="marker" [style.left.%]="aqiInfo?.pct">
+                        </div>
+                    </div>
+
+                    <div class="category-labels">
+                        <div *ngFor="let seg of aqiSegments" [style.width.%]="seg.width" style="text-align:center;">
+                            {{ seg.label }}<br>
+                            <small>{{ seg.range }}</small>
+                        </div>
+                    </div>
+
+                    <!-- <div class="labels">
+                        <span>0</span><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span>
+                    </div> -->
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="aqi-analytics">
+            <div class="aqi-analytics-box">
+                <div class="upper">
+                    <div class="label-b">PM2.5</div>
+                    <div class="info-container" (click)="toggleInfoBox('pm25')">
+                        <span id="infoIcon_pm25" class="info-icon">𝒊</span>
+                        <div id="infoBox_pm25" class="info-box">
+                            Tiny particles (≤2.5μm) from combustion; risk to lungs.
+                        </div>
+                    </div>
+                    <div class="condiation" [ngStyle]="{'color': pm25Config(airQuality?.current?.pm25).color}">
+                        {{pm25Config(airQuality?.current?.pm25).condiation}}</div>
+                </div>
+                <div class="below">
+                    <div class="value" [ngStyle]="{'color': pm25Config(airQuality?.current?.pm25).color}">
+                        {{airQuality?.current?.pm25}}</div>
+                    <div class="unit">µg/m³</div>
+                </div>
+            </div>
+            <div class="aqi-analytics-box">
+                <div class="upper">
+                    <div class="label-b">PM10</div>
+                         <div class="info-container" (click)="toggleInfoBox('pm10')">
+                        <span id="infoIcon_pm10" class="info-icon">𝒊</span>
+                        <div id="infoBox_pm10" class="info-box">
+                            Small particles (≤10μm) from dust/pollen; irritate eyes/throat.
+                        </div>
+                    </div>
+                    <div class="condiation" [ngStyle]="{'color': pm10Config(airQuality?.current?.pm10).color}">
+                        {{pm10Config(airQuality?.current?.pm10).condiation}}
+                    </div>
+                </div>
+                <div class="below">
+                    <div class="value" [ngStyle]="{'color': pm10Config(airQuality?.current?.pm10).color}">
+                        {{airQuality?.current?.pm10}}</div>
+                    <div class="unit">µg/m³</div>
+                </div>
+            </div>
+            <div class="aqi-analytics-box">
+                <div class="upper">
+                    <div class="label-b">No2</div>
+                              <div class="info-container" (click)="toggleInfoBox('no2')">
+                        <span id="infoIcon_no2" class="info-icon">𝒊</span>
+                        <div id="infoBox_no2" class="info-box">
+                            Gas from vehicle exhaust/power plants; irritates airways.
+                        </div>
+                    </div>
+                    <div class="condiation" [ngStyle]="{'color': no2Config(airQuality?.current?.no2).color}">
+                        {{no2Config(airQuality?.current?.no2).condiation}}
+                    </div>
+                </div>
+                <div class="below">
+                    <div class="value" [ngStyle]="{'color': no2Config(airQuality?.current?.no2).color}">
+                        {{airQuality?.current?.no2}}</div>
+                    <div class="unit">ppb</div>
+                </div>
+            </div>
+            <div class="aqi-analytics-box">
+                <div class="upper">
+                    <div class="label-b">O3</div>
+                                <div class="info-container" (click)="toggleInfoBox('o3')">
+                        <span id="infoIcon_o3" class="info-icon">𝒊</span>
+                        <div id="infoBox_o3" class="info-box">
+                           Gas from sunlight + pollutants; main part of smog; harmful.
+                        </div>
+                    </div>
+                    <div class="condiation" [ngStyle]="{'color': o3Config(airQuality?.current?.o3).color}">
+                        {{o3Config(airQuality?.current?.o3).condiation}}
+                    </div>
+                </div>
+                <div class="below">
+                    <div class="value" [ngStyle]="{'color': o3Config(airQuality?.current?.o3).color}">
+                        {{airQuality?.current?.o3}}</div>
+                    <div class="unit">ppb</div>
+                </div>
+            </div>
+            <div class="aqi-analytics-box last">
+                <div class="upper">
+                    <div class="label-b">So2</div>
+                               <div class="info-container" (click)="toggleInfoBox('so2')">
+                        <span id="infoIcon_so2" class="info-icon">𝒊</span>
+                        <div id="infoBox_so2" class="info-box">
+                            Gas from burning fossil fuels (coal/oil); harms respiratory system.
+                        </div>
+                    </div>
+                    <div class="condiation" [ngStyle]="{'color': so2Config(airQuality?.current?.so2).color}">
+                        {{so2Config(airQuality?.current?.so2).condiation}}
+                    </div>
+                </div>
+                <div class="below">
+                    <div class="value" [ngStyle]="{'color': so2Config(airQuality?.current?.so2).color}">
+                        {{airQuality?.current?.so2}}</div>
+                    <div class="unit">ppb</div>
+                </div>
+            </div>
+            <!-- <div class="aqi-analytics-box">
+                <div class="upper">
+                    <div class="label">PM2.5</div>
+                    <div class="condiation">Moderate</div>
+                </div>
+                <div class="below">
+                    <div class="value">110</div>
+                    <div class="unit">µg/m³</div>
+                </div>
+            </div> -->
+
+        </div>
+        <div class="chart-container">
+            <div class="header">
+                <div class="label-a">
+                    Historical AQI trends
+                </div>
+                <div class="timespan">
+                    <div class="item" [ngClass]="selectedChartTab == '24 hours' ? 'active':''"
+                        (click)="getChartData('24 hours');">24 hrs</div>
+                    <div class="item" [ngClass]="selectedChartTab == '7 days' ? 'active':''"
+                        (click)="getChartData('7 days');">7 days</div>
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <div class="min-max">
+                    <div class="min">
+                        <div class="left" [ngStyle]="{'background-color': aqiConfig(minMax[0]?.aqi).color}">
+                            {{minMax[0]?.aqi}}</div>
+                        <div class="right">
+                            <div class="upper">Min</div>
+                            <div class="below">{{minMax[0]?.time}}</div>
+                        </div>
+                    </div>
+                    <div class="max">
+                        <div class="left" [ngStyle]="{'background-color': aqiConfig(minMax[1]?.aqi).color}">
+                            {{minMax[1]?.aqi}}</div>
+                        <div class="right">
+                            <div class="upper">Max</div>
+                            <div class="below">{{minMax[1]?.time}}</div>
+                        </div>
+                    </div>
+
+                </div>
+                <canvas #barCanvas></canvas>
+            </div>
+
+        </div>
+        <div class="mapbox-container">
+            <div class="box box-map">
+                <h3 class="box-header">Live Map</h3>
+                <div class="box-content">
+                    <!-- map content here -->
+                    <iframe src="https://aqicn.org/map/india/m/" frameborder="0" height="100%"></iframe>
+                </div>
+            </div>
+            <div class="box box-liveaqi">
+                <h3 class="box-header">Live most polluted city ranking</h3>
+                <div class="box-content">
+                    <div class="item" *ngFor="let item of this.airQuality?.top5aqi.slice(0,5);let index=index">
+                        <div class="city">{{index +1}}. &nbsp; {{item.city}}</div>
+                        <div class="aqi-value" [ngStyle]="{'background-color': aqiConfig(item.aqi).color}">{{item.aqi}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

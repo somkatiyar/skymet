@@ -28,148 +28,153 @@ import { NotificationScreenComponent } from './mobile-app/notification-screen/no
 import { AutoLocationComponent } from './mobile-app/auto-location/auto-location.component';
 import { LoadingComponent } from './mobile-app/loading/loading.component';
 import { ManualSearchComponent } from './mobile-app/manual-search/manual-search.component';
+import { ProfileComponent } from './mobile-app/profile/profile.component';
+import { NativeHomeComponent } from './mobile-app/native-home/native-home.component';
+import { AqiComponent } from './pages/aqi/aqi.component';
 
 
 export const routes: Routes = [
-    { path:'', component: HomeComponent, canActivate: [RootGuard]},
-    { path:'en', component: HomeComponent},
-    { path:'hi', component: HomeComponent},
-    { path:'mr', component: HomeComponent},
-   
-       // app route
-    {path:'login',component:LoginComponent},
-    {path:'splash',component:SplashComponent},
-    {path:'notification',component:NotificationScreenComponent},
-    {path:'loading',component:LoadingComponent},
-    {path:'location',component:LocationComponent,canActivate:[LocationGuard]},
-     {path:'location-enable',component:AutoLocationComponent,canActivate:[LocationGuard]},
-      {path:'manual-search',component:ManualSearchComponent},
-    {path:'otp-verification', component:OtpVerificationComponent},
-    {path:'user-info', component:UserInfoComponent},
-     {path:'welcome', component:WelcomeComponent},
-    { path:'resources', component: ResourcesComponent},
-    { path:'contact-us', component: AboutUsComponent},
-    { path:'map', component: LiveMapComponent},
-    { path:'state-weather/:state', component: StateWeatherComponent},
+    { path: '', component: HomeComponent, canActivate: [RootGuard] },
+    { path: 'en', component: HomeComponent },
+    { path: 'hi', component: HomeComponent },
+    { path: 'mr', component: HomeComponent },
 
-// district location
+    // app route
+    { path: 'login', component: LoginComponent },
+    { path: 'splash', component: SplashComponent },
+    { path: 'notification', component: NotificationScreenComponent },
+    { path: 'loading', component: LoadingComponent },
+    { path: 'profile', component: ProfileComponent },
+    { path: 'location', component: LocationComponent, canActivate: [LocationGuard] },
+    { path: 'location-enable', component: AutoLocationComponent, canActivate: [LocationGuard] },
+    { path: 'manual-search', component: ManualSearchComponent },
+    { path: 'otp-verification', component: OtpVerificationComponent },
+    { path: 'user-info', component: UserInfoComponent },
+    { path: 'welcome', component: WelcomeComponent },
+    { path: 'resources', component: ResourcesComponent },
+    { path: 'contact-us', component: AboutUsComponent },
+    { path: 'map', component: LiveMapComponent },
+    { path: 'state-weather/:state', component: StateWeatherComponent },
 
-     { path:'weather/forecast/india/:state/:district', component: DistrictLocationComponent},
+    // district location
+
+    { path: 'weather/forecast/india/:state/:district', component: DistrictLocationComponent },
 
 
-     { path:'news-list/:weather-type', component: NewsListComponent},
-     { path:'video-list', component: VideoListComponent},
-     { path:'15-days-rainfall-forecast-for-india', component: RainfallModelComponent},
-     { path:'15-days-temperature-forecast-for-india', component: RainfallModelComponent},
-       { path:'24-hours-winds-forecast-for-india', component: RainfallModelComponent},
-     { path:'advertise-with-us', component: AdvertiseComponent},
-    { path:'legal/term-and-conditions', component: TermAndConditionsComponent},
-    { path:'legal/privacy-policy', component: PrivacyPolicyComponent},
-    { path:'content/:category/:title', component: ArticleDetailComponent},
+    { path: 'news-list/:weather-type', component: NewsListComponent },
+    { path: 'video-list', component: VideoListComponent },
+    { path: 'air-quality', component: AqiComponent },
+    { path: '15-days-rainfall-forecast-for-india', component: RainfallModelComponent },
+    { path: '15-days-temperature-forecast-for-india', component: RainfallModelComponent },
+    { path: '24-hours-winds-forecast-for-india', component: RainfallModelComponent },
+    { path: 'advertise-with-us', component: AdvertiseComponent },
+    { path: 'legal/term-and-conditions', component: TermAndConditionsComponent },
+    { path: 'legal/privacy-policy', component: PrivacyPolicyComponent },
+    { path: 'content/:category/:title', component: ArticleDetailComponent },
     { path: ':himawari-latest-satellite-images-of-india', component: GallaryComponent },
     { path: ':himawari-latest-satellite-images-of-india/:time', component: GallaryComponent },
     { path: 'insat/weather-satellite-images-of-india/:time', component: GallaryComponent },
     { path: 'insat/weather-satellite-images-of-india', component: GallaryComponent },
-    {path:'forecast', component:ForecastClubComponent},
+    { path: 'forecast', component: ForecastClubComponent },
     {
         path: ':lang',
-        children:[
+        children: [
 
             {
-                path:':country/:state/:district/:tehsil',
-                component:ForecastClubComponent
+                path: ':country/:state/:district/:tehsil',
+                component: ForecastClubComponent
             },
             {
-                path:':country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
+                path: ':country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
             {
-                path:':country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
+                path: ':country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
             {
-                path:':country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
+                path: ':country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
             {
-                path:':country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
+                path: ':country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
-
-
 
 
 
 
-            {
-                path:'weather/:country/:state/:district/:tehsil',
-                component:ForecastClubComponent
-            },
-            {
-                path:'weather/:country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
-            },
-            {
-                path:'weather/:country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
-            },
-            {
-                path:'weather/:country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
-            },
-            {
-                path:'weather/:country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
-            },
-
 
 
             {
-                path:'forecast/:country/:state/:district/:tehsil',
-                component:ForecastClubComponent
+                path: 'weather/:country/:state/:district/:tehsil',
+                component: ForecastClubComponent
             },
             {
-                path:'forecast/:country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
+                path: 'weather/:country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
             {
-                path:'forecast/:country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
+                path: 'weather/:country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
             {
-                path:'forecast/:country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
+                path: 'weather/:country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
             {
-                path:'forecast/:country/:state/:district/:tehsil/:mode',
-                component:ForecastClubComponent
+                path: 'weather/:country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
 
 
 
             {
-                path:'forecast/weather/:country/:state/:district/:tehsil',
-                component:ForecastClubComponent
+                path: 'forecast/:country/:state/:district/:tehsil',
+                component: ForecastClubComponent
             },
             {
-                path:'forecast/weather/:country/:state/:district/:tehsil/hourly-forecast',
-                component:ForecastClubComponent
+                path: 'forecast/:country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
             {
-                path:'forecast/weather/:country/:state/:district/:tehsil/weekly-forecast',
-                component:ForecastClubComponent
+                path: 'forecast/:country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
             {
-                path:'forecast/weather/:country/:state/:district/:tehsil/extended-forecast',
-                component:ForecastClubComponent
+                path: 'forecast/:country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
             {
-                path:'forecast/weather/:country/:state/:district/:tehsil/fifteen-days-forecast',
-                component:ForecastClubComponent
+                path: 'forecast/:country/:state/:district/:tehsil/:mode',
+                component: ForecastClubComponent
             },
-            
+
+
+
+            {
+                path: 'forecast/weather/:country/:state/:district/:tehsil',
+                component: ForecastClubComponent
+            },
+            {
+                path: 'forecast/weather/:country/:state/:district/:tehsil/hourly-forecast',
+                component: ForecastClubComponent
+            },
+            {
+                path: 'forecast/weather/:country/:state/:district/:tehsil/weekly-forecast',
+                component: ForecastClubComponent
+            },
+            {
+                path: 'forecast/weather/:country/:state/:district/:tehsil/extended-forecast',
+                component: ForecastClubComponent
+            },
+            {
+                path: 'forecast/weather/:country/:state/:district/:tehsil/fifteen-days-forecast',
+                component: ForecastClubComponent
+            },
+
         ]
-        
+
     },
 
 

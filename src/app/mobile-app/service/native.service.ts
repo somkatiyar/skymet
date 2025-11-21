@@ -18,8 +18,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class NativeService {
-  headerExcludeUrl: string[] = ['/login', '/user-info', '/otp-verification', '/welcome', '/map', '/splash', '/location', '/notification', '/location-enable', '/loading', '/manual-search'];
-  footerExcludeUrl: string[] = ['/login', '/user-info', '/otp-verification', '/welcome', '/map', '/splash', '/location', '/notification', '/location-enable', '/loading', '/manual-search']
+  headerExcludeUrl: string[] = ['/login', '/user-info', '/otp-verification', '/welcome', '/map', '/splash', '/location', '/notification', '/location-enable', '/loading', '/manual-search','/profile'];
+  footerExcludeUrl: string[] = ['/login', '/user-info', '/otp-verification', '/welcome', '/map', '/splash', '/location', '/notification', '/location-enable', '/loading', '/manual-search','/profile']
   isHeader: boolean = true;
   isFooter: boolean = true;
   lngCode = ['hi', 'mr', 'gu', 'en', 'ta', 'te', 'kn', 'ml', 'bn', 'pa'];

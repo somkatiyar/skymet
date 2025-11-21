@@ -57,21 +57,35 @@ export class ResourcesComponent implements AfterViewInit {
 selectedFilter:any = 1;
 selectedLng:any;
 
-sliderArticles=[
-   {category:'monsoon-update',slug:"world-water-week-2025-delhi-mumbai-chennai-india-urban-water-crisis-non-revenue-water-climate-action-know-what-is-water-week"},
-  {category:'la-nina',slug:"nino-indices-indian-ocean-dipole-mjo-enso-neutral-la-nina-indian-monsoon-forecast-2025-rainfall-impact-on-agriculture"},
-  {category:'climate-change',slug:"cloudburst-glacier-collapse-in-kullu-shimla-lahaul-spiti-uttarkashi-arakot-nainital-himalayas-know-why-extreme-rainfall-climate-change-and-disaster-risk-is-affecting-jammu-kashmir-himachal-pradesh-and-uttarakhand "},
-  {category:'climate-change',slug:"sheltering-stray-dogs-in-india-extreme-weather-impact-heatwave-cold-wave-monsoon-deaths-animal-shelters-neuter-vaccinate-release-rabies-prevention-public-safety "},
-  {category:'climate-change',slug:"why-despite-climate-risks-jks-orchard-farmers-are-still-excluded-from-pmfby "},
-  {category:'climate-change',slug:"india-summer-tourism-climate-change-impact-coastal-erosion-heatwaves-hill-station-floods-resilient-travel-planning"},
-  {category:'climate-change',slug:"india-us-trade-deal-agriculture-concerns-climate-impact-farmer-livelihoods-food-security-biosafety-risks"},
-  {category:'climate-change',slug:"ai-in-agriculture-bridging-yield-gap-smart-farming-india-2025"},
-  {category:'monsoon-update',slug:"mumbai-water-supply-future-beyond-monsoon-dependence-rainfall-catchment-lakes-conservation-urban-planning "},
-  {category:'climate-change',slug:"is-the-global-mean-temperature-rise-still-the-right-lens-to-view-the-climate-crisis"},
-  {category:'climate-change',slug:"moon-phases-explained-impact-on-weather-climate-truths-and-tracking-from-india "},
-  {category:'climate-change',slug:"national-space-day-2025-celebrates-aryabhatta-to-gaganyaan-highlighting-india-space-achievements-isro-missions-space-technology-in-agriculture-and-climate-resilience"},
-  {category:'climate-change',slug:"rare-black-moon-august-23-2025-meaning-science-stargazing-new-moon-crescent"},
+// sliderArticles=[
+//    {category:'monsoon-update',slug:"world-water-week-2025-delhi-mumbai-chennai-india-urban-water-crisis-non-revenue-water-climate-action-know-what-is-water-week"},
+//   {category:'la-nina',slug:"nino-indices-indian-ocean-dipole-mjo-enso-neutral-la-nina-indian-monsoon-forecast-2025-rainfall-impact-on-agriculture"},
+//   {category:'climate-change',slug:"cloudburst-glacier-collapse-in-kullu-shimla-lahaul-spiti-uttarkashi-arakot-nainital-himalayas-know-why-extreme-rainfall-climate-change-and-disaster-risk-is-affecting-jammu-kashmir-himachal-pradesh-and-uttarakhand "},
+//   {category:'climate-change',slug:"sheltering-stray-dogs-in-india-extreme-weather-impact-heatwave-cold-wave-monsoon-deaths-animal-shelters-neuter-vaccinate-release-rabies-prevention-public-safety "},
+//   {category:'climate-change',slug:"why-despite-climate-risks-jks-orchard-farmers-are-still-excluded-from-pmfby "},
+//   {category:'climate-change',slug:"india-summer-tourism-climate-change-impact-coastal-erosion-heatwaves-hill-station-floods-resilient-travel-planning"},
+//   {category:'climate-change',slug:"india-us-trade-deal-agriculture-concerns-climate-impact-farmer-livelihoods-food-security-biosafety-risks"},
+//   {category:'climate-change',slug:"ai-in-agriculture-bridging-yield-gap-smart-farming-india-2025"},
+//   {category:'monsoon-update',slug:"mumbai-water-supply-future-beyond-monsoon-dependence-rainfall-catchment-lakes-conservation-urban-planning "},
+//   {category:'climate-change',slug:"is-the-global-mean-temperature-rise-still-the-right-lens-to-view-the-climate-crisis"},
+//   {category:'climate-change',slug:"moon-phases-explained-impact-on-weather-climate-truths-and-tracking-from-india "},
+//   {category:'climate-change',slug:"national-space-day-2025-celebrates-aryabhatta-to-gaganyaan-highlighting-india-space-achievements-isro-missions-space-technology-in-agriculture-and-climate-resilience"},
+//   {category:'climate-change',slug:"rare-black-moon-august-23-2025-meaning-science-stargazing-new-moon-crescent"},
  
+// ]
+
+sliderArticles=[
+  {category:'climate-change',slug:"global-climate-and-trade-difference-between-a-gulf-and-a-strait-important-strait-points-of-global-trade-what-are-straits"},
+  {category:'climate-change',slug:"monsoon-gave-a-gift-to-mumbai-dams-and-lakes-filled-with-rain-water-worries-ended-for-362-days"},
+  {category:'climate-change',slug:"unesco-recognition-for-spiti-valley-indias-first-cold-desert-biosphere-reserve"},
+  {category:'climate-change',slug:"lightning-havoc-in-2025-why-are-bihar-odisha-leading-in-deaths"},
+  {category:'climate-change',slug:"indias-lightning-hotspots-2025-bihar-odisha-uttar-pradesh-mayurbhanj-sundargarh-keonjhar-lightning-fatalities-strikes-climate-change-thunderstorm-deaths-india"},
+  {category:'climate-change',slug:"new-revolution-of-smart-farming-will-ai-be-able-to-fill-the-production-gap-in-indian-agriculture"},
+  {category:'climate-change',slug:"cloudburst-glacier-collapse-in-kullu-shimla-lahaul-spiti-uttarkashi-arakot-nainital-himalayas-know-why-extreme-rainfall-climate-change-and-disaster-risk-is-affecting-jammu-kashmir-himachal-pradesh-and-uttarakhand"},
+  {category:'climate-change',slug:"nisar-satellite-launched-on-july-30-know-the-special-things-related-to-this-earth-mission-of-nasa-isro"},
+  {category:'climate-change',slug:"india-summer-tourism-climate-change-impact-coastal-erosion-heatwaves-hill-station-floods-resilient-travel-planning"},
+  {category:'climate-change',slug:"how-india-tracks-and-fights-cyclones-advanced-forecasting-ai-innovation-and-the-future-of-storm-prediction"},
+  
 ]
   constructor(
     private windowService: WindowService,

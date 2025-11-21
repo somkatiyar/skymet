@@ -55,7 +55,7 @@ export class SeoService {
   }
 
   setSchema(component: any) {
-    if (this.windowService.isServer() || this.windowService.isBrowser()) {
+    if (this.windowService.isServer()) {
       if (component == 'home' || component == 'satellite') {
         // this.generateSchema(organization);
         // this.generateSchema(siteNavigationElement);
@@ -103,7 +103,7 @@ export class SeoService {
   //   }
   // }
 generateSchema(schema?: any, id?: string) {
-  if (this.windowService.isServer() || this.windowService.isBrowser()) {
+  if (this.windowService.isServer()) {
     // ✅ Remove existing schema if id is provided
     if (id) {
       const existing = this.doc.getElementById(id);
@@ -181,7 +181,12 @@ generateSchema(schema?: any, id?: string) {
 
   }
 
-  setArticleMetaTags(post: any) {
+  updateAuthorsMeta(author: any) {
+    this.metaService.updateTag({ name: "author", content: author?.name || 'Skymet Weather' });
+
+  }
+
+  setArticleMetaTags(post: any) {    
     this.titleService.setTitle(post.title);
     for (const key in post) {
       const attributeName = key.includes('og') ? 'property' : 'name';
@@ -209,6 +214,12 @@ generateSchema(schema?: any, id?: string) {
     this.titleService.setTitle(d.title)
     this.metaService.updateTag({ name: "description", content: d.description })
     this.metaService.updateTag({ name: "keywords", content: d.keywords })
+  }
+
+  setAqiMetaTags(metaObj: any) {
+    this.titleService.setTitle(metaObj.title)
+    this.metaService.updateTag({ name: "description", content: metaObj.description })
+    this.metaService.updateTag({ name: "keywords", content: metaObj.keywords })
   }
 
 }

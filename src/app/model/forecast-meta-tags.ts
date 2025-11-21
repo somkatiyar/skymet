@@ -1,4 +1,6 @@
   export const current = (lng: any, obj: any) => {
+    console.log(obj,'bzxkjas');
+    
     const metaData: any = {
       en: {
         title: `Current weather and temperature in ${obj[lng!='en' ? lng : 'TEHSIL_ALIAS_NAME']}: Hourly and weekly weather forecast for ${obj.STATE_NAME

@@ -22,6 +22,7 @@ dependencies {
     implementation project(':capacitor-toast')
     implementation project(':capawesome-capacitor-android-edge-to-edge-support')
     implementation project(':capawesome-capacitor-app-update')
+    implementation project(':darkedges-capacitor-native-webauthn')
     implementation project(':squareetlabs-capacitor-navigation-bar')
     implementation project(':capacitor-native-settings')
     implementation project(':capacitor-plugin-safe-area')

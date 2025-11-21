@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { WindowService } from '../../../../services/window.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class UvRaysComponent implements AfterViewInit {
   @Input() uvIndex: number = 8;
   @Input() range: any;
   @Input() maxUV = 0;
-  @Input() props: any;
+
   @ViewChild('tick') tick!: ElementRef;
   @ViewChild('uvBar') uvBar!: ElementRef;
   minUV = 1;
@@ -25,6 +25,8 @@ export class UvRaysComponent implements AfterViewInit {
       // Delay the tick positioning to ensure layout is complete
       setTimeout(() => {
         if (this.uvIndex && this.uvBar && this.tick) {
+          console.log(this.range,'range;zxmclsdhf');
+          
           this.setTickPosition();
         }
       }, 0); // You can increase to 50ms if needed

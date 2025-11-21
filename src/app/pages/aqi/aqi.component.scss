@@ -1,0 +1,694 @@
+.container1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: auto;
+    padding-left: 100px;
+    padding-right: 100px;
+
+    .main_content {
+        margin-top: 90px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+
+        .location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-direction: column;
+            margin-top: 40px;
+            padding: 20px;
+
+            #refresh_icon {
+                cursor: pointer;
+            }
+
+            h3 {
+                font-weight: 700;
+                color: #00292d;
+            }
+
+            .location-wrap {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                white-space: nowrap;
+            }
+
+            img {
+                max-width: 30px;
+            }
+
+            .date {
+                font-family: JioType;
+                font-weight: 400;
+                font-style: Regular;
+                font-size: 16px;
+                line-height: 120%;
+                letter-spacing: -0.5%;
+                text-align: center;
+
+            }
+        }
+
+        .aqi {
+            height: 136px;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 34px;
+            align-items: center;
+            padding: 20px;
+
+            .left {
+                display: flex;
+                align-items: center;
+
+                img {
+                    width: 109px;
+
+                }
+
+                .aqi_wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 6px;
+
+                    .aqi_value {
+                        font-weight: 700;
+                        font-style: Bold;
+                        font-size: 64px;
+                        line-height: 100%;
+                        letter-spacing: -3%;
+                        vertical-align: middle;
+
+                    }
+
+                    .aqi_status {
+                        font-weight: 600;
+                        font-size: 15px;
+                        line-height: 120%;
+                        letter-spacing: -0.5%;
+                        color: white;
+                        border-radius: 10px;
+                        padding: 2px;
+                        text-align: center;
+
+                    }
+                }
+            }
+
+            .right {
+                width: unset;
+                display: flex;
+                flex-wrap: wrap;
+                max-width: 500px;
+
+                p {
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 140%;
+                    letter-spacing: -3%;
+                    text-align: end;
+                    vertical-align: middle;
+
+                    span {
+                        font-size: 16px;
+                    }
+
+                }
+            }
+        }
+
+
+        .slider {
+            margin-top: 30px;
+            padding: 10px;
+
+            .aqi-bar {
+                position: relative;
+                width: 100%;
+                height: 16px;
+                border-radius: 6px;
+                display: flex;
+                overflow: hidden;
+                border: 1px solid #e0e0e0;
+            }
+
+            .seg {
+                height: 100%;
+            }
+
+            .marker {
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 10px;
+                height: 28px;
+                border-radius: 4px;
+                border: 2px solid #fff;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                transition: left 0.4s ease, background 0.3s ease;
+                background-color: black;
+            }
+
+            .category-labels {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 10px;
+                font-size: 13px;
+                font-weight: 500;
+            }
+
+            .labels {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 8px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+
+            .aqi-value {
+                margin-top: 15px;
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .advisory {
+                font-size: 13px;
+                margin-top: 6px;
+                opacity: 0.85;
+            }
+        }
+
+        .aqi-analytics {
+            padding: 20px;
+            height: 136px;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 34px;
+            align-items: center;
+            gap: 20px;
+
+            .aqi-analytics-box {
+                width: 224px;
+                display: flex;
+                border-radius: 16px;
+                border-width: 1px;
+                padding: 16px;
+                box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+                flex-direction: column;
+                gap: 20px;
+
+                .upper {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .label-b {
+                        font-weight: 600;
+                        font-size: 16px;
+                        line-height: 140%;
+                        letter-spacing: -0.5%;
+                        color: #00292D;
+                    }
+
+
+
+                    .info-container {
+                        position: relative;
+                        display: inline-block;
+                    }
+
+                    .info-icon {
+                        width: 20px;
+                        height: 20px;
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 50%;
+                        background: black;
+                        color: #fff;
+                        font-size: 14px;
+                        cursor: pointer;
+                        user-select: none;
+                    }
+
+                    .info-box {
+                        position: absolute;
+                        top: 28px;
+                        left: 0;
+                        width: 180px;
+                        padding: 10px;
+                        background: black;
+                        border-radius: 6px;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                        font-size: 13px;
+                        display: none;
+                        color: white;
+                        z-index: 10;
+                    }
+
+
+
+
+                    .condiation {
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 24px;
+                        letter-spacing: -0.5%;
+                        vertical-align: middle;
+                        ;
+                    }
+                }
+
+                .below {
+                    display: flex;
+                    gap: 6px;
+                    align-items: center;
+
+                    .value {
+                        font-weight: 700;
+                        font-size: 32px;
+                        line-height: 100%;
+                        letter-spacing: -1%;
+                        vertical-align: middle;
+                    }
+
+                    .unit {
+                        font-weight: 600;
+                        font-size: 16px;
+                        line-height: 140%;
+                        letter-spacing: -0.5%;
+                        color: #00292D;
+                    }
+                }
+            }
+        }
+
+        .mapbox-container {
+            display: flex;
+            width: 100%;
+            margin-top: 100px;
+            padding: 10px;
+            gap: 16px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            /* allows wrapping on mobile */
+
+            .box {
+                padding: 20px;
+                font-size: 18px;
+                border-radius: 12px;
+                text-align: left;
+                height: 400px;
+                display: flex;
+                flex-direction: column;
+
+                .box-header {
+                    font-weight: 700;
+                    margin-bottom: 10px;
+                    font-style: Bold;
+                    font-size: 24px;
+                    line-height: 120%;
+                    letter-spacing: -0.15px;
+
+                }
+
+                .box-content {
+                    flex-grow: 1;
+                }
+            }
+
+            .box-map {
+                flex: 0 0 58%;
+                border-radius: 24px;
+                border-width: 1px;
+                border: 1px solid rgba(0, 0, 0, 0.1490196078);
+
+                iframe {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .box-liveaqi {
+                flex: 0 0 38%;
+                border-radius: 24px;
+                border-width: 1px;
+                padding-top: 32px;
+                padding-right: 32px;
+                padding-bottom: 24px;
+                padding-left: 32px;
+                border: 1px solid #00000026;
+
+                //background-color: #2ecc71;
+                .box-content {
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+
+                    .item {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 4px;
+
+                        .city {
+                            font-weight: 500;
+                            font-size: 20px;
+                            line-height: 32px;
+                            letter-spacing: -0.5%;
+                            vertical-align: middle;
+                            color: #000000;
+
+                        }
+
+                        .aqi-value {
+
+                            padding: 3px;
+                            border-radius: 3px;
+                            color: black;
+                            width: 59px;
+                            height: 48px;
+                            border-radius: 8px;
+                            padding-top: 8px;
+                            padding-right: 4px;
+                            padding-bottom: 8px;
+                            background: #A80000;
+                            background: #A80000;
+                            color: white;
+                            font-weight: 600;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+
+    }
+}
+
+.chart-container {
+
+    width: 100%;
+    padding: 20px;
+
+
+    .header {
+        height: 32px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 24px;
+        margin-bottom: 24px;
+
+        .label-a {
+            font-weight: 700;
+            font-style: Bold;
+            font-size: 24px;
+            line-height: 120%;
+            letter-spacing: -0.15px;
+
+        }
+
+        .timespan {
+            display: flex;
+            flex-flow: row;
+            gap: 10px;
+
+            .item {
+                font-weight: 700;
+                font-style: Bold;
+                font-size: 14px;
+                line-height: 24px;
+                letter-spacing: -0.5%;
+                color: #0084DA;
+                cursor: pointer;
+
+                &.active {
+                    border-bottom: 2px solid #0084DA;
+                }
+
+            }
+        }
+    }
+
+    .chart-wrapper {
+
+        width: 100%;
+        border: 1px solid #00000026;
+        border-radius: 24px;
+        position: relative;
+        padding: 20px;
+        overflow: hidden;
+
+        .min-max {
+
+            display: flex;
+            gap: 40px;
+            margin-bottom: 20px;
+            z-index: 2;
+            position: relative;
+
+            .min,
+            .max {
+                display: flex;
+                gap: 10px;
+
+
+
+
+                .left {
+
+                    font-weight: 700;
+                    font-style: Bold;
+                    font-size: 24px;
+                    line-height: 32px;
+                    letter-spacing: -0.5%;
+                    vertical-align: middle;
+                    width: 55px;
+                    height: 48px;
+                    gap: 10px;
+
+                    font-weight: 600;
+                    color: white;
+                    background-color: purple;
+                    border-radius: 5px;
+                    justify-content: center;
+                    align-items: center;
+                    display: flex;
+                }
+
+                .right {
+                    .upper {
+                        font-weight: 700;
+                        font-size: 18px;
+                        line-height: 24px;
+                        letter-spacing: -0.5%;
+                        vertical-align: middle;
+                        color: #000000;
+
+                    }
+
+                    .below {
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 20px;
+                        letter-spacing: -0.5%;
+                        vertical-align: middle;
+                        color: #000000A6;
+
+
+                    }
+                }
+            }
+        }
+
+        canvas {
+
+            width: 100% !important;
+            height: 280px !important;
+            display: block;
+            margin-top: 10px;
+            padding: 0;
+        }
+    }
+}
+
+
+
+
+
+@media screen and (max-width: 768px) {
+    .container1 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: auto;
+        padding-left: 0px;
+        padding-right: 0px;
+
+        .main_content {
+            margin-top: 90px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            .aqi {
+                flex-direction: column;
+                gap: 20px;
+                align-items: unset;
+
+                .left {
+                    display: flex;
+                    align-items: center;
+                    flex-flow: row-reverse;
+                    justify-content: space-between;
+
+                    img {
+                        transform: scaleX(-1);
+                    }
+                }
+
+                .right {
+                    p {
+                        text-align: start;
+                    }
+                }
+
+            }
+
+            .slider {
+                margin-top: 100px;
+                padding: 16px;
+
+                .wrap {
+
+                    .category-labels,
+                    .labels {
+                        display: none;
+                    }
+                }
+            }
+
+            .aqi-analytics {
+                flex-wrap: wrap;
+                //justify-content: flex-start;
+                height: auto;
+                gap: 16px;
+                margin-top: 0px;
+
+                .aqi-analytics-box {
+                    width: 45%;
+                    padding: 8px;
+                }
+
+                .last {
+                    width: 95% !important;
+                }
+            }
+
+            .mapbox-container {
+                flex-flow: column;
+                gap: 20px;
+
+                margin-bottom: 140px;
+                margin-top: 0px;
+
+                .box {
+                    // flex: 0 0 100%;
+                    width: 100%;
+                    height: auto;
+                }
+
+                .box-map,
+                .box-liveaqi {
+                    color: #fff;
+                    border-radius: 12px;
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+
+                    .box-header {
+                        font-weight: 700;
+                        font-size: 20px;
+                        margin-bottom: 16px;
+                    }
+
+                    .box-content {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+
+                    .aqi-item {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        background-color: rgba(255, 255, 255, 0.1);
+                        padding: 8px 12px;
+                        border-radius: 8px;
+                    }
+
+                    .aqi-left {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+
+                        .num {
+                            font-weight: 600;
+                            width: 20px;
+                        }
+
+                        .location-name {
+                            font-weight: 500;
+                        }
+                    }
+
+                    .aqi-right {
+                        .aqi-square {
+                            display: inline-block;
+                            width: 16px;
+                            height: 16px;
+                            border-radius: 3px;
+                            background-color: #fff;
+                            /* plain white box */
+                        }
+                    }
+                }
+
+            }
+
+            .chart-container {
+                .header {
+                    height: 32px;
+                    display: flex;
+                    justify-content: space-between;
+                    flex-flow: column;
+                    margin-bottom: 46px;
+                    margin-top: 0px;
+                }
+
+                canvas {
+                    padding: 12px;
+                }
+            }
+
+            .mapbox-container {
+                flex-flow: column;
+                gap: 20px;
+                padding: 20px;
+            }
+        }
+    }
+}

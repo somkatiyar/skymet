@@ -186,7 +186,8 @@ export class RainfallModelComponent implements AfterViewInit {
     });
     //  this.filteredModelData = this.getMoodelData('Rainfall');
     this.filteredModelData = this.getImageUrls(16, 'Rainfall_', 'Rain');
-
+    console.log(this.filteredModelData,'this.filteredModelData');
+    
     this.filteredModelData && this.filteredModelData[0] && this.setRange();
 
   }
@@ -245,6 +246,8 @@ export class RainfallModelComponent implements AfterViewInit {
   onTabChange(tab: any, fileName: any, param: any) {
     if (this.windowService.isBrowser()) {
       this.filteredModelData = tab == 'winds' ? this.generateImageWinds() : this.getImageUrls(16, fileName, param);
+      console.log(this.filteredModelData,'on tabchange');
+      
       this.filteredModelData && this.filteredModelData[0] && this.setRange();
       this.selectedTab = tab.toLowerCase();
       setTimeout(() => {

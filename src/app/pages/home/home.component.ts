@@ -19,11 +19,14 @@ import { Meta, Title } from '@angular/platform-browser';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { AnalyticsService } from '../../services/analytics.service';
 import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
+import { AqiComponent } from '../aqi/aqi.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CurrentDataComponent,
+  imports: [CommonModule, 
+    CurrentDataComponent,
+    AqiComponent,
     HourlyDataComponent,
     ForecastDataComponent,
     SatelliteImageComponent,
@@ -49,7 +52,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild(CurrentDataComponent) CurrentDataComponent!: CurrentDataComponent;
   @ViewChild(HourlyDataComponent) HourlyDataComponent!: HourlyDataComponent;
   @ViewChild(SkysenseComponent) SkysenseComponent!: SkysenseComponent;
+    @ViewChild(AqiComponent) AqiComponent!: AqiComponent;
   @ViewChild('videoContainer', { static: true }) videoContainer!: ElementRef;
+  
   showVideo = false;
 
 
@@ -87,7 +92,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
                    await this.setStaticForecast(forecast);
                   this.CurrentDataComponent?.setForecast(forecast,path);
                   this.HourlyDataComponent?.setForecast(forecast, path);
-                  this.SkysenseComponent?.setCurrentData(forecast?.actual)
+                  this.SkysenseComponent?.setCurrentData(forecast?.actual);
                   this.analyticsService.logFirebaseEvent('user_location', { position: path });
 
               

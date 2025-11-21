@@ -1,0 +1,169 @@
+<!-- <button (click)="goBack()">Profile</button>
+
+<button (click)="toggleTheme('light')">Light</button> <br>
+<button (click)="toggleTheme('dark-theme')">Dark</button> -->
+
+<div class="container">
+    <div class="header">
+        <i class="fas fa-chevron-left arrow" (click)="goBack()"></i>
+        <p>Profile</p>
+    </div>
+    <div class="profile">
+        <div class="img">
+            <img src="https://media.licdn.com/dms/image/v2/C4D03AQGrQaMuux9NKQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1641564552084?e=2147483647&v=beta&t=5Gu1bB8LGYyItTaYzAlaC-ZawQxJoqH65s8ZH9xhbtY"
+                alt="User Image">
+        </div>
+        <div class="profile-info">
+            <div class="name">Abhishek Betal</div>
+            <div class="edit-profile">
+                <p>Edit Profile</p>
+                <i class="fas fa-chevron-right arrow-right" (click)="goBack()"></i>
+            </div>
+        </div>
+
+    </div>
+    <div class="view-mode">
+        <div class="mode">
+            <i class="fa-solid fa-mobile-button view-icon"></i>
+            <p>View Mode</p>
+        </div>
+        <div class="light" ngClass="{{selectedTheme === 'light' ? 'active' : ''}}">
+            <i class="fas fa-sun theme-icon light-icon"></i>
+            <p (click)="toggleTheme('light')">Light</p>
+        </div>
+
+        <div class="dark" ngClass="{{selectedTheme === 'dark-theme' ? 'active' : ''}}">
+            <i class="fas fa-moon theme-icon dark-icon"></i>
+            <p (click)="toggleTheme('dark-theme')">Dark</p>
+        </div>
+    </div>
+    <div class="menu">
+        <p>Settings</p>
+        <div class="menu-item">
+            <div class="left">
+                <div class="item-icon">
+                    <i class="fa-solid fa-newspaper menu-icon-left"></i>
+                </div>
+                <div class="item-text">
+                    <p>News and articles</p>
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="badge">
+                    <p>3</p>
+                </div>
+                <i class="fas fa-chevron-right arrow-right"></i>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="left">
+                <div class="item-icon">
+                    <i class="fa-solid fa-location-dot menu-icon-left"></i>
+                </div>
+                <div class="item-text">
+                    <p>Manage location</p>
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="badge">
+                    <p>3</p>
+                </div>
+                <i class="fas fa-chevron-right arrow-right"></i>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="left">
+                <div class="item-icon">
+                    <i class="fa-solid fa-image menu-icon-left"></i>
+                </div>
+                <div class="item-text">
+                    <p>Manage widget</p>
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="badge">
+                    <p>3</p>
+                </div>
+                <i class="fas fa-chevron-right arrow-right"></i>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="left">
+                <div class="item-icon">
+
+                    <i class="fa-solid fa-bell menu-icon-left"></i>
+                </div>
+                <div class="item-text">
+                    <p>Manage notification</p>
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="badge">
+                    <p>3</p>
+                </div>
+                <i class="fas fa-chevron-right arrow-right"></i>
+            </div>
+        </div>
+    </div>
+    <div class="menu">
+        <p>About Skymet</p>
+        <div class="menu-item">
+            <div class="left">
+                <div class="item-icon">
+                    <i class="fa-solid fa-shop-lock menu-icon-left"></i>
+                </div>
+                <div class="item-text">
+                    <p>Privacy policy</p>
+                </div>
+
+            </div>
+            <div class="right">
+
+                <i class="fas fa-chevron-right arrow-right"></i>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="left">
+                <div class="item-icon">
+                    <i class="fa-solid fa-file-lines menu-icon-left"></i>
+                </div>
+                <div class="item-text">
+                    <p>Terms & Conditions</p>
+                </div>
+
+            </div>
+            <div class="right">
+
+                <i class="fas fa-chevron-right arrow-right"></i>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="left">
+                <div class="item-icon">
+                    <i class="fa-solid fa-question menu-icon-left"></i>
+                </div>
+                <div class="item-text">
+                    <p>Frequently asked questions</p>
+                </div>
+
+            </div>
+            <div class="right">
+
+                <i class="fas fa-chevron-right arrow-right"></i>
+            </div>
+        </div>
+
+    </div>
+    <div class="logout">
+        <div class="text">
+            Logout
+        </div>
+        <div class="logout-icon">
+            <i class="fa-solid fa-power-off"></i>
+        </div>
+    </div>
+</div>

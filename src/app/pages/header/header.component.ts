@@ -217,6 +217,8 @@ export class HeaderComponent implements OnInit {
     const links = nav?.querySelectorAll('ul a') || [];
     const url = window.location.pathname;
     const isHome = this.getComponentFromRoute() === 'home';
+    const isAqi = this.getComponentFromRoute() === 'aqi';
+
     const isForecast = this.getComponentFromRoute() === 'forecast';
 
     if (!header) return;
@@ -227,7 +229,7 @@ export class HeaderComponent implements OnInit {
         link.classList.remove(remove);
       });
 
-    if (scrollTop > ((isHome || this.currentRoute == "_ForecastClubComponent") ? 400 : 50)) {
+    if (scrollTop > ((isHome || this.currentRoute == "_ForecastClubComponent" || isAqi) ? 400 : 50)) {
       header.style.display = 'block';
       header.style.background = '#FFFFFF';
       setLinkColors('black', 'white');
@@ -373,6 +375,9 @@ export class HeaderComponent implements OnInit {
     var cmp = "";
     if (this.router.url.includes('forecast/weather')) {
       cmp = 'forecast'
+    }
+    if (this.router.url.includes('air-quality')) {
+      cmp = 'aqi'
     } else if (this.router.url.includes('15-days-rainfall')) {
       cmp = 'forecastmap'
     } else if (this.router.url.includes('resources')) {

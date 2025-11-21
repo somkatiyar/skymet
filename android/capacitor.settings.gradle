@@ -41,6 +41,9 @@ project(':capawesome-capacitor-android-edge-to-edge-support').projectDir = new F
 include ':capawesome-capacitor-app-update'
 project(':capawesome-capacitor-app-update').projectDir = new File('../node_modules/@capawesome/capacitor-app-update/android')
 
+include ':darkedges-capacitor-native-webauthn'
+project(':darkedges-capacitor-native-webauthn').projectDir = new File('../node_modules/@darkedges/capacitor-native-webauthn/android')
+
 include ':squareetlabs-capacitor-navigation-bar'
 project(':squareetlabs-capacitor-navigation-bar').projectDir = new File('../node_modules/@squareetlabs/capacitor-navigation-bar/android')
 

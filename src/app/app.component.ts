@@ -994,7 +994,7 @@ export class AppComponent implements AfterViewInit {
       await this.setPadding();
       await this.nativeService.initSafeArea();
       console.log('safe area process done');
-
+      
       //this.pullToRefreshService.init(this.handleRefresh.bind(this));
       this.handleBackButton();
 

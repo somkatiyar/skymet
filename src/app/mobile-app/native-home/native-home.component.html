@@ -1,0 +1,36 @@
+<div class="container1">
+    <div class="current">
+        <div class="location-container">
+            <button class="location-btn active">My Home</button>
+            <button class="location-btn">My Work</button>
+            <button class="location-btn">Green park</button>
+        </div>
+
+        <div class="current-data">
+            <img src="https://skymetweather.com/img/day/sunny.webp" alt="Weather Icon" />
+            <p>Clear Sky</p>
+            <div class="temp">25°C</div>
+            <div class="location">
+                <img src="https://www.skymetweather.com/img/location.png" alt="" class="location-icon">
+                <span>Pune, Maharashtra</span>
+                <img src="https://www.skymetweather.com/img/refresh.png" alt="" class="refresh-icon">
+            </div>
+        </div>
+        <div class="hourly-forecast">
+            <div class="title">Hourly Forecast</div>
+            <div class="hourly-wrapper">
+                <div class=" hourly_swiper swiper">
+                    <div class="swiper-wrapper">
+                        <div class="forecast_box swiper-slide" *ngFor="let item of [1,2,3,4,5,6,7,8,8,8,8]">
+                            <p class="date">5 Oct</p>
+                            <p>10 Am</p>
+                            <img src="https://skymetweather.com/img/day/sunny.webp" alt="" />
+                            <div class="temp">34°</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
