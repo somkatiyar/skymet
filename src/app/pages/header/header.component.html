@@ -71,14 +71,14 @@
               <i class="fas fa-chevron-right arrow" [ngClass]="deviceType() =='desktop'?'hide':'show'"></i>
             </div> -->
 
-             <div class="menu-item" (click)="toggleSidebar()" [routerLink]="['air-quality']">
+             <!-- <div class="menu-item" (click)="toggleSidebar()" [routerLink]="['air-quality']">
                 <div class="left">
                   <img src="https://skymetweather.com/img/sidebar/forecastmap.png" alt="" *ngIf="deviceType() =='mobile'"/>
                  <li ><a   [ngClass]="getComponentFromRoute() =='aqi'? 'active':''" [routerLink]="['air-quality']"
                   >{{"AQI" | translate}}</a></li>
                 </div>
               <i class="fas fa-chevron-right arrow" *ngIf="deviceType() =='mobile'"></i>
-            </div>
+            </div> -->
 
             <div class="menu-item" (click)="toggleSidebar()" [routerLink]="['/15-days-rainfall-forecast-for-india']">
                 <div class="left">

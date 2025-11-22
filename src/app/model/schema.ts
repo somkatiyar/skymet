@@ -4,12 +4,24 @@
     "name": "Skymet Weather",
     "url": "https://www.skymetweather.com/",
     "logo": "https://www.skymetweather.com/img/logo.png",
+    "image": "https://www.skymetweather.com/img/logo.png",
+     "sameAs": [
+    "https://podcasts.apple.com/in/podcast/skymet-podcast/id1772264634",
+    "https://open.spotify.com/show/49takv1rC7dyQmEp4IMRYA?si=db8d43b4908c404f",
+    "https://www.jiosaavn.com/shows/skymet-podcast/1/NKmTKXHI3og_",
+    "https://music.youtube.com/watch?v=LSOyCMLWqU8",
+    "https://www.linkedin.com/company/skymet-weather-services/",
+    "https://www.facebook.com/SkymetWeatherServices",
+    "https://www.youtube.com/@Skymetweather",
+    "https://en.wikipedia.org/wiki/Skymet_Weather_Services"
+  ],
     "address": {
         "@type": "PostalAddress",
         "streetAddress": "Plot No. 10 & 11, Sector-125",
         "addressLocality": "Noida",
         "addressRegion": "India",
         "postalCode": "201303",
+        "addressCountry": "IN",
         "telephone": "+91-0120-409 4500"
     }
   

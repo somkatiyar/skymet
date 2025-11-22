@@ -4,13 +4,13 @@
 
 
     <article *ngIf="post && !isArchivePost" class="article">
-      <span class="title fw-semibold">{{ post.title }}</span>
+      <span class="title fw-semibold"><h1>{{ post.title }}</h1></span>
       <span class="pubDate">
         <div>
           <div class="author">
             By: <span><strong>{{ post?.author ? post?.author?.name : 'skymet team'
                 }}</strong></span> |
-            Edited By:<span><strong>{{ post?.editor ? post?.editor?.name : 'skymet team'
+            Edited By: <span><strong>{{ post?.editor ? post?.editor?.name : 'skymet team'
                 }}</strong></span>
           </div>
           <small class="date">{{ (post && post.DateTime ? post.DateTime : post && post.updatedAt) |date }}, </small>
@@ -223,50 +223,50 @@
       </div>
 
     </div>
-
-<div class="accordion" id="accordionExample" *ngIf="post?.question1 || post?.question2 || post?.question3">
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <strong>{{post?.question1}}</strong>
-      </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <p class="answer">{{post?.answer1}}</p>
+    <div class="faqHeader" *ngIf="post?.question1 || post?.question2 || post?.question3">FAQ</div>
+    <div class="accordion" id="accordionExample" *ngIf="post?.question1 || post?.question2 || post?.question3">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <strong>{{post?.question1}}</strong>
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p class="answer">{{post?.answer1}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <strong>{{post?.question2}}</strong>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p class="answer">{{post?.answer2}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <strong>{{post?.question3}}</strong>
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p class="answer">{{post?.answer3}}</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        <strong>{{post?.question2}}</strong>
-      </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <p class="answer">{{post?.answer2}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-         <strong>{{post?.question3}}</strong>
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <p class="answer">{{post?.answer3}}</p>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <div class="disc">
-  <strong>Disclaimer</strong> <p>
-  {{post?.getBoilerPlatePosts?.disclaimer}}
+  <p [innerHTML]="post?.getBoilerPlatePosts?.disclaimer">
+  <!-- {{post?.getBoilerPlatePosts?.disclaimer}} -->
 </p>
 </div>
 <div class="boiler">
@@ -286,3 +286,11 @@
 
   </div>
 </div>
+
+
+
+
+
+
+
+ 

@@ -54,11 +54,9 @@ export class SeoService {
     }
   }
 
-  setSchema(component: any) {
+  setSchema(component: any) {    
     if (this.windowService.isServer()) {
       if (component == 'home' || component == 'satellite') {
-        // this.generateSchema(organization);
-        // this.generateSchema(siteNavigationElement);
         this.generateSchema(organization, 'organization');
         this.generateSchema(siteNavigationElement, 'siteNavigationElement')
       }
@@ -83,25 +81,7 @@ export class SeoService {
     return arr;
   }
 
-  // generateSchema(schema?: any, id?: string) {
-  //   if (this.windowService.isServer() || this.windowService.isBrowser()) {
-  //     if (id && this.doc.getElementById(id)) {
-  //       return;
-  //     }
-  //     const script: any = this.doc.createElement('script');
-  //     script.type = 'application/ld+json';
-  //     const finalSchema = this.combinedSchema(schema)
 
-  //     script.text = typeof finalSchema === 'string'
-  //       ? finalSchema
-  //       : JSON.stringify(finalSchema);
-
-  //     console.log(finalSchema,'finalSchema');
-      
-
-  //     this.doc.head.appendChild(script);
-  //   }
-  // }
 generateSchema(schema?: any, id?: string) {
   if (this.windowService.isServer()) {
     // ✅ Remove existing schema if id is provided
@@ -128,6 +108,32 @@ generateSchema(schema?: any, id?: string) {
     this.doc.head.appendChild(script);
   }
 }
+
+generateSingleSchema(schema: any, id?: string) {
+ 
+  if (!this.windowService.isServer()) return;
+
+  // Remove old schema if exists
+  if (id) {
+    const existing = this.doc.getElementById(id);
+    if (existing) existing.remove();
+  }
+
+  // Create new <script> tag
+  const script = this.doc.createElement('script');
+  script.type = 'application/ld+json';
+  if (id) script.id = id;
+
+  // Always stringify — since schema is always an object
+  script.text = JSON.stringify(schema);
+
+  this.doc.head.appendChild(script);
+   if(id == "siteNavigationElement") {
+    console.log('siteNavigationElement schema', script);
+  }
+}
+
+
 
   alternativeLinks(basePath: any) {
     if (this.windowService.isBrowser()) return;

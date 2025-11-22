@@ -7,6 +7,7 @@ import { SeoService } from '../../services/seo.service';
 import { WeatherNewsComponent } from '../weather-news/weather-news.component';
 import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
 import { NativeService } from '../../mobile-app/service/native.service';
+import { organization, siteNavigationElement, bredcrumbSchema } from '../../model/schema';
 
 @Component({
   selector: 'app-article-detail',
@@ -37,13 +38,14 @@ export class ArticleDetailComponent {
     public nativeService: NativeService,
     public dataService: DataService) {
 
-    var category = this.route.snapshot.paramMap.get('category');
+  
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+          var category = this.route.snapshot.paramMap.get('category');
     var title = this.route.snapshot.paramMap.get('title');
     this.item.categorySlug[0] = category;
     this.item.titleSlug = title;
     this.getPostBySlug(category, title);
-    this.router.events.subscribe((event: any) => {
-      if (event instanceof NavigationEnd) {
         this.seoService.setCanonicalLink(event.urlAfterRedirects);
       }
     });
@@ -54,8 +56,6 @@ export class ArticleDetailComponent {
 
       if (res && Object.keys(res).length != 0) {
         this.post = res;
-        console.log(this.post, 'post');
-
         this.post && this.seoConfig(this.post)
       } else {
         this.getArchivePostBySlug(category, title)
@@ -135,12 +135,12 @@ export class ArticleDetailComponent {
   async seoConfig(post: any) {
     this.seoService.setArticleMetaTags(await this.formatPostForSEO(post));
     this.seoService.updateAuthorsMeta(post?.author);
-    let schema = this.createDynamicSchema(post);
-    let faqSchema = this.generateFAQSchema(post);
-    console.log(faqSchema, 'faqSchema');
-
-    this.seoService.generateSchema(schema, 'article');
-    this.seoService.generateSchema(faqSchema, 'faq');
+     let schema = this.createDynamicSchema(post);     
+     let faqSchema = this.generateFAQSchema(post);
+     this.seoService.generateSingleSchema(siteNavigationElement, 'siteNavigationElement');
+     this.seoService.generateSingleSchema(schema, 'article');
+     this.seoService.generateSingleSchema(faqSchema, 'faq');
+     this.seoService.generateSingleSchema(organization, 'organization');
   }
 
   async formatPostForSEO(post: any) {
@@ -181,13 +181,20 @@ export class ArticleDetailComponent {
       "image": [
         `${post.thumbnail_image}`
       ],
+      "relatedLink": post.related_links ? this.getLinks(post.related_links) : [],
       "author": {
         "@type": "Person",
         "name": post?.author?.name || "Skymet Weather",
         "url": post?.author?.linkedin || "",
+        "sameAs": [
+        "https://seic.events/speakers/avm-g-p-sharma/",
+        "https://www.bharat-rakshak.com/indianairforce/database/14427"
+      ],
         "jobTitle": post?.author?.designation || "",
         "description": post?.author?.Introduction || "",
-        "image": post?.author?.image || "https://www.skymetweather.com/default-author.png"
+        "image": post?.author?.image || "https://www.skymetweather.com/default-author.png",
+    
+    
       },
       "publisher": {
         "@type": "Organization",
@@ -202,6 +209,16 @@ export class ArticleDetailComponent {
       "datePublished": `${post.DateTime}`,
       "dateModified": `${post.updatedAt}`
     }
+
+ 
     return obj;
   }
+
+
+getLinks(relatedLinks: any) {
+  if (!relatedLinks) return [];
+  const urls = relatedLinks.match(/https?:\/\/[^",]+/g) || [];
+  return urls;
+}
+
 }

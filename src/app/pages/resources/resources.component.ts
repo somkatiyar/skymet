@@ -123,7 +123,6 @@ sliderArticles=[
    async seoConfig(post:any) {
      this.seoService.setArticleMetaTags(await this.formatPostForSEO(post));
     let schema = this.createDynamicSchema(post);
-    
     this.seoService.generateSchema(schema);
   }
 
