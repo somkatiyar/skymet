@@ -128,9 +128,7 @@ generateSingleSchema(schema: any, id?: string) {
   script.text = JSON.stringify(schema);
 
   this.doc.head.appendChild(script);
-   if(id == "siteNavigationElement") {
-    console.log('siteNavigationElement schema', script);
-  }
+
 }
 
 

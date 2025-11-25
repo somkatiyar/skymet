@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { UvIndexComponent } from '../../shared/shared/widget/uv-index/uv-index.component';
 import { SunriseComponent } from '../../shared/shared/widget/sunrise/sunrise.component';
 import { DewpointComponent } from '../../shared/shared/widget/dewpoint/dewpoint.component';
@@ -32,12 +32,15 @@ export class SkysenseComponent {
   uvRange=[1,3,5,9,10,11];
   aqiRange=[50,100,250,320,400,500];
   curretData: any;
-  constructor(public dataService:DataService,public nativeService:NativeService){
+  constructor(public dataService:DataService,
+    private cd:ChangeDetectorRef,
+    public nativeService:NativeService){
 
   }
 
 setCurrentData(currentData:any) {
 this.curretData = currentData;
+this.cd.detectChanges();
 
 }
 getSunAngle(sunrise: string, sunset: string, current: string): number {

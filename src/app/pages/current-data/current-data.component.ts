@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, NgZone, SimpleChanges } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DataService } from '../../services/data.service';
@@ -31,6 +31,7 @@ export class CurrentDataComponent implements AfterViewInit {
     public dataService: DataService,
     private windoService: WindowService,
    private router: Router,
+   private cd: ChangeDetectorRef,
    public locationService:LocationService,
    public nativeService:NativeService
   ) {
@@ -76,7 +77,7 @@ export class CurrentDataComponent implements AfterViewInit {
       this.locationPath = path;      
       let actual = this.dataService.bindIcon([newData?.actual]);
       this.forecastData['actual'] = actual[0];
-      
+      this.cd.detectChanges();
     }
 
     gotoForecastPage() {

@@ -24,6 +24,8 @@ import { UtilityService } from '../../services/utility.service';
 import { createForecastBreadcrumb } from '../../model/schema';
 import { NativeService } from '../../mobile-app/service/native.service';
 import { AdsenseDirective } from '../../shared/shared/directive/ads.directive';
+import { organization, siteNavigationElement } from '../../model/schema';
+
 @Component({
   selector: 'app-forecast-club',
   standalone: true,
@@ -190,11 +192,17 @@ cleanForecastUrl(url:any) {
     }
 
 
-    const breadcrumbData = createForecastBreadcrumb(metaInfo?.STATE_NAME, metaInfo?.DISTRICT_NAME, metaInfo?.TEHSIL_ALIAS_NAME);
-    this.seoService.generateSchema([
-      breadcrumbData,
-      this.dynamicJsonLd(data, `${type} Forecast`)
-    ]);
+     const breadcrumbData = createForecastBreadcrumb(metaInfo?.STATE_NAME, metaInfo?.DISTRICT_NAME, metaInfo?.TEHSIL_ALIAS_NAME);
+    // this.seoService.generateSchema([
+    //   breadcrumbData,
+    //   this.dynamicJsonLd(data, `${type} Forecast`)
+    // ]);
+
+    this.seoService.generateSingleSchema(organization, 'organization');
+    this.seoService.generateSingleSchema(siteNavigationElement, 'siteNavigationElement');
+    this.seoService.generateSingleSchema(breadcrumbData, 'breadcrumb');
+    let dynamicSchema = this.dynamicJsonLd(data, `${type} Forecast`);
+    this.seoService.generateSingleSchema(dynamicSchema, 'weatherForecast');
   }
 
   dynamicJsonLd(data:any,forecastType:any) {
