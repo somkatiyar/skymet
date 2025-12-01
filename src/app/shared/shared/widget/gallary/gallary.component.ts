@@ -16,12 +16,14 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { AdsenseDirective } from '../../directive/ads.directive';
 import { NativeService } from '../../../../mobile-app/service/native.service';
+import { organization, siteNavigationElement } from '../../../../model/schema';
+
 declare var $: any;
 Swiper.use([Autoplay, Navigation, Thumbs]);
 @Component({
   selector: 'app-gallary',
   standalone: true,
-  imports: [CommonModule, WeatherNewsComponent, TranslateModule,AdsenseDirective],
+  imports: [CommonModule, WeatherNewsComponent, TranslateModule, AdsenseDirective],
   templateUrl: './gallary.component.html',
   styleUrl: './gallary.component.scss',
 })
@@ -89,15 +91,26 @@ export class GallaryComponent implements AfterViewInit {
         `insat/weather-satellite-images-of-india`
       );
       this.seoService.setMetaTags('satellite', 'insat');
-      this.seoService.setSchema('satellite');
+      this.bindSchema(tab);
 
     } else if (tab == 'himawari') {
       this.location.replaceState(
         `himawari-latest-satellite-images-of-india`
       );
       this.seoService.setMetaTags('satellite', 'himawari');
-      this.seoService.setSchema('satellite');
+      this.bindSchema(tab);
+  
     }
+  }
+  getDateAndTime(type: any) {
+    return type === 'date' ? this.satelliteImages && this.satelliteImages[this.activeIndex]?.date : this.satelliteImages && this.satelliteImages[this.activeIndex]?.time;
+  }
+
+  bindSchema(tab: any) {
+      const schema = this.generateSchemaForSatelliteImages(tab);
+      this.seoService.generateSingleSchema(schema, tab == 'himawari' ?'himawariImages' :'insatImages');
+      this.seoService.generateSingleSchema(organization, 'organization');
+      this.seoService.generateSingleSchema(siteNavigationElement, 'siteNavigationElement');
   }
 
   refreshTab() {
@@ -110,6 +123,66 @@ export class GallaryComponent implements AfterViewInit {
     }
 
 
+  }
+
+  generateSchemaForSatelliteImages(tab: any) {
+    var name = "";
+    var description = "";
+    const list = this.satelliteImages.map((img, index) => {
+     if(tab == 'himawari'){
+        name = `Live Himawari 9 Satellite Animation - India -` + ` ${img.date} ${img.time}`;
+        description = "Real-time infrared cloud loop of India weather.";
+      } else{
+        name = `Latest INSAT Weather Satellite Images of India`;
+        description = "Latest INSAT Weather Satellite Image of India - Infrared Map.";
+      }
+      return {
+        "@type": "ImageObject",
+        "position": index + 1,
+        "name": name,
+        "contentUrl": img.image,
+        "url": img.image,
+        "description": description,
+        "datePublished": this.toISO(img.date, img.time) || undefined,
+        "encodingFormat": "image/jpeg",
+        "isFamilyFriendly": true,
+        "regionsAllowed": ["IN", "US", "GB"]
+      };
+    });
+
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": list
+    };
+    return schema;
+
+  }
+
+  toISO(dateStr: string, timeStr: string): string | null {
+    try {
+      const parsed = new Date(dateStr);
+      if (isNaN(parsed.getTime())) return null;
+
+      const y = parsed.getFullYear();
+      const m = String(parsed.getMonth() + 1).padStart(2, "0");
+      const d = String(parsed.getDate()).padStart(2, "0");
+
+      return new Date(`${y}-${m}-${d}T${timeStr}:00Z`).toISOString();
+    } catch {
+      return null;
+    }
+  }
+
+  getImageAltText(item:any): string {
+    var alt;
+    if(this.selectedTab === 'himawari') {
+      alt = `Himawari-9 Infrared visible Satellite Map of Indian Subcontinent showing Live Cloud Cover at ${item.time} IST on ${item.date}`;
+    } else {
+      alt = `Latest INSAT Weather Satellite Image of India - Infrared Map - ${item.time} IST on ${item.date}`;
+    }
+    return alt;
   }
 
   getsatelliteImage(tab: any) {
@@ -125,11 +198,12 @@ export class GallaryComponent implements AfterViewInit {
               this.satelliteImages = this.satelliteImages.slice(1);
               this.initSatelliteSwiper();
               this.refreshUrl(tab);
-
+              
             } else if (res && res.images && res.images.length > 0 && tab === 'himawari') {
               this.satelliteImages = this.extractHimawariTimeDate(res.images, res.url);
               this.initSatelliteSwiper();
               this.refreshUrl(tab);
+
             }
           } catch (innerError) {
             console.error("Error processing satellite image data:", innerError);
@@ -237,7 +311,7 @@ export class GallaryComponent implements AfterViewInit {
         on: {
           slideChange: () => {
             this.activeIndex = this.satelliteMainSwiper?.activeIndex ?? 0;
-            // this.cdRef.detectChanges()
+             this.cdRef.detectChanges()
           }
         }
       });

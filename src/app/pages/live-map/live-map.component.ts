@@ -52,7 +52,7 @@ export class LiveMapComponent implements AfterViewInit, OnChanges {
 
   selectedBasemap = 'light';
   mode: any = "development";
-  //mode:any="production"
+  //mode:any="production";
 
   constructor(
     private seoService: SeoService,

@@ -67,13 +67,13 @@ export const homePageMeta:any = {
 
   export const satelliteMeta = {
     insat:{
-    "title": "INSAT Weather: Latest Satellite Images And Maps Of India",
-    "description": "INSAT Weather: Get the latest satellite images, maps and animations of India, along with meterological conditions and weather report.",
+    "title": "Live INSAT-3D Satellite Image India: Cloud & Rain Animation (2025) | Skymet",
+    "description": "View real-time INSAT-3D satellite images of India. Track cloud movement, monsoon surges, and cyclones with our live hourly animation loop. Updated every 1 hour.",
     "keywords": "India satellite images, India INSAT images, India weather report, Weather conditions in India, satellite maps of India, meterological conditions of India"
     },
     himawari: {
-    "title": "himawari Weather: Latest Satellite Images And Maps Of India",
-    "description": "himawari Weather: Get the latest satellite images, maps and animations of India, along with meterological conditions and weather report.",
+    "title": "Live Himawari 9 Satellite Map India: Cloud Cover & Rain Loop (2025) | Skymet",
+    "description": "Watch real-time infrared satellite images from Himawari 9 showing cloud movement over India. Track cyclones, monsoon rain with our live 30-minute animation loop.",
     "keywords": "India satellite images, India himawari images, India weather report, Weather conditions in India, satellite maps of India, meterological conditions of India"
     },
     Rainfall:{
@@ -93,3 +93,6 @@ export const homePageMeta:any = {
     }
 
   }
+
+
+//   $(Get-Item "C:\Users\skymet\Downloads\aqi_modified\good.png").CreationTime=("2024-11-10 10:30:00")

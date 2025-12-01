@@ -11,8 +11,11 @@
 
     <div class="textContent">
       <div class="textMain">
-        {{'Showing result from' | translate}} <span>{{satelliteImages && satelliteImages[activeIndex]?.date}}</span> -
-        <span>{{satelliteImages && satelliteImages[activeIndex]?.time}}</span>
+                {{'Showing result from' | translate}} <span>{{getDateAndTime('date')}}</span> -
+        <span>{{getDateAndTime('time')}}</span>
+
+        <!-- {{'Showing result from' | translate}} <span>{{satelliteImages && satelliteImages[activeIndex]?.date}}</span> -
+        <span>{{satelliteImages && satelliteImages[activeIndex]?.time}}</span> -->
       </div>
     </div>
 
@@ -62,9 +65,9 @@
         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
           <div class="swiper-wrapper">
             <div class="swiper-slide swiper-slider-item" *ngFor="let item of satelliteImages;let i = index">
-              <img [src]="item.image" [alt]="'satellite image ' + item.time" id="img{{i}}" 
-              [ngStyle]="{'object-fit': (selectedTab === 'insat' || selectedTab === 'himawari') ?  'cover' : 'contain',}"
-               />
+              <img [src]="item.image" [title]="'Satellite View: ' + item.time + ' IST'" width="800" height="600"
+                loading="eager" [alt]="getImageAltText(item)" id="img{{i}}"
+                [ngStyle]="{'object-fit': (selectedTab === 'insat' || selectedTab === 'himawari') ?  'cover' : 'contain',}" />
             </div>
           </div>
           <div class="swiper-button-next">
@@ -78,7 +81,8 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide swiper-slider-thumb" *ngFor="let item of satelliteImages">
               <h5>{{item.time}}</h5>
-              <img [src]="item.image" [alt]="'satellite image ' + item.time" />
+              <img [src]="item.image" [title]="'Satellite View: ' + item.time + ' IST'" width="800" height="600"
+                loading="eager" [alt]="getImageAltText(item)" />
             </div>
 
           </div>
@@ -88,21 +92,21 @@
         <div class="gridContainer" id="gridContainer">
           <div *ngFor="let item of satelliteImages" (click)="toggleImageSelection(item.image)">
             <h6>{{item.time}}</h6>
-            <img [src]="item.image" [class.selected]="isSelected(item.image)" [alt]="'satellite image ' + item.time" />
+            <img [src]="item.image" [title]="'Satellite View: ' + item.time + ' IST'" width="800" height="600"
+              loading="eager" [class.selected]="isSelected(item.image)" [alt]="getImageAltText(item)" />
 
           </div>
         </div>
       </div>
     </div>
-  <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
-     [adClient]="'ca-pub-6993696142089445'"
-     [adSlot]="'9187952748'">
-</div>
+    <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+      [adClient]="'ca-pub-6993696142089445'" [adSlot]="'9187952748'">
+    </div>
 
     <app-weather-news [weatherNewsHeaderConfig]="weatherNewsHeaderConfig"></app-weather-news>
-  <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
-     [adClient]="'ca-pub-6993696142089445'"
-     [adSlot]="'9187952748'">
-</div>
+    <div appAdsense class="adsense_web" *ngIf="this.nativeService.getPlateform() == 'web'"
+      [adClient]="'ca-pub-6993696142089445'" [adSlot]="'9187952748'">
+    </div>
+      
   </div>
 </div>
